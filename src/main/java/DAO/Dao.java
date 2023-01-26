@@ -12,6 +12,10 @@ public class Dao {
         this.databaseName = databaseName;
     }
     
+    /**
+     * Gets the connection to the database
+     * @return the connection made to database
+     */
     public Connection getConnection()
     {
 
@@ -33,6 +37,10 @@ public class Dao {
         return con;
     }
 
+    /**
+     * Terminates the connection to database
+     * @param con the connection to be terminated
+     */
     public void freeConnection(Connection con)
     {
         try {
