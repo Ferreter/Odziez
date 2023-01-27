@@ -1,0 +1,19 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 26 Jan, 2023, 3:55:08 PM
+    Author     : hkhat
+*/
+body{
+    font-family: 'Bahnschrift', sans-serif;
+    background-color: black;
+    color: white;
+    
+}
+
+h5,h4,h3,h2{
+    margin-top: 200px;
+}

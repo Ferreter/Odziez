@@ -5,35 +5,93 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!-- Top Nav Bar with logo-->
+<nav class="navbar-light bg-light">
+    <a class="navbar-brand logo" style="padding-left: 45%; f" href="#">Odzież</a>
+</div>
+
+
+</nav>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Brand Name</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="#">Home</a>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav navbar-left">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Men</a>
+                <a class="nav-link" href="#">Inspiration</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Women</a>
+                <a class="nav-link" href="#">News Letter</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Kids</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Accessories</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">About Us</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Contact</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Men's 
+                </a>
+                <div class="dropdown-menu" style="width:600px" aria-labelledby="navbarDropdownMenuLink">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-4">
+                                <p style="padding-top:4px;padding-bottom: 2px;margin:0px;">New Arrivals</p>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">View All</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Clothes</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Shoes & Accesories</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Sports</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Hand Picked</a>
+
+                                <p style="padding-top:8px;padding-bottom: 2px;margin:0px;">Get Comfortable</p>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">View All</a>
+
+                                <p style="padding-top:8px;padding-bottom: 2px;margin:0px;">Logbook</p>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Casual Looks</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Street Looks</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Smart Looks</a>
+                            </div>
+                            <div class="col-4">
+                                <p style="padding-top:4px;padding-bottom: 2px;margin:0px;">New Arrivals</p>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">View All</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Clothes</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Shoes & Accesories</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Sports</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Hand Picked</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">View All</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Clothes</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Shoes & Accesories</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Sports</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Hand Picked</a>
+
+
+                            </div>
+
+
+                            <div class="col-4">
+                                                                 <p style="padding-top:4px;padding-bottom: 2px;margin:0px;">New Arrivals</p>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">View All</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Clothes</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Shoes & Accesories</a>
+
+                                <p style="padding-top:8px;padding-bottom: 2px;margin:0px;">Get Comfortable</p>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">View All</a>
+                                 <a class="nav-link navDropSection" style="font-size:14px;" href="#">Casual Looks</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Street Looks</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Smart Looks</a>
+
+                                <p style="padding-top:8px;padding-bottom: 2px;margin:0px;">Logbook</p>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Casual Looks</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Street Looks</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Smart Looks</a>
+                                 </div>
+                        </div>
+                    </div>
+                </div>
             </li>
         </ul>
+        <!-- Replace this with JSP which is seprate if logged IN or not -->
+
+        <jsp:include page="loginInNav.jsp" /> 
+
     </div>
 </nav>
+
 

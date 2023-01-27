@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <footer>
     
-    <h1>Hello Bitches</h1>
-    
+    <h5>Welcome to Odziez, Clothing Made simpler and better</h5>
+   
 </footer>
         
