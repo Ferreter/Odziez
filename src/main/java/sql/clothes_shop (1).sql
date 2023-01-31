@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 26, 2023 at 01:28 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Generation Time: Jan 30, 2023 at 12:06 AM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `clothes shop`
+-- Database: `clothes_shop`
 --
 
 -- --------------------------------------------------------
@@ -135,6 +135,18 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`UserId`, `username`, `password`, `FirstName`, `Lastname`, `Email`, `Phone`, `D.O.B`) VALUES
+(1, 'seany', 'password', 'Sean', 'Dyche', 'sean1@gmail.com', 875234283, '1954-10-26'),
+(2, 'deanSmt', 'password', 'Dean', 'Smith', 'deanSm@gmail.com', 84958266, '2000-04-08'),
+(3, 'DanOb', 'password', 'Dani', 'Obrien', 'danObr@gmail.com', 879582432, '2001-07-20'),
+(4, 'bigKhali', 'password', 'Meshach', 'Khali', 'meshKha@gmail.com', 84958266, '2002-10-08'),
+(5, 'ferreter', 'password', 'Harsh', 'Kathri', 'katHarsh@student.dkit.ie', 84958266, '1965-01-11'),
+(6, 'Kian', 'password', 'Kian', 'Harding', 'Kian123@gmail.com', 84958266, '2000-12-25');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -182,7 +194,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `UserId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `UserId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
