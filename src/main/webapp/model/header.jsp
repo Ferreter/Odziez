@@ -19,7 +19,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <link href="../css/index.css" rel="stylesheet" type="text/css"/>
         <link href="../css/nav.css" rel="stylesheet" type="text/css"/>
-        
+        <link href="../css/footer.css" rel="stylesheet" type="text/css"/>
         <!-- Font -->
         <link href="https://fonts.cdnfonts.com/css/bahnschrift" rel="stylesheet">
         
