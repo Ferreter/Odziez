@@ -61,7 +61,7 @@
     </div>
 </div>
 
-<!-- Qou banner --> 
+<!-- Q banner --> 
 
 <div style="margin: 20px; margin-bottom:100px;">
 
