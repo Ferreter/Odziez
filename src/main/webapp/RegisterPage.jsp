@@ -4,7 +4,7 @@
     Author     : d00241144
 --%>
 
-<jsp:include page="../model/header.jsp" /> 
+<jsp:include page="/model/header.jsp" /> 
 
 
 <%@page import="java.text.NumberFormat"%>
@@ -19,7 +19,7 @@
     </head>
     <body>                
         <p>Welcome Please Register</p>
-            <form action="../Controller" method="post">
+            <form action="Controller" method="post">
                 <table>
                     <tr>
                         <td> Username : </td><td> <input name="username" size=30 type="text" required /> </td> 
@@ -48,5 +48,5 @@
                 <input type="hidden" name ="action" value="register" />
             </form>
     </body>
-    <jsp:include page="../view/footer.jsp" /> 
+    <jsp:include page="/view/footer.jsp" /> 
 </html>

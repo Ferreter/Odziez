@@ -55,7 +55,7 @@ public class Controller extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         if (username != null && password != null && !username.isEmpty() && !password.isEmpty()) {
-            UserDao userDao = new UserDao("clothes chop");
+            UserDao userDao = new UserDao("clothes_shop");
             user u = userDao.findUserByUsernamePassword(username, password);
             
             if (u == null) {
