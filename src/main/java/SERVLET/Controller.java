@@ -119,10 +119,9 @@ public class Controller extends HttpServlet {
              * @throws IOException if an I/O error occurs
              */
             @Override
-            protected void doGet
-            (HttpServletRequest request, HttpServletResponse response)
+            protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                processRequest(request, response);
+              processRequest(request, response);
             }
 
             /**
@@ -134,11 +133,10 @@ public class Controller extends HttpServlet {
              * @throws IOException if an I/O error occurs
              */
             @Override
-            protected void doPost
-            (HttpServletRequest request, HttpServletResponse response)
+            protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                processRequest(request, response);
-            }
+        processRequest(request, response);
+    }
 
             /**
              * Returns a short description of the servlet.
@@ -146,11 +144,9 @@ public class Controller extends HttpServlet {
              * @return a String containing servlet description
              */
             @Override
-            public String getServletInfo
-            
-                () {
+            public String getServletInfo() {
         return "Short description";
-            }// </editor-fold>
+    }// </editor-fold>
 
         }
 
