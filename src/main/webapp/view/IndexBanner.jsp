@@ -60,3 +60,17 @@
 
     </div>
 </div>
+
+<!-- Qou banner --> 
+
+<div style="margin: 20px; margin-bottom:100px;">
+
+    <!-- Banner -->
+    <div class="jumbotron jumbotron-fluid bg-cover" style="background-color:whitesmoke; background-position: right; height: 100%;">
+        <div class="container" >
+            <h3 class="text-left text-dark">Black and White creates a dreamscape that color never can</h4>
+            <h4 class=" text-right text-dark">-Jack Antonoff</h6>
+            
+        </div>
+    </div>
+</div>
