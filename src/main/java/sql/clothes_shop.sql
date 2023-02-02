@@ -134,7 +134,7 @@ CREATE TABLE `user` (
   `Lastname` varchar(50) NOT NULL,
   `Email` varchar(50) NOT NULL,
   `Phone` int(11) NOT NULL,
-  `D.O.B` date NOT NULL
+  `DOB` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
