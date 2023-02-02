@@ -8,6 +8,7 @@ import DAO.UserDao;
 import DTO.user;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,6 +43,9 @@ public class Controller extends HttpServlet {
                 case "login":
                     forwardToJsp = LoginPage(request, response);
                     break;
+                    case "register":
+                    forwardToJsp = RegisterPage(request, response);
+                    break;
             }
         }
     }
@@ -70,6 +74,40 @@ public class Controller extends HttpServlet {
         }
         return forwardToJsp;
     }
+    private String RegisterPage(HttpServletRequest request, HttpServletResponse response) {
+     String forwardToJsp = "RegisterPage.jsp";
+        HttpSession session = request.getSession(true);
+         String firstname = request.getParameter("firstname");
+        String lastname = request.getParameter("lastname");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String dob = request.getParameter("dob");
+        Date date=Date.valueOf(dob);
+        if (username != null && password != null && !username.isEmpty() && !password.isEmpty() ) {
+            UserDao userDao = new UserDao("clothes_shop");
+            user u = userDao.findUserByUsernamePassword(username, password);
+            boolean login = false;
+            
+            if (u == null) {
+                forwardToJsp = "RegisterPage.jsp";
+                session.setAttribute("username", username);
+                session.setAttribute("user", u);
+                user user = new user(username, password, firstname, lastname,email,phone,date);
+                login = userDao.addUser(user);
+            } else {
+               forwardToJsp = "error.jsp";
+                String error = "user already exists <a href=\"register.jsp\">try again.</a>";
+                session.setAttribute("errorMessage", error);
+            }
+        } else {
+            forwardToJsp = "error.jsp";
+            String error = "No username and/or password and/or email and/or phone and/or firstname and/or lastname supplied. Please <a href=\"login.jsp\">try again.</a>";
+            session.setAttribute("errorMessage", error);
+        }
+        return forwardToJsp;
+       }
 
             // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
             /**
