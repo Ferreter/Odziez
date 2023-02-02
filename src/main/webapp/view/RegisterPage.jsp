@@ -19,7 +19,7 @@
     </head>
     <body>                
         <p>Welcome Please Register</p>
-            <form action="Controller" method="post">
+            <form action="../Controller" method="post">
                 <table>
                     <tr>
                         <td> Username : </td><td> <input name="username" size=30 type="text" required /> </td> 

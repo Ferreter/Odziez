@@ -36,7 +36,7 @@ public class Controller extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
         HttpSession session = request.getSession(true);
-        String forwardToJsp = "index.html";
+        String forwardToJsp = "index.jsp";
         String action = request.getParameter("action");
         if (action != null) {
             switch (action) {
@@ -91,7 +91,7 @@ public class Controller extends HttpServlet {
             boolean login = false;
             
             if (u == null) {
-                forwardToJsp = "RegisterPage.jsp";
+                forwardToJsp = "index.jsp";
                 session.setAttribute("username", username);
                 session.setAttribute("user", u);
                 user user = new user(username, password, firstname, lastname,email,phone,date);
