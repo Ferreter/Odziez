@@ -42,9 +42,11 @@ public class Controller extends HttpServlet {
             switch (action) {
                 case "login":
                     forwardToJsp = LoginPage(request, response);
+                    
                     break;
                     case "register":
                     forwardToJsp = RegisterPage(request, response);
+                    response.sendRedirect(forwardToJsp);
                     break;
             }
         }
@@ -75,7 +77,7 @@ public class Controller extends HttpServlet {
         return forwardToJsp;
     }
     private String RegisterPage(HttpServletRequest request, HttpServletResponse response) {
-     String forwardToJsp = "RegisterPage.jsp";
+     String forwardToJsp = "controller/index.jsp";
         HttpSession session = request.getSession(true);
          String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
@@ -91,18 +93,18 @@ public class Controller extends HttpServlet {
             boolean login = false;
             
             if (u == null) {
-                forwardToJsp = "index.jsp";
+                forwardToJsp = "controller/index.jsp";
                 session.setAttribute("username", username);
                 session.setAttribute("user", u);
                 user user = new user(username, password, firstname, lastname,email,phone,date);
                 login = userDao.addUser(user);
             } else {
-               forwardToJsp = "error.jsp";
+               forwardToJsp = "view/error.jsp";
                 String error = "user already exists <a href=\"register.jsp\">try again.</a>";
                 session.setAttribute("errorMessage", error);
             }
         } else {
-            forwardToJsp = "error.jsp";
+            forwardToJsp = "view/error.jsp";
             String error = "No username and/or password and/or email and/or phone and/or firstname and/or lastname supplied. Please <a href=\"login.jsp\">try again.</a>";
             session.setAttribute("errorMessage", error);
         }
