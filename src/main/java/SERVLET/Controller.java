@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "Controller", urlPatterns = {"/Controller"})
 public class Controller extends HttpServlet {
 
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,7 +33,7 @@ public class Controller extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         HttpSession session = request.getSession(true);
         String forwardToJsp = "index.html";
         String action = request.getParameter("action");
@@ -54,7 +55,7 @@ public class Controller extends HttpServlet {
             user u = userDao.findUserByUsernamePassword(username, password);
             
             if (u == null) {
-                forwardToJsp = "error.jsp";
+                forwardToJsp = "controller/index.jsp";
                 String error = "Incorrect credentials supplied. Please <a href=\"login.jsp\">try again.</a>";
                 session.setAttribute("errorMessage", error);
             } else {

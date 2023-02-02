@@ -6,7 +6,7 @@
 
         <ul class="nav navbar-nav navbar-right  ml-auto">
             <li class="nav-item">
-                <a class="nav-link" href="#" ><span class="glyphicon glyphicon-log-in"></span>Login</a>
+                <a class="nav-link" href="../view/login.jsp" ><span class="glyphicon glyphicon-log-in"></span>Login</a>
             </li>
             <li class="nav-item">
                 <span class="glyphicon glyphicon-user" style="color:black"></span><a class="nav-link" href="#">Sign Up</a>
