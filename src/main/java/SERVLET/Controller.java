@@ -69,12 +69,12 @@ public class Controller extends HttpServlet {
 
             if (u == null)
             {
-                forwardToJsp = "controller/index.jsp";
+                forwardToJsp = "controller/error.jsp";
                 String error = "Incorrect credentials supplied. Please <a href=\"login.jsp\">try again.</a>";
                 session.setAttribute("errorMessage", error);
             } else
             {
-                forwardToJsp = "loginSuccessful.jsp";
+                forwardToJsp = "controller/index.jsp";
                 session.setAttribute("username", username);
                 session.setAttribute("user", u);
             }

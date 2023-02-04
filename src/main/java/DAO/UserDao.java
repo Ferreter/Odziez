@@ -34,7 +34,7 @@ public class UserDao extends Dao implements UserDaoInterface {
         try {
             con = this.getConnection();
 
-            String query = "SELECT * FROM users WHERE username = ? AND password = ?";
+            String query = "SELECT * FROM user WHERE username = ? AND password = ?";
             ps = con.prepareStatement(query);
             ps.setString(1, uname);
             ps.setString(2, pword);
