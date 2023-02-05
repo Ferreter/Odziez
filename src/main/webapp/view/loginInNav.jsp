@@ -9,6 +9,6 @@
                 <a class="nav-link" href="../view/login.jsp" ><span class="glyphicon glyphicon-log-in"></span>Login</a>
             </li>
             <li class="nav-item">
-                <span class="glyphicon glyphicon-user" style="color:black"></span><a class="nav-link" href="#">Sign Up</a>
+                <span class="glyphicon glyphicon-user" style="color:black"></span><a class="nav-link" href="../view/RegisterPage.jsp">Sign Up</a>
             </li>
         </ul>
