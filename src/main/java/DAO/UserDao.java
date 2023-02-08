@@ -58,6 +58,7 @@ public class UserDao extends Dao implements UserDaoInterface {
       // Get complete hashed password in hex format
       hashPass = sb.toString();
             ps.setString(1, uname);
+            //pass hashed password as user password and compare with hashed password in database
             ps.setString(2, hashPass);
 
             rs = ps.executeQuery();
@@ -246,6 +247,7 @@ public class UserDao extends Dao implements UserDaoInterface {
       
                 ps.setInt(1, 0);
                 ps.setString(2, u.getUsername());
+                //set hashed password as user password
                 ps.setString(3, hashPass);
                 ps.setString(4, u.getFirstName());
                 ps.setString(5, u.getLastName());
