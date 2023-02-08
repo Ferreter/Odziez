@@ -36,7 +36,7 @@
                                         </div>
 
                                         <div class="form-outline mb-4">
-                                            <input type="password"  id="form2Example27" placeholder="password"  name="password" class="form-control form-control-lg" />
+                                            <input type="password"  id="form2Example27" placeholder="Password"  name="password" class="form-control form-control-lg" />
                                             
                                         </div>
 
