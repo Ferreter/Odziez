@@ -51,7 +51,7 @@
 
                                         <div class="form-outline mb-4">
                                             <label class="form-label" for="form2Example17">Phone Number:</label>
-                                            <input  type="tel" required="" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" title="Must use the format 000-000-0000" placeholder="083-234-4352"  id="form2Example17" name="phone"   class="form-control form-control-lg" />
+                                            <input  type="tel" required="" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" title="Must use the format 0000000000" placeholder="083-234-4352"  id="form2Example17" name="phone"   class="form-control form-control-lg" />
                                         </div>
 
                                         <div class="form-outline mb-4">

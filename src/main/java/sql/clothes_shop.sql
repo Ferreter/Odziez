@@ -141,7 +141,7 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`UserId`, `username`, `password`, `FirstName`, `Lastname`, `Email`, `Phone`, `D.O.B`) VALUES
+INSERT INTO `user` (`UserId`, `username`, `password`, `FirstName`, `Lastname`, `Email`, `Phone`, `DOB`) VALUES
 (1, 'seany', 'password', 'Sean', 'Dyche', 'sean1@gmail.com', 875234283, '1954-10-26'),
 (2, 'deanSmt', 'password', 'Dean', 'Smith', 'deanSm@gmail.com', 84958266, '2000-04-08'),
 (3, 'DanOb', 'password', 'Dani', 'Obrien', 'danObr@gmail.com', 879582432, '2001-07-20'),

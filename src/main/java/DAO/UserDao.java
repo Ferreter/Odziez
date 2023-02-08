@@ -48,7 +48,7 @@ public class UserDao extends Dao implements UserDaoInterface {
                 String LastName = rs.getString("password");
                 String Email = rs.getString("email");
                 String phone = rs.getString("phone");
-                Date DOB = rs.getDate("D.O.B");
+                Date DOB = rs.getDate("DOB");
             
                 u = new user(username, password, FirstName, LastName,Email,phone,DOB);
             }
@@ -106,7 +106,7 @@ public class UserDao extends Dao implements UserDaoInterface {
                 String LastName = rs.getString("password");
                 String Email = rs.getString("email");
                 String phone = rs.getString("phone");
-                Date DOB = rs.getDate("D.O.B");
+                Date DOB = rs.getDate("DOB");
                 
                 u = new user(username, password, FirstName, LastName,Email,phone,DOB);
             }
