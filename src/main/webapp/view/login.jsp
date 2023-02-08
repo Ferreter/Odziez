@@ -28,7 +28,7 @@
 
                                     <!-- Form for login -->
                                     <form action="../Controller" method="post">
-                                        <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Come On In!</h5>
+                                        <h5 class="fw-normal mb-3 pb-3"  style="letter-spacing: 1px; color: black;">Come On In!</h5>
 
                                         <div class="form-outline mb-4">
                                             <input  type="text" id="form2Example17" name="username"   class="form-control form-control-lg" />
@@ -45,7 +45,7 @@
                                         </div>
 
                                         <!-- link to register if not registered -->
-                                        <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="#!"
+                                        <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="../view/RegisterPage.jsp"
                                                                                                                   style="color: #393f81;">Register here</a></p>
                                         <a href="#!" class="small text-muted">Terms of use.</a>
                                         <a href="#!" class="small text-muted">Privacy policy</a>
