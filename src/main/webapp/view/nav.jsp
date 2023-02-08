@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- Top Nav Bar with logo-->
 <nav class="navbar-light bg-light">
-    <a class="navbar-brand logo" style="padding-left: 45%; f" href="#">Odzież</a>
+    <a class="navbar-brand logo" style="padding-left: 45%; f" href="#">Odziez</a>
 </div>
 
 
