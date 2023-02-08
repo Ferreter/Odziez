@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2023 at 03:06 PM
+-- Generation Time: Feb 08, 2023 at 03:13 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.9
 
@@ -70,6 +70,21 @@ CREATE TABLE `bottomsstock` (
   `M` int(11) NOT NULL,
   `L` int(11) NOT NULL,
   `XL` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `UserId` int(11) NOT NULL,
+  `ProductId` varchar(255) NOT NULL,
+  `TrackingId` varchar(255) NOT NULL,
+  `Paid` int(11) NOT NULL,
+  `Price` double NOT NULL,
+  `OrderDate` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -176,6 +191,12 @@ ALTER TABLE `bottomsstock`
   ADD KEY `BottomsId` (`BottomsId`);
 
 --
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD KEY `UserId` (`UserId`);
+
+--
 -- Indexes for table `tops`
 --
 ALTER TABLE `tops`
@@ -218,6 +239,12 @@ ALTER TABLE `bottomsfilter`
 --
 ALTER TABLE `bottomsstock`
   ADD CONSTRAINT `bottomsstock_ibfk_1` FOREIGN KEY (`BottomsId`) REFERENCES `bottoms` (`BottomsId`);
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `user` (`UserId`);
 
 --
 -- Constraints for table `topsfilter`
