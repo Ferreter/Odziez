@@ -46,8 +46,8 @@ public class UserDaoTest {
     @Test
     public void testFindUserByUsernamePasswordFail() {
         System.out.println("findUserByUsernamePassword");
-        String uname = "Kian2";
-        String pword = "password3";
+        String uname = "Ki";
+        String pword = "pas";
         UserDao userDao = new UserDao("clothes_shop");
         user expResult = null;
         user result = userDao.findUserByUsernamePassword(uname, pword);
@@ -100,21 +100,21 @@ public class UserDaoTest {
 //      
 //    }
   
-//    /**
-//     * Test of addUser method, of class UserDao.
-//     */
-//    @Test
-//    public void testAddUser() {
-//        System.out.println("addUser");
-//        String dob = "2001-23-2";
-//        Date date = Date.valueOf(dob);
-//        user u = new user("Kian2","password3","kian","Harding","kian2ki@hotmail.com","0838381391",date);
-//        UserDao userDao = new UserDao("clothes_shop");
-//        boolean expResult = true;
-//        boolean result = userDao.addUser(u);
-//        assertEquals(expResult, result);
-//        
-//    }
+    /**
+     * Test of addUser method, of class UserDao.
+     */
+    @Test
+    public void testAddUser() {
+        System.out.println("addUser");
+        String dob = "2001-02-07";
+        Date date = Date.valueOf(dob);
+        user u = new user("Kian2","password3","kian","Harding","kian2ki@hotmail.com","0838381391",date);
+        UserDao userDao = new UserDao("clothes_shop");
+        boolean expResult = true;
+        boolean result = userDao.addUser(u);
+        assertEquals(expResult, result);
+        
+    }
 
     
 }
