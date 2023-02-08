@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 30, 2023 at 12:06 AM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 8.1.2
+-- Generation Time: Feb 08, 2023 at 03:13 PM
+-- Server version: 10.4.20-MariaDB
+-- PHP Version: 8.0.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -70,6 +70,21 @@ CREATE TABLE `bottomsstock` (
   `M` int(11) NOT NULL,
   `L` int(11) NOT NULL,
   `XL` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `UserId` int(11) NOT NULL,
+  `ProductId` varchar(255) NOT NULL,
+  `TrackingId` varchar(255) NOT NULL,
+  `Paid` int(11) NOT NULL,
+  `Price` double NOT NULL,
+  `OrderDate` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -147,7 +162,11 @@ INSERT INTO `user` (`UserId`, `username`, `password`, `FirstName`, `Lastname`, `
 (3, 'DanOb', 'password', 'Dani', 'Obrien', 'danObr@gmail.com', 879582432, '2001-07-20'),
 (4, 'bigKhali', 'password', 'Meshach', 'Khali', 'meshKha@gmail.com', 84958266, '2002-10-08'),
 (5, 'ferreter', 'password', 'Harsh', 'Kathri', 'katHarsh@student.dkit.ie', 84958266, '1965-01-11'),
-(6, 'Kian', 'password', 'Kian', 'Harding', 'Kian123@gmail.com', 84958266, '2000-12-25');
+(6, 'Kian', 'password', 'Kian', 'Harding', 'Kian123@gmail.com', 84958266, '2000-12-25'),
+(7, 'kian2ki', 'Password1', 'Kian', 'Harding', 'kian2ki@hotmail.com', 83, '2023-02-08'),
+(8, 'kian2ki', 'Password2', 'Kian', 'Harding', 'kian2ki@hotmail.com', 838183916, '2023-03-02'),
+(9, 'kian2ki1231', 'Passowrd2', 'Kian', 'Harding', 'kian2ki@hotmail.com', 838183916, '2023-02-08'),
+(10, 'kian2ki123', 'Password123', 'Kian', 'Harding', 'kian2ki@hotmail.com', 838183916, '2023-02-08');
 
 --
 -- Indexes for dumped tables
@@ -170,6 +189,12 @@ ALTER TABLE `bottomsfilter`
 --
 ALTER TABLE `bottomsstock`
   ADD KEY `BottomsId` (`BottomsId`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD KEY `UserId` (`UserId`);
 
 --
 -- Indexes for table `tops`
@@ -197,7 +222,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `UserId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `UserId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables
@@ -214,6 +239,12 @@ ALTER TABLE `bottomsfilter`
 --
 ALTER TABLE `bottomsstock`
   ADD CONSTRAINT `bottomsstock_ibfk_1` FOREIGN KEY (`BottomsId`) REFERENCES `bottoms` (`BottomsId`);
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `user` (`UserId`);
 
 --
 -- Constraints for table `topsfilter`
