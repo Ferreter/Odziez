@@ -31,13 +31,13 @@
                                         <h5 class="fw-normal mb-3 pb-3"  style="letter-spacing: 1px; color: black;">Come On In!</h5>
 
                                         <div class="form-outline mb-4">
-                                            <input  type="text" id="form2Example17" name="username"   class="form-control form-control-lg" />
-                                            <label class="form-label" for="form2Example17">Username</label>
+                                            <input  type="text" id="form2Example17" name="username" placeholder="Username"  class="form-control form-control-lg" />
+                                            
                                         </div>
 
                                         <div class="form-outline mb-4">
-                                            <input type="password"  id="form2Example27" name="password" class="form-control form-control-lg" />
-                                            <label class="form-label" for="form2Example27">Password</label>
+                                            <input type="password"  id="form2Example27" placeholder="password"  name="password" class="form-control form-control-lg" />
+                                            
                                         </div>
 
                                         <div class="pt-1 mb-4">
