@@ -10,6 +10,8 @@ and open the template in the editor.
 
 footer{
     color:black;
+    margin-bottom: 0;
+    padding-top:80px;
 }
 
 footer a{
