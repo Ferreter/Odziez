@@ -64,11 +64,14 @@
                                         </div>
                                 </div>
                             </div>
+                            
                             <div class="col-md-2 col-lg-2 text-black text-center" style="margin-top: 30%"> 
+                            
                                 <h2 style="color: black;">
                                     Or
                                 </h2>
                             </div>
+                            
                             <!-- Form for Login -->
                             <div class="col-md-5 col-lg-5 ">
                                 <div class="card-body text-black">
