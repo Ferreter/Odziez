@@ -5,7 +5,11 @@ package DAO;
  * @author Kian
  */
 import DTO.user;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UserDao extends Dao implements UserDaoInterface {
 
@@ -35,9 +39,27 @@ public class UserDao extends Dao implements UserDaoInterface {
             con = this.getConnection();
 
             String query = "SELECT * FROM user WHERE username = ? AND password = ?";
-            ps = con.prepareStatement(query);
+           
+             String Pass= pword;
+         String hashPass = null;
+                ps = con.prepareStatement(query);
+                MessageDigest md = MessageDigest.getInstance("MD5");
+
+      // Add password bytes to digest
+      md.update(Pass.getBytes());
+
+      // Get the hash's bytes
+      byte[] bytes = md.digest();
+      // This bytes[] has bytes in decimal format. Convert it to hexadecimal format
+      StringBuilder sb = new StringBuilder();
+      for (int i = 0; i < bytes.length; i++) {
+        sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+      }
+      // Get complete hashed password in hex format
+      hashPass = sb.toString();
             ps.setString(1, uname);
-            ps.setString(2, pword);
+            //pass hashed password as user password and compare with hashed password in database
+            ps.setString(2, hashPass);
 
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -55,6 +77,8 @@ public class UserDao extends Dao implements UserDaoInterface {
         } catch (SQLException e) {
             System.err.println("\tA problem occurred during the findUserByUsernamePassword method:");
             System.err.println("\t" + e.getMessage());
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (rs != null) {
@@ -191,15 +215,40 @@ public class UserDao extends Dao implements UserDaoInterface {
     public boolean addUser(user u) {
         Connection con = null;
         PreparedStatement ps = null;
+         
+        
         if (findUserByUsername(u.getUsername()) == null) {
+            
             try {
                 con = this.getConnection();
+                // Create MessageDigest instance for MD5
+      
+   
 
                 String query = "INSERT INTO user(UserId, username, password, FirstName, Lastname,  Email, Phone,  DOB) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                String Pass= u.getPassword();
+         String hashPass = null;
                 ps = con.prepareStatement(query);
+                MessageDigest md = MessageDigest.getInstance("MD5");
+
+      // Add password bytes to digest
+      md.update(Pass.getBytes());
+
+      // Get the hash's bytes
+      byte[] bytes = md.digest();
+      // This bytes[] has bytes in decimal format. Convert it to hexadecimal format
+      StringBuilder sb = new StringBuilder();
+      for (int i = 0; i < bytes.length; i++) {
+        sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+      }
+      // Get complete hashed password in hex format
+      hashPass = sb.toString();
+     
+      
                 ps.setInt(1, 0);
                 ps.setString(2, u.getUsername());
-                ps.setString(3, u.getPassword());
+                //set hashed password as user password
+                ps.setString(3, hashPass);
                 ps.setString(4, u.getFirstName());
                 ps.setString(5, u.getLastName());
                 ps.setString(6, u.getEmail());
@@ -210,6 +259,8 @@ public class UserDao extends Dao implements UserDaoInterface {
             } catch (SQLException e) {
                 System.err.println("\tA problem occurred during the addUser method:");
                 System.err.println("\t" + e.getMessage());
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
                 try {
                     if (ps != null) {
