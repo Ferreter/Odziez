@@ -4,6 +4,7 @@
     Author     : hkhat
 --%>
 
+<%@page import="DTO.user"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- Top Nav Bar with logo-->
 <nav class="navbar-light bg-light">
@@ -66,14 +67,14 @@
 
 
                             <div class="col-4">
-                                                                 <p style="padding-top:4px;padding-bottom: 2px;margin:0px;">New Arrivals</p>
+                                <p style="padding-top:4px;padding-bottom: 2px;margin:0px;">New Arrivals</p>
                                 <a class="nav-link navDropSection" style="font-size:14px;" href="#">View All</a>
                                 <a class="nav-link navDropSection" style="font-size:14px;" href="#">Clothes</a>
                                 <a class="nav-link navDropSection" style="font-size:14px;" href="#">Shoes & Accesories</a>
 
                                 <p style="padding-top:8px;padding-bottom: 2px;margin:0px;">Get Comfortable</p>
                                 <a class="nav-link navDropSection" style="font-size:14px;" href="#">View All</a>
-                                 <a class="nav-link navDropSection" style="font-size:14px;" href="#">Casual Looks</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Casual Looks</a>
                                 <a class="nav-link navDropSection" style="font-size:14px;" href="#">Street Looks</a>
                                 <a class="nav-link navDropSection" style="font-size:14px;" href="#">Smart Looks</a>
 
@@ -81,15 +82,28 @@
                                 <a class="nav-link navDropSection" style="font-size:14px;" href="#">Casual Looks</a>
                                 <a class="nav-link navDropSection" style="font-size:14px;" href="#">Street Looks</a>
                                 <a class="nav-link navDropSection" style="font-size:14px;" href="#">Smart Looks</a>
-                                 </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </li>
         </ul>
         <!-- Replace this with JSP which is seprate if logged IN or not -->
-
+        <%
+            user u = (user) session.getAttribute("user");
+            if (u == null)
+            {
+        %>
         <jsp:include page="loginInNav.jsp" /> 
+        <%} else
+        {
+        %>
+
+        <jsp:include page="loggedinNav.jsp" /> 
+        <%
+            }
+        %>
+
 
     </div>
 </nav>
