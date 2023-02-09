@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="DTO.user"%>
 <div style="margin: 20px; margin-bottom:100px;">
     <h5 style="margin-bottom:30px;">Odziez, Clothing Made simpler and better</h5>
 
@@ -50,7 +51,7 @@
                 <p>Sweatshirt</p>
             </div>
         </div>
- 
+
         <div class="col-lg-2 col-xs-6 .col-sm-6 categories">
             <div class=" text-center p-3">
                 <img src="../media/categories/suit.png" alt="hoodie" class="product-categorie img-responsive"/>
@@ -69,8 +70,32 @@
     <div class="jumbotron jumbotron-fluid bg-cover" style="background-color:whitesmoke; background-position: right; height: 100%;">
         <div class="container" >
             <h3 class="text-left text-dark">Black and White creates a dreamscape that color never can</h4>
-            <h4 class=" text-right text-dark">-Jack Antonoff</h6>
-            
-        </div>
-    </div>
-</div>
+                <h4 class=" text-right text-dark">-Jack Antonoff</h6>
+
+                    </div>
+                    </div>
+                    </div>
+
+                    <%
+                        user u = (user) session.getAttribute("user");
+                        if (u == null)
+                        {
+                    %>
+                    <%} else
+                    {
+                    %>
+                    <div class="container">
+                        <h2>Subscribe to Our Newsletter, Never Miss out on New Drops</h2>
+                        <form>
+                            <div class="form-group">
+                                <label for="email">Email address:</label>
+                                <input type="email" class="form-control" id="email">
+                            </div>
+                            <button type="submit" class="btn btn-dark">Subscribe</button>
+                        </form>
+                    </div>
+
+                    <%
+                        }
+                    %>
+
