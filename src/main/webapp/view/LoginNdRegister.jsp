@@ -21,6 +21,8 @@
 
                                     <!-- Form for Register -->
                                     <form action="../Controller" method="post">
+                                        <input style="display:none">
+                                        <input type="password" style="display:none">
                                         <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 0px;">Register Here</h5>
 
                                         <div class="form-outline mb-4">
@@ -30,7 +32,7 @@
 
                                         <div class="form-outline mb-4">
                                             <label class="form-label" for="form2Example27">Password:</label>
-                                            <input type="password" autocomplete="off" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" 
+                                            <input type="password" autocomplete="new-password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" 
                                                    required=""  id="form2Example27" name="password" class="form-control form-control-lg" />
                                         </div>
 
