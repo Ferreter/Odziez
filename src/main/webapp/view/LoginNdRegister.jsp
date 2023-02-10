@@ -25,38 +25,38 @@
 
                                         <div class="form-outline mb-4">
                                             <label class="form-label" for="form2Example17">Username:</label>
-                                            <input  type="text" required="" id="form2Example17" name="username"   class="form-control form-control-lg" />
+                                            <input  type="text" required="" autocomplete="off" id="form2Example17" name="username"   class="form-control form-control-lg" />
                                         </div>
 
                                         <div class="form-outline mb-4">
                                             <label class="form-label" for="form2Example27">Password:</label>
-                                            <input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" 
+                                            <input type="password" autocomplete="off" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" 
                                                    required=""  id="form2Example27" name="password" class="form-control form-control-lg" />
                                         </div>
 
                                         <div class="form-outline mb-4">
                                             <label class="form-label" for="form2Example17">First name:</label>
-                                            <input  type="text" required="" id="form2Example17" name="firstname"   class="form-control form-control-lg" />
+                                            <input  type="text" autocomplete="off" required="" id="form2Example17" name="firstname"   class="form-control form-control-lg" />
                                         </div>
 
                                         <div class="form-outline mb-4">
                                             <label class="form-label" for="form2Example17">last name:</label>
-                                            <input  type="text" required="" id="form2Example17" name="lastname"   class="form-control form-control-lg" />
+                                            <input  type="text" autocomplete="off" required="" id="form2Example17" name="lastname"   class="form-control form-control-lg" />
                                         </div>
 
                                         <div class="form-outline mb-4">
                                             <label class="form-label" for="form2Example17">Email:</label>
-                                            <input  type="email" required="" id="form2Example17" name="email"   class="form-control form-control-lg" />
+                                            <input  type="email" autocomplete="off" required="" id="form2Example17" name="email"   class="form-control form-control-lg" />
                                         </div>
 
                                         <div class="form-outline mb-4">
                                             <label class="form-label" for="form2Example17">Phone Number:</label>
-                                            <input  type="tel" required="" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" title="Must use the format 0000000000" placeholder="0832344352"  id="form2Example17" name="phone"   class="form-control form-control-lg" />
+                                            <input  type="tel" autocomplete="off" required="" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" title="Must use the format 0000000000" placeholder="083-234-4352"  id="form2Example17" name="phone"   class="form-control form-control-lg" />
                                         </div>
 
                                         <div class="form-outline mb-4">
                                             <label class="form-label" for="form2Example17">Date Of Birth:</label>
-                                            <input  type="date" required="" id="form2Example17" name="dob"   class="form-control form-control-lg" />
+                                            <input  type="date" autocomplete="off" required="" id="form2Example17" name="dob"   class="form-control form-control-lg" />
                                         </div>
 
                                         <div class="pt-1 mb-4">
