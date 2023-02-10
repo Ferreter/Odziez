@@ -82,6 +82,8 @@
 
 
                                     <form action="../Controller" method="post">
+                                        <input style="display:none">
+                                        <input type="password" style="display:none">
                                         <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 0px;">Login</h3>
 
                                         <div class="form-outline mb-4">
