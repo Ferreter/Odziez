@@ -106,11 +106,11 @@ public class Controller extends HttpServlet {
 
             if (u == null)
             {
-                forwardToJsp = "controller/index.jsp";
                 session.setAttribute("username", username);
                 session.setAttribute("user", u);
                 user user = new user(username, password, firstname, lastname, email, phone, date);
                 login = userDao.addUser(user);
+                forwardToJsp = "controller/index.jsp";
             } else
             {
                 forwardToJsp = "view/error.jsp";
