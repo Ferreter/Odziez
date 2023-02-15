@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2023 at 03:13 PM
+-- Generation Time: Feb 15, 2023 at 11:13 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.9
 
@@ -24,6 +24,7 @@ drop database if exists clothes_shop;
 create database if not exists clothes_shop;
 
 use clothes_shop;
+
 -- --------------------------------------------------------
 
 --
@@ -209,6 +210,12 @@ ALTER TABLE `topsfilter`
   ADD KEY `TopsId` (`TopsId`);
 
 --
+-- Indexes for table `topsstock`
+--
+ALTER TABLE `topsstock`
+  ADD KEY `TopsId` (`TopsId`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -251,6 +258,12 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `topsfilter`
   ADD CONSTRAINT `topsfilter_ibfk_1` FOREIGN KEY (`TopsId`) REFERENCES `tops` (`TopsId`);
+
+--
+-- Constraints for table `topsstock`
+--
+ALTER TABLE `topsstock`
+  ADD CONSTRAINT `topsstock_ibfk_1` FOREIGN KEY (`TopsId`) REFERENCES `tops` (`TopsId`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
