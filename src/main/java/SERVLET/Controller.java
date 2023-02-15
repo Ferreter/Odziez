@@ -106,9 +106,10 @@ public class Controller extends HttpServlet {
 
             if (u == null)
             {
-                session.setAttribute("username", username);
-                session.setAttribute("user", u);
                 user user = new user(username, password, firstname, lastname, email, phone, date);
+                session.setAttribute("username", username);
+                session.setAttribute("user", user);
+                
                 login = userDao.addUser(user);
                 forwardToJsp = "controller/index.jsp";
             } else
@@ -125,7 +126,7 @@ public class Controller extends HttpServlet {
         }
         return forwardToJsp;
     }
-     
+  
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
