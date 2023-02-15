@@ -64,9 +64,9 @@ public class UserDao extends Dao implements UserDaoInterface {
             rs = ps.executeQuery();
             if (rs.next()) {
                
-                String username = rs.getString("firstName");
+                String username = rs.getString("username");
                 String password = rs.getString("lastName");
-                String FirstName = rs.getString("username");
+                String FirstName = rs.getString("firstName");
                 String LastName = rs.getString("password");
                 String Email = rs.getString("email");
                 String phone = rs.getString("phone");
@@ -117,7 +117,7 @@ public class UserDao extends Dao implements UserDaoInterface {
         try {
             con = this.getConnection();
 
-            String query = "SELECT * FROM users WHERE USERNAME = ?";
+            String query = "SELECT * FROM user WHERE USERNAME = ?";
             ps = con.prepareStatement(query);
             ps.setString(1, uname);
 
@@ -338,6 +338,41 @@ public class UserDao extends Dao implements UserDaoInterface {
             }
         }
         return edit;
+    }
+    
+    @Override
+    public boolean removeUser(user u) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        boolean removed = false;
+        try {
+            con = this.getConnection();
+
+            String query = "DELETE FROM user WHERE username = ?";
+            ps = con.prepareStatement(query);
+            ps.setString(1, u.getUsername());
+
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected != 0) {
+                removed = true;
+            }
+        } catch (SQLException e) {
+            System.err.println("\tA problem occurred during the removeUser method:");
+            System.err.println("\t" + e.getMessage());
+            removed = false;
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    freeConnection(con);
+                }
+            } catch (SQLException e) {
+                System.err.println("A problem occurred when closing down the removeUser method:\n" + e.getMessage());
+            }
+        }
+        return removed;
     }
 
   
