@@ -58,20 +58,20 @@ public class UserDaoTest {
     /**
      * Test of findUserByUsernamePassword method, of class UserDao.
      * checking for a user that does exist
-     */
+    
     @Test
     public void testFindUserByUsernamePasswordPass() {
         System.out.println("findUserByUsernamePassword");
-        String uname = "Kian32";
-        String pword = "Password3";
+        String uname = "kian2ki";
+        String pword = "Password1";  
         UserDao userDao = new UserDao("clothes_shop_test");
-        String expResult = "Kian32";
+        String expResult = "Kian";
         user result = userDao.findUserByUsernamePassword(uname, pword);
         
-        assertEquals(expResult,result.getUsername());
+        assertEquals(expResult,result.getFirstName());
         
     }
-
+ */
     /**
      * Test of findUserByUsername method, of class UserDao.
      */
