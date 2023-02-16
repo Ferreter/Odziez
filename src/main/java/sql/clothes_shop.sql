@@ -145,7 +145,7 @@ CREATE TABLE `topsstock` (
 CREATE TABLE `user` (
   `UserId` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `FirstName` varchar(50) NOT NULL,
   `Lastname` varchar(50) NOT NULL,
   `Email` varchar(50) NOT NULL,
