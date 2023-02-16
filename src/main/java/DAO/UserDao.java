@@ -43,13 +43,13 @@ public class UserDao extends Dao implements UserDaoInterface {
              String Pass= pword;
          String hashPass = null;
                 ps = con.prepareStatement(query);
-                MessageDigest md = MessageDigest.getInstance("MD5");
+                MessageDigest sha = MessageDigest.getInstance("SHA-256");
 
       // Add password bytes to digest
-      md.update(Pass.getBytes());
+      sha.update(Pass.getBytes());
 
       // Get the hash's bytes
-      byte[] bytes = md.digest();
+      byte[] bytes = sha.digest();
       // This bytes[] has bytes in decimal format. Convert it to hexadecimal format
       StringBuilder sb = new StringBuilder();
       for (int i = 0; i < bytes.length; i++) {
@@ -221,7 +221,7 @@ public class UserDao extends Dao implements UserDaoInterface {
             
             try {
                 con = this.getConnection();
-                // Create MessageDigest instance for MD5
+                // Create MessageDigest instance for SHA-256
       
    
 
@@ -229,13 +229,13 @@ public class UserDao extends Dao implements UserDaoInterface {
                 String Pass= u.getPassword();
          String hashPass = null;
                 ps = con.prepareStatement(query);
-                MessageDigest md = MessageDigest.getInstance("MD5");
+                MessageDigest sha = MessageDigest.getInstance("SHA-256");
 
       // Add password bytes to digest
-      md.update(Pass.getBytes());
+      sha.update(Pass.getBytes());
 
       // Get the hash's bytes
-      byte[] bytes = md.digest();
+      byte[] bytes = sha.digest();
       // This bytes[] has bytes in decimal format. Convert it to hexadecimal format
       StringBuilder sb = new StringBuilder();
       for (int i = 0; i < bytes.length; i++) {

@@ -58,7 +58,7 @@ public class UserDaoTest {
     /**
      * Test of findUserByUsernamePassword method, of class UserDao.
      * checking for a user that does exist
-    
+   * 
     @Test
     public void testFindUserByUsernamePasswordPass() {
         System.out.println("findUserByUsernamePassword");
