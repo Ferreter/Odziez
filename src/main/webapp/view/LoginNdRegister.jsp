@@ -4,6 +4,12 @@
     Author     : hkhat
 --%>
 
+<%@page import="DTO.user"%>
+<%
+    user u = (user) session.getAttribute("user");
+    if (u == null)
+    {
+%>
 <jsp:include page="../model/header.jsp" /> 
 <jsp:include page="../view/nav.jsp" /> 
 <body>               
@@ -110,4 +116,12 @@
         </div>
     </section>
 </body>
+
 <jsp:include page="../view/footer.jsp" /> 
+<%} else
+{
+    String redirectURL = "../controller/index.jsp";
+    response.sendRedirect(redirectURL);
+
+}
+%>

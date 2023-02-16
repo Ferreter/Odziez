@@ -69,7 +69,6 @@ public class UserDaoTest {
         user result = userDao.findUserByUsernamePassword(uname, pword);
         
         assertEquals(expResult,result.getFirstName());
-        
     }
  */
     /**

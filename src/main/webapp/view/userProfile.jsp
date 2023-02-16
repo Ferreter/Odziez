@@ -4,7 +4,13 @@
     Author     : hkhat
 --%>
 
+<%@page import="DTO.user"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    user u = (user) session.getAttribute("user");
+    if (u != null)
+    {
+%>
 <jsp:include page="../model/header.jsp" /> 
 <jsp:include page="../view/nav.jsp" /> 
 <div class="container" style=" background-color: white; color:black; margin-top: 4em;">
@@ -117,3 +123,10 @@
 </div>
 
 <jsp:include page="../view/footer.jsp" /> 
+<%} else
+{
+    String redirectURL = "../view/LoginNdRegister.jsp";
+    response.sendRedirect(redirectURL);
+
+}
+%>

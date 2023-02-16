@@ -44,10 +44,8 @@ public class UserDao extends Dao implements UserDaoInterface {
          String hashPass = null;
                 ps = con.prepareStatement(query);
                 MessageDigest md = MessageDigest.getInstance("MD5");
-
       // Add password bytes to digest
       md.update(Pass.getBytes());
-
       // Get the hash's bytes
       byte[] bytes = md.digest();
       // This bytes[] has bytes in decimal format. Convert it to hexadecimal format
