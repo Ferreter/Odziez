@@ -43,11 +43,14 @@ public class UserDao extends Dao implements UserDaoInterface {
              String Pass= pword;
          String hashPass = null;
                 ps = con.prepareStatement(query);
+
                 MessageDigest sha = MessageDigest.getInstance("SHA-256");
 
       // Add password bytes to digest
       sha.update(Pass.getBytes());
 
+
+               
       // Get the hash's bytes
       byte[] bytes = sha.digest();
       // This bytes[] has bytes in decimal format. Convert it to hexadecimal format
