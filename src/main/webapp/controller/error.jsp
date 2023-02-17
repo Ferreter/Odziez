@@ -5,13 +5,18 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:include page="../model/header.jsp" /> 
+<jsp:include page="../view/nav.jsp" /> 
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Error</title>
     </head>
-    <body>
+    <div class="error" style="text-align: center;">
+    <body style="background-color: black;color: white;">
+        
         <h1>Something went wrong</h1>
         <%
             // Get the error message variable out of the session
@@ -35,4 +40,6 @@
 
         <div><a href="index.jsp">Back to index</a></div>
     </body>
+    </div>
+    <jsp:include page="../view/footer.jsp" /> 
 </html>

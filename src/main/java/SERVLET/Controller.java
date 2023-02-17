@@ -69,8 +69,9 @@ public class Controller extends HttpServlet {
 
             if (u == null)
             {
+                //Direct to error page when wrong credentials are provided
                 forwardToJsp = "controller/error.jsp";
-                String error = "Incorrect credentials supplied. Please <a href=\"../view/LoginNdRegister.jsp\">try again.</a>";
+                String error = "User Not Found. Please <a href=\"../view/LoginNdRegister.jsp\">try again.</a>";
                 session.setAttribute("errorMessage", error);
             } else
             {
@@ -80,7 +81,7 @@ public class Controller extends HttpServlet {
             }
         } else
         {
-            forwardToJsp = "error.jsp";
+            forwardToJsp = "controller/error.jsp";
             String error = "No username and/or password supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
             session.setAttribute("errorMessage", error);
         }

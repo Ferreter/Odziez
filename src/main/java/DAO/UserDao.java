@@ -41,18 +41,19 @@ public class UserDao extends Dao implements UserDaoInterface {
             String query = "SELECT * FROM user WHERE username = ? AND password = ?";
            
              String Pass= pword;
+              String salt = "ferkhki";
          String hashPass = null;
                 ps = con.prepareStatement(query);
 
                 MessageDigest sha = MessageDigest.getInstance("SHA-256");
 
       // Add password bytes to digest
-      sha.update(Pass.getBytes());
+      sha.update(salt.getBytes());
 
 
                
       // Get the hash's bytes
-      byte[] bytes = sha.digest();
+      byte[] bytes = sha.digest(Pass.getBytes());
       // This bytes[] has bytes in decimal format. Convert it to hexadecimal format
       StringBuilder sb = new StringBuilder();
       for (int i = 0; i < bytes.length; i++) {
@@ -230,15 +231,16 @@ public class UserDao extends Dao implements UserDaoInterface {
 
                 String query = "INSERT INTO user(UserId, username, password, FirstName, Lastname,  Email, Phone,  DOB) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
                 String Pass= u.getPassword();
+                String salt = "ferkhki";
          String hashPass = null;
                 ps = con.prepareStatement(query);
                 MessageDigest sha = MessageDigest.getInstance("SHA-256");
 
       // Add password bytes to digest
-      sha.update(Pass.getBytes());
+      sha.update(salt.getBytes());
 
       // Get the hash's bytes
-      byte[] bytes = sha.digest();
+      byte[] bytes = sha.digest(Pass.getBytes());
       // This bytes[] has bytes in decimal format. Convert it to hexadecimal format
       StringBuilder sb = new StringBuilder();
       for (int i = 0; i < bytes.length; i++) {
