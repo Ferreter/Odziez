@@ -40,8 +40,11 @@ public class UserDao extends Dao implements UserDaoInterface {
 
             String query = "SELECT * FROM user WHERE username = ? AND password = ?";
            
+            //Password to harsh Variable
              String Pass= pword;
+             // salt String to add to SHA abbreviation of teammate names
               String salt = "ferkhki";
+              // Variable to store Generated secure hashed and saltes password
          String hashPass = null;
                 ps = con.prepareStatement(query);
 
@@ -230,8 +233,24 @@ public class UserDao extends Dao implements UserDaoInterface {
    
 
                 String query = "INSERT INTO user(UserId, username, password, FirstName, Lastname,  Email, Phone,  DOB) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+               
+                /*
+                *variable to store password of user to hash
+                
+                */
                 String Pass= u.getPassword();
+                
+                /** string to use fro salting
+                 * 
+                 * 
+                 */
                 String salt = "ferkhki";
+                
+                /**
+                 * 
+                 * variable to store secure generated password
+                 * /
+                 */
          String hashPass = null;
                 ps = con.prepareStatement(query);
                 MessageDigest sha = MessageDigest.getInstance("SHA-256");
