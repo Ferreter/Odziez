@@ -58,19 +58,19 @@ public class UserDaoTest {
     /**
      * Test of findUserByUsernamePassword method, of class UserDao.
      * checking for a user that does exist
-   * 
+   */
     @Test
     public void testFindUserByUsernamePasswordPass() {
         System.out.println("findUserByUsernamePassword");
-        String uname = "kian2ki";
-        String pword = "Password1";  
+        String uname = "Kian_test";
+        String pword = "Password3";  
         UserDao userDao = new UserDao("clothes_shop_test");
-        String expResult = "Kian";
+        String expResult = "Kian_test";
         user result = userDao.findUserByUsernamePassword(uname, pword);
         
-        assertEquals(expResult,result.getFirstName());
+        assertEquals(expResult,result.getUsername());
     }
- */
+ 
     /**
      * Test of findUserByUsername method, of class UserDao.
      */
@@ -107,7 +107,7 @@ public class UserDaoTest {
         System.out.println("addUser");
         String dob = "2001-02-07";
         Date date = Date.valueOf(dob);
-        user u = new user("Kian_test","Password3","kian","Harding","kian2ki@hotmail.com","0838381391",date);
+        user u = new user("Kiantest","Password4","kian","Harding","kian2ki@hotmail.com","0838381391",date);
         UserDao userDao = new UserDao("clothes_shop_test");
         boolean expResult = true;
         boolean result = userDao.addUser(u);
