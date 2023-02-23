@@ -15,7 +15,7 @@
 <jsp:include page="../view/nav.jsp" /> 
 <div class="container" style=" background-color: white; color:black; margin-top: 4em;">
     <div class="row">
-        <div class="col-md-4 text-center">
+        <div class="col-md-2 text-center">
             <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
                 <div class="position-sticky">
                     <div class="list-group list-group-flush mx-3 mt-4">
@@ -79,15 +79,63 @@
             </nav>
             <!-- Sidebar -->
         </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-7">
-            <ul class="list-group">
+        <div class="col-md-1" style="background-color:black"></div>
+        <div class="col-md-9">
+            <ul class="list-group" style="border: none;">
+                <li class="list-group-item" style="border: none;">
+                    <p style="font-size: 21px">Personal Information
+                        <span style="float: right">Edit</span>
+                    </p>
+                    <br><br>
+                    <p style="font-size:17px;">
+                        <strong>First Name </strong><br><%out.print(u.getFirstName());%> <!--bug here that password is being stored as last name and vice versa-->
+                        <br>
+                        <strong>Email :</strong><br> <%out.print(u.getEmail());%><br>
+                        <strong>Phone : </strong><br><%out.print(u.getPhone());%><br>
+                        <strong>DOB : </strong><br><%out.print(u.getDOB());%><br>
+                    </p>
+                </li>
                 <li class="list-group-item">
-                    <h3>Personal Information</h3>
-                    <p>
-                        <strong>Name:</strong> User Name<br>
-                        <strong>Email:</strong> user@example.com<br>
-                        <strong>Location:</strong> City, Country<br>
+                    <h3>Order History</h3>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Date</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>12345</td>
+                                <td>01/01/2021</td>
+                                <td>$100.00</td>
+                                <td>Shipped</td>
+                            </tr>
+                            <tr>
+                                <td>67890</td>
+                                <td>02/01/2021</td>
+                                <td>$200.00</td>
+                                <td>Delivered</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </li>
+            </ul>
+
+            <ul class="list-group" style="border: none;">
+                <li class="list-group-item" style="border: none;">
+                    <p style="font-size: 21px">Personal Information
+                        <span style="float: right">Edit</span>
+                    </p>
+                    <br><br>
+                    <p style="font-size:17px;">
+                        <strong>First Name </strong><br><%out.print(u.getFirstName());%> <!--bug here that password is being stored as last name and vice versa-->
+                        <br>
+                        <strong>Email :</strong><br> <%out.print(u.getEmail());%><br>
+                        <strong>Phone : </strong><br><%out.print(u.getPhone());%><br>
+                        <strong>DOB : </strong><br><%out.print(u.getDOB());%><br>
                     </p>
                 </li>
                 <li class="list-group-item">
@@ -124,9 +172,9 @@
 
 <jsp:include page="../view/footer.jsp" /> 
 <%} else
-{
-    String redirectURL = "../view/LoginNdRegister.jsp";
-    response.sendRedirect(redirectURL);
+    {
+        String redirectURL = "../view/LoginNdRegister.jsp";
+        response.sendRedirect(redirectURL);
 
-}
+    }
 %>
