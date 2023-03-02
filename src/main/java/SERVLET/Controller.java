@@ -75,9 +75,16 @@ public class Controller extends HttpServlet {
                 session.setAttribute("errorMessage", error);
             } else
             {
-                forwardToJsp = "controller/index.jsp";
+                if(userDao.checkIfUserIsAdmin(username)){
+                    forwardToJsp = "controller/admin.jsp";
+                     session.setAttribute("username", username);
+                     session.setAttribute("user", u);
+                }else{
+                    forwardToJsp = "controller/index.jsp";
                 session.setAttribute("username", username);
                 session.setAttribute("user", u);
+                }
+                
             }
         } else
         {

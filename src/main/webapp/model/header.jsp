@@ -22,6 +22,14 @@
         <link href="../css/footer.css" rel="stylesheet" type="text/css"/>
         <!-- Font -->
         <link href="https://fonts.cdnfonts.com/css/bahnschrift" rel="stylesheet">
-        
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+        <script>
+            let icon = document.querySelector('ion-icon');
+            icon.onclick = function () {
+                icon.classList.toggle('active');
+            }
+        </script>
 
     </head>
