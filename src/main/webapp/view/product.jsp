@@ -28,7 +28,7 @@
         <div class="col-lg-3 col-md-3 col-xs-12 ">
             <a href="#" style="color:white;">
                 <div class="text-center p-3">
-                    <img src="../media/products/hmimg.jpg" alt="hoodie" class="product-categorie img-responsive"/>
+                    <img src="../media/products/hmimg.jpg" alt="hoodie" class="product-categorie img-responsive" width="264px" height="396px"/>
                     <p style="padding-top: 5px;  font-size: 22px;" >Palm Angels </p>
                 </div>
             </a>
@@ -92,7 +92,7 @@
         <div class="col-lg-3 col-md-3 col-xs-12 ">
             <a href="#" style="color:white;">
                 <div class="text-center p-3">
-                    <img src="../media/products/hmimg.jpg" alt="hoodie" class="product-categorie img-responsive"/>
+                    <img src="../media/products/hmimg.jpg" alt="hoodie" class="product-categorie img-responsive" width="264px" height="396px" />
                     <p style="padding-top: 5px;  font-size: 22px;" >Palm Angels </p>
                 </div>
             </a>
@@ -127,7 +127,7 @@
         <div class="col-lg-3 col-md-3 col-xs-12 ">
             <a href="#" style="color:white;">
                 <div class="text-center p-3">
-                    <img src="../media/products/hmimg.jpg" alt="hoodie" class="product-categorie img-responsive"/>
+                    <img src="../media/products/hmimg.jpg" alt="hoodie" class="product-categorie img-responsive" width="264px" height="396px" />
                     <p style="padding-top: 5px;  font-size: 22px;" >Palm Angels </p>
                 </div>
             </a>
