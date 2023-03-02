@@ -2,7 +2,7 @@ package DTO;
 
 
 
-public class Cart extends Products{
+public class Cart {
 	private int quantity;
         
 	
