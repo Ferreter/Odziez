@@ -18,4 +18,8 @@ public interface ProductsDaoInterface {
      * @return
      */
     public List<products> ListAllProducts();
+    
+    public products searchbyname(String Name);
+    
+    public products CreateProdut();
 }
