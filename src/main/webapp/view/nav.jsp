@@ -21,7 +21,7 @@
                 <a class="nav-link" href="../controller/index.jsp">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Inspiration</a>
+                <a class="nav-link" href="../view/productsView.jsp">Inspiration</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="../view/product.jsp">News Letter</a>
