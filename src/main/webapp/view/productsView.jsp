@@ -21,6 +21,8 @@
 <p class="text-center" style="font-size: 13px; color:whitesmoke; padding-top: 20px">Odziez.com/allproducts
 </p>
 
+<div class="container-fluid" style="margin-bottom: 50px;" >
+    <div class="row" style='padding:20px;'>
  <%
            
             ProductsDao pdao = new ProductsDao("clothes_shop");
@@ -38,23 +40,20 @@
             %>
  
 
-<div class="container-fluid" style="margin-bottom: 50px;" >
-    <div class="row" style='padding:20px;'>
         <div class="col-md-3">
             <a href="#" style="color:white;" class="text-decoration-none">
                 <div class="fill">
-                    <img src="../media/products/<%=p.getProductId()%>1.jpg" alt="hoodie" class=""/>
+                    <img src="../media/products/<%=p.getProductId()%>1.jpg" alt="hoodie" class="" width="500px" height="500px"/>
                 </div>
-                <p style="padding-top: 5px;  font-size: 18px;" class="" >Product Name: <%=p.getName()%>
+                <p style="padding-top: 5px;  font-size: 18px;" class="" ><%=p.getName()%>
                     <br> <small>
                             <%=p.getCP()%>
-                            <span style='float:right;'>Brand Name: <%=p.getBrand()%></span>
+                            <span style='float:right;'><%=p.getBrand()%></span>
                         </small> </p>
             </a>
         </div>
         
-    </div>
-</div>
+
 <%
                     // Close the loop
                 }
@@ -63,6 +62,7 @@
                 out.println("No customers found. Please try again.");
             }
             %>
-
+    </div>
+</div>
 
 <jsp:include page="../view/footer.jsp" /> 
