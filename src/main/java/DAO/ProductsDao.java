@@ -65,4 +65,58 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             
         
     }
+
+    @Override
+    public products searchbyname(String Name) {
+    Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        products p = null;
+        try {
+            con = this.getConnection();
+
+            String query = "SELECT * FROM products WHERE Name = ?";
+            ps = con.prepareStatement(query);
+            ps.setString(1, Name);
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+   
+                String productId = rs.getString("ProductId");
+                String ProductName = rs.getString("Name");
+                double MRP = rs.getDouble("MRP");
+                double CP = rs.getDouble("CP");
+                String Description = rs.getString("Description");
+                String Category = rs.getString("Category");
+                String Tags = rs.getString("Tags");
+                String Images = rs.getString("Images");
+                String Brand = rs.getString("Brand");
+                
+                p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"),rs.getString("Category"),rs.getString("Tags"),rs.getString("Images"),rs.getString("Brand"));
+            }
+        } catch (SQLException e) {
+            System.err.println("\tA problem occurred during the findUserByUsername method:");
+            System.err.println("\t" + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    freeConnection(con);
+                }
+            } catch (SQLException e) {
+                System.err.println("A problem occurred when closing down the findUserByUsername method:\n" + e.getMessage());
+            }
+        }
+        return p;     // u may be null 
+}
+
+    @Override
+    public products CreateProdut() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
