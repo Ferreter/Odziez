@@ -9,7 +9,7 @@
 <!-- Top Nav Bar with logo-->
 <nav class="navbar-light bg-light">
     <a class="navbar-brand logo" style="padding-left: 45%; font-size: 45px;" href="#">Odziez</a>
-</div>
+
 
 
 </nav>
@@ -95,10 +95,7 @@
             {
         %>
         <ul class="nav navbar-nav navbar-right  ml-auto">
-            <form class="form-inline">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-dark" type="submit">Search</button>
-            </form>
+           
             <li class="nav-item">
                 <a class="nav-link" href="../view/LoginNdRegister.jsp" ><span class="glyphicon glyphicon-log-in"></span>Login</a>
             </li>

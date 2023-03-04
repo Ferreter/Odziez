@@ -74,10 +74,10 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         products p = null;
         try {
             con = this.getConnection();
-
-            String query = "SELECT * FROM products WHERE Name = ?";
+            
+            String query = "SELECT * FROM products WHERE Name like ?";
             ps = con.prepareStatement(query);
-            ps.setString(1, Name);
+            ps.setString(1, Name+"%");
 
             rs = ps.executeQuery();
             if (rs.next()) {

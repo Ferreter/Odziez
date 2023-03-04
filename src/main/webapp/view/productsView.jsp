@@ -18,29 +18,68 @@
 <%@page import="DTO.products"%>
 <%@page import="DAO.ProductsDao"%>
 <%@page import="DAO.ProductsDaoInterface"%>
+
+
+
+<form action="../Controller" method="post">
+                <input class="form-control mr-sm-2" type="text" name="product"  placeholder="Search" aria-label="Search">
+               <div class="pt-1 mb-4">
+                <input class="btn btn-dark btn-lg btn-block" type="submit" name="action" value="SearchProduct">
+                </div>
+            </form>
+
+<div class="container-fluid" style="margin-bottom: 50px;" >
+
 <p class="text-center" style="font-size: 13px; color:whitesmoke; padding-top: 20px">Odziez.com/allproducts
 </p>
 
-<div class="container-fluid" style="margin-bottom: 50px;" >
     <div class="row" style='padding:20px;'>
+        
  <%
            
             ProductsDao pdao = new ProductsDao("clothes_shop");
             ProductsDaoInterface productdao = new ProductsDao("clothes_shop");
+            
+             products p = (products) session.getAttribute("products");
             List<products> products = productdao.ListAllProducts();
-            // If there is a customer list returned (and it's not empty)
+            // If there is a Products list returned (and it's not empty)
+            
             // Carrying out this check avoids the page breaking when the session times out
             
-            if (products != null && !products.isEmpty())
+            if (products != null && !products.isEmpty() && p == null)
             {
-    
+                
+            
                 // Loop to print out all of the rows
-                for (products p : products)
+                for (products Products : products)
                 {
             %>
  
 
         <div class="col-md-3">
+            <a href="#" style="color:white;" class="text-decoration-none">
+                <div class="fill">
+                    <img src="../media/products/<%=Products.getProductId()%>1.jpg" alt="hoodie" class="" width="500px" height="500px"/>
+                </div>
+                <p style="padding-top: 5px;  font-size: 18px;" class="" ><%=Products.getName()%>
+                    <br> <small>
+                            <%=Products.getCP()%>
+                            <span style='float:right;'><%=Products.getBrand()%></span>
+                        </small> </p>
+            </a>
+        </div>
+        
+
+<%
+                    // Close the loop
+                }
+           
+   
+            } else if(p != null)
+            {
+        session.removeAttribute("products");
+%>
+                <div class="col-md-3">
             <a href="#" style="color:white;" class="text-decoration-none">
                 <div class="fill">
                     <img src="../media/products/<%=p.getProductId()%>1.jpg" alt="hoodie" class="" width="500px" height="500px"/>
@@ -52,16 +91,18 @@
                         </small> </p>
             </a>
         </div>
-        
-
-<%
-                    // Close the loop
-                }
-            } else
-            {
-                out.println("No customers found. Please try again.");
-            }
+         
+            
+            <%
+                
+  
+           
+   
+            } else {
+            out.println("No customers found. Please try again.");
+}
             %>
+  
     </div>
 </div>
 
