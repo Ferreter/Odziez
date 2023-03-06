@@ -35,7 +35,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             try {
                 con = getConnection();
 
-                String query = "Select * from products";
+                String query = "SELECT * FROM `products` ORDER BY `products`.`ProductId` DESC";
                 ps = con.prepareStatement(query);
                 rs = ps.executeQuery();
 
@@ -75,10 +75,10 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         products p = null;
         try {
             con = this.getConnection();
-
-            String query = "SELECT * FROM products WHERE Name = ?";
+            
+            String query = "SELECT * FROM products WHERE Name like ?";
             ps = con.prepareStatement(query);
-            ps.setString(1, Name);
+            ps.setString(1, Name+"%");
 
             rs = ps.executeQuery();
             if (rs.next()) {

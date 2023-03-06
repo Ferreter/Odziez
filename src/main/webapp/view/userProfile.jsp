@@ -8,8 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     user u = (user) session.getAttribute("user");
-    if (u != null)
-    {
+    if (u != null) {
 %>
 <jsp:include page="../model/header.jsp" /> 
 <jsp:include page="../view/nav.jsp" /> 
@@ -163,8 +162,7 @@
                                                                                                                                                             </div>
 
                                                                                                                                                             <jsp:include page="../view/footer.jsp" /> 
-                                                                                                                                                            <%} else
-                                                                                                                                                                {
+                                                                                                                                                            <%} else {
                                                                                                                                                                     String redirectURL = "../view/LoginNdRegister.jsp";
                                                                                                                                                                     response.sendRedirect(redirectURL);
 

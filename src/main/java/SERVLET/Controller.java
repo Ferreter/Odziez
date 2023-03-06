@@ -4,7 +4,10 @@
  */
 package SERVLET;
 
+import DAO.ProductsDao;
+import DAO.ProductsDaoInterface;
 import DAO.UserDao;
+import DTO.products;
 import DTO.user;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -51,6 +54,11 @@ public class Controller extends HttpServlet {
                 case "register":
                     forwardToJsp = RegisterPage(request, response);
                     break;
+                    
+                    case"SearchProduct":
+                        forwardToJsp = SearchProduct(request, response);
+                    break;
+                    
             }
 
             response.sendRedirect(forwardToJsp);
@@ -134,6 +142,42 @@ public class Controller extends HttpServlet {
         }
         return forwardToJsp;
     }
+    
+    private String SearchProduct(HttpServletRequest request, HttpServletResponse response) {
+         String forwardToJsp = "controller/index.jsp";
+        HttpSession session = request.getSession(true);
+        String product = request.getParameter("product");
+        
+        
+        if (product != null && !product.isEmpty())
+        {
+            ProductsDao pdao = new ProductsDao("clothes_shop");
+            ProductsDaoInterface productdao = new ProductsDao("clothes_shop");
+             products p = productdao.searchbyname(product);
+            
+            boolean login = false;
+
+            if (p != null)
+            {
+                session.setAttribute("products", p);
+
+                forwardToJsp = "view/productsView.jsp";
+            } else
+            {
+                forwardToJsp = "view/productsView.jsp";
+                String error = "No Products by that name";
+                session.setAttribute("errorMessage", error);
+            }
+        } else
+        {
+            forwardToJsp = "view/productsView.jsp";
+            String error = "No Product Namesupplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
+            session.setAttribute("errorMessage", error);
+        }
+        return forwardToJsp;
+    }
+
+    
   
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -175,3 +219,5 @@ public class Controller extends HttpServlet {
     }// </editor-fold>
 
 }
+
+    

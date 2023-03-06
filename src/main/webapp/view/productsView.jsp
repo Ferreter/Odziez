@@ -4,6 +4,9 @@
     Author     : hkhat
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%-- 
     Document   : product
@@ -12,127 +15,99 @@
 --%>
 <jsp:include page="../model/header.jsp" /> 
 <jsp:include page="../view/nav.jsp" /> 
+<%@page import="DTO.products"%>
+<%@page import="DAO.ProductsDao"%>
+<%@page import="DAO.ProductsDaoInterface"%>
+
+
+
+<form action="../Controller" method="post">
+                <input class="form-control mr-sm-2" type="text" name="product"  placeholder="Search" aria-label="Search">
+               <div class="pt-1 mb-4">
+                <input class="btn btn-dark btn-lg btn-block" type="submit" name="action" value="SearchProduct">
+                </div>
+            </form>
+
+<div class="container-fluid" style="margin-bottom: 50px;" >
 
 <p class="text-center" style="font-size: 13px; color:whitesmoke; padding-top: 20px">Odziez.com/allproducts
 </p>
 
-<div class="container-fluid" style="margin-bottom: 50px;" >
     <div class="row" style='padding:20px;'>
+        
+ <%
+           
+            ProductsDao pdao = new ProductsDao("clothes_shop");
+            ProductsDaoInterface productdao = new ProductsDao("clothes_shop");
+            
+             products p = (products) session.getAttribute("products");
+            List<products> products = productdao.ListAllProducts();
+            // If there is a Products list returned (and it's not empty)
+            
+            // Carrying out this check avoids the page breaking when the session times out
+            
+            if (products != null && !products.isEmpty() && p == null)
+            {
+                
+            
+                // Loop to print out all of the rows
+                for (products Products : products)
+                {
+            %>
+ 
+
         <div class="col-md-3">
             <a href="#" style="color:white;" class="text-decoration-none">
+<<<<<<< Updated upstream
                 <div class="fill">
-                    <img src="../media/products/hmimg4.jpg" alt="hoodie" class=""/>
+                    <img src="../media/products/<%=Products.getProductId()%>1.jpg" alt="hoodie" class="" width="500px" height="500px"/>
                 </div>
-                <p style="padding-top: 5px;  font-size: 18px;" class="" >Product Name lorem ipsum
+                <p style="padding-top: 5px;  font-size: 18px;" class="" ><%=Products.getName()%>
                     <br> <small>
-                            $400
-                            <span style='float:right;'>Brand Name</span>
+                            <%=Products.getCP()%>
+                            <span style='float:right;'><%=Products.getBrand()%></span>
                         </small> </p>
             </a>
         </div>
-        <div class="col-md-3">
+        
+
+<%
+                    // Close the loop
+                }
+           
+   
+            } else if(p != null)
+            {
+        session.removeAttribute("products");
+%>
+                <div class="col-md-3">
             <a href="#" style="color:white;" class="text-decoration-none">
                 <div class="fill">
-                    <img src="../media/products/hmimg5.jpg" alt="hoodie" class=""/>
+=======
+                <div class="fill" style=" background-image: url(../media/products/<%=p.getProductId()%>1.jpg);">
+>>>>>>> Stashed changes
+                    <img src="../media/products/<%=p.getProductId()%>1.jpg" alt="hoodie" class="" width="500px" height="500px"/>
                 </div>
-                <p style="padding-top: 5px;  font-size: 18px;" class="" >Palm Angels 
-                    <small>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                        </svg>
-                    </small> <br> <small>
-                            $400
-                            <span style='float:right;'>Brand Name</span>
-                        </small> </p>
-            </a>
-        </div>
-        <div class="col-md-3">
-            <a href="#" style="color:white;" class="text-decoration-none">
-                <div class="fill">
-                    <img src="../media/products/hmimg4.jpg" alt="hoodie" class=""/>
-                </div>
-                <p style="padding-top: 5px;  font-size: 18px;" class="" >Product Name lorem ipsum
+                <p style="padding-top: 5px;  font-size: 18px;" class="" ><%=p.getName()%>
                     <br> <small>
-                            $400
-                            <span style='float:right;'>Brand Name</span>
+                            <%=p.getCP()%>
+                            <span style='float:right;'><%=p.getBrand()%></span>
                         </small> </p>
             </a>
         </div>
-        <div class="col-md-3">
-            <a href="#" style="color:white;" class="text-decoration-none">
-                <div class="fill">
-                    <img src="../media/products/hmimg5.jpg" alt="hoodie" class=""/>
-                </div>
-                <p style="padding-top: 5px;  font-size: 18px;" class="" >Palm Angels 
-                    <small>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                        </svg>
-                    </small> <br> <small>
-                            $400
-                            <span style='float:right;'>Brand Name</span>
-                        </small> </p>
-            </a>
-        </div>
-        <div class="col-md-3">
-            <a href="#" style="color:white;" class="text-decoration-none">
-                <div class="fill">
-                    <img src="../media/products/hmimg4.jpg" alt="hoodie" class=""/>
-                </div>
-                <p style="padding-top: 5px;  font-size: 18px;" class="" >Product Name lorem ipsum
-                    <br> <small>
-                            $400
-                            <span style='float:right;'>Brand Name</span>
-                        </small> </p>
-            </a>
-        </div>
-        <div class="col-md-3">
-            <a href="#" style="color:white;" class="text-decoration-none">
-                <div class="fill">
-                    <img src="../media/products/hmimg5.jpg" alt="hoodie" class=""/>
-                </div>
-                <p style="padding-top: 5px;  font-size: 18px;" class="" >Palm Angels 
-                    <small>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                        </svg>
-                    </small> <br> <small>
-                            $400
-                            <span style='float:right;'>Brand Name</span>
-                        </small> </p>
-            </a>
-        </div>
-        <div class="col-md-3">
-            <a href="#" style="color:white;" class="text-decoration-none">
-                <div class="fill">
-                    <img src="../media/products/hmimg4.jpg" alt="hoodie" class=""/>
-                </div>
-                <p style="padding-top: 5px;  font-size: 18px;" class="" >Product Name lorem ipsum
-                    <br> <small>
-                            $400
-                            <span style='float:right;'>Brand Name</span>
-                        </small> </p>
-            </a>
-        </div>
-        <div class="col-md-3">
-            <a href="#" style="color:white;" class="text-decoration-none">
-                <div class="fill">
-                    <img src="../media/products/hmimg5.jpg" alt="hoodie" class=""/>
-                </div>
-                <p style="padding-top: 5px;  font-size: 18px;" class="" >Palm Angels 
-                    <small>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                        </svg>
-                    </small> <br> <small>
-                            $400
-                            <span style='float:right;'>Brand Name</span>
-                        </small> </p>
-            </a>
-        </div>
+         
+            
+            <%
+                
+  
+           
+   
+            } else {
+            out.println("No customers found. Please try again.");
+}
+            %>
+  
     </div>
 </div>
-
-
 
 <jsp:include page="../view/footer.jsp" /> 
