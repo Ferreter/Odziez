@@ -5,6 +5,7 @@
 package DAO;
 
 import DTO.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,4 +23,8 @@ public interface ProductsDaoInterface {
     public products searchbyname(String Name);
     
     public products CreateProdut();
+    
+    public double getTotalCartPrice(ArrayList<Cart> cartList);
+    
+    public List<Cart> getCartProducts(ArrayList<Cart> cartList);
 }

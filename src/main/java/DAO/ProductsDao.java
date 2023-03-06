@@ -4,7 +4,8 @@ package DAO;
  *
  * @author Kian
  */
-import DTO.*;
+import DTO.Cart;
+import DTO.products;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
@@ -114,6 +115,102 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         }
         return p;     // u may be null 
 }
+    @Override
+    public double getTotalCartPrice(ArrayList<Cart> cartList) {
+         Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+       
+        double sum = 0;
+        
+        try {
+            
+            con = this.getConnection();
+            if (cartList.size() > 0) {
+                for (Cart item : cartList) {
+                  String  query = "SELECT CP from products where id=?";
+                    ps = con.prepareStatement(query);
+                    ps.setString(1, item.getProductId());
+                    rs = ps.executeQuery();
+                    while (rs.next()) {
+                        sum+=rs.getDouble("CP")*item.getQuantity();
+                    }
+
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("\tA problem occurred during the getTotalCartPrice: " + e.getMessage());
+        }
+        finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    freeConnection(con);
+                }
+            } catch (SQLException e) {
+                System.err.println("A problem occurred when closing down the findUserByUsername method:\n" + e.getMessage());
+            }
+        }
+        return sum;
+    }
+
+   
+    @Override
+    public List<Cart> getCartProducts(ArrayList<Cart> cartList) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+       
+        List<Cart> products = new ArrayList<>();
+        try {
+            con = this.getConnection();
+            if (cartList.size() > 0) {
+                for (Cart item : cartList) {
+                    String query = "SELECT * FROM products where id=?";
+                    ps = con.prepareStatement(query);
+                    ps.setString(1, item.getProductId());
+                    rs = ps.executeQuery();
+                    while (rs.next()) {
+                        Cart row = new Cart();
+                        row.setProductId(rs.getString("ProductId"));
+                        row.setName(rs.getString("Name"));
+                        row.setCategory(rs.getString("Category"));
+                        row.setCP(rs.getDouble("CP")*item.getQuantity());
+                        row.setQuantity(item.getQuantity());
+                        products.add(row);
+                    }
+
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("\tA problem occurred during the getCartProducts: " + e.getMessage());
+        }
+        finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    freeConnection(con);
+                }
+            } catch (SQLException e) {
+                System.err.println("A problem occurred when closing down the findUserByUsername method:\n" + e.getMessage());
+            }
+        }
+        return products;
+    }
 
     @Override
     public products CreateProdut() {
