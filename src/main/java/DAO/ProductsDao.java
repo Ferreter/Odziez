@@ -34,7 +34,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             try {
                 con = getConnection();
 
-                String query = "Select * from products";
+                String query = "SELECT * FROM `products` ORDER BY `products`.`ProductId` DESC";
                 ps = con.prepareStatement(query);
                 rs = ps.executeQuery();
 

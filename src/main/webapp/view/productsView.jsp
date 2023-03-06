@@ -58,6 +58,7 @@
 
         <div class="col-md-3">
             <a href="#" style="color:white;" class="text-decoration-none">
+<<<<<<< Updated upstream
                 <div class="fill">
                     <img src="../media/products/<%=Products.getProductId()%>1.jpg" alt="hoodie" class="" width="500px" height="500px"/>
                 </div>
@@ -82,6 +83,9 @@
                 <div class="col-md-3">
             <a href="#" style="color:white;" class="text-decoration-none">
                 <div class="fill">
+=======
+                <div class="fill" style=" background-image: url(../media/products/<%=p.getProductId()%>1.jpg);">
+>>>>>>> Stashed changes
                     <img src="../media/products/<%=p.getProductId()%>1.jpg" alt="hoodie" class="" width="500px" height="500px"/>
                 </div>
                 <p style="padding-top: 5px;  font-size: 18px;" class="" ><%=p.getName()%>
