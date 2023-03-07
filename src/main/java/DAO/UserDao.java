@@ -78,8 +78,9 @@ public class UserDao extends Dao implements UserDaoInterface {
                 String Email = rs.getString("email");
                 String phone = rs.getString("phone");
                 Date DOB = rs.getDate("DOB");
+                boolean isAdmin = rs.getBoolean("isAdmin");
             
-                u = new user(username, password, FirstName, LastName,Email,phone,DOB);
+                u = new user(username, password, FirstName, LastName,Email,phone,DOB,isAdmin);
             }
         } catch (SQLException e) {
             System.err.println("\tA problem occurred during the findUserByUsernamePassword method:");
@@ -138,8 +139,9 @@ public class UserDao extends Dao implements UserDaoInterface {
                 String Email = rs.getString("email");
                 String phone = rs.getString("phone");
                 Date DOB = rs.getDate("DOB");
-                
-                u = new user(username, password, FirstName, LastName,Email,phone,DOB);
+                boolean isAdmin = rs.getBoolean("isAdmin");
+            
+                u = new user(username, password, FirstName, LastName,Email,phone,DOB,isAdmin);
             }
         } catch (SQLException e) {
             System.err.println("\tA problem occurred during the findUserByUsername method:");
