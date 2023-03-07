@@ -19,33 +19,36 @@
     <div class="container-fluid px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-7">
+                <%ProductsDao pdao = new ProductsDao("clothes_shop");%>
+                <% ProductsDaoInterface productdao = new ProductsDao("clothes_shop");%>
+            <% products p = productdao.searchbyname(request.getParameter("Name"));%>
+                
                 <div class="row">
                     <div class =" col-md-6">
-                        <img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." />
+                        <img src="../media/products/<%=p.getProductId()%>1.jpg" alt="hoodie" class="" width="500px" height="500px"/>
                     </div>
                     <div class =" col-md-6">
-                        <img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." />
+                        <img class="card-img-top mb-5 mb-md-0" src="../media/products/<%=p.getProductId()%>2.jpg"" alt="..." />
                     </div>
                     <div class =" col-md-6" style="margin-top: 20px">
-                        <img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." />
+                        <img class="card-img-top mb-5 mb-md-0" src="../media/products/<%=p.getProductId()%>3.jpg"" alt="..." />
                     </div>
                     <div class =" col-md-6" style="margin-top: 20px">
-                        <img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." />
+                        <img class="card-img-top mb-5 mb-md-0" src="../media/products/<%=p.getProductId()%>4.jpg"" alt="..." />
                     </div>
 
 
                 </div>
 
             </div>
+            
             <div class="col-md-5">
                 <div class="small mb-1">Broken Planet Market</div>
-                <h1 class="display-5 fw-bolder">Product Name</h1>
+                <h1 class="display-5 fw-bolder"><%=p.getName()%></h1>
                 <div class="fs-5 mb-5">
-                    <span>$400.00</span>
+                    <span>$<%=p.getCP()%></span>
                 </div>
-                <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. 
-                    Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea 
-                    iste laborum vero?</p>
+                <p class="lead"><%=p.getDescription()%></p>
                 <p class="lead">Product ID</p>
 
                 <div style="margin-bottom: 20px;">
