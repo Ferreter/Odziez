@@ -28,13 +28,13 @@
                         <img src="../media/products/<%=p.getProductId()%>1.jpg" alt="hoodie" class="" width="500px" height="500px"/>
                     </div>
                     <div class =" col-md-6">
-                        <img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." />
+                        <img class="card-img-top mb-5 mb-md-0" src="../media/products/<%=p.getProductId()%>2.jpg"" alt="..." />
                     </div>
                     <div class =" col-md-6" style="margin-top: 20px">
-                        <img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." />
+                        <img class="card-img-top mb-5 mb-md-0" src="../media/products/<%=p.getProductId()%>3.jpg"" alt="..." />
                     </div>
                     <div class =" col-md-6" style="margin-top: 20px">
-                        <img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." />
+                        <img class="card-img-top mb-5 mb-md-0" src="../media/products/<%=p.getProductId()%>4.jpg"" alt="..." />
                     </div>
 
 
