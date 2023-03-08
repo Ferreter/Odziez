@@ -172,9 +172,8 @@ public class Controller extends HttpServlet {
             if (u != null)
             {
                 
-               user user = new user(u.getUsername(), u.getPassword(), u.getFirstName(), u.getLastName(), u.getEmail(), u.getPhone(), u.getDOB());
+               
                 
-                session.setAttribute("user", user);
                 session.setAttribute("password", u.getPassword());
                 
                 Reset = userDao.updatePass(u);
