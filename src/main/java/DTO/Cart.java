@@ -18,8 +18,8 @@ public class Cart extends products{
     
 
     public Cart() {
+        
     }
-
     
     public int getQuantity() {
         return Quantity;
@@ -29,5 +29,6 @@ public class Cart extends products{
         this.Quantity = Quantity;
     }
 
+   
     
 }

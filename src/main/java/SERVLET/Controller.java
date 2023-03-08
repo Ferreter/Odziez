@@ -7,11 +7,14 @@ package SERVLET;
 import DAO.ProductsDao;
 import DAO.ProductsDaoInterface;
 import DAO.UserDao;
+import DTO.Cart;
 import DTO.products;
 import DTO.user;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
 import java.sql.Date;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -57,6 +60,16 @@ public class Controller extends HttpServlet {
                     
                     case"SearchProduct":
                         forwardToJsp = SearchProduct(request, response);
+                    break;
+                    case"Add to cart":
+                        forwardToJsp = Cart(request, response);
+                    break;
+                    
+                    case"Reset":
+                        forwardToJsp = Reset(request, response);
+                    break;
+                    case"Update":
+                        forwardToJsp = ResetPass(request, response);
                     break;
                     
             }
@@ -143,6 +156,44 @@ public class Controller extends HttpServlet {
         return forwardToJsp;
     }
     
+    private String ResetPass(HttpServletRequest request, HttpServletResponse response) {
+        String forwardToJsp = "controller/index.jsp";
+        HttpSession session = request.getSession(true);
+        
+        String username = request.getParameter("username");
+        
+        if (username != null  && !username.isEmpty() )
+        {
+            UserDao userDao = new UserDao("clothes_shop");
+            user u = userDao.findUserByUsername(username);
+            boolean Reset = false;
+
+            if (u != null)
+            {
+                
+               user user = new user(u.getUsername(), u.getPassword(), u.getFirstName(), u.getLastName(), u.getEmail(), u.getPhone(), u.getDOB());
+                
+                session.setAttribute("user", user);
+                session.setAttribute("password", u.getPassword());
+                
+                Reset = userDao.updatePass(u);
+                forwardToJsp = "view/LoginNdRegister.jsp";
+            } else
+            {
+                forwardToJsp = "controller/error.jsp";
+                String error = "NO User Found <a href=\"LoginNdRegister.jsp\">try again.</a>";
+                session.setAttribute("errorMessage", error);
+            }
+        } else
+        {
+            forwardToJsp = "controller/error.jsp";
+            String error = "No username and/or password and/or email and/or phone and/or firstname and/or lastname supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
+            session.setAttribute("errorMessage", error);
+        }
+        return forwardToJsp;
+    }
+    
+    
     private String SearchProduct(HttpServletRequest request, HttpServletResponse response) {
          String forwardToJsp = "controller/index.jsp";
         HttpSession session = request.getSession(true);
@@ -176,6 +227,106 @@ public class Controller extends HttpServlet {
         }
         return forwardToJsp;
     }
+    
+    private String Reset(HttpServletRequest request, HttpServletResponse response) {
+        String forwardToJsp = "controller/index.jsp";
+        HttpSession session = request.getSession(true);
+        String username = request.getParameter("username");
+        
+        if (username != null  && !username.isEmpty() )
+        {
+            UserDao userDao = new UserDao("clothes_shop");
+            user u = userDao.findUserByUsername(username);
+
+            if (u == null)
+            {
+                //Direct to error page when wrong credentials are provided
+                forwardToJsp = "controller/error.jsp";
+                String error = "User Not Found. Please <a href=\"../view/LoginNdRegister.jsp\">try again.</a>";
+                session.setAttribute("errorMessage", error);
+            } else
+            {
+                if(userDao.checkIfUserIsAdmin(username)){
+                    forwardToJsp = "controller/admin.jsp";
+                     session.setAttribute("username", username);
+                     session.setAttribute("user", u);
+                }else{
+                   
+                    
+                    forwardToJsp = "view/Reset.jsp";
+                session.setAttribute("username", username);
+                
+                }
+                
+            }
+        } else
+        {
+            forwardToJsp = "controller/error.jsp";
+            String error = "No username and/or password supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
+            session.setAttribute("errorMessage", error);
+        }
+        return forwardToJsp;
+    }
+
+   private String Cart(HttpServletRequest request, HttpServletResponse response) {
+       String forwardToJsp = "controller/index.jsp";
+        HttpSession session = request.getSession(true);
+        String id = request.getParameter("id");
+	
+        
+	
+	if (id != null && !id.isEmpty())
+        {
+            
+            
+            
+            ProductsDao pdao = new ProductsDao("clothes_shop");
+            products p = pdao.searchbyId(id);
+           
+            if (p != null){
+                
+            
+            ArrayList<Cart> cartList = new ArrayList<>();
+             id = request.getParameter(p.getProductId());
+            Cart cm = new Cart();
+            cm.setProductId(id);
+            cm.setQuantity(1);
+           
+            ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
+            if (cart_list == null) {
+                cartList.add(cm);
+                session.setAttribute("cart-list", cartList);
+                
+                forwardToJsp ="view/productsView.jsp";
+               
+            } else {
+                cartList = cart_list;
+
+                boolean exist = false;
+                for (Cart c : cart_list) {
+                    if (c.getProductId().equals(id)) {
+                        exist = true;
+                       String error = "<h3 style='color:crimson; text-align: center'>Item Already in Cart. <a href='cart.jsp'>GO to Cart Page</a></h3>";
+                    }
+                }
+            
+                if (!exist) {
+                    cartList.add(cm);
+                    forwardToJsp = "view/cart.jsp";
+                }
+            }
+                
+            }
+        
+   }
+        return forwardToJsp;
+   }
+   
+
+
+
+   
+
 
     
   

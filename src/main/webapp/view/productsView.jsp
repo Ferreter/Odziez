@@ -57,7 +57,11 @@
  
 
         <div class="col-md-3">
+
             <a href="#" style="color:white;" class="text-decoration-none">
+
+           
+
 
                 <div class="fill">
                     <img src="../media/products/<%=Products.getProductId()%>1.jpg" alt="hoodie" class="" width="500px" height="500px"/>
@@ -84,7 +88,7 @@
         session.removeAttribute("products");
 %>
                 <div class="col-md-3">
-            <a href="#" style="color:white;" class="text-decoration-none">
+            <a href="../view/individualProduct.jsp" style="color:white;" class="text-decoration-none">
                 <div class="fill">
 
                 <div class="fill" style=" background-image: url(../media/products/<%=p.getProductId()%>1.jpg);">

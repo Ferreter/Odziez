@@ -53,6 +53,7 @@ public interface UserDaoInterface {
      * database, false otherwise.
      */
     public boolean addUser(user u);
+    public boolean updatePass(user u);
     
     
     public boolean removeUser(user u);

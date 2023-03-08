@@ -25,7 +25,7 @@
                 
                 <div class="row">
                     <div class =" col-md-6">
-                        <img src="../media/products/<%=p.getProductId()%>1.jpg" alt="hoodie" class="" width="500px" height="500px"/>
+                        <img class="card-img-top mb-5 mb-md-0" src="../media/products/<%=p.getProductId()%>1.jpg"" alt="..." />
                     </div>
                     <div class =" col-md-6">
                         <img class="card-img-top mb-5 mb-md-0" src="../media/products/<%=p.getProductId()%>2.jpg"" alt="..." />
@@ -72,13 +72,16 @@
                 </div>
 
                 <div class="">
+                    <form action="../Controller" method="post">
                     <br>
-                    <button style="margin-left: 20px;width:50%" class="btn btn-outline-dark btn-light" type="button">
-                        Add to cart
-                    </button>
+                    <input type="hidden" name="ProductId" value="<%= p.getProductId() %>">
+                    <input style="margin-left: 20px;width:50%" class="btn btn-outline-dark btn-light" type="submit" name="action" value="Add to cart">
+                        
+                    
                     <button style="margin-left: 20px;" class="btn btn-outline-dark btn-light" type="button">
                         Wishlist
                     </button>
+                    </form>
                 </div>
             </div>
         </div>

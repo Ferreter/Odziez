@@ -398,6 +398,92 @@ public class UserDao extends Dao implements UserDaoInterface {
         }
         return removed;
     }
+    
+    
+@Override
+    public boolean updatePass(user u) {
+        Connection con = null;
+        PreparedStatement ps = null;
+         
+        
+        if (findUserByUsername(u.getUsername()) != null) {
+            
+            try {
+                con = this.getConnection();
+                // Create MessageDigest instance for SHA-256
+      
+                   
+                
+                /** Query to update pass
+                 * 
+                 * 
+                 */
 
+                String query = "UPDATE  user SET password = ? WHERE username = ?";
+               
+                /*user password with new password ?
+                *
+                
+                */
+                String Pass= u.getPassword();
+                
+                /** string to use fro salting
+                 * 
+                 * 
+                 */
+                String salt = "ferkhki";
+                
+                /**
+                 * 
+                 * variable to store secure generated password
+                 * /
+                 */
+         String hashPass = null;
+                ps = con.prepareStatement(query);
+//                ps.setString(0, u.getUsername());
+                ps.setString(1, u.getPassword());
+                MessageDigest sha = MessageDigest.getInstance("SHA-256");
+
+      // Add password bytes to digest
+      sha.update(salt.getBytes());
+
+      // Get the hash's bytes
+      byte[] bytes = sha.digest(Pass.getBytes());
+      // This bytes[] has bytes in decimal format. Convert it to hexadecimal format
+      StringBuilder sb = new StringBuilder();
+      for (int i = 0; i < bytes.length; i++) {
+        sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+      }
+      // Get complete hashed password in hex format
+      hashPass = sb.toString();
+     
+      
+                
+                //set hashed password as user password
+                ps.setString(1, hashPass);
+                
+                ps.execute();
+            } catch (SQLException e) {
+                System.err.println("\tA problem occurred during the addUser method:");
+                System.err.println("\t" + e.getMessage());
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                try {
+                    if (ps != null) {
+                        ps.close();
+                    }
+                    if (con != null) {
+                        freeConnection(con);
+                    }
+                } catch (SQLException e) {
+                    System.err.println("A problem occurred when closing down the addUser method:\n" + e.getMessage());
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
   
 }

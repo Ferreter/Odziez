@@ -105,8 +105,9 @@
                                         <div class="pt-1 mb-4">
                                             <input class="btn btn-dark btn-lg btn-block" type="submit" name="action" value="login">
                                         </div>
+                                        <a href="../view/ForgotPassword.jsp">Forgot Password?</a>
                                     </form>
-
+                                    
                                 </div>
                             </div>
                         </div>

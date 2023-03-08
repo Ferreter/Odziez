@@ -22,6 +22,8 @@ public interface ProductsDaoInterface {
     
     public products searchbyname(String Name);
     
+    public products searchbyId(String Name);
+    
     public products CreateProdut();
     
     public double getTotalCartPrice(ArrayList<Cart> cartList);
