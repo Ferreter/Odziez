@@ -21,11 +21,12 @@ public class user {
     private String Email;
     private String Phone;
     private Date DOB;
+    private boolean isAdmin;
 
     public user() {
     }
 
-    public user( String username, String password, String FirstName, String LastName, String Email, String Phone, Date DOB) {
+    public user( String username, String password, String FirstName, String LastName, String Email, String Phone, Date DOB, boolean isAdmin) {
    
         this.username = username;
         this.password = password;
@@ -34,6 +35,7 @@ public class user {
         this.Email = Email;
         this.Phone = Phone;
         this.DOB = DOB;
+        this.isAdmin = isAdmin;
     }
 
 
@@ -91,6 +93,14 @@ public class user {
 
     public void setDOB(Date DOB) {
         this.DOB = DOB;
+    }
+
+    public boolean isIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     @Override

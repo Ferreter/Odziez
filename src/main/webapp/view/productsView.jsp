@@ -4,6 +4,9 @@
     Author     : hkhat
 --%>
 
+<%@page import="DAO.UserDaoInterface"%>
+<%@page import="DAO.UserDao"%>
+<%@page import="DTO.user"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 
@@ -37,25 +40,27 @@
         
  <%
            
+                   
+                   
             ProductsDao pdao = new ProductsDao("clothes_shop");
             ProductsDaoInterface productdao = new ProductsDao("clothes_shop");
-            
-             products p = (products) session.getAttribute("products");
+            UserDao udao = new UserDao("clothes_shop");
+            UserDaoInterface userdao = new UserDao("clothes_shop");
+            user u = (user) session.getAttribute("user");
+            products p = (products) session.getAttribute("products");
             List<products> products = productdao.ListAllProducts();
             // If there is a Products list returned (and it's not empty)
             
             // Carrying out this check avoids the page breaking when the session times out
             
-            if (products != null && !products.isEmpty() && p == null)
-            {
-                
             
+ 
+            if (products != null && !products.isEmpty() && p == null && u==null )
+            {
                 // Loop to print out all of the rows
                 for (products Products : products)
                 {
             %>
- 
-
         <div class="col-md-3">
 
             <a href="#" style="color:white;" class="text-decoration-none">
@@ -76,13 +81,10 @@
                         </small> </p>
             </a>
         </div>
-        
-
 <%
                     // Close the loop
                 }
-           
-   
+     
             } else if(p != null)
             {
         session.removeAttribute("products");
@@ -105,15 +107,75 @@
          
             
             <%
-                
-  
-           
-   
-            } else {
-            out.println("No customers found. Please try again.");
-}
+            }else if( u!=null)
+            {
+
+  // Loop to print out all of the rows
+                for (products Products : products)
+                {
             %>
-  
+ 
+
+        <div class="col-md-3">
+            <a href="#" style="color:white;" class="text-decoration-none">
+
+                <div class="fill">
+                    <img src="../media/products/<%=Products.getProductId()%>1.jpg" alt="hoodie" class="" width="500px" height="500px"/>
+                </div>
+                <p style="padding-top: 5px;  font-size: 18px;" class="" >
+                    <a href="../view/individualProduct.jsp?Name=<%=Products.getName()%>"><%=Products.getName()%></a>
+                   
+                    
+                    <br> <small>
+                            <%=Products.getCP()%>
+                            <span style='float:right;'><%=Products.getBrand()%></span>
+                        </small> </p>
+            </a>
+        </div>
+<%
+                    // Close the loop
+                }
+            }else if( u.isIsAdmin())
+            {
+
+  // Loop to print out all of the rows
+                for (products Products : products)
+                {
+            %>
+ 
+
+        <div class="col-md-3">
+            <a href="#" style="color:white;" class="text-decoration-none">
+
+                <div class="fill">
+                    <img src="../media/products/<%=Products.getProductId()%>1.jpg" alt="hoodie" class="" width="500px" height="500px"/>
+                </div>
+                <p style="padding-top: 5px;  font-size: 18px;" class="" >
+                    <a href="../view/individualProduct.jsp?Name=<%=Products.getName()%>"><%=Products.getName()%></a>
+                   
+                    
+                    <br> <small>
+                            <%=Products.getCP()%>
+                            <span style='float:right;'><%=Products.getBrand()%></span>
+                        </small> </p>
+            </a>
+        </div>
+                 <form action="../Controller" method="post">
+               <div class="pt-1 mb-4">
+                <input class="btn btn-dark btn-lg btn-block" type="Edit" name="action" value="EditProduct">
+                </div>
+            </form>
+        <form action="../Controller" method="post">
+               <div class="pt-1 mb-4">
+                <input class="btn btn-dark btn-lg btn-block" type="Delete" name="action" value="DeleteProduct">
+                </div>
+            </form>   
+<%
+                    // Close the loop
+                }
+}
+
+%>
     </div>
 </div>
 

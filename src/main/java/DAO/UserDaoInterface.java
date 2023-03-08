@@ -1,6 +1,8 @@
 package DAO;
 
-import DTO.user;
+import DTO.*;
+import java.util.List;
+
 
 /**
  *

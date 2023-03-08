@@ -127,6 +127,7 @@ public class Controller extends HttpServlet {
         String password = request.getParameter("password");
         String dob = request.getParameter("dob");
         Date date = Date.valueOf(dob);
+        boolean isAdmin = false;
         if (username != null && password != null && !username.isEmpty() && !password.isEmpty() && firstname != null && lastname != null && !firstname.isEmpty() && !lastname.isEmpty() && email != null && phone != null && !email.isEmpty() && !phone.isEmpty() && dob != null && !dob.isEmpty() )
         {
             UserDao userDao = new UserDao("clothes_shop");
@@ -135,7 +136,7 @@ public class Controller extends HttpServlet {
 
             if (u == null)
             {
-                user user = new user(username, password, firstname, lastname, email, phone, date);
+                user user = new user(username, password, firstname, lastname, email, phone, date,isAdmin);
                 session.setAttribute("username", username);
                 session.setAttribute("user", user);
                 
