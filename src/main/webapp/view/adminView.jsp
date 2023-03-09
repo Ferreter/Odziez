@@ -65,7 +65,7 @@
                 </tr>
 
                 <tr >
-                    <td style="padding:20px;" colspan="2"><input type="submit" value="Submit Form" /></td>
+                    <td style="padding-top:20px;" colspan="2"><input type="submit" value="Submit Form" /></td>
                 </tr>
             </table>
         </form>
@@ -112,22 +112,62 @@
 
             </tbody>
         </table>
-
-
-        <h5><b>Enter id of Product you wish to delete</b></h5>
-        <form action="deleteProduct" method="post">
-            <table>
-                <tr>
-                    <td style="padding-right: 20px;">Product Id: </td>
-                    <td><input type="text" name="title" /></td>
-                </tr>
-
-                <tr >
-                    <td style="padding:20px;" colspan="2"><input type="submit" value="Submit Form" /></td>
-                </tr>
-            </table>
-        </form>
     </div>
+
+    <h5><b>Enter id of Product you wish to delete</b></h5>
+    <form action="deleteProduct" method="post">
+        <table>
+            <tr>
+                <td style="padding-right: 20px;">Product Id: </td>
+                <td><input type="text" name="title" /></td>
+            </tr>
+
+            <tr >
+                <td style="padding-top:20px;" colspan="2"><input type="submit" value="Submit Form" /></td>
+            </tr>
+        </table>
+    </form>
+
+    <h5 style="margin-top:60px;    "><b>Enter Product details for adding product</b></h5>
+    <form action="addProduct" method="post">
+        <table>
+            <tr>
+                <td style="padding-right: 20px;">Product Id: </td>
+                <td><input type="text" name="title" /></td>
+            </tr>
+            <tr>
+                <td style="padding-right: 20px;">Name : </td>
+                <td><input type="text" name="title" /></td>
+            </tr>
+            <tr>
+                <td style="padding-right: 20px;">MRP: </td>
+                <td style="width:200px;"><input type="text" name="title" /></td>
+            </tr>
+            <tr>
+                <td style="padding-right: 20px;">CP: </td>
+                <td><input type="text" name="title" /></td>
+            </tr>
+            <tr>
+                <td style="padding-right: 20px;">Description: </td>
+                <td  colspan="6"><input type="text" name="title" style="height:150px; overflow: auto;width:200px"/></td>
+            </tr>
+            <tr>
+                <td style="padding-right: 20px;">Category: </td>
+                <td><input type="text" name="title" /></td>
+            </tr>
+            <tr>
+                <td style="padding-right: 20px;">Tags: </td>
+                <td><input type="text" name="title" /></td>
+            </tr>
+            <tr>
+                <td style="padding-right: 20px;">Brand: </td>
+                <td><input type="text" name="title" /></td>
+            </tr>
+            <tr>
+                <td style="padding-top:20px;" colspan="2"><input type="submit" value="Submit Form" /></td>
+            </tr>
+        </table>
+    </form>
 </div>
 
 <jsp:include page="../view/footer.jsp" />
