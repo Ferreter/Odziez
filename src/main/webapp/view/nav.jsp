@@ -88,6 +88,18 @@
                 </div>
             </li>
         </ul>
+        <ul class="navbar-nav">
+            <div class="dropdown show">
+                <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   Admin
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="../view/userAdmin.jsp">User</a>
+                    <a class="dropdown-item" href="../view/productAdmin.jsp">Product</a>
+                </div>
+            </div>
+        </ul>
         <!-- Replace this with JSP which is seprate if logged IN or not -->
         <%
             user u = (user) session.getAttribute("user");
@@ -95,7 +107,7 @@
             {
         %>
         <ul class="nav navbar-nav navbar-right  ml-auto">
-           
+
             <li class="nav-item">
                 <a class="nav-link" href="../view/LoginNdRegister.jsp" ><span class="glyphicon glyphicon-log-in"></span>Login</a>
             </li>
