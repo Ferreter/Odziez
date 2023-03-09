@@ -156,6 +156,36 @@ INSERT INTO `user` (`UserId`, `username`, `password`, `FirstName`, `Lastname`, `
 --
 
 --
+-- Table structure for table `review`
+--
+
+CREATE TABLE `review` (
+  `reviewid` int(11) NOT NULL,
+  `ProductId` varchar(255) NOT NULL,
+  `UserId` int(11) NOT NULL,
+  `rating` tinyint(4) NOT NULL,
+  `review` text NOT NULL,
+  `reviewDate` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `review`
+--
+ALTER TABLE `review`
+  ADD PRIMARY KEY (`reviewid`);
+
+--
+-- AUTO_INCREMENT for table `review`
+--
+ALTER TABLE `review`
+  MODIFY `reviewId` int(11) NOT NULL AUTO_INCREMENT;
+
+
+--
 -- Indexes for table `cart`
 --
 ALTER TABLE `cart`
