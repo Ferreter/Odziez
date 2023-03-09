@@ -78,7 +78,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             
             String query = "SELECT * FROM products WHERE Name like ?";
             ps = con.prepareStatement(query);
-            ps.setString(1, Name+"%");
+            ps.setString(1, "%"+Name+"%");
 
             rs = ps.executeQuery();
             if (rs.next()) {

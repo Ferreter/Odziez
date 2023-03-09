@@ -9,11 +9,7 @@
 <jsp:include page="../view/nav.jsp" /> 
 
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Error</title>
-    </head>
+
     <div class="error" style="text-align: center;">
     <body style="background-color: black;color: white;">
         
@@ -39,7 +35,6 @@
 %> 
 
         <div><a href="index.jsp">Back to index</a></div>
-    </body>
     </div>
     <jsp:include page="../view/footer.jsp" /> 
 </html>

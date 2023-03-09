@@ -23,6 +23,22 @@
 <%@page import="DAO.ProductsDaoInterface"%>
 
 
+ <%
+           
+                   
+                   
+            ProductsDao pdao = new ProductsDao("clothes_shop");
+            ProductsDaoInterface productdao = new ProductsDao("clothes_shop");
+            UserDao udao = new UserDao("clothes_shop");
+            UserDaoInterface userdao = new UserDao("clothes_shop");
+            user u = (user) session.getAttribute("user");
+            products p = (products) session.getAttribute("products");
+            List<products> products = productdao.ListAllProducts();
+            // If there is a Products list returned (and it's not empty)
+            
+            // Carrying out this check avoids the page breaking when the session times out
+%>
+
 
 <form action="../Controller" method="post">
                 <input class="form-control mr-sm-2" type="text" name="product"  placeholder="Search" aria-label="Search">
@@ -38,36 +54,16 @@
 
     <div class="row" style='padding:20px;'>
         
- <%
-           
-                   
-                   
-            ProductsDao pdao = new ProductsDao("clothes_shop");
-            ProductsDaoInterface productdao = new ProductsDao("clothes_shop");
-            UserDao udao = new UserDao("clothes_shop");
-            UserDaoInterface userdao = new UserDao("clothes_shop");
-            user u = (user) session.getAttribute("user");
-            products p = (products) session.getAttribute("products");
-            List<products> products = productdao.ListAllProducts();
-            // If there is a Products list returned (and it's not empty)
-            
-            // Carrying out this check avoids the page breaking when the session times out
-            
-            
- 
-            if (products != null && !products.isEmpty() && p == null && u==null )
+
+<%
+ if (products != null && !products.isEmpty() && p == null  )
             {
                 // Loop to print out all of the rows
                 for (products Products : products)
                 {
             %>
         <div class="col-md-3">
-
             <a href="#" style="color:white;" class="text-decoration-none">
-
-           
-
-
                 <div class="fill">
                     <img src="../media/products/<%=Products.getProductId()%>1.jpg" alt="hoodie" class="" width="500px" height="500px"/>
                 </div>
@@ -84,7 +80,7 @@
 <%
                     // Close the loop
                 }
-     
+                //Search 
             } else if(p != null)
             {
         session.removeAttribute("products");
@@ -107,34 +103,7 @@
          
             
             <%
-            }else if( u!=null)
-            {
-
-  // Loop to print out all of the rows
-                for (products Products : products)
-                {
-            %>
- 
-
-        <div class="col-md-3">
-            <a href="#" style="color:white;" class="text-decoration-none">
-
-                <div class="fill">
-                    <img src="../media/products/<%=Products.getProductId()%>1.jpg" alt="hoodie" class="" width="500px" height="500px"/>
-                </div>
-                <p style="padding-top: 5px;  font-size: 18px;" class="" >
-                    <a href="../view/individualProduct.jsp?Name=<%=Products.getName()%>"><%=Products.getName()%></a>
-                   
-                    
-                    <br> <small>
-                            <%=Products.getCP()%>
-                            <span style='float:right;'><%=Products.getBrand()%></span>
-                        </small> </p>
-            </a>
-        </div>
-<%
-                    // Close the loop
-                }
+            
             }else if( u.isIsAdmin())
             {
 

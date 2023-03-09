@@ -21,8 +21,8 @@
             <div class="col-md-7">
                 <%ProductsDao pdao = new ProductsDao("clothes_shop");%>
                 <% ProductsDaoInterface productdao = new ProductsDao("clothes_shop");%>
-            <% products p = productdao.searchbyname(request.getParameter("Name"));%>
-                
+                <% products p = productdao.searchbyname(request.getParameter("Name"));%>
+
                 <div class="row">
                     <div class =" col-md-6">
                         <img class="card-img-top mb-5 mb-md-0" src="../media/products/<%=p.getProductId()%>1.jpg"" alt="..." />
@@ -41,7 +41,7 @@
                 </div>
 
             </div>
-            
+
             <div class="col-md-5">
                 <div class="small mb-1">Broken Planet Market</div>
                 <h1 class="display-5 fw-bolder"><%=p.getName()%></h1>
@@ -73,14 +73,14 @@
 
                 <div class="">
                     <form action="../Controller" method="post">
-                    <br>
-                    <input type="hidden" name="ProductId" value="<%= p.getProductId() %>">
-                    <input style="margin-left: 20px;width:50%" class="btn btn-outline-dark btn-light" type="submit" name="action" value="Add to cart">
-                        
-                    
-                    <button style="margin-left: 20px;" class="btn btn-outline-dark btn-light" type="button">
-                        Wishlist
-                    </button>
+                        <br>
+                        <input type="hidden" name="ProductId" value="<%= p.getProductId()%>">
+                        <input style="margin-left: 20px;width:50%" class="btn btn-outline-dark btn-light" type="submit" name="action" value="Cart">
+
+
+                        <button style="margin-left: 20px;" class="btn btn-outline-dark btn-light" type="button">
+                            Wishlist
+                        </button>
                     </form>
                 </div>
             </div>

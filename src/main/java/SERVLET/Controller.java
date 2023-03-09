@@ -61,7 +61,7 @@ public class Controller extends HttpServlet {
                     case"SearchProduct":
                         forwardToJsp = SearchProduct(request, response);
                     break;
-                    case"Add to cart":
+                    case"Cart":
                         forwardToJsp = Cart(request, response);
                     break;
                     
@@ -135,7 +135,8 @@ public class Controller extends HttpServlet {
             boolean login = false;
 
             if (u == null)
-            {
+            { 
+                
                 user user = new user(username, password, firstname, lastname, email, phone, date,isAdmin);
                 session.setAttribute("username", username);
                 session.setAttribute("user", user);
@@ -247,12 +248,10 @@ public class Controller extends HttpServlet {
             } else
             {
                 if(userDao.checkIfUserIsAdmin(username)){
-                    forwardToJsp = "controller/admin.jsp";
-                     session.setAttribute("username", username);
-                     session.setAttribute("user", u);
+                    forwardToJsp = "controller/error.jsp";
+                String error = "Admins Can't Reset their password this way, Contact the other admins ";
+                session.setAttribute("errorMessage", error);
                 }else{
-                   
-                    
                     forwardToJsp = "view/Reset.jsp";
                 session.setAttribute("username", username);
                 
@@ -269,29 +268,20 @@ public class Controller extends HttpServlet {
     }
 
    private String Cart(HttpServletRequest request, HttpServletResponse response) {
-       String forwardToJsp = "controller/index.jsp";
+       String forwardToJsp = "#";
         HttpSession session = request.getSession(true);
         String id = request.getParameter("id");
-	
-        
-	
+
 	if (id != null && !id.isEmpty())
         {
-            
-            
-            
             ProductsDao pdao = new ProductsDao("clothes_shop");
             products p = pdao.searchbyId(id);
-           
             if (p != null){
-                
-            
             ArrayList<Cart> cartList = new ArrayList<>();
              id = request.getParameter(p.getProductId());
             Cart cm = new Cart();
             cm.setProductId(id);
             cm.setQuantity(1);
-           
             ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
             if (cart_list == null) {
                 cartList.add(cm);
