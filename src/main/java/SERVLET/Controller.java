@@ -139,7 +139,7 @@ public class Controller extends HttpServlet {
             if (u == null)
             { 
                 
-                user user = new user(username, password, firstname, lastname, email, phone, date,isAdmin);
+                user user = new user(0,username, password, firstname, lastname, email, phone, date,isAdmin);
                 session.setAttribute("username", username);
                 session.setAttribute("user", user);
                 
@@ -315,9 +315,9 @@ public class Controller extends HttpServlet {
    }
    
     private String DeleteUser(HttpServletRequest request, HttpServletResponse response) {
-        String forwardToJsp = "#";
+        String forwardToJsp = "view/userAdmin.jsp";
         HttpSession session = request.getSession(true);
-        String username = request.getParameter("username");
+        String username = request.getParameter("userN");
         
         boolean isAdmin = false;
         if (username != null && !username.isEmpty()  )
@@ -332,13 +332,13 @@ public class Controller extends HttpServlet {
                 forwardToJsp = "view/userAdmin.jsp";
             } else
             {
-                forwardToJsp = "view/error.jsp";
+                forwardToJsp = "controller/error.jsp";
                 String error = "prodcut doesnt exists <a href=\"userAdmin.jsp\">try again.</a>";
                 session.setAttribute("errorMessage", error);
             }
         } else
         {
-            forwardToJsp = "view/error.jsp";
+            forwardToJsp = "controller/error.jsp";
             String error = "No username and/or password and/or email and/or phone and/or firstname and/or lastname supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
             session.setAttribute("errorMessage", error);
         }

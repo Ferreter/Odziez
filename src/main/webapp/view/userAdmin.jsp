@@ -66,7 +66,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>1</td>
+                    <td><%=us.getUserId()%></td>
                     <td><%=us.getUsername()%></td>
                     <td><%=us.getFirstName()%></td>
                     <td><%=us.getLastName()%></td>
@@ -87,16 +87,15 @@
         </table>
 </div>
 
-        <h5><b>Enter id of user you wish to delete</b></h5>
+        <h5><b>Enter username of user you wish to delete</b></h5>
         <form action="../Controller" method="post">
             <table>
                 <tr>
-                    <td style="padding-right: 20px;">Enter Id: </td>
-                    <td><input type="text" name="username" /></td>
-                </tr>
-
-                <tr >
-                    <td style="padding-top:20px;" colspan="2"><input type="submit" value="DeleteUser" /></td>
+                    <td style="padding-right: 20px;">Enter Username: </td>
+                    <td><input  type="text" required="" autocomplete="off" id="form2Example17" name="userN"/></td>
+               </tr>
+               <tr>
+                    <td style="padding-top:20px;" colspan="2"><input class="btn btn-dark btn-lg btn-block" type="submit" name="action" value="DeleteUser"></td>
                 </tr>
             </table>
         </form>

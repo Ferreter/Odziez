@@ -71,7 +71,7 @@ public class UserDao extends Dao implements UserDaoInterface {
 
             rs = ps.executeQuery();
             if (rs.next()) {
-
+                int UserId = rs.getInt("UserId");
                 String username = rs.getString("username");
                 String password = rs.getString("lastName");
                 String FirstName = rs.getString("firstName");
@@ -81,7 +81,7 @@ public class UserDao extends Dao implements UserDaoInterface {
                 Date DOB = rs.getDate("DOB");
                 boolean isAdmin = rs.getBoolean("isAdmin");
 
-                u = new user(username, password, FirstName, LastName, Email, phone, DOB, isAdmin);
+                u = new user(UserId,username, password, FirstName, LastName, Email, phone, DOB, isAdmin);
             }
         } catch (SQLException e) {
             System.err.println("\tA problem occurred during the findUserByUsernamePassword method:");
@@ -133,6 +133,7 @@ public class UserDao extends Dao implements UserDaoInterface {
             rs = ps.executeQuery();
             if (rs.next()) {
 
+                int UserId = rs.getInt("UserId");
                 String username = rs.getString("firstName");
                 String password = rs.getString("lastName");
                 String FirstName = rs.getString("username");
@@ -142,7 +143,7 @@ public class UserDao extends Dao implements UserDaoInterface {
                 Date DOB = rs.getDate("DOB");
                 boolean isAdmin = rs.getBoolean("isAdmin");
 
-                u = new user(username, password, FirstName, LastName, Email, phone, DOB, isAdmin);
+                u = new user(UserId,username, password, FirstName, LastName, Email, phone, DOB, isAdmin);
             }
         } catch (SQLException e) {
             System.err.println("\tA problem occurred during the findUserByUsername method:");
@@ -315,11 +316,13 @@ public class UserDao extends Dao implements UserDaoInterface {
         try {
             con = getConnection();
 
-            String query = "SELECT * FROM user ORDER BY `username` DESC";
+            String query = "SELECT * FROM user ORDER BY `UserId` ASC";
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
             
             while (rs.next()) {
+                
+                int UserId = rs.getInt("UserId");
                 String username = rs.getString("firstName");
                 String password = rs.getString("lastName");
                 String FirstName = rs.getString("username");
@@ -329,7 +332,7 @@ public class UserDao extends Dao implements UserDaoInterface {
                 Date DOB = rs.getDate("DOB");
                 boolean isAdmin = rs.getBoolean("isAdmin");
                 
-                u = new user( username, LastName, FirstName, password, Email, phone,DOB,isAdmin);
+                u = new user( UserId,FirstName, LastName, username, password, Email, phone,DOB,isAdmin);
      
                 users.add(u);
             }
@@ -406,7 +409,7 @@ public class UserDao extends Dao implements UserDaoInterface {
     }
 
     @Override
-    public boolean removeUser(String UserId) {
+    public boolean removeUser(String Username) {
         Connection con = null;
         PreparedStatement ps = null;
         boolean removed = false;
@@ -415,7 +418,7 @@ public class UserDao extends Dao implements UserDaoInterface {
 
             String query = "DELETE FROM user WHERE username = ?";
             ps = con.prepareStatement(query);
-            ps.setString(1, UserId);
+            ps.setString(1, Username);
 
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected != 0) {
