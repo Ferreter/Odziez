@@ -85,7 +85,7 @@
  %>
             </tbody>
         </table>
-
+</div>
 
         <h5><b>Enter id of user you wish to delete</b></h5>
         <form action="../Controller" method="post">
@@ -100,7 +100,7 @@
                 </tr>
             </table>
         </form>
-    </div>
+    
 </div>
 
 <jsp:include page="../view/footer.jsp" />
