@@ -8,7 +8,7 @@
 
 <br>
 <br>
-<footer class="bg-light">
+<footer class="bg-light" style="bottom: 0; margin-bottom: 0;">
     <div class="container ">
         <div class="row py-5">
             <div class="col-md-3">

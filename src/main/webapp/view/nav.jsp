@@ -88,6 +88,14 @@
                 </div>
             </li>
         </ul>
+        <%
+             user u = (user) session.getAttribute("user");
+             if(u != null && u.isIsAdmin()){
+             
+            
+        %>    
+        <!-- admin part-->
+        
         <ul class="navbar-nav">
             <div class="dropdown show">
                 <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -102,7 +110,7 @@
         </ul>
         <!-- Replace this with JSP which is seprate if logged IN or not -->
         <%
-            user u = (user) session.getAttribute("user");
+            }
             if (u == null)
             {
         %>

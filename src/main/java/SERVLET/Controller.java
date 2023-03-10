@@ -99,7 +99,7 @@ public class Controller extends HttpServlet {
             } else
             {
                 if(userDao.checkIfUserIsAdmin(username)){
-                    forwardToJsp = "controller/admin.jsp";
+                    forwardToJsp = "controller/index.jsp";
                      session.setAttribute("username", username);
                      session.setAttribute("user", u);
                 }else{
