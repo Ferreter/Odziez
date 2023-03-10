@@ -20,31 +20,22 @@
 <p class="text-center" style="font-size: 13px; color:whitesmoke; padding-top: 20px">Odziez.com/allproducts
 </p>
 <%
-           
-                   
-                   
-            ProductsDao pdao = new ProductsDao("clothes_shop");
-            ProductsDaoInterface productdao = new ProductsDao("clothes_shop");
-            products p = (products) session.getAttribute("products");
-            List<products> products = productdao.ListAllProducts();
-            // If there is a Products list returned (and it's not empty)
-            
-            // Carrying out this check avoids the page breaking when the session times out
+
+    ProductsDao pdao = new ProductsDao("clothes_shop");
+    ProductsDaoInterface productdao = new ProductsDao("clothes_shop");
+    products p = (products) session.getAttribute("products");
+    List<products> products = productdao.ListAllProducts();
+    // If there is a Products list returned (and it's not empty)
+
+    // Carrying out this check avoids the page breaking when the session times out
 %>
 <!-- product section in admin -->
 <div class="container" style="margin-top: 70px">
     <h3>The Product table:</h3>
-    <div style="overflow-y:auto; max-height: 300px;">
+    <div style="overflow-y:auto; max-height: 600px;">
         <table id="dtDynamicVerticalScrollExample" class="table table-striped table-bordered table-sm" cellspacing="0"
                width="100%" style="color:white;max-height: 100px;">
             <thead style="background-color: white;color:black;">
-                <%
- if (products != null && !products.isEmpty() && p == null  )
-            {
-                // Loop to print out all of the rows
-                for (products Products : products)
-                {
-            %>
                 <tr>
                     <th class="th-sm">ProductId
                     </th>
@@ -65,6 +56,13 @@
                 </tr>
             </thead>
             <tbody>
+                <%                    if (products != null && !products.isEmpty() && p == null)
+                    {
+                        // Loop to print out all of the rows
+                        for (products Products : products)
+                        {
+                %>
+
                 <tr>
                     <td><%=Products.getProductId()%></td>
                     <td><%=Products.getName()%></td>
@@ -76,18 +74,18 @@
                     <td><%=Products.getBrand()%></td>
                 </tr>
                 <%
- }
-                //Search 
-            } else{
-            
-                
-}
- %>
+                        }
+                        //Search 
+                    } else
+                    {
+
+                    }
+                %>
             </tbody>
         </table>
     </div>
 
-    <h5><b>Enter id of Product you wish to delete</b></h5>
+    <h5 style="margin-top:60px;"><b>Enter id of Product you wish to delete</b></h5>
     <form action="deleteProduct" method="post">
         <table>
             <tr>
