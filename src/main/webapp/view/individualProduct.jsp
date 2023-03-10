@@ -124,6 +124,12 @@
             </div>
         </div>
     </div>
+                        <!-- Review Section -->
+    <div class="container-fluid" style="margin-bottom: 50px;padding-top:20px; border-top: 2px solid white" >
+        <div class="row">
+            
+        </div>
+    </div>
 </section>
 
 <jsp:include page="../view/footer.jsp" /> 
