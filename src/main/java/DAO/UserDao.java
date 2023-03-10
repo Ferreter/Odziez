@@ -4,10 +4,13 @@ package DAO;
  *
  * @author Kian
  */
+import DTO.products;
 import DTO.user;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,8 +29,8 @@ public class UserDao extends Dao implements UserDaoInterface {
      * @param pword The password of the <code>User</code> being searched for
      *
      * @return The <code>User</code> object matching the supplied information.
-     *         If no match is found for the supplied information, then the
-     *         object will be null.
+     * If no match is found for the supplied information, then the object will
+     * be null.
      */
     @Override
     public user findUserByUsernamePassword(String uname, String pword) {
@@ -39,38 +42,36 @@ public class UserDao extends Dao implements UserDaoInterface {
             con = this.getConnection();
 
             String query = "SELECT * FROM user WHERE username = ? AND password = ?";
-           
+
             //Password to harsh Variable
-             String Pass= pword;
-             // salt String to add to SHA abbreviation of teammate names
-              String salt = "ferkhki";
-              // Variable to store Generated secure hashed and saltes password
-         String hashPass = null;
-                ps = con.prepareStatement(query);
+            String Pass = pword;
+            // salt String to add to SHA abbreviation of teammate names
+            String salt = "ferkhki";
+            // Variable to store Generated secure hashed and saltes password
+            String hashPass = null;
+            ps = con.prepareStatement(query);
 
-                MessageDigest sha = MessageDigest.getInstance("SHA-256");
+            MessageDigest sha = MessageDigest.getInstance("SHA-256");
 
-      // Add password bytes to digest
-      sha.update(salt.getBytes());
+            // Add password bytes to digest
+            sha.update(salt.getBytes());
 
-
-               
-      // Get the hash's bytes
-      byte[] bytes = sha.digest(Pass.getBytes());
-      // This bytes[] has bytes in decimal format. Convert it to hexadecimal format
-      StringBuilder sb = new StringBuilder();
-      for (int i = 0; i < bytes.length; i++) {
-        sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-      }
-      // Get complete hashed password in hex format
-      hashPass = sb.toString();
+            // Get the hash's bytes
+            byte[] bytes = sha.digest(Pass.getBytes());
+            // This bytes[] has bytes in decimal format. Convert it to hexadecimal format
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < bytes.length; i++) {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            // Get complete hashed password in hex format
+            hashPass = sb.toString();
             ps.setString(1, uname);
             //pass hashed password as user password and compare with hashed password in database
             ps.setString(2, hashPass);
 
             rs = ps.executeQuery();
             if (rs.next()) {
-               
+
                 String username = rs.getString("username");
                 String password = rs.getString("lastName");
                 String FirstName = rs.getString("firstName");
@@ -79,8 +80,8 @@ public class UserDao extends Dao implements UserDaoInterface {
                 String phone = rs.getString("phone");
                 Date DOB = rs.getDate("DOB");
                 boolean isAdmin = rs.getBoolean("isAdmin");
-            
-                u = new user(username, password, FirstName, LastName,Email,phone,DOB,isAdmin);
+
+                u = new user(username, password, FirstName, LastName, Email, phone, DOB, isAdmin);
             }
         } catch (SQLException e) {
             System.err.println("\tA problem occurred during the findUserByUsernamePassword method:");
@@ -101,9 +102,9 @@ public class UserDao extends Dao implements UserDaoInterface {
             } catch (SQLException e) {
                 System.err.println("A problem occurred when closing down the findUserByUsernamePassword method:\n" + e.getMessage());
             }
-           
+
         }
-          return u;    // u may be null 
+        return u;    // u may be null 
     }
 
     /**
@@ -114,7 +115,7 @@ public class UserDao extends Dao implements UserDaoInterface {
      * @param uname The username of the User being searched for.
      *
      * @return A <code>User</code> matching the specified username, otherwise
-     *         null.
+     * null.
      */
     @Override
     public user findUserByUsername(String uname) {
@@ -131,7 +132,7 @@ public class UserDao extends Dao implements UserDaoInterface {
 
             rs = ps.executeQuery();
             if (rs.next()) {
-   
+
                 String username = rs.getString("firstName");
                 String password = rs.getString("lastName");
                 String FirstName = rs.getString("username");
@@ -140,8 +141,8 @@ public class UserDao extends Dao implements UserDaoInterface {
                 String phone = rs.getString("phone");
                 Date DOB = rs.getDate("DOB");
                 boolean isAdmin = rs.getBoolean("isAdmin");
-            
-                u = new user(username, password, FirstName, LastName,Email,phone,DOB,isAdmin);
+
+                u = new user(username, password, FirstName, LastName, Email, phone, DOB, isAdmin);
             }
         } catch (SQLException e) {
             System.err.println("\tA problem occurred during the findUserByUsername method:");
@@ -171,7 +172,7 @@ public class UserDao extends Dao implements UserDaoInterface {
      * @param uname The username of the <code>User</code> being searched for.
      *
      * @return True if the <code>User</code> matching the specified username is
-     *         marked as an admin, otherwise false.
+     * marked as an admin, otherwise false.
      */
     @Override
     public boolean checkIfUserIsAdmin(String uname) {
@@ -217,60 +218,55 @@ public class UserDao extends Dao implements UserDaoInterface {
      * @param u The <code>User</code> to be added to the database.
      *
      * @return True if the <code>User</code> was successfully added to the
-     *         database, false otherwise.
+     * database, false otherwise.
      */
-    
     @Override
     public boolean addUser(user u) {
         Connection con = null;
         PreparedStatement ps = null;
-         
-        
+
         if (findUserByUsername(u.getUsername()) == null) {
-            
+
             try {
                 con = this.getConnection();
                 // Create MessageDigest instance for SHA-256
-      
-   
 
                 String query = "INSERT INTO user(UserId, username, password, FirstName, Lastname,  Email, Phone,  DOB) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-               
+
                 /*
                 *variable to store password of user to hash
                 
-                */
-                String Pass= u.getPassword();
-                
-                /** string to use fro salting
-                 * 
-                 * 
+                 */
+                String Pass = u.getPassword();
+
+                /**
+                 * string to use fro salting
+                 *
+                 *
                  */
                 String salt = "ferkhki";
-                
+
                 /**
-                 * 
-                 * variable to store secure generated password
-                 * /
+                 *
+                 * variable to store secure generated password /
                  */
-         String hashPass = null;
+                String hashPass = null;
                 ps = con.prepareStatement(query);
                 MessageDigest sha = MessageDigest.getInstance("SHA-256");
 
-      // Add password bytes to digest
-      sha.update(salt.getBytes());
+                // Add password bytes to digest
+                sha.update(salt.getBytes());
 
-      // Get the hash's bytes
-      byte[] bytes = sha.digest(Pass.getBytes());
-      // This bytes[] has bytes in decimal format. Convert it to hexadecimal format
-      StringBuilder sb = new StringBuilder();
-      for (int i = 0; i < bytes.length; i++) {
-        sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-      }
-      // Get complete hashed password in hex format
-      hashPass = sb.toString();
-     
-      
+                // Get the hash's bytes
+                byte[] bytes = sha.digest(Pass.getBytes());
+                // This bytes[] has bytes in decimal format. Convert it to hexadecimal format
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < bytes.length; i++) {
+                    sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+                }
+                // Get complete hashed password in hex format
+                hashPass = sb.toString();
+
                 ps.setInt(1, 0);
                 ps.setString(2, u.getUsername());
                 //set hashed password as user password
@@ -305,19 +301,73 @@ public class UserDao extends Dao implements UserDaoInterface {
         }
     }
 
-    /**
-     * Edits the users details 
-     * @param u Object U of the user to be edited
-     * @param username The username of user to be edited
-     * @return 
-     */
-    public boolean editUser(user u,String username) {
+    //Admin
+    @Override
+    public List<user> ListAllUsers() {
+
         Connection con = null;
         PreparedStatement ps = null;
-         boolean edit = false;
+        ResultSet rs = null;
+        List<user> users = new ArrayList();
+        user u = null;
+        String products = "";
+
+        try {
+            con = getConnection();
+
+            String query = "SELECT * FROM user ORDER BY `username` DESC";
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                String username = rs.getString("firstName");
+                String password = rs.getString("lastName");
+                String FirstName = rs.getString("username");
+                String LastName = rs.getString("password");
+                String Email = rs.getString("email");
+                String phone = rs.getString("phone");
+                Date DOB = rs.getDate("DOB");
+                boolean isAdmin = rs.getBoolean("isAdmin");
+                
+                u = new user( username, LastName, FirstName, password, Email, phone,DOB,isAdmin);
+     
+                users.add(u);
+            }
+        } catch (SQLException e) {
+            System.out.println("Exception occured in the ViewBooks() method: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    freeConnection(con);
+                }
+            } catch (SQLException e) {
+                System.out.println("Exception occured in the finally section of the ViewBooks() method: " + e.getMessage());
+            }
+        }
+        return users;
+
+    }
+
+    /**
+     * Edits the users details
+     *
+     * @param u Object U of the user to be edited
+     * @param username The username of user to be edited
+     * @return
+     */
+    public boolean editUser(user u, String username) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        boolean edit = false;
         try {
             con = this.getConnection();
-               // update users set firstname = "kia213123n" , phone = "55555555" , lastname = "harding" where lastname = "Meshach"
+            // update users set firstname = "kia213123n" , phone = "55555555" , lastname = "harding" where lastname = "Meshach"
             String query = "UPDATE user SET firstname = ? , lastname = ? , Email = ? , Phone = ? WHERE username = ?";
 
             ps = con.prepareStatement(query);
@@ -328,46 +378,35 @@ public class UserDao extends Dao implements UserDaoInterface {
             ps.setString(4, u.getPhone());
             ps.setString(5, username);
 
-
             // Because this is CHANGING the database, use the executeUpdate method
             ps.executeUpdate();
-             edit = true;
+            edit = true;
             // Find out what the id generated for this entry was
 
-
-        } 
-        catch (SQLException e) 
-        {
+        } catch (SQLException e) {
             System.err.println("\tA problem occurred during the addUser method:");
-            System.err.println("\t"+e.getMessage());
+            System.err.println("\t" + e.getMessage());
 
-        } 
-        finally 
-        {
-            try 
-            {
+        } finally {
+            try {
 
-                if (ps != null) 
-                {
+                if (ps != null) {
                     ps.close();
 
                 }
 
-                if (con != null) 
-                {
+                if (con != null) {
                     freeConnection(con);
                 }
-            } 
-            catch (SQLException e) 
-            {
+            } catch (SQLException e) {
                 System.err.println("A problem occurred when closing down the addUser method:\n" + e.getMessage());
             }
         }
         return edit;
     }
-    
+
     @Override
-    public boolean removeUser(user u) {
+    public boolean removeUser(String UserId) {
         Connection con = null;
         PreparedStatement ps = null;
         boolean removed = false;
@@ -376,7 +415,7 @@ public class UserDao extends Dao implements UserDaoInterface {
 
             String query = "DELETE FROM user WHERE username = ?";
             ps = con.prepareStatement(query);
-            ps.setString(1, u.getUsername());
+            ps.setString(1, UserId);
 
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected != 0) {
@@ -400,70 +439,64 @@ public class UserDao extends Dao implements UserDaoInterface {
         }
         return removed;
     }
-    
-    
-@Override
+
+    @Override
     public boolean updatePass(user u) {
         Connection con = null;
         PreparedStatement ps = null;
-         
-        
+
         if (findUserByUsername(u.getUsername()) != null) {
-            
+
             try {
                 con = this.getConnection();
                 // Create MessageDigest instance for SHA-256
-      
-                   
-                
-                /** Query to update pass
-                 * 
-                 * 
-                 */
 
+                /**
+                 * Query to update pass
+                 *
+                 *
+                 */
                 String query = "UPDATE  user SET password = ? WHERE username = ?";
-               
+
                 /*user password with new password ?
                 *
                 
-                */
-                String Pass= u.getPassword();
-                
-                /** string to use fro salting
-                 * 
-                 * 
+                 */
+                String Pass = u.getPassword();
+
+                /**
+                 * string to use fro salting
+                 *
+                 *
                  */
                 String salt = "ferkhki";
-                
+
                 /**
-                 * 
-                 * variable to store secure generated password
-                 * /
+                 *
+                 * variable to store secure generated password /
                  */
-         String hashPass = null;
+                String hashPass = null;
                 ps = con.prepareStatement(query);
 //                ps.setString(0, u.getUsername());
                 ps.setString(1, u.getPassword());
                 MessageDigest sha = MessageDigest.getInstance("SHA-256");
 
-      // Add password bytes to digest
-      sha.update(salt.getBytes());
+                // Add password bytes to digest
+                sha.update(salt.getBytes());
 
-      // Get the hash's bytes
-      byte[] bytes = sha.digest(Pass.getBytes());
-      // This bytes[] has bytes in decimal format. Convert it to hexadecimal format
-      StringBuilder sb = new StringBuilder();
-      for (int i = 0; i < bytes.length; i++) {
-        sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-      }
-      // Get complete hashed password in hex format
-      hashPass = sb.toString();
-     
-      
-                
+                // Get the hash's bytes
+                byte[] bytes = sha.digest(Pass.getBytes());
+                // This bytes[] has bytes in decimal format. Convert it to hexadecimal format
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < bytes.length; i++) {
+                    sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+                }
+                // Get complete hashed password in hex format
+                hashPass = sb.toString();
+
                 //set hashed password as user password
                 ps.setString(1, hashPass);
-                
+
                 ps.execute();
             } catch (SQLException e) {
                 System.err.println("\tA problem occurred during the addUser method:");
@@ -487,5 +520,5 @@ public class UserDao extends Dao implements UserDaoInterface {
             return false;
         }
     }
-  
+
 }

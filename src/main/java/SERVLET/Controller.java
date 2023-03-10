@@ -54,10 +54,12 @@ public class Controller extends HttpServlet {
                     forwardToJsp = LoginPage(request, response);
 
                     break;
-                case "register":
+                    case "register":
                     forwardToJsp = RegisterPage(request, response);
                     break;
-                    
+                    case "DeleteUser":
+                        forwardToJsp = DeleteUser(request,response);
+                    break;
                     case"SearchProduct":
                         forwardToJsp = SearchProduct(request, response);
                     break;
@@ -312,6 +314,37 @@ public class Controller extends HttpServlet {
         return forwardToJsp;
    }
    
+    private String DeleteUser(HttpServletRequest request, HttpServletResponse response) {
+        String forwardToJsp = "#";
+        HttpSession session = request.getSession(true);
+        String username = request.getParameter("username");
+        
+        boolean isAdmin = false;
+        if (username != null && !username.isEmpty()  )
+        {
+            UserDao userDao = new UserDao("clothes_shop");
+            boolean removed = userDao.removeUser(username);
+            
+
+            if (removed == true)
+            { 
+                
+                forwardToJsp = "view/userAdmin.jsp";
+            } else
+            {
+                forwardToJsp = "view/error.jsp";
+                String error = "prodcut doesnt exists <a href=\"userAdmin.jsp\">try again.</a>";
+                session.setAttribute("errorMessage", error);
+            }
+        } else
+        {
+            forwardToJsp = "view/error.jsp";
+            String error = "No username and/or password and/or email and/or phone and/or firstname and/or lastname supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
+            session.setAttribute("errorMessage", error);
+        }
+        return forwardToJsp;
+    }
+
 
 
 
@@ -359,6 +392,7 @@ public class Controller extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+   
 }
 
     

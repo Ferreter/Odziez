@@ -56,9 +56,10 @@ public interface UserDaoInterface {
      */
     public boolean addUser(user u);
     public boolean updatePass(user u);
+    public List<user> ListAllUsers();
     
     
-    public boolean removeUser(user u);
+    public boolean removeUser(String UserId);
     
 
 }

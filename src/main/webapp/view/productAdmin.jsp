@@ -4,6 +4,7 @@
     Author     : hkhat
 --%>
 
+<%@page import="java.util.List"%>
 <%-- 
     Document   : adminView
     Created on : 6 Mar, 2023, 2:57:54 PM
@@ -18,7 +19,18 @@
 <%@page import="DAO.ProductsDaoInterface"%>
 <p class="text-center" style="font-size: 13px; color:whitesmoke; padding-top: 20px">Odziez.com/allproducts
 </p>
-
+<%
+           
+                   
+                   
+            ProductsDao pdao = new ProductsDao("clothes_shop");
+            ProductsDaoInterface productdao = new ProductsDao("clothes_shop");
+            products p = (products) session.getAttribute("products");
+            List<products> products = productdao.ListAllProducts();
+            // If there is a Products list returned (and it's not empty)
+            
+            // Carrying out this check avoids the page breaking when the session times out
+%>
 <!-- product section in admin -->
 <div class="container" style="margin-top: 70px">
     <h3>The Product table:</h3>
@@ -26,6 +38,13 @@
         <table id="dtDynamicVerticalScrollExample" class="table table-striped table-bordered table-sm" cellspacing="0"
                width="100%" style="color:white;max-height: 100px;">
             <thead style="background-color: white;color:black;">
+                <%
+ if (products != null && !products.isEmpty() && p == null  )
+            {
+                // Loop to print out all of the rows
+                for (products Products : products)
+                {
+            %>
                 <tr>
                     <th class="th-sm">ProductId
                     </th>
@@ -47,16 +66,23 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>1</td>
-                    <td>Harsh</td>
-                    <td>Harsh</td>
-                    <td>Khatri</td>
-                    <td>Email</td>
-                    <td>Phone</td>
-                    <td>DOB</td>
-                    <td>isAdmin</td>
+                    <td><%=Products.getProductId()%></td>
+                    <td><%=Products.getName()%></td>
+                    <td><%=Products.getMRP()%></td>
+                    <td><%=Products.getCP()%></td>
+                    <td><%=Products.getDescription()%></td>
+                    <td><%=Products.getCategory()%></td>
+                    <td><%=Products.getTags()%></td>
+                    <td><%=Products.getBrand()%></td>
                 </tr>
-
+                <%
+ }
+                //Search 
+            } else{
+            
+                
+}
+ %>
             </tbody>
         </table>
     </div>
