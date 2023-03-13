@@ -13,15 +13,15 @@
 <p class="text-center" style="font-size: 13px; color:whitesmoke; padding-top: 20px">Odziez.com/allproducts
 </p>
 
-
+<%ProductsDao pdao = new ProductsDao("clothes_shop");%>
+<% ProductsDaoInterface productdao = new ProductsDao("clothes_shop");%>
+<% products p = productdao.searchbyname(request.getParameter("Name"));%>
 <!-- Product section-->
 <section class="py-5">
     <div class="container-fluid px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-7">
-                <%ProductsDao pdao = new ProductsDao("clothes_shop");%>
-                <% ProductsDaoInterface productdao = new ProductsDao("clothes_shop");%>
-                <% products p = productdao.searchbyname(request.getParameter("Name"));%>
+
 
                 <div class="row">
                     <div class =" col-md-6">
@@ -43,13 +43,13 @@
             </div>
 
             <div class="col-md-5">
-                <div class="small mb-1"><%= p.getBrand() %></div>
+                <div class="small mb-1"><%= p.getBrand()%></div>
                 <h1 class="display-5 fw-bolder"><%=p.getName()%></h1>
                 <div class="fs-5 mb-5">
                     <span>$<%=p.getCP()%></span>
                 </div>
                 <p class="lead"><%=p.getDescription()%></p>
-                <p class="lead">Product ID</p>
+                <p class="lead"><%= p.getProductId()  %></p>
 
                 <div style="margin-bottom: 20px;">
                     <br>
