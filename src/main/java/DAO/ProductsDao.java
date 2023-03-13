@@ -21,68 +21,92 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         super(dbName);
     }
 
+    /**
+     *
+     * Retrieves a list of all products from the 'products' table in the MySQL
+     * database.
+     *
+     * @return a list of products objects representing all products in the
+     * 'products' table.
+     */
     @Override
     public List<products> ListAllProducts() {
-     
-      
-            Connection con = null;
-            PreparedStatement ps = null;
-            ResultSet rs = null;
-            List<products> books = new ArrayList();
-            
-            String products = "";
 
-            try {
-                con = getConnection();
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<products> books = new ArrayList();
 
-                String query = "SELECT * FROM `products` ORDER BY `products`.`ProductId` DESC";
-                ps = con.prepareStatement(query);
-                rs = ps.executeQuery();
+        String products = "";
 
-                while (rs.next()) {
-                    products p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"),rs.getString("Category"),rs.getString("Tags"),rs.getString("Images"),rs.getString("Brand"));
+        try
+        {
+            con = getConnection();
 
-                    books.add(p);
-                }
-            } catch (SQLException e) {
-                System.out.println("Exception occured in the ViewBooks() method: " + e.getMessage());
-            } finally {
-                try {
-                    if (rs != null) {
-                        rs.close();
-                    }
-                    if (ps != null) {
-                        ps.close();
-                    }
-                    if (con != null) {
-                        freeConnection(con);
-                    }
-                } catch (SQLException e) {
-                    System.out.println("Exception occured in the finally section of the ViewBooks() method: " + e.getMessage());
-                }
+            String query = "SELECT * FROM `products` ORDER BY `products`.`ProductId` DESC";
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                products p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Images"), rs.getString("Brand"));
+
+                books.add(p);
             }
+        } catch (SQLException e)
+        {
+            System.out.println("Exception occured in the ViewBooks() method: " + e.getMessage());
+        } finally
+        {
+            try
+            {
+                if (rs != null)
+                {
+                    rs.close();
+                }
+                if (ps != null)
+                {
+                    ps.close();
+                }
+                if (con != null)
+                {
+                    freeConnection(con);
+                }
+            } catch (SQLException e)
+            {
+                System.out.println("Exception occured in the finally section of the ViewBooks() method: " + e.getMessage());
+            }
+        }
         return books;
 
-            
-        
     }
 
+    /**
+     *
+     * Retrieves a product with the specified name from the database.
+     *
+     * @param Name the name of the product to retrieve.
+     * @return the product with the specified name, or null if no product was
+     * found.
+     */
     @Override
     public products searchbyname(String Name) {
-    Connection con = null;
+        Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         products p = null;
-        try {
+        try
+        {
             con = this.getConnection();
-            
+
             String query = "SELECT * FROM products WHERE Name like ?";
             ps = con.prepareStatement(query);
-            ps.setString(1, "%"+Name+"%");
+            ps.setString(1, "%" + Name + "%");
 
             rs = ps.executeQuery();
-            if (rs.next()) {
-   
+            if (rs.next())
+            {
+
                 String productId = rs.getString("ProductId");
                 String ProductName = rs.getString("Name");
                 double MRP = rs.getDouble("MRP");
@@ -92,45 +116,64 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
                 String Tags = rs.getString("Tags");
                 String Images = rs.getString("Images");
                 String Brand = rs.getString("Brand");
-                
-                p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"),rs.getString("Category"),rs.getString("Tags"),rs.getString("Images"),rs.getString("Brand"));
+
+                p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Images"), rs.getString("Brand"));
             }
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             System.err.println("\tA problem occurred during the findUserByUsername method:");
             System.err.println("\t" + e.getMessage());
-        } finally {
-            try {
-                if (rs != null) {
+        } finally
+        {
+            try
+            {
+                if (rs != null)
+                {
                     rs.close();
                 }
-                if (ps != null) {
+                if (ps != null)
+                {
                     ps.close();
                 }
-                if (con != null) {
+                if (con != null)
+                {
                     freeConnection(con);
                 }
-            } catch (SQLException e) {
+            } catch (SQLException e)
+            {
                 System.err.println("A problem occurred when closing down the findUserByUsername method:\n" + e.getMessage());
             }
         }
         return p;     // u may be null 
-}
+    }
+
+    /**
+     *
+     * Searches for a product in the database based on the given product ID.
+     *
+     * @param ProductId the product ID to search for
+     *
+     * @return a products object containing the details of the product found, or
+     * null if no product is found with the given ID
+     */
     @Override
     public products searchbyId(String ProductId) {
-    Connection con = null;
+        Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         products p = null;
-        try {
+        try
+        {
             con = this.getConnection();
-            
+
             String query = "SELECT * FROM products WHERE ProductId like ?";
             ps = con.prepareStatement(query);
-            ps.setString(1, ProductId+"%");
+            ps.setString(1, ProductId + "%");
 
             rs = ps.executeQuery();
-            if (rs.next()) {
-   
+            if (rs.next())
+            {
+
                 String productId = rs.getString("ProductId");
                 String ProductName = rs.getString("Name");
                 double MRP = rs.getDouble("MRP");
@@ -140,121 +183,169 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
                 String Tags = rs.getString("Tags");
                 String Images = rs.getString("Images");
                 String Brand = rs.getString("Brand");
-                
+
             }
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             System.err.println("\tA problem occurred during the findUserByUsername method:");
             System.err.println("\t" + e.getMessage());
-        } finally {
-            try {
-                if (rs != null) {
+        } finally
+        {
+            try
+            {
+                if (rs != null)
+                {
                     rs.close();
                 }
-                if (ps != null) {
+                if (ps != null)
+                {
                     ps.close();
                 }
-                if (con != null) {
+                if (con != null)
+                {
                     freeConnection(con);
                 }
-            } catch (SQLException e) {
+            } catch (SQLException e)
+            {
                 System.err.println("A problem occurred when closing down the findUserByUsername method:\n" + e.getMessage());
             }
         }
         return p;     // u may be null 
-}
+    }
+
+    /**
+     *
+     * Calculates the total price of items in the given cart list based on their
+     * individual prices and quantities.
+     *
+     * @param cartList the list of Cart objects representing the items in the
+     * cart
+     *
+     * @return the total price of all items in the cart
+     */
     @Override
     public double getTotalCartPrice(ArrayList<Cart> cartList) {
-         Connection con = null;
+        Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-       
+
         double sum = 0;
-        
-        try {
-            
+
+        try
+        {
+
             con = this.getConnection();
-            if (cartList.size() > 0) {
-                for (Cart item : cartList) {
-                  String  query = "SELECT CP from products where id=?";
+            if (cartList.size() > 0)
+            {
+                for (Cart item : cartList)
+                {
+                    String query = "SELECT CP from products where id=?";
                     ps = con.prepareStatement(query);
                     ps.setString(1, item.getProductId());
                     rs = ps.executeQuery();
-                    while (rs.next()) {
-                        sum+=rs.getDouble("CP")*item.getQuantity();
+                    while (rs.next())
+                    {
+                        sum += rs.getDouble("CP") * item.getQuantity();
                     }
 
                 }
             }
 
-        } catch (SQLException e) {
-           
+        } catch (SQLException e)
+        {
+
             System.out.println("\tA problem occurred during the getTotalCartPrice: " + e.getMessage());
-        }
-        finally {
-            try {
-                if (rs != null) {
+        } finally
+        {
+            try
+            {
+                if (rs != null)
+                {
                     rs.close();
                 }
-                if (ps != null) {
+                if (ps != null)
+                {
                     ps.close();
                 }
-                if (con != null) {
+                if (con != null)
+                {
                     freeConnection(con);
                 }
-            } catch (SQLException e) {
+            } catch (SQLException e)
+            {
                 System.err.println("A problem occurred when closing down the findUserByUsername method:\n" + e.getMessage());
             }
         }
         return sum;
     }
 
-   
+    /**
+     *
+     * Retrieves a list of products from the database based on the provided cart
+     * list.
+     *
+     * @param cartList an ArrayList of Cart objects containing product IDs and
+     * their respective quantities
+     *
+     * @return a List of Cart objects containing the products retrieved from the
+     * database, along with their names, categories, and costs based on the
+     * provided cart list
+     */
     @Override
     public List<Cart> getCartProducts(ArrayList<Cart> cartList) {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-       
+
         List<Cart> products = new ArrayList<>();
-        try {
+        try
+        {
             con = this.getConnection();
-            if (cartList.size() > 0) {
-                for (Cart item : cartList) {
+            if (cartList.size() > 0)
+            {
+                for (Cart item : cartList)
+                {
                     String query = "SELECT * FROM products where ProductId=?";
                     ps = con.prepareStatement(query);
                     ps.setString(1, item.getProductId());
                     rs = ps.executeQuery();
-                    while (rs.next()) {
+                    while (rs.next())
+                    {
                         Cart row = new Cart();
                         row.setProductId(rs.getString("ProductId"));
                         row.setName(rs.getString("Name"));
                         row.setCategory(rs.getString("Category"));
-                        row.setCP(rs.getDouble("CP")*item.getQuantity());
+                        row.setCP(rs.getDouble("CP") * item.getQuantity());
                         row.setQuantity(item.getQuantity());
                         products.add(row);
-                        
-                        
+
                     }
 
                 }
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             e.printStackTrace();
             System.out.println("\tA problem occurred during the getCartProducts: " + e.getMessage());
-        }
-        finally {
-            try {
-                if (rs != null) {
+        } finally
+        {
+            try
+            {
+                if (rs != null)
+                {
                     rs.close();
                 }
-                if (ps != null) {
+                if (ps != null)
+                {
                     ps.close();
                 }
-                if (con != null) {
+                if (con != null)
+                {
                     freeConnection(con);
                 }
-            } catch (SQLException e) {
+            } catch (SQLException e)
+            {
                 System.err.println("A problem occurred when closing down the findUserByUsername method:\n" + e.getMessage());
             }
         }

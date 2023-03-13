@@ -43,7 +43,7 @@
             </div>
 
             <div class="col-md-5">
-                <div class="small mb-1">Broken Planet Market</div>
+                <div class="small mb-1"><%= p.getBrand() %></div>
                 <h1 class="display-5 fw-bolder"><%=p.getName()%></h1>
                 <div class="fs-5 mb-5">
                     <span>$<%=p.getCP()%></span>
@@ -124,12 +124,99 @@
             </div>
         </div>
     </div>
-                        <!-- Review Section -->
+    <!-- Review Section -->
     <div class="container-fluid" style="margin-bottom: 50px;padding-top:20px; border-top: 2px solid white" >
-        <div class="row">
-            
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <h2 class="text-center mb-4">Product Reviews</h2>
+                    <form>
+                        <div class="form-group">
+                            <label for="review-rating">Rating</label>
+                            <select class="form-control" id="review-rating">
+                                <option value="5">5 Stars</option>
+                                <option value="4">4 Stars</option>
+                                <option value="3">3 Stars</option>
+                                <option value="2">2 Stars</option>
+                                <option value="1">1 Star</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="review-text">Review</label>
+                            <textarea class="form-control" id="review-text" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <h2 class="text-center mb-4">Previous Reviews</h2>
+                    <div class="card border-0 shadow mb-3 " style="color:black">
+                        <div class="card-body">
+                            <h5 class="card-title font-weight-bold mb-3">Jane Doe</h5>
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae tellus sit amet mauris tincidunt bibendum. Aliquam vel nibh id lectus ullamcorper gravida.</p>
+                            <p class="card-text font-italic">5 Stars</p>
+                        </div>
+                    </div>
+                    <div class="card border-0 shadow mb-3" style="color:black">
+                        <div class="card-body">
+                            <h5 class="card-title font-weight-bold mb-3">John Smith</h5>
+                            <p class="card-text">Pellentesque aliquet velit quis eros tincidunt volutpat. Nam sed magna eu nibh hendrerit consectetur ut sit amet tellus.</p>
+                            <p class="card-text font-italic">4 Stars</p>
+                        </div>
+                    </div>
+                    <div class="card border-0 shadow mb-3" style="color:black">
+                        <div class="card-body">
+                            <h5 class="card-title font-weight-bold mb-3">Sarah Johnson</h5>
+                            <p class="card-text">Vivamus vitae arcu nulla. Sed ac nisi quis urna volutpat semper. Donec non tincidunt velit.</p>
+                            <p class="card-text font-italic">3 Stars</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
+    <!-- People who viewed this also saw-->
+    <div class="container-fluid" style="margin-bottom: 50px;padding-top:20px; border-top: 2px solid white" >
+        <p class="lead text-center">People who viewed this also viewed </p>
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-xs-12 ">
+                <a href="#" style="color:white;">
+                    <div class="text-center p-3">
+                        <img src="../media/products/hmimg.jpg" alt="hoodie" class="product-categorie img-responsive" width="264px" height="396px"/>
+                        <p style="padding-top: 5px;  font-size: 22px;" >Palm Angels </p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-3 col-xs-12  ">
+                <a href="#" style="color:white;">
+                    <div class=" text-center p-3">
+                        <img src="../media/products/hmimg3.jpg" alt="hoodie" class="product-categorie img-responsive"/>
+                        <p style="padding-top: 5px;  font-size: 22px;" >Balenciaga </p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-xs-12 ">
+                <div class="text-center p-3">
+                    <a href="#" style="color:white;">
+                        <img src="../media/products/hmimg2.jpg" alt="hoodie" class="product-categorie img-responsive"/>
+                        <p style="padding-top: 5px;  font-size: 22px;" >Broken Planet </p>
+                </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-3 col-xs-12 ">
+                <div class="text-center p-3">
+                    <a href="#" style="color:white;">
+                        <img src="../media/products/hmimg2.jpg" alt="hoodie" class="product-categorie img-responsive"/>
+                        <p style="padding-top: 5px;  font-size: 22px;" >Prada </p>
+                </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
 </section>
 
 <jsp:include page="../view/footer.jsp" /> 

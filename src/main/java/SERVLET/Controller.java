@@ -54,32 +54,52 @@ public class Controller extends HttpServlet {
                     forwardToJsp = LoginPage(request, response);
 
                     break;
-                    case "register":
+                case "register":
                     forwardToJsp = RegisterPage(request, response);
                     break;
-                    case "DeleteUser":
-                        forwardToJsp = DeleteUser(request,response);
+                case "DeleteUser":
+                    forwardToJsp = DeleteUser(request, response);
                     break;
-                    case"SearchProduct":
-                        forwardToJsp = SearchProduct(request, response);
+                case "SearchProduct":
+                    forwardToJsp = SearchProduct(request, response);
                     break;
-                    case"Cart":
-                        forwardToJsp = Cart(request, response);
+                case "Cart":
+                    forwardToJsp = Cart(request, response);
                     break;
-                    
-                    case"Reset":
-                        forwardToJsp = Reset(request, response);
+
+                case "Reset":
+                    forwardToJsp = Reset(request, response);
                     break;
-                    case"Update":
-                        forwardToJsp = ResetPass(request, response);
+                case "Update":
+                    forwardToJsp = ResetPass(request, response);
                     break;
-                    
+
             }
 
             response.sendRedirect(forwardToJsp);
         }
     }
 
+    /**
+     *
+     * This method processes the login request sent by the user. It receives a
+     * HttpServletRequest object and a HttpServletResponse object as parameters,
+     * and returns a String representing the name of the JSP page to forward to.
+     * It retrieves the username and password parameters from the request, and
+     * uses them to check if a user with those credentials exists in the
+     * database. If the user is found, the method sets the "username" and "user"
+     * attributes in the session, and forwards to the "index.jsp" page. If the
+     * user is not found, the method sets an error message in the session, and
+     * forwards to the "error.jsp" page. If the username and/or password
+     * parameters are not supplied, the method sets an error message in the
+     * session, and forwards to the "error.jsp" page.
+     *
+     * @param request the HttpServletRequest object containing the parameters
+     * sent by the user
+     * @param response the HttpServletResponse object containing the response
+     * that will be sent to the user
+     * @return a String representing the name of the JSP page to forward to
+     */
     private String LoginPage(HttpServletRequest request, HttpServletResponse response) {
         String forwardToJsp = "index.jsp";
         HttpSession session = request.getSession(true);
@@ -98,16 +118,18 @@ public class Controller extends HttpServlet {
                 session.setAttribute("errorMessage", error);
             } else
             {
-                if(userDao.checkIfUserIsAdmin(username)){
+                if (userDao.checkIfUserIsAdmin(username))
+                {
                     forwardToJsp = "controller/index.jsp";
-                     session.setAttribute("username", username);
-                     session.setAttribute("user", u);
-                }else{
+                    session.setAttribute("username", username);
+                    session.setAttribute("user", u);
+                } else
+                {
                     forwardToJsp = "controller/index.jsp";
-                session.setAttribute("username", username);
-                session.setAttribute("user", u);
+                    session.setAttribute("username", username);
+                    session.setAttribute("user", u);
                 }
-                
+
             }
         } else
         {
@@ -118,6 +140,19 @@ public class Controller extends HttpServlet {
         return forwardToJsp;
     }
 
+    /**
+     * This method is responsible for handling the registration process of a
+     * user. It takes in the HTTPServletRequest and HTTPServletResponse objects
+     * as parameters, which are used to get the input data from the user and to
+     * send the response back to the user after processing their request.
+     *
+     * @param request the HttpServletRequest object that contains the user's
+     * input data
+     * @param response the HttpServletResponse object that is used to send the
+     * response back to the user
+     * @return a String that represents the path of the JSP page to be forwarded
+     * to after processing the request
+     */
     private String RegisterPage(HttpServletRequest request, HttpServletResponse response) {
         String forwardToJsp = "controller/index.jsp";
         HttpSession session = request.getSession(true);
@@ -130,19 +165,19 @@ public class Controller extends HttpServlet {
         String dob = request.getParameter("dob");
         Date date = Date.valueOf(dob);
         boolean isAdmin = false;
-        if (username != null && password != null && !username.isEmpty() && !password.isEmpty() && firstname != null && lastname != null && !firstname.isEmpty() && !lastname.isEmpty() && email != null && phone != null && !email.isEmpty() && !phone.isEmpty() && dob != null && !dob.isEmpty() )
+        if (username != null && password != null && !username.isEmpty() && !password.isEmpty() && firstname != null && lastname != null && !firstname.isEmpty() && !lastname.isEmpty() && email != null && phone != null && !email.isEmpty() && !phone.isEmpty() && dob != null && !dob.isEmpty())
         {
             UserDao userDao = new UserDao("clothes_shop");
             user u = userDao.findUserByUsernamePassword(username, password);
             boolean login = false;
 
             if (u == null)
-            { 
-                
-                user user = new user(0,username, password, firstname, lastname, email, phone, date,isAdmin);
+            {
+
+                user user = new user(0, username, password, firstname, lastname, email, phone, date, isAdmin);
                 session.setAttribute("username", username);
                 session.setAttribute("user", user);
-                
+
                 login = userDao.addUser(user);
                 forwardToJsp = "controller/index.jsp";
             } else
@@ -159,14 +194,37 @@ public class Controller extends HttpServlet {
         }
         return forwardToJsp;
     }
-    
+
+    /**
+     *
+     * This function handles the reset password functionality, and it's
+     * triggered when the user submits the reset password form. It takes in a
+     * HttpServletRequest object, and a HttpServletResponse object as
+     * parameters, and returns a String value of the JSP page to be forwarded
+     * to. It retrieves the username parameter from the request object and
+     * validates it. If the username is valid and exists in the user database,
+     * it retrieves the user's password from the database, and updates it with a
+     * new random password. The new password is then stored in the user's
+     * session object, and the user is redirected to the login page to log in
+     * with the new password. If the username is not valid or does not exist in
+     * the database, an error message is stored in the session object, and the
+     * user is redirected to an error page. If the username parameter is not
+     * provided, an error message is stored in the session object, and the user
+     * is redirected to an error page.
+     *
+     * @param request the HttpServletRequest object that contains the user's
+     * request information
+     * @param response the HttpServletResponse object that contains the response
+     * that will be sent to the user
+     * @return a String value of the JSP page to be forwarded to.
+     */
     private String ResetPass(HttpServletRequest request, HttpServletResponse response) {
         String forwardToJsp = "controller/index.jsp";
         HttpSession session = request.getSession(true);
-        
+
         String username = request.getParameter("username");
-        
-        if (username != null  && !username.isEmpty() )
+
+        if (username != null && !username.isEmpty())
         {
             UserDao userDao = new UserDao("clothes_shop");
             user u = userDao.findUserByUsername(username);
@@ -174,11 +232,9 @@ public class Controller extends HttpServlet {
 
             if (u != null)
             {
-                
-               
-                
+
                 session.setAttribute("password", u.getPassword());
-                
+
                 Reset = userDao.updatePass(u);
                 forwardToJsp = "view/LoginNdRegister.jsp";
             } else
@@ -195,20 +251,28 @@ public class Controller extends HttpServlet {
         }
         return forwardToJsp;
     }
-    
-    
+
+    /**
+     *
+     * This method handles the search of a product by name.
+     *
+     * @param request the request object containing the search parameter
+     *
+     * @param response the response object to be returned
+     *
+     * @return a String representing the path to the jsp page to forward to
+     */
     private String SearchProduct(HttpServletRequest request, HttpServletResponse response) {
-         String forwardToJsp = "controller/index.jsp";
+        String forwardToJsp = "controller/index.jsp";
         HttpSession session = request.getSession(true);
         String product = request.getParameter("product");
-        
-        
+
         if (product != null && !product.isEmpty())
         {
             ProductsDao pdao = new ProductsDao("clothes_shop");
             ProductsDaoInterface productdao = new ProductsDao("clothes_shop");
-             products p = productdao.searchbyname(product);
-            
+            products p = productdao.searchbyname(product);
+
             boolean login = false;
 
             if (p != null)
@@ -230,13 +294,13 @@ public class Controller extends HttpServlet {
         }
         return forwardToJsp;
     }
-    
+
     private String Reset(HttpServletRequest request, HttpServletResponse response) {
         String forwardToJsp = "controller/index.jsp";
         HttpSession session = request.getSession(true);
         String username = request.getParameter("username");
-        
-        if (username != null  && !username.isEmpty() )
+
+        if (username != null && !username.isEmpty())
         {
             UserDao userDao = new UserDao("clothes_shop");
             user u = userDao.findUserByUsername(username);
@@ -249,16 +313,18 @@ public class Controller extends HttpServlet {
                 session.setAttribute("errorMessage", error);
             } else
             {
-                if(userDao.checkIfUserIsAdmin(username)){
+                if (userDao.checkIfUserIsAdmin(username))
+                {
                     forwardToJsp = "controller/error.jsp";
-                String error = "Admins Can't Reset their password this way, Contact the other admins ";
-                session.setAttribute("errorMessage", error);
-                }else{
+                    String error = "Admins Can't Reset their password this way, Contact the other admins ";
+                    session.setAttribute("errorMessage", error);
+                } else
+                {
                     forwardToJsp = "view/Reset.jsp";
-                session.setAttribute("username", username);
-                
+                    session.setAttribute("username", username);
+
                 }
-                
+
             }
         } else
         {
@@ -269,66 +335,82 @@ public class Controller extends HttpServlet {
         return forwardToJsp;
     }
 
-   private String Cart(HttpServletRequest request, HttpServletResponse response) {
-       String forwardToJsp = "#";
+    private String Cart(HttpServletRequest request, HttpServletResponse response) {
+        String forwardToJsp = "#";
         HttpSession session = request.getSession(true);
         String id = request.getParameter("id");
 
-	if (id != null && !id.isEmpty())
+        if (id != null && !id.isEmpty())
         {
             ProductsDao pdao = new ProductsDao("clothes_shop");
             products p = pdao.searchbyId(id);
-            if (p != null){
-            ArrayList<Cart> cartList = new ArrayList<>();
-             id = request.getParameter(p.getProductId());
-            Cart cm = new Cart();
-            cm.setProductId(id);
-            cm.setQuantity(1);
-            ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
-            if (cart_list == null) {
-                cartList.add(cm);
-                session.setAttribute("cart-list", cartList);
-                
-                forwardToJsp ="view/productsView.jsp";
-               
-            } else {
-                cartList = cart_list;
+            if (p != null)
+            {
+                ArrayList<Cart> cartList = new ArrayList<>();
+                id = request.getParameter(p.getProductId());
+                Cart cm = new Cart();
+                cm.setProductId(id);
+                cm.setQuantity(1);
+                ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
+                if (cart_list == null)
+                {
+                    cartList.add(cm);
+                    session.setAttribute("cart-list", cartList);
 
-                boolean exist = false;
-                for (Cart c : cart_list) {
-                    if (c.getProductId().equals(id)) {
-                        exist = true;
-                       String error = "<h3 style='color:crimson; text-align: center'>Item Already in Cart. <a href='cart.jsp'>GO to Cart Page</a></h3>";
+                    forwardToJsp = "view/productsView.jsp";
+
+                } else
+                {
+                    cartList = cart_list;
+
+                    boolean exist = false;
+                    for (Cart c : cart_list)
+                    {
+                        if (c.getProductId().equals(id))
+                        {
+                            exist = true;
+                            String error = "<h3 style='color:crimson; text-align: center'>Item Already in Cart. <a href='cart.jsp'>GO to Cart Page</a></h3>";
+                        }
+                    }
+
+                    if (!exist)
+                    {
+                        cartList.add(cm);
+                        forwardToJsp = "view/cart.jsp";
                     }
                 }
-            
-                if (!exist) {
-                    cartList.add(cm);
-                    forwardToJsp = "view/cart.jsp";
-                }
+
             }
-                
-            }
-        
-   }
+
+        }
         return forwardToJsp;
-   }
-   
+    }
+
+    /**
+     *
+     * This method handles the request for deleting a user from the database
+     *
+     * @param request The HTTP request from the client
+     *
+     * @param response The HTTP response to send back to the client
+     *
+     * @return A string representing the JSP file to forward to after the
+     * request is processed
+     */
     private String DeleteUser(HttpServletRequest request, HttpServletResponse response) {
         String forwardToJsp = "view/userAdmin.jsp";
         HttpSession session = request.getSession(true);
         String username = request.getParameter("userN");
-        
+
         boolean isAdmin = false;
-        if (username != null && !username.isEmpty()  )
+        if (username != null && !username.isEmpty())
         {
             UserDao userDao = new UserDao("clothes_shop");
             boolean removed = userDao.removeUser(username);
-            
 
             if (removed == true)
-            { 
-                
+            {
+
                 forwardToJsp = "view/userAdmin.jsp";
             } else
             {
@@ -345,14 +427,6 @@ public class Controller extends HttpServlet {
         return forwardToJsp;
     }
 
-
-
-
-   
-
-
-    
-  
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -392,7 +466,4 @@ public class Controller extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-   
 }
-
-    
