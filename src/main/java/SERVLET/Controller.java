@@ -9,11 +9,14 @@ import DAO.ProductsDaoInterface;
 import DAO.UserDao;
 import DTO.Cart;
 import DTO.products;
+import DTO.review;
 import DTO.user;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.System.out;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -59,6 +62,9 @@ public class Controller extends HttpServlet {
                     break;
                 case "DeleteUser":
                     forwardToJsp = DeleteUser(request, response);
+                    break;
+                case "EnterReview":
+                    forwardToJsp = EnterReview(request,response);
                     break;
                 case "SearchProduct":
                     forwardToJsp = SearchProduct(request, response);
@@ -385,6 +391,48 @@ public class Controller extends HttpServlet {
         }
         return forwardToJsp;
     }
+    private String EnterReview(HttpServletRequest request, HttpServletResponse response) {
+         String forwardToJsp = "controller/index.jsp";
+        HttpSession session = request.getSession(true);
+        String ratingstring = request.getParameter("rating");
+        String review = request.getParameter("review");
+        
+         
+        int rating = Integer.parseInt(ratingstring);
+       
+        
+        
+        
+        if (review != null && !review.isEmpty() )
+        {
+            
+            ProductsDao pdao = new ProductsDao("clothes_shop");
+            ProductsDaoInterface productdao = new ProductsDao("clothes_shop");
+            
+            user u = (user) session.getAttribute("user");
+            long millis=System.currentTimeMillis();  
+            java.sql.Date date=new java.sql.Date(millis);         
+            products p = (products) session.getAttribute("product");
+            review r = new review(0, p.getProductId(),u.getUserId(),rating,review,date);
+            boolean entered = productdao.insertReview(r);
+            if(entered==true){
+            forwardToJsp ="/Oziz/view/individualProduct.jsp?Name="+p.getName();
+        }else{
+                forwardToJsp = "view/error.jsp";
+            String error = "No rating and/or review supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
+            session.setAttribute("errorMessage", error);
+            }
+            
+            
+        } else
+        {
+            forwardToJsp = "view/error.jsp";
+            String error = "No rating and/or review supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
+            session.setAttribute("errorMessage", error);
+        }
+        
+        return forwardToJsp;
+    }
 
     /**
      *
@@ -465,5 +513,7 @@ public class Controller extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    
 
 }

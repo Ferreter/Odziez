@@ -185,6 +185,64 @@ public class UserDao extends Dao implements UserDaoInterface {
         }
         return u;     // u may be null 
     }
+    
+    @Override
+    public user findUserById(int id) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        user u = null;
+        try
+        {
+            con = this.getConnection();
+
+            String query = "SELECT * FROM user WHERE UserId = ?";
+            ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+
+            rs = ps.executeQuery();
+            if (rs.next())
+            {
+
+                int UserId = rs.getInt("UserId");
+                String username = rs.getString("firstName");
+                String password = rs.getString("lastName");
+                String FirstName = rs.getString("username");
+                String LastName = rs.getString("password");
+                String Email = rs.getString("email");
+                String phone = rs.getString("phone");
+                Date DOB = rs.getDate("DOB");
+                boolean isAdmin = rs.getBoolean("isAdmin");
+
+                u = new user(UserId, username, password, FirstName, LastName, Email, phone, DOB, isAdmin);
+            }
+        } catch (SQLException e)
+        {
+            System.err.println("\tA problem occurred during the findUserByUsername method:");
+            System.err.println("\t" + e.getMessage());
+        } finally
+        {
+            try
+            {
+                if (rs != null)
+                {
+                    rs.close();
+                }
+                if (ps != null)
+                {
+                    ps.close();
+                }
+                if (con != null)
+                {
+                    freeConnection(con);
+                }
+            } catch (SQLException e)
+            {
+                System.err.println("A problem occurred when closing down the findUserByUsername method:\n" + e.getMessage());
+            }
+        }
+        return u;     // u may be null 
+    }
 
     /**
      * Check if the <code>User</code> matching a specified username has admin

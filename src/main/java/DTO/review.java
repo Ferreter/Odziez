@@ -4,6 +4,7 @@
  */
 package DTO;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 /**
@@ -17,7 +18,19 @@ public class review {
     private int userId;
     private int rating;
     private String review;
-    private LocalDate reviewDate;
+    private Date reviewDate;
+
+    public review() {
+    }
+
+    public review(int reviewId, String productId, int userId, int rating, String review, Date reviewDate) {
+        this.reviewId = reviewId;
+        this.productId = productId;
+        this.userId = userId;
+        this.rating = rating;
+        this.review = review;
+        this.reviewDate = reviewDate;
+    }
 
     public int getReviewId() {
         return reviewId;
@@ -59,11 +72,11 @@ public class review {
         this.review = review;
     }
 
-    public LocalDate getReviewDate() {
+    public Date getReviewDate() {
         return reviewDate;
     }
 
-    public void setReviewDate(LocalDate reviewDate) {
+    public void setReviewDate(Date reviewDate) {
         this.reviewDate = reviewDate;
     }
 }

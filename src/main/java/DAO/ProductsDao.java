@@ -6,6 +6,7 @@ package DAO;
  */
 import DTO.Cart;
 import DTO.products;
+import DTO.review;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
@@ -351,9 +352,114 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         }
         return products;
     }
-
+    
     @Override
     public products CreateProdut() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    
+     
+    @Override
+    public boolean insertReview(review r) {
+         Connection con = null;
+        PreparedStatement ps = null;
+        boolean added = false;
+        try
+        {
+            con = this.getConnection();
+            
+            String query = "INSERT INTO review (reviewId, ProductId, UserId, rating, review, reviewDate) VALUES (?, ?, ?, ?, ?, ?)";
+
+            ps = con.prepareStatement(query);
+
+            ps.setInt(1, r.getReviewId());
+            ps.setString(2, r.getProductId());
+            ps.setInt(3, r.getUserId());
+            ps.setInt(4, r.getRating());
+            ps.setString(5, r.getReview());
+             ps.setDate(6, r.getReviewDate());
+
+            // Because this is CHANGING the database, use the executeUpdate method
+            ps.executeUpdate();
+            added = true;
+            // Find out what the id generated for this entry was
+
+        } catch (SQLException e)
+        {
+            System.err.println("\tA problem occurred during the addUser method:");
+            System.err.println("\t" + e.getMessage());
+
+        } finally
+        {
+            try
+            {
+
+                if (ps != null)
+                {
+                    ps.close();
+
+                }
+
+                if (con != null)
+                {
+                    freeConnection(con);
+                }
+            } catch (SQLException e)
+            {
+                System.err.println("A problem occurred when closing down the addUser method:\n" + e.getMessage());
+            }
+        }
+        return added;
+    }
+    @Override
+    public List<review> getReviewsByProductId(String productId)  {
+   Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<review> reviews = new ArrayList();
+
+        String review = "";
+
+        try
+        {
+            con = getConnection();
+
+            String query = "SELECT * FROM review WHERE productId = ?";
+            ps = con.prepareStatement(query);
+            ps.setString(1,productId);
+            rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                review r = new review(rs.getInt("reviewId"), rs.getString("ProductId"), rs.getInt("UserId"), rs.getInt("rating"), rs.getString("review"), rs.getDate("reviewDate"));
+
+                reviews.add(r);
+            }
+        } catch (SQLException e)
+        {
+            System.out.println("Exception occured in the ViewBooks() method: " + e.getMessage());
+        } finally
+        {
+            try
+            {
+                if (rs != null)
+                {
+                    rs.close();
+                }
+                if (ps != null)
+                {
+                    ps.close();
+                }
+                if (con != null)
+                {
+                    freeConnection(con);
+                }
+            } catch (SQLException e)
+            {
+                System.out.println("Exception occured in the finally section of the ViewBooks() method: " + e.getMessage());
+            }
+        }
+        return reviews;
     }
 }

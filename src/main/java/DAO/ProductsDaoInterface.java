@@ -72,4 +72,8 @@ public interface ProductsDaoInterface {
      * provided cart list
      */
     public List<Cart> getCartProducts(ArrayList<Cart> cartList);
+    
+    public boolean insertReview(review r);
+    
+    public List<review> getReviewsByProductId(String productId);
 }

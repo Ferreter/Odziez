@@ -4,6 +4,11 @@
     Author     : hkhat
 --%>
 
+<%@page import="DAO.UserDaoInterface"%>
+<%@page import="DAO.UserDao"%>
+<%@page import="DTO.user"%>
+<%@page import="DTO.review"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="../model/header.jsp" /> 
 <jsp:include page="../view/nav.jsp" /> 
@@ -16,6 +21,10 @@
 <%ProductsDao pdao = new ProductsDao("clothes_shop");%>
 <% ProductsDaoInterface productdao = new ProductsDao("clothes_shop");%>
 <% products p = productdao.searchbyname(request.getParameter("Name"));%>
+<%session.setAttribute("product", p);%>
+<%UserDao udao = new UserDao("clothes_shop");%>
+<%UserDaoInterface userdao = new UserDao("clothes_shop");%>
+
 <!-- Product section-->
 <section class="py-5">
     <div class="container-fluid px-4 px-lg-5 my-5">
@@ -49,7 +58,7 @@
                     <span>$<%=p.getCP()%></span>
                 </div>
                 <p class="lead"><%=p.getDescription()%></p>
-                <p class="lead"><%= p.getProductId()  %></p>
+                <p class="lead"><%= p.getProductId()%></p>
 
                 <div style="margin-bottom: 20px;">
                     <br>
@@ -125,15 +134,16 @@
         </div>
     </div>
     <!-- Review Section -->
+
     <div class="container-fluid" style="margin-bottom: 50px;padding-top:20px; border-top: 2px solid white" >
         <div class="container py-5">
             <div class="row">
                 <div class="col-md-6 mb-4">
                     <h2 class="text-center mb-4">Product Reviews</h2>
-                    <form>
+                    <form action="../Controller" method="post">
                         <div class="form-group">
                             <label for="review-rating">Rating</label>
-                            <select class="form-control" id="review-rating">
+                            <select class="form-control" id="review-rating" name="rating">
                                 <option value="5">5 Stars</option>
                                 <option value="4">4 Stars</option>
                                 <option value="3">3 Stars</option>
@@ -143,34 +153,45 @@
                         </div>
                         <div class="form-group">
                             <label for="review-text">Review</label>
-                            <textarea class="form-control" id="review-text" rows="3"></textarea>
+                            <textarea class="form-control" id="review-text" name="review" rows="3"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <input class="btn btn-dark btn-lg btn-block" type="submit" name="action" value="EnterReview">
+
                     </form>
                 </div>
                 <div class="col-md-6 mb-4">
+
+                    <%
+
+                        List<review> reviews = productdao.getReviewsByProductId(p.getProductId());
+
+                    %>
+
                     <h2 class="text-center mb-4">Previous Reviews</h2>
+                    <%    if (reviews != null && !reviews.isEmpty()) {
+                            // Loop to print out all of the rows
+                            for (review r : reviews) {
+
+                                int userid = r.getUserId();
+
+                                user u = userdao.findUserById(userid);
+                    %>
                     <div class="card border-0 shadow mb-3 " style="color:black">
                         <div class="card-body">
-                            <h5 class="card-title font-weight-bold mb-3">Jane Doe</h5>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae tellus sit amet mauris tincidunt bibendum. Aliquam vel nibh id lectus ullamcorper gravida.</p>
-                            <p class="card-text font-italic">5 Stars</p>
+                            <h5 class="card-title font-weight-bold mb-3"><%= u.getUsername()%></h5>
+                            <p class="card-text"><%= r.getReview()%></p>
+                            <p class="card-text font-italic"><%= r.getRating()%></p>
                         </div>
                     </div>
-                    <div class="card border-0 shadow mb-3" style="color:black">
-                        <div class="card-body">
-                            <h5 class="card-title font-weight-bold mb-3">John Smith</h5>
-                            <p class="card-text">Pellentesque aliquet velit quis eros tincidunt volutpat. Nam sed magna eu nibh hendrerit consectetur ut sit amet tellus.</p>
-                            <p class="card-text font-italic">4 Stars</p>
-                        </div>
-                    </div>
-                    <div class="card border-0 shadow mb-3" style="color:black">
-                        <div class="card-body">
-                            <h5 class="card-title font-weight-bold mb-3">Sarah Johnson</h5>
-                            <p class="card-text">Vivamus vitae arcu nulla. Sed ac nisi quis urna volutpat semper. Donec non tincidunt velit.</p>
-                            <p class="card-text font-italic">3 Stars</p>
-                        </div>
-                    </div>
+                    <%
+                            }
+                        } else {
+                        %>
+                        <p class="card-text">no reviews for this product yet</p>
+                        <%
+                        }
+
+                    %>
                 </div>
             </div>
         </div>

@@ -87,5 +87,7 @@ public interface UserDaoInterface {
      * @return true if the user was successfully removed, false otherwise
      */
     public boolean removeUser(String UserId);
+    
+    public user findUserById(int id);
 
 }
