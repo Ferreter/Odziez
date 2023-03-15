@@ -100,42 +100,42 @@
     </form>
 
     <h5 style="margin-top:60px;    "><b>Enter Product details for adding product</b></h5>
-    <form action="addProduct" method="post">
+    <form action="../Controller" method="post">
         <table>
             <tr>
                 <td style="padding-right: 20px;">Product Id: </td>
-                <td><input type="text" name="title" /></td>
+                <td><input type="text" name="ProductId" /></td>
             </tr>
             <tr>
                 <td style="padding-right: 20px;">Name : </td>
-                <td><input type="text" name="title" /></td>
+                <td><input type="text" name="Name" /></td>
             </tr>
             <tr>
                 <td style="padding-right: 20px;">MRP: </td>
-                <td style="width:200px;"><input type="text" name="title" /></td>
+                <td style="width:200px;"><input type="number" name="MRP" /></td>
             </tr>
             <tr>
                 <td style="padding-right: 20px;">CP: </td>
-                <td><input type="text" name="title" /></td>
+                <td><input type="number" name="CP" /></td>
             </tr>
             <tr>
                 <td style="padding-right: 20px;">Description: </td>
-                <td  colspan="6"><input type="text" name="title" style="height:150px; overflow: auto;width:200px"/></td>
+                <td  colspan="6"><input type="text" name="Description" style="height:150px; overflow: auto;width:200px"/></td>
             </tr>
             <tr>
                 <td style="padding-right: 20px;">Category: </td>
-                <td><input type="text" name="title" /></td>
+                <td><input type="text" name="Category" /></td>
             </tr>
             <tr>
                 <td style="padding-right: 20px;">Tags: </td>
-                <td><input type="text" name="title" /></td>
+                <td><input type="text" name="Tags" /></td>
             </tr>
             <tr>
                 <td style="padding-right: 20px;">Brand: </td>
-                <td><input type="text" name="title" /></td>
+                <td><input type="text" name="Brand" /></td>
             </tr>
             <tr>
-                <td style="padding-top:20px;" colspan="2"><input type="submit" value="Submit Form" /></td>
+                <td style="padding-top:20px;" colspan="2"><input type="submit" name="action" value="addProduct"/></td>
             </tr>
         </table>
     </form>

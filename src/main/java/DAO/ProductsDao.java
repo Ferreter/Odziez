@@ -462,4 +462,116 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         }
         return reviews;
     }
+
+    @Override
+    public boolean AddProduct(products p) {
+        Connection con = null;
+        PreparedStatement ps = null;
+
+        if (findUserByProductId(p.getProductId()) == null)
+        {
+
+            try
+            {
+                con = this.getConnection();
+               
+
+                String query = "INSERT INTO products (ProductId, Name, MRP, CP, Description, Category, Tags, Images, Brand) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+                ps.setString(1, p.getProductId());
+                ps.setString(2, p.getName());
+                ps.setDouble(3, p.getMRP());
+                ps.setDouble(4, p.getCP());
+                ps.setString(5, p.getDescription());
+                ps.setString(6, p.getCategory());
+                ps.setString(7, p.getTags());
+                ps.setString(8, p.getImages());
+                ps.setString(9, p.getBrand());
+
+                ps.execute();
+            } catch (SQLException e)
+            {
+                System.err.println("\tA problem occurred during the addUser method:");
+                System.err.println("\t" + e.getMessage());
+            } finally
+            {
+                try
+                {
+                    if (ps != null)
+                    {
+                        ps.close();
+                    }
+                    if (con != null)
+                    {
+                        freeConnection(con);
+                    }
+                } catch (SQLException e)
+                {
+                    System.err.println("A problem occurred when closing down the addUser method:\n" + e.getMessage());
+                }
+            }
+            return true;
+        } else
+        {
+            return false;
+        }
+    }
+    
+    @Override
+    public products findUserByProductId(String pId) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        products p = null;
+        try
+        {
+            con = this.getConnection();
+
+            String query = "SELECT * FROM products WHERE ProductId = ?";
+            ps = con.prepareStatement(query);
+            ps.setString(1, pId);
+
+            rs = ps.executeQuery();
+            if (rs.next())
+            {
+
+                String ProductId = rs.getString("ProductId");
+                String Name = rs.getString("Name");
+                double MRP = rs.getDouble("MRP");
+                double CP = rs.getDouble("CP");
+                String Description = rs.getString("Description");
+                String Category = rs.getString("Category");
+                String Tags = rs.getString("Tags");
+                String Images = rs.getString("	Images");
+                String Brand = rs.getString("Brand");
+
+                p = new products(ProductId, Name, MRP, CP, Description, Category, Tags, Images, Brand);
+            }
+        } catch (SQLException e)
+        {
+            System.err.println("\tA problem occurred during the findUserByUsername method:");
+            System.err.println("\t" + e.getMessage());
+        } finally
+        {
+            try
+            {
+                if (rs != null)
+                {
+                    rs.close();
+                }
+                if (ps != null)
+                {
+                    ps.close();
+                }
+                if (con != null)
+                {
+                    freeConnection(con);
+                }
+            } catch (SQLException e)
+            {
+                System.err.println("A problem occurred when closing down the findUserByUsername method:\n" + e.getMessage());
+            }
+        }
+        return p;     // u may be null 
+    }
 }
