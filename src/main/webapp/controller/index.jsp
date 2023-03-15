@@ -12,9 +12,14 @@
 
 <%
     user u = (user) session.getAttribute("user");
+   
     if (u == null)
     {
+    
+    
+    
 %>
+
 <jsp:include page="../model/header.jsp" /> 
 <jsp:include page="../view/nav.jsp" /> 
 <jsp:include page="../view/IndexBanner.jsp" /> 

@@ -4,6 +4,7 @@
  */
 package SERVLET;
 
+import DAO.CartDao;
 import DAO.ProductsDao;
 import DAO.ProductsDaoInterface;
 import DAO.UserDao;
@@ -372,14 +373,13 @@ public class Controller extends HttpServlet {
         {
             ProductsDao pdao = new ProductsDao("clothes_shop");
             products p = pdao.searchbyId(id);
+            
+            CartDao cartdao = new CartDao("clothes_shop");
 
            
             if (p != null){
-                
-            
             
                 ArrayList<Cart> cartList = new ArrayList<>();
-                id = request.getParameter(p.getProductId());
                 Cart cm = new Cart();
                 cm.setProductId(id);
                 cm.setQuantity(1);
@@ -388,7 +388,7 @@ public class Controller extends HttpServlet {
                 {
                     cartList.add(cm);
                     session.setAttribute("cart-list", cartList);
-
+                    boolean added = cartdao.addCart(cm);
 
                     forwardToJsp = "view/productsView.jsp";
 

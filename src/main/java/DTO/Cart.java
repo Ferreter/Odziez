@@ -14,7 +14,7 @@ import java.util.Objects;
 public class Cart extends products{
 
     
-     private String username;
+     private int userId;
     private String ProductId;
     private int Quantity;
     private double Price;
@@ -26,8 +26,8 @@ public class Cart extends products{
    
     
 }
-    public Cart(String username, String ProductId, int Quantity, double Price, double Total){
-        this.username = username;
+    public Cart(int userId, String ProductId, int Quantity, double Price, double Total){
+        this.userId = userId;
         this.ProductId = ProductId;
         this.Quantity = Quantity;
         this.Price = Price;
@@ -37,12 +37,12 @@ public class Cart extends products{
     }
    
 
-    public String getUsername() {
-        return username;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getProductId() {

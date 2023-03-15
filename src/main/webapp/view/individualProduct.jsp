@@ -84,26 +84,15 @@
 
                 <div class="">
 
-                    <form action="../Controller?id= <%=p.getProductId()%>" method="post">
+                    <form action="../Controller?id=<%=p.getProductId()%>" method="post">
                     <br>
                     <input type="hidden" name="ProductId" value="<%= p.getProductId() %>">
                     <input type="number" name="quantity" min="1" value="1">
-                    <input style="margin-left: 20px;width:50%" class="btn btn-outline-dark btn-light" type="submit" name="action" value="Add to cart">
+                    <input style="margin-left: 20px;width:50%" class="btn btn-outline-dark btn-light" type="submit" name="action" value="Cart">
                         
                     
                     <button style="margin-left: 20px;" class="btn btn-outline-dark btn-light" type="button">
                         Wishlist
-                    </button>
-
-                    <form action="../Controller" method="post">
-                        <br>
-                        <input type="hidden" name="ProductId" value="<%= p.getProductId()%>">
-                        <input style="margin-left: 20px;width:50%" class="btn btn-outline-dark btn-light" type="submit" name="action" value="Cart">
-
-
-                        <button style="margin-left: 20px;" class="btn btn-outline-dark btn-light" type="button">
-                            Wishlist
-                        </button>
 
                     </form>
                 </div>

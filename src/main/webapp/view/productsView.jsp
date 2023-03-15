@@ -69,6 +69,7 @@
 
 
                     <br> <small>
+                            
                             <%=Products.getCP()%>
                             <span style='float:right;'><%=Products.getBrand()%></span>
                         </small> </p>

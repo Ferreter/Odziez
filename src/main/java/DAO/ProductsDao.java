@@ -169,22 +169,14 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
 
             String query = "SELECT * FROM products WHERE ProductId like ?";
             ps = con.prepareStatement(query);
-            ps.setString(1, ProductId + "%");
+            ps.setString(1, "%" + ProductId + "%");
 
             rs = ps.executeQuery();
             if (rs.next())
             {
 
-                String productId = rs.getString("ProductId");
-                String ProductName = rs.getString("Name");
-                double MRP = rs.getDouble("MRP");
-                double CP = rs.getDouble("CP");
-                String Description = rs.getString("Description");
-                String Category = rs.getString("Category");
-                String Tags = rs.getString("Tags");
-                String Images = rs.getString("Images");
-                String Brand = rs.getString("Brand");
-
+                p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Images"), rs.getString("Brand"));
+            
             }
         } catch (SQLException e)
         {

@@ -5,6 +5,7 @@
 package DAO;
 
 import DTO.Cart;
+import java.util.List;
 
 /**
  *
@@ -14,6 +15,8 @@ public interface CartDaoInterface {
   
     
      public boolean addCart(Cart u);
+     
+     public List<Cart> ListAllCart(int userid);
     
 }
 

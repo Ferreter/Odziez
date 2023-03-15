@@ -7,6 +7,8 @@
 
 
 
+<%@page import="DTO.products"%>
+<%@page import="DAO.CartDao"%>
 <%@page import="DAO.ProductsDao"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
@@ -22,17 +24,16 @@
 DecimalFormat deciForm = new DecimalFormat("#.##");
 request.setAttribute("deciForm", deciForm);
 
-ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
-List<Cart> cartProduct = null;
-if (cart_list != null) {
+
+        CartDao cartdao = new CartDao("clothes_shop");
+
 	ProductsDao pDao = new ProductsDao("clothes_shop");
-	cartProduct = pDao.getCartProducts(cart_list);
-	double total = pDao.getTotalCartPrice(cart_list);
-	request.setAttribute("total", total);
-	request.setAttribute("cart_list", cart_list);
+        user u = (user) session.getAttribute("user");
+        List<Cart> cartProduct = cartdao.ListAllCart(u.getUserId());
+	
 
 
-    }
+    
 
 %>
 <style type="text/css">
@@ -58,22 +59,23 @@ font-size: 25px;
 				<tr>
 					<th scope="col">Name</th>
 					<th scope="col">Category</th>
-					<th scope="col">Price</th>
+					<th scope="col">Price </th>
 					
 				</tr>
 			</thead>
 			<tbody>
 				<%
-				if (cart_list != null) {
+				if (cartProduct != null) {
 					for (Cart item : cartProduct) {
+                                        products p =  pDao.searchbyId(item.getProductId());
 				%>
 				<tr>
-					<td><%=item.getName() %></td>
-					<td><%=item.getCategory()%></td>
-					<td><%= deciForm.format(item.getCP())%></td>
+					<td><%=p.getName() %></td>
+					<td><%=p.getCategory()%></td>
+					<td><%= deciForm.format(p.getCP())%></td>
 					<td>
 						<form action="order" method="post" class="form-inline">
-						<input type="hidden" name="id" value="<%=item.getProductId()%>" class="form-input">
+						<input type="hidden" name="id" value="<%=p.getProductId()%>" class="form-input">
 							<div class="form-group d-flex justify-content-between">
 								
 								<input type="text" name="quantity" class="form-control"  value="<%=item.getQuantity()%>" readonly> 
@@ -82,7 +84,7 @@ font-size: 25px;
 							
 						</form>
 					</td>
-					<td><a href="#?id=<%=item.getProductId()%>" class="btn btn-sm btn-danger">Remove</a></td>
+					<td><a href="#?id=<%=p.getProductId()%>" class="btn btn-sm btn-danger">Remove</a></td>
 				</tr>
 
 				<%
