@@ -147,10 +147,10 @@ public class UserDao extends Dao implements UserDaoInterface {
             {
 
                 int UserId = rs.getInt("UserId");
-                String username = rs.getString("firstName");
-                String password = rs.getString("lastName");
-                String FirstName = rs.getString("username");
-                String LastName = rs.getString("password");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                String FirstName = rs.getString("firstName");
+                String LastName = rs.getString("lastName");
                 String Email = rs.getString("email");
                 String phone = rs.getString("phone");
                 Date DOB = rs.getDate("DOB");
@@ -588,8 +588,7 @@ public class UserDao extends Dao implements UserDaoInterface {
         PreparedStatement ps = null;
          boolean update = false;
         
-        if (findUserByUsername(u.getUsername()) != null) {
-            
+      
             try {
 
 
@@ -620,7 +619,7 @@ public class UserDao extends Dao implements UserDaoInterface {
                 *
                 
                  */
-                String Pass = u.getPassword();
+                String Pass = password;
 
                 /**
                  * string to use fro salting
@@ -655,6 +654,7 @@ public class UserDao extends Dao implements UserDaoInterface {
 
                 //set hashed password as user password
                 ps.setString(1, hashPass);
+                 ps.setString(2, u.getUsername());
 
                 
                 ps.executeUpdate();
@@ -687,7 +687,7 @@ public class UserDao extends Dao implements UserDaoInterface {
 
             
         
-    }
+    
   return update;
 }
 
