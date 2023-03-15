@@ -10,6 +10,8 @@
 <%@page import="DTO.products"%>
 <%@page import="DAO.ProductsDao"%>
 <%@page import="DAO.ProductsDaoInterface"%>
+
+
 <p class="text-center" style="font-size: 13px; color:whitesmoke; padding-top: 20px">Odziez.com/allproducts
 </p>
 
@@ -72,9 +74,10 @@
                 </div>
 
                 <div class="">
-                    <form action="../Controller" method="post">
+                    <form action="../Controller?id= <%=p.getProductId()%>" method="post">
                     <br>
                     <input type="hidden" name="ProductId" value="<%= p.getProductId() %>">
+                    <input type="number" name="quantity" min="1" value="1">
                     <input style="margin-left: 20px;width:50%" class="btn btn-outline-dark btn-light" type="submit" name="action" value="Add to cart">
                         
                     

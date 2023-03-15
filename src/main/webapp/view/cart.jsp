@@ -52,15 +52,14 @@ font-size: 25px;
 
 	
 	<div class="container my-3">
-		<div class="d-flex py-3"><h3>Total Price: £ ${(total>0)?dcf.format(total):total} </h3> <a class="mx-3 btn btn-primary" style="background-color: white;color:black;" href="order.jsp">Check Out</a></div>
+		<div class="d-flex py-3"><h3>Total Price: € ${(total>0)?dcf.format(total):0} </h3> <a class="mx-3 btn btn-primary" href="order.jsp">Check Out</a></div>
 		<table class="table table-light">
 			<thead>
 				<tr>
 					<th scope="col">Name</th>
 					<th scope="col">Category</th>
 					<th scope="col">Price</th>
-					<th scope="col">Buy Now</th>
-					<th scope="col">Cancel</th>
+					
 				</tr>
 			</thead>
 			<tbody>
@@ -69,7 +68,7 @@ font-size: 25px;
 					for (Cart item : cartProduct) {
 				%>
 				<tr>
-					<td><%=item.getName()%></td>
+					<td><%=item.getName() %></td>
 					<td><%=item.getCategory()%></td>
 					<td><%= deciForm.format(item.getCP())%></td>
 					<td>

@@ -403,10 +403,10 @@ public class UserDao extends Dao implements UserDaoInterface {
     
     
 @Override
-    public boolean updatePass(user u) {
+    public boolean updatePass(user u, String password) {
         Connection con = null;
         PreparedStatement ps = null;
-         
+         boolean update = false;
         
         if (findUserByUsername(u.getUsername()) != null) {
             
@@ -464,7 +464,8 @@ public class UserDao extends Dao implements UserDaoInterface {
                 //set hashed password as user password
                 ps.setString(1, hashPass);
                 
-                ps.execute();
+                ps.executeUpdate();
+                update = true;
             } catch (SQLException e) {
                 System.err.println("\tA problem occurred during the addUser method:");
                 System.err.println("\t" + e.getMessage());
@@ -482,10 +483,9 @@ public class UserDao extends Dao implements UserDaoInterface {
                     System.err.println("A problem occurred when closing down the addUser method:\n" + e.getMessage());
                 }
             }
-            return true;
-        } else {
-            return false;
-        }
+            
+        
     }
-  
+  return update;
+}
 }

@@ -162,21 +162,24 @@ public class Controller extends HttpServlet {
         HttpSession session = request.getSession(true);
         
         String username = request.getParameter("username");
+        String password = request.getParameter("password");
         
-        if (username != null  && !username.isEmpty() )
+        if (username != null  && password != null && !username.isEmpty() && !password.isEmpty() )
         {
             UserDao userDao = new UserDao("clothes_shop");
             user u = userDao.findUserByUsername(username);
             boolean Reset = false;
+            boolean update = false;
 
             if (u != null)
             {
                 
                
+                Reset = true;
                 
-                session.setAttribute("password", u.getPassword());
+                session.setAttribute("password", password);
                 
-                Reset = userDao.updatePass(u);
+                update = userDao.updatePass(u, password);
                 forwardToJsp = "view/LoginNdRegister.jsp";
             } else
             {
@@ -271,6 +274,7 @@ public class Controller extends HttpServlet {
    private String Cart(HttpServletRequest request, HttpServletResponse response) {
        String forwardToJsp = "controller/index.jsp";
         HttpSession session = request.getSession(true);
+        
         String id = request.getParameter("id");
 	
         
@@ -290,7 +294,10 @@ public class Controller extends HttpServlet {
              id = request.getParameter(p.getProductId());
             Cart cm = new Cart();
             cm.setProductId(id);
+            cm.setName(p.getName());
+            cm.setCategory(p.getCategory());
             cm.setQuantity(1);
+            cm.setCP(p.getCP());
            
             ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
             if (cart_list == null) {
