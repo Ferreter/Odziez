@@ -364,12 +364,13 @@ public class Controller extends HttpServlet {
             products p = pdao.searchbyId(id);
             
             CartDao cartdao = new CartDao("clothes_shop");
-
+            user u = (user) session.getAttribute("user");
            
             if (p != null){
             
                 ArrayList<Cart> cartList = new ArrayList<>();
                 Cart cm = new Cart();
+                cm.setUserId(u.getUserId());
                 cm.setProductId(id);
                 cm.setQuantity(1);
                 ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
