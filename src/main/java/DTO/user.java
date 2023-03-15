@@ -13,7 +13,7 @@ import java.util.Objects;
  */
 public class user {
     
- 
+    private int UserId;
     private String username;
     private String password;
     private String FirstName;
@@ -26,8 +26,9 @@ public class user {
     public user() {
     }
 
-    public user( String username, String password, String FirstName, String LastName, String Email, String Phone, Date DOB, boolean isAdmin) {
-   
+    public user( int UserId,String username, String password, String FirstName, String LastName, String Email, String Phone, Date DOB, boolean isAdmin) {
+  
+        this.UserId = UserId;
         this.username = username;
         this.password = password;
         this.FirstName = FirstName;
@@ -37,7 +38,6 @@ public class user {
         this.DOB = DOB;
         this.isAdmin = isAdmin;
     }
-
 
     public String getUsername() {
         return username;
@@ -101,6 +101,14 @@ public class user {
 
     public void setIsAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin;
+    }
+
+    public int getUserId() {
+        return UserId;
+    }
+
+    public void setUserId(int UserId) {
+        this.UserId = UserId;
     }
 
     @Override

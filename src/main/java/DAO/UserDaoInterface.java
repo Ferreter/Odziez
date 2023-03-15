@@ -3,7 +3,6 @@ package DAO;
 import DTO.*;
 import java.util.List;
 
-
 /**
  *
  * @author Kian
@@ -47,7 +46,9 @@ public interface UserDaoInterface {
     public boolean checkIfUserIsAdmin(String uname);
 
     /**
-     * Add a new <code>User</code> to the database.
+     * Add a new <code>User</code> to the database.Uses SHA-256 encryption to
+     * securely hash the new password before storing it. Returns true if the
+     * update is successful, false otherwise.
      *
      * @param u The <code>User</code> to be added to the database.
      *
@@ -55,10 +56,41 @@ public interface UserDaoInterface {
      * database, false otherwise.
      */
     public boolean addUser(user u);
+
     public boolean updatePass(user u, String password);
+
+
+    /**
+     *
+     * Updates the password for a given user in the database. Uses SHA-256
+     * encryption to securely hash the new password before storing it. Returns
+     * true if the update is successful, false otherwise.
+     *
+     * @param u the user object containing the updated password and username
+     * @return true if the update is successful, false otherwise
+     * @throws SQLException if there is an error with the SQL query
+     * @throws NoSuchAlgorithmException if SHA-256 encryption is not available
+     */
     
-    
-    public boolean removeUser(user u);
-    
+
+    /**
+     *
+     * Retrieves a list of all users from the database
+     *
+     * @return List of user objects representing all users in the database
+     */
+    public List<user> ListAllUsers();
+
+    /**
+     *
+     * Removes a user from the database by their username.
+     *
+     * @param Username the username of the user to be removed
+     *
+     * @return true if the user was successfully removed, false otherwise
+     */
+    public boolean removeUser(String UserId);
+
+    public user findUserById(int id);
 
 }
