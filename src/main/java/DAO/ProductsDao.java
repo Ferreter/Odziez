@@ -36,9 +36,9 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        List<products> books = new ArrayList();
+        List<products> products = new ArrayList();
 
-        String products = "";
+        
 
         try
         {
@@ -52,7 +52,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             {
                 products p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Images"), rs.getString("Brand"));
 
-                books.add(p);
+                products.add(p);
             }
         } catch (SQLException e)
         {
@@ -78,7 +78,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
                 System.out.println("Exception occured in the finally section of the ViewBooks() method: " + e.getMessage());
             }
         }
-        return books;
+        return products;
 
     }
 
@@ -91,11 +91,11 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
      * found.
      */
     @Override
-    public products searchbyname(String Name) {
+    public List<products> searchbyname(String Name) {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        products p = null;
+        List<products> products = new ArrayList();
         try
         {
             con = this.getConnection();
@@ -105,20 +105,12 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             ps.setString(1, "%" + Name + "%");
 
             rs = ps.executeQuery();
-            if (rs.next())
+            while (rs.next())
             {
 
-                String productId = rs.getString("ProductId");
-                String ProductName = rs.getString("Name");
-                double MRP = rs.getDouble("MRP");
-                double CP = rs.getDouble("CP");
-                String Description = rs.getString("Description");
-                String Category = rs.getString("Category");
-                String Tags = rs.getString("Tags");
-                String Images = rs.getString("Images");
-                String Brand = rs.getString("Brand");
-
-                p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Images"), rs.getString("Brand"));
+               products p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Images"), rs.getString("Brand"));
+            
+               products.add(p);
             }
         } catch (SQLException e)
         {
@@ -145,7 +137,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
                 System.err.println("A problem occurred when closing down the findUserByUsername method:\n" + e.getMessage());
             }
         }
-        return p;     // u may be null 
+        return products;     // u may be null 
     }
 
     /**

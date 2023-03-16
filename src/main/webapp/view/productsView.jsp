@@ -30,7 +30,7 @@
     UserDao udao = new UserDao("clothes_shop");
     UserDaoInterface userdao = new UserDao("clothes_shop");
     user u = (user) session.getAttribute("user");
-    products p = (products) session.getAttribute("products");
+    List<products> p = (List<products>) session.getAttribute("products");
     List<products> products = productdao.ListAllProducts();
     // If there is a Products list returned (and it's not empty)
 
@@ -74,7 +74,9 @@
                             <span style='float:right;'><%=Products.getBrand()%></span>
                         </small> </p>
             </a>
-            <%    if (u != null && u.isIsAdmin())
+            <% 
+
+               if (u != null && u.isIsAdmin())
                 {
             %>
             <form action="../Controller" method="post">
@@ -99,28 +101,34 @@
 
         } else if (p != null)
         {
-            session.removeAttribute("products");
+
+            for (products SearchedP : p)
+                {
+            
         %>
         <div class="col-md-3">
-            <a href="../view/individualProduct.jsp" style="color:white;" class="text-decoration-none">
+             <a href="../view/individualProduct.jsp?Name=<%=SearchedP.getName()%>" style="color:white;" class="text-decoration-none">
                 <div class="fill">
+                    <img src="../media/products/<%=SearchedP.getProductId()%>1.jpg" alt="hoodie" class="" width="500px" height="500px"/>
+                </div>
+                <p style="padding-top: 5px;  font-size: 18px;" class="" >
+                    <a href="../view/individualProduct.jsp?Name=<%=SearchedP.getName()%>" style="color:white"><%=SearchedP.getName()%></a>
 
-                    <div class="fill" style=" background-image: url(../media/products/<%=p.getProductId()%>1.jpg);">
 
-                        <img src="../media/products/<%=p.getProductId()%>1.jpg" alt="hoodie" class="" width="500px" height="500px"/>
-                    </div>
-                    <p style="padding-top: 5px;  font-size: 18px;" class="" ><%=p.getName()%>
-                        <br> <small>
-                                <%=p.getCP()%>
-                                <span style='float:right;'><%=p.getBrand()%></span>
-                            </small> </p>
+                    <br> <small>
+                            
+                            <%=SearchedP.getCP()%>
+                            <span style='float:right;'><%=SearchedP.getBrand()%></span>
+                        </small> </p>
             </a>
         </div>
 
 
         <%
-
             }
+            session.removeAttribute("products");
+            }
+            
         %>
     </div>
 </div>
