@@ -122,57 +122,58 @@ CREATE TABLE `review` (
   `reviewDate` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+
 --
 -- Dumping data for table `review`
 --
 
 INSERT INTO `review` (`reviewid`, `ProductId`, `UserId`, `rating`, `review`, `reviewDate`) VALUES
-(1, '3R1GC01NRIZ10999', 1, 4, 'This product is exactly what I was looking for. It\'s easy to use and works great.', '2022-10-01'),
-(2, '3R1GC01NRIZ10999', 2, 5, 'I am so impressed with this product! It exceeded my expectations in every way.', '2022-09-28'),
-(3, '3R1GC01NRIZ10999', 3, 3, 'It\'s a decent product, but it has some flaws that could be improved.', '2022-09-23'),
-(4, '3R1GC01NRIZ10999', 4, 2, 'I was really disappointed with this product. It didn\'t work as advertised and I had to return it.', '2022-09-18'),
-(5, '3R1GC01NRIZ10999', 5, 4, 'This is a solid product that does what it says it will. I would recommend it to others.', '2022-09-12'),
-(6, '3R1GC01NRIZ10999', 6, 5, 'I love this product! It\'s exactly what I needed and it arrived quickly.', '2022-09-10'),
-(7, '620973TNVQ11059', 2, 5, 'I love this hoodie! The quality is amazing and it looks great on me.', '2022-02-20'),
-(8, '620973TNVQ11059', 3, 3, 'The hoodie is okay, but nothing special. It fits well and is comfortable, but the design is a bit plain for my taste.', '2022-03-10'),
-(9, '620973TNVQ11059', 4, 2, 'I was really disappointed with this hoodie. The quality is poor and the fit is not good. Would not recommend.', '2022-04-05'),
-(10, '620973TNVQ11059', 5, 4, 'This hoodie is great for the price. Its comfortable and fits well. The only downside is that its a bit thin.', '2022-05-01'),
-(11, '727163TNVR31070', 1, 3, 'The quality of this product is okay, but the design is not really my style. It fits well and is comfortable, though.', '2022-06-10'),
-(12, '727163TNVR31070', 2, 5, 'I absolutely love this hoodie! Its so comfortable and the design is perfect for me. Would highly recommend!', '2022-07-15'),
-(13, '727163TNVR31070', 3, 4, 'Im really happy with this purchase. The hoodie is comfortable and fits well. The only downside is that its a bit pricey.', '2022-08-20'),
-(14, '727163TNVR31070', 4, 2, 'I was really disappointed with this hoodie. Its not comfortable and the design is not good. Would not recommend.', '2022-09-05'),
-(15, '727163TNVR31070', 5, 3, 'The hoodie is okay, but nothing special. The quality is average and the design is a bit boring.', '2022-10-01'),
-(16, '620973TNVQ11059', 1, 4, 'Great product! The hoodie is comfortable and fits perfectly. Would definitely recommend.', '2022-01-15'),
-(17, 'PMAA001C99JER0050110', 1, 4, 'I really like this t-shirt. It fits well and the material is soft and comfortable. The design is also cool.', '2022-01-01'),
-(18, 'PMAA001C99JER0050110', 2, 5, 'This is an awesome t-shirt! The design is really unique and the quality is great. Highly recommend!', '2022-02-01'),
-(19, 'PMAA001C99JER0050110', 3, 3, 'The t-shirt is okay, but nothing special. It fits well and the material is comfortable, but the design is a bit plain for my taste.', '2022-03-01'),
-(20, 'PMAA001C99JER0050110', 4, 2, 'I was really disappointed with this t-shirt. The quality is poor and the fit is not good. Would not recommend.', '2022-04-01'),
-(21, 'PMAA001C99JER0050110', 5, 4, 'This is a nice t-shirt. It fits well and the material is comfortable. The design is not my favorite, but its still good.', '2022-05-01'),
-(22, 'PMAA001C99JER0171010', 1, 3, 'The quality of this t-shirt is okay, but the design is not really my style. It fits well and is comfortable, though.', '2022-06-01'),
-(23, 'PMAA001C99JER0171010', 2, 5, 'I absolutely love this t-shirt! Its so comfortable and the design is perfect for me. Would highly recommend!', '2022-07-01'),
-(24, 'PMAA001C99JER0171010', 3, 4, 'Im really happy with this purchase. The t-shirt is comfortable and fits well. The only downside is that its a bit pricey.', '2022-08-01'),
-(25, 'PMAA001C99JER0171010', 4, 2, 'I was really disappointed with this t-shirt. Its not comfortable and the design is not good. Would not recommend.', '2022-09-01'),
-(26, 'PMAA001C99JER0171010', 5, 3, 'The t-shirt is okay, but nothing special. The quality is average and the design is a bit boring.', '2022-10-01'),
-(27, 'PMAA001C99JER0241055', 2, 5, 'This is an awesome t-shirt! The design is really unique and the quality is great. Highly recommend!', '2022-02-01'),
-(28, 'PMAA001C99JER0241055', 3, 3, 'The t-shirt is okay, but nothing special. It fits well and the material is comfortable, but the design is a bit plain for my taste.', '2022-03-01'),
-(29, 'PMAA001C99JER0241055', 4, 2, 'I was really disappointed with this t-shirt. The quality is poor and the fit is not good. Would not recommend.', '2022-04-01'),
-(30, 'PMAA001C99JER0241055', 5, 4, 'This is a nice t-shirt. It fits well and the material is comfortable. The design is not my favorite, but it\'s still good.', '2022-05-01'),
-(31, 'PMAA066S23JER0021084', 1, 3, 'The quality of this t-shirt is okay, but the design is not really my style. It fits well and is comfortable, though.', '2022-06-01'),
-(32, 'PMAA066S23JER0021084', 2, 5, 'I absolutely love this t-shirt! It\'s so comfortable and the design is perfect for me. Would highly recommend!', '2022-07-01'),
-(33, 'PMAA066S23JER0021084', 3, 4, 'I\'m really happy with this purchase. The t-shirt is comfortable and fits well. The only downside is that it\'s a bit pricey.', '2022-08-01'),
-(34, 'PMAA066S23JER0021084', 4, 2, 'I was really disappointed with this t-shirt. It\'s not comfortable and the design is not good. Would not recommend.', '2022-09-01'),
-(35, 'PMAA066S23JER0021084', 5, 3, 'The t-shirt is okay, but nothing special. The quality is average and the design is a bit boring.', '2022-10-01'),
-(36, 'PMAA001C99JER0241055', 1, 4, 'I really like this t-shirt. It fits well and the material is soft and comfortable. The design is also cool.', '2022-01-01'),
-(37, 'PMAB001S23JER0021055', 1, 4, 'I really like this t-shirt. It\'s comfortable and the design is unique. The only downside is that it shrinks a bit after washing.', '2022-01-01'),
-(38, 'PMAB001S23JER0021055', 2, 5, 'This is an awesome t-shirt! The quality is great and the design is perfect. It fits well and is comfortable. Highly recommend!', '2022-02-01'),
-(39, 'PMAB001S23JER0021055', 3, 3, 'The t-shirt is okay, but nothing special. It fits well and is comfortable, but the design is a bit plain for my taste.', '2022-03-01'),
-(40, 'PMAB001S23JER0021055', 4, 2, 'I was really disappointed with this t-shirt. The material is scratchy and the fit is not good. Would not recommend.', '2022-04-01'),
-(41, 'PMAB001S23JER0021055', 5, 4, 'This is a nice t-shirt. It fits well and is comfortable. The design is not my favorite, but it\'s still good quality.', '2022-05-01'),
-(42, 'UJN847_12VV_F0002_S_231', 1, 3, 'The quality of this t-shirt is average. It fits well and is comfortable, but the design is not really my style.', '2022-06-01'),
-(43, 'UJN847_12VV_F0002_S_231', 2, 5, 'I absolutely love this t-shirt! It\'s so comfortable and the design is perfect for me. The quality is great too.', '2022-07-01'),
-(44, 'UJN847_12VV_F0002_S_231', 3, 4, 'I\'m really happy with this purchase. The t-shirt is comfortable and fits well. The only downside is that it\'s a bit expensive.', '2022-08-01'),
-(45, 'UJN847_12VV_F0002_S_231', 4, 2, 'I was really disappointed with this t-shirt. The quality is poor and the fit is not good. Would not recommend.', '2022-09-01'),
-(46, 'UJN847_12VV_F0002_S_231', 5, 3, 'The t-shirt is okay, but nothing special. The quality is average and the design is a bit boring.', '2022-10-01');
+(1, '3R1GC01NRIZ10999\r\n', 1, 4, 'This product is exactly what I was looking for. It\'s easy to use and works great.', '2022-10-01'),
+(2, '3R1GC01NRIZ10999\r\n', 2, 5, 'I am so impressed with this product! It exceeded my expectations in every way.', '2022-09-28'),
+(3, '3R1GC01NRIZ10999\r\n', 3, 3, 'It\'s a decent product, but it has some flaws that could be improved.', '2022-09-23'),
+(4, '3R1GC01NRIZ10999\r\n', 4, 2, 'I was really disappointed with this product. It didn\'t work as advertised and I had to return it.', '2022-09-18'),
+(5, '3R1GC01NRIZ10999\r\n', 5, 4, 'This is a solid product that does what it says it will. I would recommend it to others.', '2022-09-12'),
+(6, '3R1GC01NRIZ10999\r\n', 6, 5, 'I love this product! It\'s exactly what I needed and it arrived quickly.', '2022-09-10'),
+(7, '620973TNVQ11059\r\n', 2, 5, 'I love this hoodie! The quality is amazing and it looks great on me.', '2022-02-20'),
+(8, '620973TNVQ11059\r\n', 3, 3, 'The hoodie is okay, but nothing special. It fits well and is comfortable, but the design is a bit plain for my taste.', '2022-03-10'),
+(9, '620973TNVQ11059\r\n', 4, 2, 'I was really disappointed with this hoodie. The quality is poor and the fit is not good. Would not recommend.', '2022-04-05'),
+(10, '620973TNVQ11059\r\n', 5, 4, 'This hoodie is great for the price. Its comfortable and fits well. The only downside is that its a bit thin.', '2022-05-01'),
+(11, '727163TNVR31070\r\n', 1, 3, 'The quality of this product is okay, but the design is not really my style. It fits well and is comfortable, though.', '2022-06-10'),
+(12, '727163TNVR31070\r\n', 2, 5, 'I absolutely love this hoodie! Its so comfortable and the design is perfect for me. Would highly recommend!', '2022-07-15'),
+(13, '727163TNVR31070\r\n', 3, 4, 'Im really happy with this purchase. The hoodie is comfortable and fits well. The only downside is that its a bit pricey.', '2022-08-20'),
+(14, '727163TNVR31070\r\n', 4, 2, 'I was really disappointed with this hoodie. Its not comfortable and the design is not good. Would not recommend.', '2022-09-05'),
+(15, '727163TNVR31070\r\n', 5, 3, 'The hoodie is okay, but nothing special. The quality is average and the design is a bit boring.', '2022-10-01'),
+(16, '620973TNVQ11059\r\n', 1, 4, 'Great product! The hoodie is comfortable and fits perfectly. Would definitely recommend.', '2022-01-15'),
+(17, 'PMAA001C99JER0050110\r\n', 1, 4, 'I really like this t-shirt. It fits well and the material is soft and comfortable. The design is also cool.', '2022-01-01'),
+(18, 'PMAA001C99JER0050110\r\n', 2, 5, 'This is an awesome t-shirt! The design is really unique and the quality is great. Highly recommend!', '2022-02-01'),
+(19, 'PMAA001C99JER0050110\r\n', 3, 3, 'The t-shirt is okay, but nothing special. It fits well and the material is comfortable, but the design is a bit plain for my taste.', '2022-03-01'),
+(20, 'PMAA001C99JER0050110\r\n', 4, 2, 'I was really disappointed with this t-shirt. The quality is poor and the fit is not good. Would not recommend.', '2022-04-01'),
+(21, 'PMAA001C99JER0050110\r\n', 5, 4, 'This is a nice t-shirt. It fits well and the material is comfortable. The design is not my favorite, but its still good.', '2022-05-01'),
+(22, 'PMAA001C99JER0171010\r\n', 1, 3, 'The quality of this t-shirt is okay, but the design is not really my style. It fits well and is comfortable, though.', '2022-06-01'),
+(23, 'PMAA001C99JER0171010\r\n', 2, 5, 'I absolutely love this t-shirt! Its so comfortable and the design is perfect for me. Would highly recommend!', '2022-07-01'),
+(24, 'PMAA001C99JER0171010\r\n', 3, 4, 'Im really happy with this purchase. The t-shirt is comfortable and fits well. The only downside is that its a bit pricey.', '2022-08-01'),
+(25, 'PMAA001C99JER0171010\r\n', 4, 2, 'I was really disappointed with this t-shirt. Its not comfortable and the design is not good. Would not recommend.', '2022-09-01'),
+(26, 'PMAA001C99JER0171010\r\n', 5, 3, 'The t-shirt is okay, but nothing special. The quality is average and the design is a bit boring.', '2022-10-01'),
+(27, 'PMAA001C99JER0241055\r\n', 2, 5, 'This is an awesome t-shirt! The design is really unique and the quality is great. Highly recommend!', '2022-02-01'),
+(28, 'PMAA001C99JER0241055\r\n', 3, 3, 'The t-shirt is okay, but nothing special. It fits well and the material is comfortable, but the design is a bit plain for my taste.', '2022-03-01'),
+(29, 'PMAA001C99JER0241055\r\n', 4, 2, 'I was really disappointed with this t-shirt. The quality is poor and the fit is not good. Would not recommend.', '2022-04-01'),
+(30, 'PMAA001C99JER0241055\r\n', 5, 4, 'This is a nice t-shirt. It fits well and the material is comfortable. The design is not my favorite, but it\'s still good.', '2022-05-01'),
+(31, 'PMAA066S23JER0021084\r\n', 1, 3, 'The quality of this t-shirt is okay, but the design is not really my style. It fits well and is comfortable, though.', '2022-06-01'),
+(32, 'PMAA066S23JER0021084\r\n', 2, 5, 'I absolutely love this t-shirt! It\'s so comfortable and the design is perfect for me. Would highly recommend!', '2022-07-01'),
+(33, 'PMAA066S23JER0021084\r\n', 3, 4, 'I\'m really happy with this purchase. The t-shirt is comfortable and fits well. The only downside is that it\'s a bit pricey.', '2022-08-01'),
+(34, 'PMAA066S23JER0021084\r\n', 4, 2, 'I was really disappointed with this t-shirt. It\'s not comfortable and the design is not good. Would not recommend.', '2022-09-01'),
+(35, 'PMAA066S23JER0021084\r\n', 5, 3, 'The t-shirt is okay, but nothing special. The quality is average and the design is a bit boring.', '2022-10-01'),
+(36, 'PMAA001C99JER0241055\r\n', 1, 4, 'I really like this t-shirt. It fits well and the material is soft and comfortable. The design is also cool.', '2022-01-01'),
+(37, 'PMAB001S23JER0021055\r\n', 1, 4, 'I really like this t-shirt. It\'s comfortable and the design is unique. The only downside is that it shrinks a bit after washing.', '2022-01-01'),
+(38, 'PMAB001S23JER0021055\r\n', 2, 5, 'This is an awesome t-shirt! The quality is great and the design is perfect. It fits well and is comfortable. Highly recommend!', '2022-02-01'),
+(39, 'PMAB001S23JER0021055\r\n', 3, 3, 'The t-shirt is okay, but nothing special. It fits well and is comfortable, but the design is a bit plain for my taste.', '2022-03-01'),
+(40, 'PMAB001S23JER0021055\r\n', 4, 2, 'I was really disappointed with this t-shirt. The material is scratchy and the fit is not good. Would not recommend.', '2022-04-01'),
+(41, 'PMAB001S23JER0021055\r\n', 5, 4, 'This is a nice t-shirt. It fits well and is comfortable. The design is not my favorite, but it\'s still good quality.', '2022-05-01'),
+(42, 'UJN847_12VV_F0002_S_231\r\n', 1, 3, 'The quality of this t-shirt is average. It fits well and is comfortable, but the design is not really my style.', '2022-06-01'),
+(43, 'UJN847_12VV_F0002_S_231\r\n', 2, 5, 'I absolutely love this t-shirt! It\'s so comfortable and the design is perfect for me. The quality is great too.', '2022-07-01'),
+(44, 'UJN847_12VV_F0002_S_231\r\n', 3, 4, 'I\'m really happy with this purchase. The t-shirt is comfortable and fits well. The only downside is that it\'s a bit expensive.', '2022-08-01'),
+(45, 'UJN847_12VV_F0002_S_231\r\n', 4, 2, 'I was really disappointed with this t-shirt. The quality is poor and the fit is not good. Would not recommend.', '2022-09-01'),
+(46, 'UJN847_12VV_F0002_S_231\r\n', 5, 3, 'The t-shirt is okay, but nothing special. The quality is average and the design is a bit boring.', '2022-10-01');
 
 -- --------------------------------------------------------
 
@@ -276,6 +277,8 @@ ALTER TABLE `user`
 --
 -- AUTO_INCREMENT for table `cart`
 --
+ALTER TABLE `review`
+  MODIFY `reviewId` int(11) NOT NULL AUTO_INCREMENT,  AUTO_INCREMENT=50;
 ALTER TABLE `cart`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
