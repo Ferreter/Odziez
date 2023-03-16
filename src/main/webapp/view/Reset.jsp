@@ -24,11 +24,7 @@
                                         <input type="password" style="display:none">
                                         <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 0px;">Reset Password</h3>
                                         
-                                        <div class="form-outline mb-4">
-                                            <input  type="text" id="form2Example17" name="username"   class="form-control form-control-lg" />
-                                            <label class="form-label" for="form2Example17">Username</label>
-                                        </div>
-
+                                  
                                         <div class="form-outline mb-4">
                                             <label class="form-label" for="form2Example27"> New Password:</label>
                                             <input type="password" autocomplete="new-password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" 

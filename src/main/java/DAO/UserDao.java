@@ -186,6 +186,65 @@ public class UserDao extends Dao implements UserDaoInterface {
         return u;     // u may be null 
     }
     
+     public user findUserByEmail(String email, String Username) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        user u = null;
+        try
+        {
+            con = this.getConnection();
+
+            String query = "SELECT * FROM user WHERE Email = ? AND Username = ?";
+            ps = con.prepareStatement(query);
+            ps.setString(1, email);
+            ps.setString(2, Username);
+
+            rs = ps.executeQuery();
+            if (rs.next())
+            {
+
+                int UserId = rs.getInt("UserId");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                String FirstName = rs.getString("firstName");
+                String LastName = rs.getString("lastName");
+                String Email = rs.getString("email");
+                String phone = rs.getString("phone");
+                Date DOB = rs.getDate("DOB");
+                boolean isAdmin = rs.getBoolean("isAdmin");
+
+                u = new user(UserId, username, password, FirstName, LastName, Email, phone, DOB, isAdmin);
+            }
+        } catch (SQLException e)
+        {
+            System.err.println("\tA problem occurred during the findUserByUsername method:");
+            System.err.println("\t" + e.getMessage());
+        } finally
+        {
+            try
+            {
+                if (rs != null)
+                {
+                    rs.close();
+                }
+                if (ps != null)
+                {
+                    ps.close();
+                }
+                if (con != null)
+                {
+                    freeConnection(con);
+                }
+            } catch (SQLException e)
+            {
+                System.err.println("A problem occurred when closing down the findUserByUsername method:\n" + e.getMessage());
+            }
+        }
+        return u;     // u may be null 
+    }
+    
+    
     @Override
     public user findUserById(int id) {
         Connection con = null;
@@ -690,6 +749,54 @@ public class UserDao extends Dao implements UserDaoInterface {
     
   return update;
 }
+    public boolean addReset(String email, String token) {
+         Connection con = null;
+        PreparedStatement ps = null;
+        boolean added = false;
+        try
+        {
+            con = this.getConnection();
+            
+            String query = "INSERT INTO reset (Email, Token) VALUES (?, ?)";
+
+            ps = con.prepareStatement(query);
+
+            ps.setString(1, email);
+            ps.setString(2, token);
+            
+
+            // Because this is CHANGING the database, use the executeUpdate method
+            ps.executeUpdate();
+            added = true;
+          
+
+        } catch (SQLException e)
+        {
+            System.err.println("\tA problem occurred during the addUser method:");
+            System.err.println("\t" + e.getMessage());
+
+        } finally
+        {
+            try
+            {
+
+                if (ps != null)
+                {
+                    ps.close();
+
+                }
+
+                if (con != null)
+                {
+                    freeConnection(con);
+                }
+            } catch (SQLException e)
+            {
+                System.err.println("A problem occurred when closing down the addUser method:\n" + e.getMessage());
+            }
+        }
+        return added;
+    }
 
     
 

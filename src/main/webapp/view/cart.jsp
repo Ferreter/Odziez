@@ -30,7 +30,12 @@ request.setAttribute("deciForm", deciForm);
 	ProductsDao pDao = new ProductsDao("clothes_shop");
         user u = (user) session.getAttribute("user");
         List<Cart> cartProduct = cartdao.ListAllCart(u.getUserId());
+	ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
+        if (cart_list != null) {
 	
+	request.setAttribute("cart_list", cart_list);
+        double total = 0;
+}
 
 
     
@@ -49,25 +54,30 @@ font-size: 25px;
 
 
 <body>
-	
+	 <%
+                                double total = 0;
+                                %>
 
 	
 	<div class="container my-3">
-		<div class="d-flex py-3"><h3>Total Price: € ${(total>0)?dcf.format(total):0} </h3> <a class="mx-3 btn btn-primary" href="order.jsp">Check Out</a></div>
+		
 		<table class="table table-light">
 			<thead>
 				<tr>
 					<th scope="col">Name</th>
 					<th scope="col">Category</th>
 					<th scope="col">Price </th>
+                                        <th scope="col">Quantity </th>
 					
 				</tr>
 			</thead>
 			<tbody>
+                           
 				<%
 				if (cartProduct != null) {
 					for (Cart item : cartProduct) {
                                         products p =  pDao.searchbyId(item.getProductId());
+                                        total += p.getCP() * item.getQuantity();
 				%>
 				<tr>
 					<td><%=p.getName() %></td>
@@ -77,18 +87,25 @@ font-size: 25px;
 						<form action="order" method="post" class="form-inline">
 						<input type="hidden" name="id" value="<%=p.getProductId()%>" class="form-input">
 							<div class="form-group d-flex justify-content-between">
-								
-								<input type="text" name="quantity" class="form-control"  value="<%=item.getQuantity()%>" readonly> 
-								
+								<button type="button" class="btn btn-decre">-</button>
+								<input type="text" name="quantity" class="form-control"  value="<%=item.getQuantity()%>" > 
+								<button type="button" class="btn btn-incre">+</button>
 							</div>
 							
 						</form>
 					</td>
-					<td><a href="#?id=<%=p.getProductId()%>" class="btn btn-sm btn-danger">Remove</a></td>
+					<td>
+                                         <form action="../Controller?id=<%=p.getProductId()%>" method="post" class="form-inline">
+                                            <input type="hidden" name="id" value="<%=p.getProductId()%>" class="form-input">
+                                               
+                                               <input style="margin-left: 10px;width:80%;background-color: black;color:white"  class="btn btn-sm btn-primary" type="submit" name="action" value="Remove">
+                                            </form>
+                                        </td>
 				</tr>
-
+                                
 				<%
 				}}%>
+                                <div class="d-flex py-3"><h3 >Total Price: € <%=deciForm.format(total)%></h3> <a style="background-color: white;color:black;" class="mx-3 btn btn-primary" href="order.jsp">Check Out</a></div>
 			</tbody>
 		</table>
 	</div>

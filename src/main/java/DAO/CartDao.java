@@ -125,6 +125,51 @@ public class CartDao extends Dao implements CartDaoInterface {
         return cartItems;
 
     }
-
+    
+    
+    public void updateQuantity(int userId, String productId, int quantity) throws SQLException {
+    Connection con = null;
+    PreparedStatement ps = null;
+    
+    
+    try {
+        con = getConnection();
+         String query = ("UPDATE cart SET quantity = ? WHERE user_id = ? AND product_id = ?");
+            ps = con.prepareStatement(query);
+       
+        ps.setInt(1, quantity);
+        ps.setInt(2, userId);
+        ps.setString(3, productId);
+        ps.executeUpdate();
+    } finally {
+            try
+            {
+               
+                if (ps != null)
+                {
+                    ps.close();
+                }
+                if (con != null)
+                {
+                    freeConnection(con);
+                }
+            } catch (SQLException e)
+            {
+                System.out.println("Exception occured in the finally section of the ViewBooks() method: " + e.getMessage());
+            }
+        }
+    }
+    
+    public void deleteCartItem(String productId) {
+    try (Connection conn = getConnection();
+         PreparedStatement stmt = conn.prepareStatement("DELETE FROM cart WHERE ProductId = ?")) {
+        stmt.setString(1, productId);
+        stmt.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
 }
+}
+
+
 

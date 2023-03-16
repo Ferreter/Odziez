@@ -19,6 +19,8 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Properties;
+import java.util.UUID;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -82,6 +84,12 @@ public class Controller extends HttpServlet {
                     break;
                 case "Update":
                     forwardToJsp = ResetPass(request, response);
+                    break;
+                    case "Link":
+                    forwardToJsp = Link(request, response);
+                    break;
+                case "Remove":
+                    forwardToJsp = RemoveItem(request, response);
                     break;
 
             }
@@ -228,6 +236,69 @@ public class Controller extends HttpServlet {
      * that will be sent to the user
      * @return a String value of the JSP page to be forwarded to.
      */
+    private String Link(HttpServletRequest request, HttpServletResponse response) {
+        String forwardToJsp = "controller/index.jsp";
+        HttpSession session = request.getSession(true);
+
+        String email = request.getParameter("email");
+        String Username = request.getParameter("username");
+       
+        
+        if (email != null && !email.isEmpty() )
+
+        {
+            UserDao userDao = new UserDao("clothes_shop");
+            user u = userDao.findUserByEmail(email, Username);
+            
+
+            if (u != null)
+            {
+                    String token = UUID.randomUUID().toString();
+                    
+                    // Save the token in the database
+            userDao.addReset(u.getEmail(), token);
+            
+            
+            // Send password reset link to user's email
+            String subject = "Password Reset Request";
+            String resetUrl = "http://localhost:8080/Oziz/view/Reset.jsp?token=" + token;
+            String body = "Dear " + u.getUsername() + ",\n\n"
+                        + "We received a request to reset your password. To reset your password, please click the link below:\n\n"
+                        + resetUrl + "\n\n"
+                        + "If you did not request a password reset, please ignore this message.\n\n"
+                        + "Best regards,\n"
+                        + "Your Website Team";
+            
+            String fromEmail = "attanyarkmeshach@gmail.com"; // Replace with your email address
+            String fromPassword = ""; // Replace with your email password
+            String toEmail =email;
+            
+            Properties properties = System.getProperties();
+            properties.setProperty("mail.smtp.host", "smtp.gmail.com"); // Replace with your SMTP server
+            properties.setProperty("mail.smtp.auth", "true");
+            properties.setProperty("mail.smtp.port", "465"); // Replace with your SMTP port
+            properties.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+            
+            
+                
+                
+
+                forwardToJsp = "view/LoginNdRegister.jsp";
+            } else
+            {
+                forwardToJsp = "controller/error.jsp";
+                String error = "NO User Found <a href=\"LoginNdRegister.jsp\">try again.</a>";
+                session.setAttribute("errorMessage", error);
+            }
+        } else
+        {
+            forwardToJsp = "controller/error.jsp";
+            String error = "No username and/or password and/or email and/or phone and/or firstname and/or lastname supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
+            session.setAttribute("errorMessage", error);
+        }
+        return forwardToJsp;
+    }
+    
     private String ResetPass(HttpServletRequest request, HttpServletResponse response) {
         String forwardToJsp = "controller/index.jsp";
         HttpSession session = request.getSession(true);
@@ -267,6 +338,7 @@ public class Controller extends HttpServlet {
         }
         return forwardToJsp;
     }
+
 
     /**
      *
@@ -336,7 +408,7 @@ public class Controller extends HttpServlet {
                     session.setAttribute("errorMessage", error);
                 } else
                 {
-                    forwardToJsp = "view/Reset.jsp";
+                    forwardToJsp = "view/Link.jsp";
                     session.setAttribute("username", username);
 
                 }
@@ -357,6 +429,8 @@ public class Controller extends HttpServlet {
 
         
         String id = request.getParameter("id");
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        
 
         if (id != null && !id.isEmpty())
         {
@@ -367,38 +441,42 @@ public class Controller extends HttpServlet {
             user u = (user) session.getAttribute("user");
            
             if (p != null){
-            
+             boolean exist = false;
                 ArrayList<Cart> cartList = new ArrayList<>();
                 Cart cm = new Cart();
                 cm.setUserId(u.getUserId());
                 cm.setProductId(id);
-                cm.setQuantity(1);
+                cm.setQuantity(quantity);
+                cm.setPrice(p.getCP());
+                
                 ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
                 if (cart_list == null)
                 {
                     cartList.add(cm);
-                    session.setAttribute("cart-list", cartList);
                     boolean added = cartdao.addCart(cm);
-
+                    session.setAttribute("cart-list", cartList);
+                    
                     forwardToJsp = "view/productsView.jsp";
 
                 } else
                 {
                     cartList = cart_list;
 
-                    boolean exist = false;
+                   
                     for (Cart c : cart_list)
                     {
                         if (c.getProductId().equals(id))
                         {
                             exist = true;
-                            String error = "<h3 style='color:crimson; text-align: center'>Item Already in Cart. <a href='cart.jsp'>GO to Cart Page</a></h3>";
+                            forwardToJsp = "view/productsView.jsp";
+                            
                         }
                     }
 
                     if (!exist)
                     {
                         cartList.add(cm);
+                        boolean added = cartdao.addCart(cm);
                         forwardToJsp = "view/cart.jsp";
                     }
                 }
@@ -408,6 +486,7 @@ public class Controller extends HttpServlet {
         }
         return forwardToJsp;
     }
+    
     private String EnterReview(HttpServletRequest request, HttpServletResponse response) {
          String forwardToJsp = "controller/index.jsp";
         HttpSession session = request.getSession(true);
@@ -544,6 +623,22 @@ public class Controller extends HttpServlet {
         return forwardToJsp;
     
     }
+    
+    private String RemoveItem(HttpServletRequest request, HttpServletResponse response) {
+         String forwardToJsp = "controller/index.jsp";
+        HttpSession session = request.getSession(true);
+        
+         String id = request.getParameter("id");
+         CartDao cartdao = new CartDao("clothes_shop");
+        cartdao.deleteCartItem(id);
+        
+        forwardToJsp ="view/cart.jsp";
+        
+        return forwardToJsp;
+    }
+
+
+   
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
