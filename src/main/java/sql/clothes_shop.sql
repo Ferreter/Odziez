@@ -204,6 +204,8 @@ CREATE TABLE `user` (
   `Lastname` varchar(55) DEFAULT NULL,
   `Email` varchar(255) DEFAULT NULL,
   `Phone` int(11) DEFAULT NULL,
+  `Question` varchar(255) DEFAULT NULL,
+  `Answer` varchar(255) DEFAULT NULL,
   `DOB` date DEFAULT NULL,
   `isAdmin` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -212,13 +214,13 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`UserId`, `username`, `password`, `FirstName`, `Lastname`, `Email`, `Phone`, `DOB`, `isAdmin`) VALUES
-(1, 'Harsh', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Harsh', 'Khatri', 'hkhatri731@gmail.com', 871498876, '2023-01-12', 1),
-(2, 'Kian', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Kian', 'Harding', 'kh@gmail.com', 830995017, '2023-01-02', 1),
-(3, 'Khali', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Meshach', 'Atta-Nyarko', 'Mh@gmail.com', 830995017, '2023-01-02', 1),
-(4, 'Deji', '37d6794a4b4fb5f1769b97adf6d73223b8dfaa5d1054087fea9416584677935c', 'Destiny', 'Wassup', 'deji@gmail.com', 830995017, '2023-01-02', 0),
-(5, 'Ruth', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Catherine', 'Mc Keever', 'ruth.mckeever@dkit.ie', 830995017, '2023-01-02', 0),
-(6, 'Michelle', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Michelle', 'Graham', 'Michelle.Graham@dkit.ie', 830995017, '2023-01-02', 0);
+INSERT INTO `user` (`UserId`, `username`, `password`, `FirstName`, `Lastname`, `Email`, `Phone`,`Question`, `Answer`, `DOB`, `isAdmin`) VALUES
+(1, 'Harsh', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Harsh', 'Khatri', 'hkhatri731@gmail.com', 871498876, 'To what city did you go on your honeymoon?', 'Anywhere with Beds', '2023-01-12', 1),
+(2, 'Kian', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Kian', 'Harding', 'kh@gmail.com', 830995017, 'Where were you when you first heard about 9/11?', 'Playground with stuffed animal', '2023-01-02', 1),
+(3, 'Khali', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Meshach', 'Atta-Nyarko', 'Mh@gmail.com', 830995017, 'Where were you when you first heard about 9/11?', 'Playground with stuffed animal', '2023-01-02', 1),
+(4, 'Deji', '37d6794a4b4fb5f1769b97adf6d73223b8dfaa5d1054087fea9416584677935c', 'Destiny', 'Wassup', 'deji@gmail.com', 830995017, 'What was the name of your first stuffed animal?', 'Kakashi Hatake', '2023-01-02', 0),
+(5, 'Ruth', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Catherine', 'Mc Keever', 'ruth.mckeever@dkit.ie', 'What was the name of your first stuffed animal?', 'Pingu', 830995017, '2023-01-02', 0),
+(6, 'Michelle', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Michelle', 'Graham', 'Michelle.Graham@dkit.ie', 'To what city did you go on your honeymoon?', 'Rhodes Greece', 830995017, '2023-01-02', 0);
 
 --
 -- Indexes for dumped tables

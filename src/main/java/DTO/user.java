@@ -20,13 +20,15 @@ public class user {
     private String LastName;
     private String Email;
     private String Phone;
+    private String Question;
+    private String Answer;
     private Date DOB;
     private boolean isAdmin;
 
     public user() {
     }
 
-    public user( int UserId,String username, String password, String FirstName, String LastName, String Email, String Phone, Date DOB, boolean isAdmin) {
+    public user( int UserId,String username, String password, String FirstName, String LastName, String Email, String Phone, String Question, String Answer, Date DOB, boolean isAdmin) {
   
         this.UserId = UserId;
         this.username = username;
@@ -35,8 +37,26 @@ public class user {
         this.LastName = LastName;
         this.Email = Email;
         this.Phone = Phone;
+        this.Question = Question;
+        this.Answer = Answer;
         this.DOB = DOB;
         this.isAdmin = isAdmin;
+    }
+
+    public String getQuestion() {
+        return Question;
+    }
+
+    public void setQuestion(String Question) {
+        this.Question = Question;
+    }
+
+    public String getAnswer() {
+        return Answer;
+    }
+
+    public void setAnswer(String Answer) {
+        this.Answer = Answer;
     }
 
     public String getUsername() {

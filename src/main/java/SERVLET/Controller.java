@@ -79,14 +79,9 @@ public class Controller extends HttpServlet {
                     forwardToJsp = Cart(request, response);
                     break;
 
-                case "Reset":
-                    forwardToJsp = Reset(request, response);
-                    break;
+                
                 case "Update":
                     forwardToJsp = ResetPass(request, response);
-                    break;
-                    case "Link":
-                    forwardToJsp = Link(request, response);
                     break;
                 case "Remove":
                     forwardToJsp = RemoveItem(request, response);
@@ -178,6 +173,8 @@ public class Controller extends HttpServlet {
         String lastname = request.getParameter("lastname");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
+        String question = request.getParameter("question");
+        String answer = request.getParameter("answer");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String dob = request.getParameter("dob");
@@ -186,13 +183,13 @@ public class Controller extends HttpServlet {
         if (username != null && password != null && !username.isEmpty() && !password.isEmpty() && firstname != null && lastname != null && !firstname.isEmpty() && !lastname.isEmpty() && email != null && phone != null && !email.isEmpty() && !phone.isEmpty() && dob != null && !dob.isEmpty())
         {
             UserDao userDao = new UserDao("clothes_shop");
-            user u = userDao.findUserByUsernamePassword(username, password);
+            user u = userDao.findUserByEmail(email, username);
             boolean login = false;
 
             if (u == null)
             {
 
-                user user = new user(0, username, password, firstname, lastname, email, phone, date, isAdmin);
+                user user = new user(0, username, password, firstname, lastname, email, phone, question, answer, date, isAdmin);
                 session.setAttribute("username", username);
                 session.setAttribute("user", user);
 
@@ -236,82 +233,22 @@ public class Controller extends HttpServlet {
      * that will be sent to the user
      * @return a String value of the JSP page to be forwarded to.
      */
-    private String Link(HttpServletRequest request, HttpServletResponse response) {
-        String forwardToJsp = "controller/index.jsp";
-        HttpSession session = request.getSession(true);
-
-        String email = request.getParameter("email");
-        String Username = request.getParameter("username");
-       
-        
-        if (email != null && !email.isEmpty() )
-
-        {
-            UserDao userDao = new UserDao("clothes_shop");
-            user u = userDao.findUserByEmail(email, Username);
-            
-
-            if (u != null)
-            {
-                    String token = UUID.randomUUID().toString();
-                    
-                    // Save the token in the database
-            userDao.addReset(u.getEmail(), token);
-            
-            
-            // Send password reset link to user's email
-            String subject = "Password Reset Request";
-            String resetUrl = "http://localhost:8080/Oziz/view/Reset.jsp?token=" + token;
-            String body = "Dear " + u.getUsername() + ",\n\n"
-                        + "We received a request to reset your password. To reset your password, please click the link below:\n\n"
-                        + resetUrl + "\n\n"
-                        + "If you did not request a password reset, please ignore this message.\n\n"
-                        + "Best regards,\n"
-                        + "Your Website Team";
-            
-            String fromEmail = "attanyarkmeshach@gmail.com"; // Replace with your email address
-            String fromPassword = ""; // Replace with your email password
-            String toEmail =email;
-            
-            Properties properties = System.getProperties();
-            properties.setProperty("mail.smtp.host", "smtp.gmail.com"); // Replace with your SMTP server
-            properties.setProperty("mail.smtp.auth", "true");
-            properties.setProperty("mail.smtp.port", "465"); // Replace with your SMTP port
-            properties.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-            
-            
-                
-                
-
-                forwardToJsp = "view/LoginNdRegister.jsp";
-            } else
-            {
-                forwardToJsp = "controller/error.jsp";
-                String error = "NO User Found <a href=\"LoginNdRegister.jsp\">try again.</a>";
-                session.setAttribute("errorMessage", error);
-            }
-        } else
-        {
-            forwardToJsp = "controller/error.jsp";
-            String error = "No username and/or password and/or email and/or phone and/or firstname and/or lastname supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
-            session.setAttribute("errorMessage", error);
-        }
-        return forwardToJsp;
-    }
     
-    private String ResetPass(HttpServletRequest request, HttpServletResponse response) {
-        String forwardToJsp = "controller/index.jsp";
+
+private String ResetPass(HttpServletRequest request, HttpServletResponse response) {
+        String forwardToJsp = "#";
         HttpSession session = request.getSession(true);
 
         String username = request.getParameter("username");
-
         String password = request.getParameter("password");
+        String question = request.getParameter("question");
+        String answer = request.getParameter("answer");
         
-        if (username != null  && password != null && !username.isEmpty() && !password.isEmpty() )
+        if (username != null  && password != null && question != null && answer != null && !username.isEmpty() && !password.isEmpty() && !question.isEmpty() && !answer.isEmpty() )
 
         {
             UserDao userDao = new UserDao("clothes_shop");
-            user u = userDao.findUserByUsername(username);
+            user u = userDao.findUserDetails(username, question, answer);
             boolean Reset = false;
             boolean update = false;
 
@@ -468,7 +405,7 @@ public class Controller extends HttpServlet {
                         if (c.getProductId().equals(id))
                         {
                             exist = true;
-                            forwardToJsp = "view/productsView.jsp";
+                            forwardToJsp = "view/cart.jsp";
                             
                         }
                     }
@@ -477,7 +414,7 @@ public class Controller extends HttpServlet {
                     {
                         cartList.add(cm);
                         boolean added = cartdao.addCart(cm);
-                        forwardToJsp = "view/cart.jsp";
+                        forwardToJsp = "view/productsView.jsp";
                     }
                 }
 

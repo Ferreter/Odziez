@@ -81,10 +81,12 @@ public class UserDao extends Dao implements UserDaoInterface {
                 String LastName = rs.getString("password");
                 String Email = rs.getString("email");
                 String phone = rs.getString("phone");
+                String Question = rs.getString("question");
+                String Answer = rs.getString("answer");
                 Date DOB = rs.getDate("DOB");
                 boolean isAdmin = rs.getBoolean("isAdmin");
 
-                u = new user(UserId, username, password, FirstName, LastName, Email, phone, DOB, isAdmin);
+                u = new user(UserId, username, password, FirstName, LastName, Email, phone, Question, Answer, DOB, isAdmin);
             }
         } catch (SQLException e)
         {
@@ -153,10 +155,73 @@ public class UserDao extends Dao implements UserDaoInterface {
                 String LastName = rs.getString("lastName");
                 String Email = rs.getString("email");
                 String phone = rs.getString("phone");
+                String Question = rs.getString("question");
+                String Answer = rs.getString("answer");
                 Date DOB = rs.getDate("DOB");
                 boolean isAdmin = rs.getBoolean("isAdmin");
 
-                u = new user(UserId, username, password, FirstName, LastName, Email, phone, DOB, isAdmin);
+                u = new user(UserId, username, password, FirstName, LastName, Email, phone, Question, Answer, DOB, isAdmin);
+            }
+        } catch (SQLException e)
+        {
+            System.err.println("\tA problem occurred during the findUserByUsername method:");
+            System.err.println("\t" + e.getMessage());
+        } finally
+        {
+            try
+            {
+                if (rs != null)
+                {
+                    rs.close();
+                }
+                if (ps != null)
+                {
+                    ps.close();
+                }
+                if (con != null)
+                {
+                    freeConnection(con);
+                }
+            } catch (SQLException e)
+            {
+                System.err.println("A problem occurred when closing down the findUserByUsername method:\n" + e.getMessage());
+            }
+        }
+        return u;     // u may be null 
+    }
+    @Override
+     public user findUserDetails(String uname, String question, String answer) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        user u = null;
+        try
+        {
+            con = this.getConnection();
+
+            String query = "SELECT * FROM user WHERE username = ? AND Question = ? AND Answer = ?";
+            ps = con.prepareStatement(query);
+            ps.setString(1, uname);
+            ps.setString(2, question);
+            ps.setString(3, answer);
+
+            rs = ps.executeQuery();
+            if (rs.next())
+            {
+
+                int UserId = rs.getInt("UserId");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                String FirstName = rs.getString("firstName");
+                String LastName = rs.getString("lastName");
+                String Email = rs.getString("email");
+                String phone = rs.getString("phone");
+                String Question = rs.getString("question");
+                String Answer = rs.getString("answer");
+                Date DOB = rs.getDate("DOB");
+                boolean isAdmin = rs.getBoolean("isAdmin");
+
+                u = new user(UserId, username, password, FirstName, LastName, Email, phone, Question, Answer, DOB, isAdmin);
             }
         } catch (SQLException e)
         {
@@ -211,10 +276,12 @@ public class UserDao extends Dao implements UserDaoInterface {
                 String LastName = rs.getString("lastName");
                 String Email = rs.getString("email");
                 String phone = rs.getString("phone");
+                String Question = rs.getString("question");
+                String Answer = rs.getString("answer");
                 Date DOB = rs.getDate("DOB");
                 boolean isAdmin = rs.getBoolean("isAdmin");
 
-                u = new user(UserId, username, password, FirstName, LastName, Email, phone, DOB, isAdmin);
+                u = new user(UserId, username, password, FirstName, LastName, Email, phone, Question, Answer, DOB, isAdmin);
             }
         } catch (SQLException e)
         {
@@ -270,10 +337,12 @@ public class UserDao extends Dao implements UserDaoInterface {
                 String LastName = rs.getString("password");
                 String Email = rs.getString("email");
                 String phone = rs.getString("phone");
+                String Question = rs.getString("Question");
+                String Answer = rs.getString("Answer");
                 Date DOB = rs.getDate("DOB");
                 boolean isAdmin = rs.getBoolean("isAdmin");
 
-                u = new user(UserId, username, password, FirstName, LastName, Email, phone, DOB, isAdmin);
+                u = new user(UserId, username, password, FirstName, LastName, Email, phone, Question, Answer, DOB, isAdmin);
             }
         } catch (SQLException e)
         {
@@ -382,7 +451,7 @@ public class UserDao extends Dao implements UserDaoInterface {
                 con = this.getConnection();
                 // Create MessageDigest instance for SHA-256
 
-                String query = "INSERT INTO user(UserId, username, password, FirstName, Lastname,  Email, Phone,  DOB) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                String query = "INSERT INTO user(UserId, username, password, FirstName, Lastname,  Email, Phone, Question, Answer,  DOB) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
                 /*
                 *variable to store password of user to hash
@@ -427,7 +496,9 @@ public class UserDao extends Dao implements UserDaoInterface {
                 ps.setString(5, u.getLastName());
                 ps.setString(6, u.getEmail());
                 ps.setString(7, u.getPhone());
-                ps.setDate(8, u.getDOB());
+                ps.setString(8, u.getQuestion());
+                ps.setString(9, u.getAnswer());
+                ps.setDate(10, u.getDOB());
 
                 ps.execute();
             } catch (SQLException e)
@@ -495,10 +566,12 @@ public class UserDao extends Dao implements UserDaoInterface {
                 String LastName = rs.getString("password");
                 String Email = rs.getString("email");
                 String phone = rs.getString("phone");
+                String Question = rs.getString("question");
+                String Answer = rs.getString("answer");
                 Date DOB = rs.getDate("DOB");
                 boolean isAdmin = rs.getBoolean("isAdmin");
 
-                u = new user(UserId, FirstName, LastName, username, password, Email, phone, DOB, isAdmin);
+                u = new user(UserId, FirstName, LastName, username, password, Email, phone, Question, Answer, DOB, isAdmin);
 
                 users.add(u);
             }

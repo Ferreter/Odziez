@@ -61,7 +61,25 @@
                                             <label class="form-label" for="form2Example17">Phone Number:</label>
                                             <input  type="tel" autocomplete="off" required="" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" title="Must use the format 0000000000" placeholder="083-234-4352"  id="form2Example17" name="phone"   class="form-control form-control-lg" />
                                         </div>
-
+                                        <div class="form-outline mb-4">
+                                            <label class="form-label" for="form2Example17">Choose Security Question:</label>
+                                            <select name="question" required="" id="form2Example17"   class="form-control form-control-lg">
+                                                 <option value="null"></option>
+                                                <option value="What was the first concert you attended?">What was the first concert you attended?</option>
+                                                 <option value="In what city or town did your parents meet?">In what city or town did your parents meet?</option>
+                                                 <option value="Where were you when you first heard about 9/11?">Where were you when you first heard about 9/11?</option>
+                                                 <option value="Where were you when you had your first kiss?">Where were you when you had your first kiss?</option>
+                                                 <option value="What was your favorite place to visit as a child?">What was your favorite place to visit as a child?</option>
+                                                 <option value="To what city did you go on your honeymoon?">To what city did you go on your honeymoon?</option>
+                                                 <option value="What was the make and model of your first car?">What was the make and model of your first car?</option>
+                                                 <option value="What was the name of your first stuffed animal?">What was the name of your first stuffed animal?</option>
+                                             </select>
+                                            
+                                        </div>
+                                        <div class="form-outline mb-4">
+                                            <label class="form-label" for="form2Example17">Security Answer:</label>
+                                            <input  type="text" autocomplete="off" required="" id="form2Example17" name="answer"   class="form-control form-control-lg" />
+                                        </div>
                                         <div class="form-outline mb-4">
                                             <label class="form-label" for="form2Example17">Date Of Birth:</label>
                                             <input  type="date" autocomplete="off" required="" id="form2Example17" name="dob"   class="form-control form-control-lg" />
@@ -105,7 +123,7 @@
                                         <div class="pt-1 mb-4">
                                             <input class="btn btn-dark btn-lg btn-block" type="submit" name="action" value="login">
                                         </div>
-                                        <a href="../view/ForgotPassword.jsp">Forgot Password?</a>
+                                        <a href="../view/ResetPassword.jsp">Forgot Password?</a>
                                     </form>
                                     
                                 </div>
