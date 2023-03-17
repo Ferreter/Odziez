@@ -22,7 +22,7 @@
 
 <%ProductsDao pdao = new ProductsDao("clothes_shop");%>
 <% ProductsDaoInterface productdao = new ProductsDao("clothes_shop");%>
-<% products p = productdao.searchbyname(request.getParameter("Name"));%>
+<% products p = productdao.searchbyId(request.getParameter("ID"));%>
 <%session.setAttribute("product", p);%>
 <%UserDao udao = new UserDao("clothes_shop");%>
 <%UserDaoInterface userdao = new UserDao("clothes_shop");%>
