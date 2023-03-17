@@ -60,12 +60,12 @@
                 {
         %>
         <div class="col-md-3">
-            <a href="../view/individualProduct.jsp?Name=<%=Products.getName()%>" style="color:white;" class="text-decoration-none">
+            <a href="../view/individualProduct.jsp?ID=<%=Products.getProductId()%>" style="color:white;" class="text-decoration-none">
                 <div class="fill">
                     <img src="../media/products/<%=Products.getProductId()%>1.jpg" alt="hoodie" class="" width="500px" height="500px"/>
                 </div>
                 <p style="padding-top: 5px;  font-size: 18px;" class="" >
-                    <a href="../view/individualProduct.jsp?Name=<%=Products.getName()%>" style="color:white"><%=Products.getName()%></a>
+                    <a href="../view/individualProduct.jsp?ID=<%=Products.getProductId()%>" style="color:white"><%=Products.getName()%></a>
 
 
                     <br> <small>
@@ -107,12 +107,12 @@
             
         %>
         <div class="col-md-3">
-             <a href="../view/individualProduct.jsp?Name=<%=SearchedP.getName()%>" style="color:white;" class="text-decoration-none">
+             <a href="../view/individualProduct.jsp?ID=<%=SearchedP.getProductId()%>" style="color:white;" class="text-decoration-none">
                 <div class="fill">
                     <img src="../media/products/<%=SearchedP.getProductId()%>1.jpg" alt="hoodie" class="" width="500px" height="500px"/>
                 </div>
                 <p style="padding-top: 5px;  font-size: 18px;" class="" >
-                    <a href="../view/individualProduct.jsp?Name=<%=SearchedP.getName()%>" style="color:white"><%=SearchedP.getName()%></a>
+                    <a href="../view/individualProduct.jsp?ID=<%=SearchedP.getProductId()%>" style="color:white"><%=SearchedP.getName()%></a>
 
 
                     <br> <small>

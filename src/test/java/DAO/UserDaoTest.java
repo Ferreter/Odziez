@@ -1,9 +1,3 @@
-
-//
-///*
-// * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-// * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit4TestClass.java to edit this template
-// */
 //package DAO;
 //
 //import DTO.user;
@@ -15,10 +9,6 @@
 //import org.junit.Test;
 //import static org.junit.Assert.*;
 //
-///**
-// *
-// * @author kian2
-// */
 //public class UserDaoTest {
 //    
 //    public UserDaoTest() {
@@ -40,10 +30,6 @@
 //    public void tearDown() {
 //    }
 //
-//    /**
-//     * Test of findUserByUsernamePassword method, of class UserDao.
-//     * checking for a user that doesNotExist exist
-//     */
 //    @Test
 //    public void testFindUserByUsernamePasswordFail() {
 //        System.out.println("findUserByUsernamePassword");
@@ -56,14 +42,10 @@
 //        assertEquals(expResult, result);
 //    }
 //    
-//    /**
-//     * Test of findUserByUsernamePassword method, of class UserDao.
-//     * checking for a user that does exist
-//   */
 //    @Test
 //    public void testFindUserByUsernamePasswordPass() {
 //        System.out.println("findUserByUsernamePassword");
-//        String uname = "Kian_test";
+//        String uname = "Kian";
 //        String pword = "Password3";  
 //        UserDao userDao = new UserDao("clothes_shop_test");
 //        String expResult = "Kian_test";
@@ -72,9 +54,6 @@
 //        assertEquals(expResult,result.getUsername());
 //    }
 // 
-//    /**
-//     * Test of findUserByUsername method, of class UserDao.
-//     */
 //    @Test
 //    public void testFindUserByUsernameFail() {
 //        System.out.println("findUserByUsername");
@@ -85,36 +64,54 @@
 //        assertEquals(expResult, result);
 //      
 //    }
-//    /**
-//     * Test of findUserByUsername method, of class UserDao.
-//     */
-//    @Test
-//    public void testFindUserByUsernamePass() {
-//        System.out.println("findUserByUsername");
-//        String uname = "Kian";
-//        UserDao userDao = new UserDao("clothes_shop_test");
-//        String expResult = "Kian";
-//        user result = userDao.findUserByUsername(uname);
-//        assertEquals(expResult, result.getUsername());
-//        System.out.println(result);
-//      
-//    }
-//  
-//    /**
-//     * Test of addUser method, of class UserDao.
-//     */
-//    @Test
-//    public void testAddUser() {
-//        System.out.println("addUser");
-//        String dob = "2001-02-07";
-//        Date date = Date.valueOf(dob);
-//        user u = new user("Kiantest","Password4","kian","Harding","kian2ki@hotmail.com","0838381391",date);
-//        UserDao userDao = new UserDao("clothes_shop_test");
-//        boolean expResult = true;
-//        boolean result = userDao.addUser(u);
-//        assertEquals(expResult, result);
-//        result = userDao.removeUser(u);
-//    }
 //
+//    @Test
+//public void testFindUserByUsernamePass() {
+//    // setup test data
+//    UserDao userDao = new UserDao("clothes_shop_test");
+// 
+//    // call the method being tested
+//    user result = userDao.findUserByUsername("Kian");
+//
+//    // assert that the method returns a non-null user
+//    assertNotNull(result);
+//
+//    // assert that the user attributes are correct
+//    assertEquals(2, result.getUserId());
+//    assertEquals("Kian", result.getUsername());
+//    assertEquals("Kian", result.getFirstName());
+//    assertEquals("Harding", result.getLastName());
+//    assertEquals("kh@gmail.com", result.getEmail());
+//    assertEquals("830995017", result.getPhone());
+//    assertEquals(Date.valueOf("2023-01-02"), result.getDOB());
+//    assertTrue(result.isIsAdmin());
+//
+//}
 //    
+//  
+//    @Test
+//        public void testAddUser() {
+//        System.out.println("addUser");
+//    // setup test data
+//    String dob = "2001-02-07";
+//    Date date = Date.valueOf(dob);
+//    user u = new user(7,"Kiantest","Password4","kian","Harding","kian2ki@hotmail.com","0838381391",date,false);
+//
+//    // setup test environment
+//    UserDao userDao = new UserDao("clothes_shop_test");
+//   
+//    // call the method being tested
+//    boolean result = userDao.addUser(u);
+//
+//    // assert that the method returns true
+//    assertTrue(result);
+//
+//    // assert that the user was added to the database
+//    user retrievedUser = userDao.findUserByUsername(u.getUsername());
+//    assertNotNull(retrievedUser);
+//
+//    // cleanup test data
+//    userDao.removeUser(u.getUsername());
+//}
+//
 //}
