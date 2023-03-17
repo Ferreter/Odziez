@@ -19,6 +19,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
 import javax.servlet.ServletException;
@@ -296,7 +297,7 @@ private String ResetPass(HttpServletRequest request, HttpServletResponse respons
         {
             ProductsDao pdao = new ProductsDao("clothes_shop");
             ProductsDaoInterface productdao = new ProductsDao("clothes_shop");
-            products p = productdao.searchbyname(product);
+            List<products> p = productdao.searchbyname(product);
 
             boolean login = false;
 

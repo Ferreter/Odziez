@@ -32,7 +32,7 @@ public interface ProductsDaoInterface {
      * @return the product with the specified name, or null if no product was
      * found.
      */
-    public products searchbyname(String Name);
+    public List<products> searchbyname(String Name);
 
     /**
      *
