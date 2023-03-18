@@ -87,7 +87,7 @@
                     <form action="../Controller?id=<%=p.getProductId()%>" method="post">
                     <br>
                     <input type="hidden" name="ProductId" value="<%= p.getProductId() %>">
-                    <input type="number" name="quantity" min="1" value="">
+                    <input type="number" name="quantity" min="1" value="1">
                     <input style="margin-left: 20px;width:50%" class="btn btn-outline-dark btn-light" type="submit" name="action" value="Cart">
                         
                     

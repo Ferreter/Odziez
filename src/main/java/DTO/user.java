@@ -24,11 +24,12 @@ public class user {
     private String Answer;
     private Date DOB;
     private boolean isAdmin;
+    private int subscription;
 
     public user() {
     }
 
-    public user( int UserId,String username, String password, String FirstName, String LastName, String Email, String Phone, String Question, String Answer, Date DOB, boolean isAdmin) {
+    public user( int UserId,String username, String password, String FirstName, String LastName, String Email, String Phone, String Question, String Answer, Date DOB, boolean isAdmin, int subscription) {
   
         this.UserId = UserId;
         this.username = username;
@@ -41,7 +42,17 @@ public class user {
         this.Answer = Answer;
         this.DOB = DOB;
         this.isAdmin = isAdmin;
+        this.subscription = subscription;
     }
+
+    public int getSubscription() {
+        return subscription;
+    }
+
+    public void setSubscription(int subscription) {
+        this.subscription = subscription;
+    }
+    
 
     public String getQuestion() {
         return Question;

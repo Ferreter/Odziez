@@ -85,8 +85,9 @@ public class UserDao extends Dao implements UserDaoInterface {
                 String Answer = rs.getString("answer");
                 Date DOB = rs.getDate("DOB");
                 boolean isAdmin = rs.getBoolean("isAdmin");
+                int subscription = rs.getInt("subscription");
 
-                u = new user(UserId, username, password, FirstName, LastName, Email, phone, Question, Answer, DOB, isAdmin);
+                u = new user(UserId, username, password, FirstName, LastName, Email, phone, Question, Answer, DOB, isAdmin, subscription);
             }
         } catch (SQLException e)
         {
@@ -159,8 +160,9 @@ public class UserDao extends Dao implements UserDaoInterface {
                 String Answer = rs.getString("answer");
                 Date DOB = rs.getDate("DOB");
                 boolean isAdmin = rs.getBoolean("isAdmin");
+                int subscription = rs.getInt("subscription");
 
-                u = new user(UserId, username, password, FirstName, LastName, Email, phone, Question, Answer, DOB, isAdmin);
+                u = new user(UserId, username, password, FirstName, LastName, Email, phone, Question, Answer, DOB, isAdmin, subscription);
             }
         } catch (SQLException e)
         {
@@ -220,8 +222,9 @@ public class UserDao extends Dao implements UserDaoInterface {
                 String Answer = rs.getString("answer");
                 Date DOB = rs.getDate("DOB");
                 boolean isAdmin = rs.getBoolean("isAdmin");
+                int subscription = rs.getInt("subscription");
 
-                u = new user(UserId, username, password, FirstName, LastName, Email, phone, Question, Answer, DOB, isAdmin);
+                u = new user(UserId, username, password, FirstName, LastName, Email, phone, Question, Answer, DOB, isAdmin, subscription);
             }
         } catch (SQLException e)
         {
@@ -280,8 +283,9 @@ public class UserDao extends Dao implements UserDaoInterface {
                 String Answer = rs.getString("answer");
                 Date DOB = rs.getDate("DOB");
                 boolean isAdmin = rs.getBoolean("isAdmin");
+                int subscription = rs.getInt("subscription");
 
-                u = new user(UserId, username, password, FirstName, LastName, Email, phone, Question, Answer, DOB, isAdmin);
+                u = new user(UserId, username, password, FirstName, LastName, Email, phone, Question, Answer, DOB, isAdmin, subscription);
             }
         } catch (SQLException e)
         {
@@ -341,8 +345,9 @@ public class UserDao extends Dao implements UserDaoInterface {
                 String Answer = rs.getString("Answer");
                 Date DOB = rs.getDate("DOB");
                 boolean isAdmin = rs.getBoolean("isAdmin");
+                int subscription = rs.getInt("subscription");
 
-                u = new user(UserId, username, password, FirstName, LastName, Email, phone, Question, Answer, DOB, isAdmin);
+                u = new user(UserId, username, password, FirstName, LastName, Email, phone, Question, Answer, DOB, isAdmin, subscription);
             }
         } catch (SQLException e)
         {
@@ -451,7 +456,7 @@ public class UserDao extends Dao implements UserDaoInterface {
                 con = this.getConnection();
                 // Create MessageDigest instance for SHA-256
 
-                String query = "INSERT INTO user(UserId, username, password, FirstName, Lastname,  Email, Phone, Question, Answer,  DOB) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                String query = "INSERT INTO user(UserId, username, password, FirstName, Lastname,  Email, Phone, Question, Answer,  DOB, subscription) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
                 /*
                 *variable to store password of user to hash
@@ -499,6 +504,7 @@ public class UserDao extends Dao implements UserDaoInterface {
                 ps.setString(8, u.getQuestion());
                 ps.setString(9, u.getAnswer());
                 ps.setDate(10, u.getDOB());
+                ps.setInt(11, u.getSubscription());
 
                 ps.execute();
             } catch (SQLException e)
@@ -570,8 +576,8 @@ public class UserDao extends Dao implements UserDaoInterface {
                 String Answer = rs.getString("answer");
                 Date DOB = rs.getDate("DOB");
                 boolean isAdmin = rs.getBoolean("isAdmin");
-
-                u = new user(UserId, FirstName, LastName, username, password, Email, phone, Question, Answer, DOB, isAdmin);
+                int subscription = rs.getInt("subscription");
+                u = new user(UserId, FirstName, LastName, username, password, Email, phone, Question, Answer, DOB, isAdmin, subscription);
 
                 users.add(u);
             }

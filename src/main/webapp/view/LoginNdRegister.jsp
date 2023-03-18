@@ -84,6 +84,13 @@
                                             <label class="form-label" for="form2Example17">Date Of Birth:</label>
                                             <input  type="date" autocomplete="off" required="" id="form2Example17" name="dob"   class="form-control form-control-lg" />
                                         </div>
+                                        
+                                        <div class="form-check mb-4">
+                                            <input type="checkbox" name="subscription" value="on">
+                                            <label class="form-check-label" for="subscribeCheckbox">
+                                                   Subscribe to our newsletter
+                                           </label>
+                                        </div>
 
                                         <div class="pt-1 mb-4">
                                             <input class="btn btn-dark btn-lg btn-block" type="submit" name="action" value="register">
@@ -92,7 +99,7 @@
                                 </div>
                             </div>
                             
-                            <div class="col-md-2 col-lg-2 text-black text-center" style="margin-top: 30%"> 
+                            <div class="col-md-2 col-lg-2 text-black text-center" style="margin-top: 30%">
                             
                                 <h2 style="color: black;">
                                     Or

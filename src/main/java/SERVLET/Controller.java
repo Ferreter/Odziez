@@ -167,49 +167,52 @@ public class Controller extends HttpServlet {
      * @return a String that represents the path of the JSP page to be forwarded
      * to after processing the request
      */
-    private String RegisterPage(HttpServletRequest request, HttpServletResponse response) {
-        String forwardToJsp = "controller/index.jsp";
-        HttpSession session = request.getSession(true);
-        String firstname = request.getParameter("firstname");
-        String lastname = request.getParameter("lastname");
-        String email = request.getParameter("email");
-        String phone = request.getParameter("phone");
-        String question = request.getParameter("question");
-        String answer = request.getParameter("answer");
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String dob = request.getParameter("dob");
-        Date date = Date.valueOf(dob);
-        boolean isAdmin = false;
-        if (username != null && password != null && !username.isEmpty() && !password.isEmpty() && firstname != null && lastname != null && !firstname.isEmpty() && !lastname.isEmpty() && email != null && phone != null && !email.isEmpty() && !phone.isEmpty() && dob != null && !dob.isEmpty())
-        {
-            UserDao userDao = new UserDao("clothes_shop");
-            user u = userDao.findUserByEmail(email, username);
-            boolean login = false;
+   private String RegisterPage(HttpServletRequest request, HttpServletResponse response) {
+    String forwardToJsp = "controller/index.jsp";
+    HttpSession session = request.getSession(true);
+    String firstname = request.getParameter("firstname");
+    String lastname = request.getParameter("lastname");
+    String email = request.getParameter("email");
+    String phone = request.getParameter("phone");
+    String question = request.getParameter("question");
+    String answer = request.getParameter("answer");
+    String username = request.getParameter("username");
+    String password = request.getParameter("password");
+    String dob = request.getParameter("dob");
+    String subscription = request.getParameter("subscription");
+    Date date = Date.valueOf(dob);
+    boolean isAdmin = false;
+    int subscriptionVal = 0;
+    
+    if (username != null && password != null && !username.isEmpty() && !password.isEmpty() && firstname != null && lastname != null && !firstname.isEmpty() && !lastname.isEmpty() && email != null && phone != null && !email.isEmpty() && !phone.isEmpty() && dob != null && !dob.isEmpty()) {
+        if (subscription != null && subscription.equals("on")) {
+            subscriptionVal = 1;
+        }
+        UserDao userDao = new UserDao("clothes_shop");
+        user u = userDao.findUserByEmail(email, username);
+        boolean login = false;
 
-            if (u == null)
-            {
+        if (u == null) {
+            user user = new user(0, username, password, firstname, lastname, email, phone, question, answer, date, isAdmin, subscriptionVal);
+            session.setAttribute("username", username);
+            session.setAttribute("user", user);
 
-                user user = new user(0, username, password, firstname, lastname, email, phone, question, answer, date, isAdmin);
-                session.setAttribute("username", username);
-                session.setAttribute("user", user);
-
-                login = userDao.addUser(user);
-                forwardToJsp = "controller/index.jsp";
-            } else
-            {
-                forwardToJsp = "view/error.jsp";
-                String error = "user already exists <a href=\"LoginNdRegister.jsp\">try again.</a>";
-                session.setAttribute("errorMessage", error);
-            }
-        } else
-        {
+            login = userDao.addUser(user);
+            forwardToJsp = "controller/index.jsp";
+        } else {
             forwardToJsp = "view/error.jsp";
-            String error = "No username and/or password and/or email and/or phone and/or firstname and/or lastname supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
+            String error = "user already exists <a href=\"LoginNdRegister.jsp\">try again.</a>";
             session.setAttribute("errorMessage", error);
         }
-        return forwardToJsp;
+    } else {
+        forwardToJsp = "view/error.jsp";
+        String error = "No username and/or password and/or email and/or phone and/or firstname and/or lastname supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
+        session.setAttribute("errorMessage", error);
     }
+    
+    return forwardToJsp;
+}
+    
 
     /**
      *
