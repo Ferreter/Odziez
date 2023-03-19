@@ -34,14 +34,12 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-4">
-                                <p style="padding-top:4px;padding-bottom: 2px;margin:0px;">New Arrivals</p>
-                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">View All</a>
-                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Clothes</a>
-                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Shoes & Accesories</a>
-                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Sports</a>
-                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Hand Picked</a>
+                                <p style="padding-top:4px;padding-bottom: 2px;margin:0px;">By Category</p>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Jackets</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Hoodies</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">T-Shirt</a>
 
-                                <p style="padding-top:8px;padding-bottom: 2px;margin:0px;">Get Comfortable</p>
+                                <p style="padding-top:8px;padding-bottom: 2px;margin:0px;">What We Recommend</p>
                                 <a class="nav-link navDropSection" style="font-size:14px;" href="#">View All</a>
 
                                 <p style="padding-top:8px;padding-bottom: 2px;margin:0px;">Logbook</p>
@@ -49,23 +47,19 @@
                                 <a class="nav-link navDropSection" style="font-size:14px;" href="#">Street Looks</a>
                                 <a class="nav-link navDropSection" style="font-size:14px;" href="#">Smart Looks</a>
                             </div>
+                            
                             <div class="col-4">
-                                <p style="padding-top:4px;padding-bottom: 2px;margin:0px;">New Arrivals</p>
-                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">View All</a>
-                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Clothes</a>
-                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Shoes & Accesories</a>
-                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Sports</a>
-                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Hand Picked</a>
-                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">View All</a>
-                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Clothes</a>
-                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Shoes & Accesories</a>
-                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Sports</a>
-                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Hand Picked</a>
+                                <p style="padding-top:4px;padding-bottom: 2px;margin:0px;">Brand's</p>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Emporio Armani</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Armani</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Balenciaga</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Palm Angels</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Prada</a>
 
 
                             </div>
 
-
+                            <!--
                             <div class="col-4">
                                 <p style="padding-top:4px;padding-bottom: 2px;margin:0px;">New Arrivals</p>
                                 <a class="nav-link navDropSection" style="font-size:14px;" href="#">View All</a>
@@ -83,6 +77,7 @@
                                 <a class="nav-link navDropSection" style="font-size:14px;" href="#">Street Looks</a>
                                 <a class="nav-link navDropSection" style="font-size:14px;" href="#">Smart Looks</a>
                             </div>
+                            -->
                         </div>
                     </div>
                 </div>

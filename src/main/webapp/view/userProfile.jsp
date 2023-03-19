@@ -8,7 +8,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     user u = (user) session.getAttribute("user");
-    if (u != null) {
+    if (u != null)
+    {
 %>
 <jsp:include page="../model/header.jsp" /> 
 <jsp:include page="../view/nav.jsp" /> 
@@ -126,45 +127,63 @@
                                                                                                                                                             </li>
                                                                                                                                                             </div>
 
-                                                                                                                                                            <!--            
-                                                                                                                                                            <li class="list-group-item">
-                                                                                                                                                                <h3>Order History</h3>
-                                                                                                                                                                <table class="table table-striped">
-                                                                                                                                                                    <thead>
-                                                                                                                                                                        <tr>
-                                                                                                                                                                            <th>Order ID</th>
-                                                                                                                                                                            <th>Date</th>
-                                                                                                                                                                            <th>Total</th>
-                                                                                                                                                                            <th>Status</th>
-                                                                                                                                                                        </tr>
-                                                                                                                                                                    </thead>
-                                                                                                                                                                    <tbody>
-                                                                                                                                                                        <tr>
-                                                                                                                                                                            <td>12345</td>
-                                                                                                                                                                            <td>01/01/2021</td>
-                                                                                                                                                                            <td>$100.00</td>
-                                                                                                                                                                            <td>Shipped</td>
-                                                                                                                                                                        </tr>
-                                                                                                                                                                        <tr>
-                                                                                                                                                                            <td>67890</td>
-                                                                                                                                                                            <td>02/01/2021</td>
-                                                                                                                                                                            <td>$200.00</td>
-                                                                                                                                                                            <td>Delivered</td>
-                                                                                                                                                                        </tr>
-                                                                                                                                                                    </tbody>
-                                                                                                                                                                </table>
-                                                                                                                                                            </li>
-                                                                                                                                                            -->
-                                                                                                                                                            </ul>
+                                                                                                                                                            <div style="margin-bottom: 40px; padding-top: 5px;"> 
+                                                                                                                                                                <ul class="list-group" style="border: none;">
+                                                                                                                                                                    <li class="list-group-item" style="border: none;">
+                                                                                                                                                                        <p style="font-size: 21px">Delete Your Profile?
 
-                                                                                                                                                            </div>
-                                                                                                                                                            </div>
-                                                                                                                                                            </div>
+                                                                                                                                                                        </p>
+                                                                                                                                                                        <p style="font-size:16px;">
+                                                                                                                                                                            <span style="color:gray; font-size: 14px;">Want to Leave and Delete all your information?
+                                                                                                                                                                                <br>
+                                                                                                                                                                                    <form action="../Controller" method="post">
+                                                                                                                                                                                            <div class="pt-1 mb-4">
+                                                                                                                                                                                                <button class="btn btn-dark btn-lg btn-block" type="submit" name="action" value="deleteUserProfile" placeholder="">DELETE USER DATA</button>
+                                                                                                                                                                                            </div>
+                                                                                                                                                                                    </form>
+                                                                                                                                                                                    </p>
+                                                                                                                                                                                    </li>
+                                                                                                                                                                                    </div>
+                                                                                                                                                                                    <!--            
+                                                                                                                                                                                    <li class="list-group-item">
+                                                                                                                                                                                        <h3>Order History</h3>
+                                                                                                                                                                                        <table class="table table-striped">
+                                                                                                                                                                                        <thead>
+                                                                                                                                                                                        <tr>
+                                                                                                                                                                                        <th>Order ID</th>
+                                                                                                                                                                                        <th>Date</th>
+                                                                                                                                                                                        <th>Total</th>
+                                                                                                                                                                                        <th>Status</th>
+                                                                                                                                                                                        </tr>
+                                                                                                                                                                                        </thead>
+                                                                                                                                                                                        <tbody>
+                                                                                                                                                                                        <tr>
+                                                                                                                                                                                        <td>12345</td>
+                                                                                                                                                                                        <td>01/01/2021</td>
+                                                                                                                                                                                        <td>$100.00</td>
+                                                                                                                                                                                        <td>Shipped</td>
+                                                                                                                                                                                        </tr>
+                                                                                                                                                                                        <tr>
+                                                                                                                                                                                        <td>67890</td>
+                                                                                                                                                                                        <td>02/01/2021</td>
+                                                                                                                                                                                        <td>$200.00</td>
+                                                                                                                                                                                        <td>Delivered</td>
+                                                                                                                                                                                        </tr>
+                                                                                                                                                                                        </tbody>
+                                                                                                                                                                                        </table>
+                                                                                                                                                                                    </li>
+                                                                                                                                                                                    -->
+                                                                                                                                                                                    </ul>
 
-                                                                                                                                                            <jsp:include page="../view/footer.jsp" /> 
-                                                                                                                                                            <%} else {
-                                                                                                                                                                    String redirectURL = "../view/LoginNdRegister.jsp";
-                                                                                                                                                                    response.sendRedirect(redirectURL);
+                                                                                                                                                                                    </div>
+                                                                                                                                                                                    </div>
+                                                                                                                                                                                    </div>
 
-                                                                                                                                                                }
-                                                                                                                                                            %>
+                                                                                                                                                                                    <jsp:include page="../view/footer.jsp" /> 
+                                                                                                                                                                                    <%} else
+                                                                                                                                                                                        {
+                                                                                                                                                                                            String redirectURL = "../view/LoginNdRegister.jsp";
+                                                                                                                                                                                            response.sendRedirect(redirectURL);
+
+                                                                                                                                                                                        }
+                                                                                                                                                                                    %>

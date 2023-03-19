@@ -172,7 +172,7 @@ INSERT INTO `review` (`reviewId`, `ProductId`, `UserId`, `rating`, `review`, `re
 (45, 'UJN847_12VV_F0002_S_231\r\n', 4, 2, 'I was really disappointed with this t-shirt. The quality is poor and the fit is not good. Would not recommend.', '2022-09-01'),
 (46, 'UJN847_12VV_F0002_S_231\r\n', 5, 3, 'The t-shirt is okay, but nothing special. The quality is average and the design is a bit boring.', '2022-10-01');
 
--- --------------------------------------------------------
+-- --------------------------------------------------------`
 
 --
 -- Table structure for table `stock`
