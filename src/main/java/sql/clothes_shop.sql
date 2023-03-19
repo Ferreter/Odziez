@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 15, 2023 at 03:58 PM
--- Server version: 10.4.20-MariaDB
--- PHP Version: 8.0.9
+-- Generation Time: Mar 19, 2023 at 06:19 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,10 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `clothes_shop`
 --
-drop database if exists clothes_shop;
-create database if not exists clothes_shop;
 
-use clothes_shop;
 -- --------------------------------------------------------
 
 --
@@ -40,6 +37,7 @@ CREATE TABLE `cart` (
   `orderDate` datetime DEFAULT current_timestamp()
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `orders`
@@ -114,7 +112,7 @@ INSERT INTO `products` (`ProductId`, `Name`, `MRP`, `CP`, `Description`, `Catego
 --
 
 CREATE TABLE `review` (
-  `reviewid` int(11) NOT NULL,
+  `reviewId` int(11) NOT NULL,
   `ProductId` varchar(255) NOT NULL,
   `UserId` int(11) NOT NULL,
   `rating` tinyint(4) NOT NULL,
@@ -122,12 +120,11 @@ CREATE TABLE `review` (
   `reviewDate` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
 --
 -- Dumping data for table `review`
 --
 
-INSERT INTO `review` (`reviewid`, `ProductId`, `UserId`, `rating`, `review`, `reviewDate`) VALUES
+INSERT INTO `review` (`reviewId`, `ProductId`, `UserId`, `rating`, `review`, `reviewDate`) VALUES
 (1, '3R1GC01NRIZ10999\r\n', 1, 4, 'This product is exactly what I was looking for. It\'s easy to use and works great.', '2022-10-01'),
 (2, '3R1GC01NRIZ10999\r\n', 2, 5, 'I am so impressed with this product! It exceeded my expectations in every way.', '2022-09-28'),
 (3, '3R1GC01NRIZ10999\r\n', 3, 3, 'It\'s a decent product, but it has some flaws that could be improved.', '2022-09-23'),
@@ -207,20 +204,22 @@ CREATE TABLE `user` (
   `Question` varchar(255) DEFAULT NULL,
   `Answer` varchar(255) DEFAULT NULL,
   `DOB` date DEFAULT NULL,
-  `isAdmin` tinyint(1) DEFAULT NULL
+  `isAdmin` tinyint(1) DEFAULT NULL,
+  `subscription` int(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`UserId`, `username`, `password`, `FirstName`, `Lastname`, `Email`, `Phone`,`Question`, `Answer`, `DOB`, `isAdmin`) VALUES
-(1, 'Harsh', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Harsh', 'Khatri', 'hkhatri731@gmail.com', 871498876, 'To what city did you go on your honeymoon?', 'Anywhere with Beds', '2023-01-12', 1),
-(2, 'Kian', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Kian', 'Harding', 'kh@gmail.com', 830995017, 'Where were you when you first heard about 9/11?', 'Playground with stuffed animal', '2023-01-02', 1),
-(3, 'Khali', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Meshach', 'Atta-Nyarko', 'Mh@gmail.com', 830995017, 'Where were you when you first heard about 9/11?', 'Playground with stuffed animal', '2023-01-02', 1),
-(4, 'Deji', '37d6794a4b4fb5f1769b97adf6d73223b8dfaa5d1054087fea9416584677935c', 'Destiny', 'Wassup', 'deji@gmail.com', 830995017, 'What was the name of your first stuffed animal?', 'Kakashi Hatake', '2023-01-02', 0),
-(5, 'Ruth', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Catherine', 'Mc Keever', 'ruth.mckeever@dkit.ie', 'What was the name of your first stuffed animal?', 'Pingu', 830995017, '2023-01-02', 0),
-(6, 'Michelle', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Michelle', 'Graham', 'Michelle.Graham@dkit.ie', 'To what city did you go on your honeymoon?', 'Rhodes Greece', 830995017, '2023-01-02', 0);
+INSERT INTO `user` (`UserId`, `username`, `password`, `FirstName`, `Lastname`, `Email`, `Phone`, `Question`, `Answer`, `DOB`, `isAdmin`, `subscription`) VALUES
+(1, 'Harsh', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Harsh', 'Khatri', 'hkhatri731@gmail.com', 871498876, 'To what city did you go on your honeymoon?', 'Anywhere with Beds', '2023-01-12', 1, 0),
+(2, 'Kian', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Kian', 'Harding', 'kh@gmail.com', 830995017, 'Where were you when you first heard about 9/11?', 'Playground with stuffed animal', '2023-01-02', 1, 0),
+(3, 'Khali', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Meshach', 'Atta-Nyarko', 'Mh@gmail.com', 830995017, 'Where were you when you first heard about 9/11?', 'Playground with stuffed animal', '2023-01-02', 1, 0),
+(4, 'Deji', '37d6794a4b4fb5f1769b97adf6d73223b8dfaa5d1054087fea9416584677935c', 'Destiny', 'Wassup', 'deji@gmail.com', 830995017, 'What was the name of your first stuffed animal?', 'Kakashi Hatake', '2023-01-02', 0, 0),
+(5, 'Ruth', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Catherine', 'Mc Keever', 'ruth.mckeever@dkit.ie', 0, 'Pingu', '830995017', '2023-01-02', 0, 0),
+(6, 'Michelle', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Michelle', 'Graham', 'Michelle.Graham@dkit.ie', 0, 'Rhodes Greece', '830995017', '2023-01-02', 0, 0),
+(15, 'Bhig', '539747bb394302e6049e39c945d7c0f65ceda85eeb6d6c1e0112c1e014aaa2a3', 'Bhig', 'Khali', 'amicusyaba@yahoo.com', 894355518, 'To what city did you go on your honeymoon?', 'Singapore', '2000-10-10', NULL, 0);
 
 --
 -- Indexes for dumped tables
@@ -256,7 +255,7 @@ ALTER TABLE `products`
 -- Indexes for table `review`
 --
 ALTER TABLE `review`
-  ADD PRIMARY KEY (`reviewid`);
+  ADD PRIMARY KEY (`reviewId`);
 
 --
 -- Indexes for table `stock`
@@ -279,16 +278,20 @@ ALTER TABLE `user`
 --
 -- AUTO_INCREMENT for table `cart`
 --
-ALTER TABLE `review`
-  MODIFY `reviewId` int(11) NOT NULL AUTO_INCREMENT,  AUTO_INCREMENT=50;
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `review`
+--
+ALTER TABLE `review`
+  MODIFY `reviewId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `UserId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `UserId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Constraints for dumped tables
