@@ -20,7 +20,10 @@ SET time_zone = "+00:00";
 --
 -- Database: `clothes_shop`
 --
+drop database if exists clothes_shop;
+create database if not exists clothes_shop;
 
+use clothes_shop;
 -- --------------------------------------------------------
 
 --
@@ -219,7 +222,7 @@ INSERT INTO `user` (`UserId`, `username`, `password`, `FirstName`, `Lastname`, `
 (4, 'Deji', '37d6794a4b4fb5f1769b97adf6d73223b8dfaa5d1054087fea9416584677935c', 'Destiny', 'Wassup', 'deji@gmail.com', 830995017, 'What was the name of your first stuffed animal?', 'Kakashi Hatake', '2023-01-02', 0, 0),
 (5, 'Ruth', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Catherine', 'Mc Keever', 'ruth.mckeever@dkit.ie', 0, 'Pingu', '830995017', '2023-01-02', 0, 0),
 (6, 'Michelle', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Michelle', 'Graham', 'Michelle.Graham@dkit.ie', 0, 'Rhodes Greece', '830995017', '2023-01-02', 0, 0),
-(15, 'Bhig', '539747bb394302e6049e39c945d7c0f65ceda85eeb6d6c1e0112c1e014aaa2a3', 'Bhig', 'Khali', 'amicusyaba@yahoo.com', 894355518, 'To what city did you go on your honeymoon?', 'Singapore', '2000-10-10', NULL, 0);
+(15, 'Bhig', '539747bb394302e6049e39c945d7c0f65ceda85eeb6d6c1e0112c1e014aaa2a3', 'Bhig', 'Khali', 'amicusyaba@yahoo.com', 894355518, 'To what city did you go on your honeymoon?', 'Singapore', '2000-10-10', 0, 0);
 
 --
 -- Indexes for dumped tables
