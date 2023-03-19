@@ -80,7 +80,7 @@ public class Controller extends HttpServlet {
                     forwardToJsp = Cart(request, response);
                     break;
                 case "DeleteUserProfile":
-                    forwardToJsp = Cart(request, response);
+                    forwardToJsp = DeleteUserProfile(request, response);
                     break;
 
                 case "Update":
@@ -529,7 +529,6 @@ public class Controller extends HttpServlet {
 
             if (removed == true)
             {
-
                 forwardToJsp = "controller/index.jsp";
             } else
             {
