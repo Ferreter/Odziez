@@ -47,7 +47,7 @@ public class UserDaoTest {
     public void testFindUserByUsernamePasswordPass() {
         System.out.println("findUserByUsernamePassword");
         String uname = "Kian";
-        String pword = "Password3";
+        String pword = "Password@123";
         UserDao userDao = new UserDao("clothes_shop_test");
         String expResult = "Kian_test";
         user result = userDao.findUserByUsernamePassword(uname, pword);
@@ -267,17 +267,19 @@ public class UserDaoTest {
      */
     @Test
     public void testUpdatePass() {
-        System.out.println("updatePass");
+         System.out.println("updatePass");
 
         String dob = "2023-01-02";
         Date date = Date.valueOf(dob);
-        user u = new user(2, "Kian", "Password@123", "Kian", "Harding", "kh@gmail.com", "830995017", "Where were you when you first heard about 9/11?", "Playground with stuffed animal", date, true, 0);
+        user u = new user(7, "Kiantest", "Password4", "kian", "Harding", "kian2ki@hotmail.com", "0838381391", "Test", "Test", date, false, 1);
         String password = "Password3";
         
         UserDao userDao = new UserDao("clothes_shop_test");
+        userDao.addUser(u);
         boolean expResult = true;
         boolean result = userDao.updatePass(u, password);
         assertEquals(expResult, result);
+        userDao.removeUser("Kiantest");
         
     }
 
