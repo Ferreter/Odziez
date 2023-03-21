@@ -468,6 +468,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
 
                 String query = "INSERT INTO products (ProductId, Name, MRP, CP, Description, Category, Tags, Images, Brand) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+                ps = con.prepareStatement(query);
                 ps.setString(1, p.getProductId());
                 ps.setString(2, p.getName());
                 ps.setDouble(3, p.getMRP());
@@ -565,4 +566,46 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         return p;     // u may be null 
 
     }
+
+    @Override
+    public boolean DeleteProduct(products p) {
+      Connection con = null;
+        PreparedStatement ps = null;
+        boolean removed = false;
+        try
+        {
+            con = this.getConnection();
+
+            String query = "DELETE FROM products WHERE ProductId = ?";
+            ps = con.prepareStatement(query);
+            ps.setString(1, p.getProductId());
+
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected != 0)
+            {
+                removed = true;
+            }
+        } catch (SQLException e)
+        {
+            System.err.println("\tA problem occurred during the removeUser method:");
+            System.err.println("\t" + e.getMessage());
+            removed = false;
+        } finally
+        {
+            try
+            {
+                if (ps != null)
+                {
+                    ps.close();
+                }
+                if (con != null)
+                {
+                    freeConnection(con);
+                }
+            } catch (SQLException e)
+            {
+                System.err.println("A problem occurred when closing down the removeUser method:\n" + e.getMessage());
+            }
+        }
+        return removed;}
 }

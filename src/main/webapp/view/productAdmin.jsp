@@ -86,15 +86,15 @@
     </div>
 
     <h5 style="margin-top:60px;"><b>Enter id of Product you wish to delete</b></h5>
-    <form action="deleteProduct" method="post">
+    <form action="../Controller" method="post">
         <table>
             <tr>
                 <td style="padding-right: 20px;">Product Id: </td>
-                <td><input type="text" name="title" /></td>
+                <td><input type="text" name="ProductId" /></td>
             </tr>
 
             <tr >
-                <td style="padding-top:20px;" colspan="2"><input type="submit" value="Submit Form" /></td>
+                <td style="padding-top:20px;" colspan="2"><input type="submit" name="action" value="deleteProduct" /></td>
             </tr>
         </table>
     </form>
@@ -135,7 +135,7 @@
                 <td><input type="text" name="Brand" /></td>
             </tr>
             <tr>
-                <td style="padding-top:20px;" colspan="2"><input type="submit" name="action" value="addProduct"/></td>
+                <td style="padding-top:20px;" colspan="2"><input type="submit" name="action" value="addProduct"></td>
             </tr>
         </table>
     </form>

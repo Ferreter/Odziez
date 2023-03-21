@@ -80,4 +80,6 @@ public interface ProductsDaoInterface {
     public boolean AddProduct(products p);
     
     public products findUserByProductId(String pId);
+    
+    public boolean DeleteProduct(products product);
 }
