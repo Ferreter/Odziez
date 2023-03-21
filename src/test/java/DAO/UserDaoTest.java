@@ -47,7 +47,7 @@ public class UserDaoTest {
     public void testFindUserByUsernamePasswordPass() {
         System.out.println("findUserByUsernamePassword");
         String uname = "Kian";
-        String pword = "Password@123";
+        String pword = "Password3";
         UserDao userDao = new UserDao("clothes_shop_test");
         String expResult = "Kian_test";
         user result = userDao.findUserByUsernamePassword(uname, pword);
