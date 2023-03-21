@@ -38,8 +38,6 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         ResultSet rs = null;
         List<products> products = new ArrayList();
 
-        
-
         try
         {
             con = getConnection();
@@ -108,9 +106,59 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             while (rs.next())
             {
 
-               products p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Images"), rs.getString("Brand"));
-            
-               products.add(p);
+                products p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Images"), rs.getString("Brand"));
+
+                products.add(p);
+            }
+        } catch (SQLException e)
+        {
+            System.err.println("\tA problem occurred during the findUserByUsername method:");
+            System.err.println("\t" + e.getMessage());
+        } finally
+        {
+            try
+            {
+                if (rs != null)
+                {
+                    rs.close();
+                }
+                if (ps != null)
+                {
+                    ps.close();
+                }
+                if (con != null)
+                {
+                    freeConnection(con);
+                }
+            } catch (SQLException e)
+            {
+                System.err.println("A problem occurred when closing down the findUserByUsername method:\n" + e.getMessage());
+            }
+        }
+        return products;     // u may be null 
+    }
+
+    @Override
+    public List<products> searchbybrand(String Brand) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<products> products = new ArrayList();
+        try
+        {
+            con = this.getConnection();
+
+            String query = "SELECT * FROM products WHERE Brand like ?";
+            ps = con.prepareStatement(query);
+            ps.setString(1, "%" + Brand + "%");
+
+            rs = ps.executeQuery();
+            while (rs.next())
+            {
+
+                products p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Images"), rs.getString("Brand"));
+
+                products.add(p);
             }
         } catch (SQLException e)
         {
@@ -168,7 +216,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             {
 
                 p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Images"), rs.getString("Brand"));
-            
+
             }
         } catch (SQLException e)
         {
@@ -264,7 +312,6 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         return sum;
     }
 
-
     /**
      *
      * Retrieves a list of products from the database based on the provided cart
@@ -338,25 +385,20 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         return products;
     }
 
-    
     @Override
     public products CreateProdut() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-
-    
-    
-     
     @Override
     public boolean insertReview(review r) {
-         Connection con = null;
+        Connection con = null;
         PreparedStatement ps = null;
         boolean added = false;
         try
         {
             con = this.getConnection();
-            
+
             String query = "INSERT INTO review (reviewId, ProductId, UserId, rating, review, reviewDate) VALUES (?, ?, ?, ?, ?, ?)";
 
             ps = con.prepareStatement(query);
@@ -366,7 +408,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             ps.setInt(3, r.getUserId());
             ps.setInt(4, r.getRating());
             ps.setString(5, r.getReview());
-             ps.setDate(6, r.getReviewDate());
+            ps.setDate(6, r.getReviewDate());
 
             // Because this is CHANGING the database, use the executeUpdate method
             ps.executeUpdate();
@@ -400,11 +442,10 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         }
         return added;
     }
-    
-    
+
     @Override
-    public List<review> getReviewsByProductId(String productId)  {
-   Connection con = null;
+    public List<review> getReviewsByProductId(String productId) {
+        Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<review> reviews = new ArrayList();
@@ -417,7 +458,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
 
             String query = "SELECT * FROM review WHERE productId = ?";
             ps = con.prepareStatement(query);
-            ps.setString(1,productId);
+            ps.setString(1, productId);
             rs = ps.executeQuery();
 
             while (rs.next())
@@ -464,7 +505,6 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             try
             {
                 con = this.getConnection();
-               
 
                 String query = "INSERT INTO products (ProductId, Name, MRP, CP, Description, Category, Tags, Images, Brand) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -507,7 +547,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             return false;
         }
     }
-    
+
     @Override
     public products findUserByProductId(String pId) {
         Connection con = null;
@@ -569,7 +609,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
 
     @Override
     public boolean DeleteProduct(products p) {
-      Connection con = null;
+        Connection con = null;
         PreparedStatement ps = null;
         boolean removed = false;
         try
@@ -607,5 +647,6 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
                 System.err.println("A problem occurred when closing down the removeUser method:\n" + e.getMessage());
             }
         }
-        return removed;}
+        return removed;
+    }
 }
