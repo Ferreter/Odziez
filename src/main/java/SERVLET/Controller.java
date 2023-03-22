@@ -93,6 +93,9 @@ public class Controller extends HttpServlet {
                 case "DeleteUserProfile":
                     forwardToJsp = DeleteUserProfile(request, response);
                     break;
+                case "EditProduct":
+                    forwardToJsp = EditProduct(request, response);
+                    break;
 
                 case "Update":
                     forwardToJsp = ResetPass(request, response);
@@ -790,6 +793,49 @@ public class Controller extends HttpServlet {
 
         return forwardToJsp;
     }
+      private String EditProduct(HttpServletRequest request, HttpServletResponse response) {
+     String forwardToJsp = "controller/error.jsp";
+        HttpSession session = request.getSession(true);
+
+        ProductsDao pdao = new ProductsDao("clothes_shop");
+        ProductsDaoInterface productdao = new ProductsDao("clothes_shop");
+
+        String ProductId = request.getParameter("ProductId");
+        String Name = request.getParameter("Name");
+        String MRP = request.getParameter("MRP");
+        String CP = request.getParameter("CP");
+        String Description = request.getParameter("Description");
+        String Category = request.getParameter("Category");
+        String Tags = request.getParameter("Tags");
+        String Brand = request.getParameter("Brand");
+
+        if (ProductId != null && !ProductId.isEmpty() && Name != null && !Name.isEmpty() && MRP != null && !MRP.isEmpty() && CP != null && !CP.isEmpty() && Description != null && !Description.isEmpty() && Category != null && !Category.isEmpty() && Brand != null && !Brand.isEmpty() && Tags != null && !Tags.isEmpty())
+        {
+            double mrp = Double.valueOf(MRP);
+            double cp = Double.valueOf(CP);
+
+            products p = new products(ProductId, Name, mrp, cp, Description, Category, Tags, "", Brand);
+            boolean entered = productdao.EditProduct(p);
+
+            if (entered == true)
+            {
+                forwardToJsp = "view/productAdmin.jsp";
+            } else
+            {
+                forwardToJsp = "controller/error.jsp";
+                String error = "Not enough info supplied. Please <a href=\"productAdmin.jsp\">try again.</a>";
+                session.setAttribute("errorMessage", error);
+            }
+
+        } else
+        {
+            forwardToJsp = "controller/error.jsp";
+            String error = "Not enough info supplied. Please <a href=\"productAdmin.jsp\">try again.</a>";
+            session.setAttribute("errorMessage", error);
+        }
+
+        return forwardToJsp;
+}
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -829,6 +875,8 @@ public class Controller extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+  
 
    
 

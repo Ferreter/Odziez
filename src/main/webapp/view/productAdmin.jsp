@@ -180,7 +180,7 @@
                             <td><input type="text" name="Brand" /></td>
                         </tr>
                         <tr>
-                            <td style="padding-top:20px;" colspan="2"><input type="submit" name="action" value="addProduct"/></td>
+                            <td style="padding-top:20px;" colspan="2"><input type="submit" name="action" value="EditProduct"/></td>
                         </tr>
                     </table>
                 </form>
@@ -188,7 +188,7 @@
         </div>
     </div>
 
-    >>>>>>> 5e0ca6ea13e27efa9f38129bec71b3ddbae040bf
+    
 </div>
 
 <jsp:include page="../view/footer.jsp" />

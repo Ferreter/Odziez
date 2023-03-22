@@ -645,4 +645,58 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         }
         return removed;
     }
+    
+    @Override
+    public boolean EditProduct(products p) {
+        Connection con = null;
+        PreparedStatement ps = null;
+
+        if (findUserByProductId(p.getProductId()) == null)
+        {
+
+            try
+            {
+                con = this.getConnection();
+
+                String query = "UPDATE products SET ProductId = ?, Name = ?, MRP = ?, CP = ?, Description = ?, Category = ?,Tags = ?, Images = ?, Brand = ? WHERE ProductId like ? ";
+                ps = con.prepareStatement(query);
+                ps.setString(1, p.getProductId());
+                ps.setString(2, p.getName());
+                ps.setDouble(3, p.getMRP());
+                ps.setDouble(4, p.getCP());
+                ps.setString(5, p.getDescription());
+                ps.setString(6, p.getCategory());
+                ps.setString(7, p.getTags());
+                ps.setString(8, p.getImages());
+                ps.setString(9, p.getBrand());
+                ps.setString(10, "%"+p.getProductId()+"%");
+
+                ps.execute();
+            } catch (SQLException e)
+            {
+                System.err.println("\tA problem occurred during the addUser method:");
+                System.err.println("\t" + e.getMessage());
+            } finally
+            {
+                try
+                {
+                    if (ps != null)
+                    {
+                        ps.close();
+                    }
+                    if (con != null)
+                    {
+                        freeConnection(con);
+                    }
+                } catch (SQLException e)
+                {
+                    System.err.println("A problem occurred when closing down the addUser method:\n" + e.getMessage());
+                }
+            }
+            return true;
+        } else
+        {
+            return false;
+        }
+    }
 }

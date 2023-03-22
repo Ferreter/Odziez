@@ -82,4 +82,6 @@ public interface ProductsDaoInterface {
     public boolean DeleteProduct(products product);
 
     public List<products> searchbybrand(String product);
+    
+    public boolean EditProduct(products p);
 }
