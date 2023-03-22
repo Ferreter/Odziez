@@ -104,6 +104,12 @@ public class Controller extends HttpServlet {
                 case "order":
                     forwardToJsp = Order(request, response);
                     break;
+                case "+":
+                    forwardToJsp = Add(request,response);
+                    break;
+                    case "-":
+                    forwardToJsp = Del(request,response);
+                    break;
 
             }
 
@@ -749,6 +755,41 @@ public class Controller extends HttpServlet {
         }
         return forwardToJsp;
     }
+     private String Add(HttpServletRequest request, HttpServletResponse response) {
+        String forwardToJsp = "controller/index.jsp";
+        HttpSession session = request.getSession(true);
+
+        String id = request.getParameter("id");
+        CartDao cartdao = new CartDao("clothes_shop");
+        cartdao.AddQuantity(id);
+
+        forwardToJsp = "view/cart.jsp";
+
+        return forwardToJsp;
+    }
+
+    private String Del(HttpServletRequest request, HttpServletResponse response) {
+        String forwardToJsp = "controller/index.jsp";
+        HttpSession session = request.getSession(true);
+        user u = (user) session.getAttribute("user");
+        String id = request.getParameter("id");
+        CartDao cartdao = new CartDao("clothes_shop");
+        List<Cart> c = cartdao.ListAllCart(u.getUserId());
+        for (Cart cartItem : c) {
+        if(cartItem.getProductId().equals(id)){
+            if(cartItem.getQuantity()==1){
+                cartdao.deleteCartItem(id);
+            }else{
+            cartdao.DelQuantity(id);
+        }
+        }
+            }
+        
+
+        forwardToJsp = "view/cart.jsp";
+
+        return forwardToJsp;
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -788,5 +829,7 @@ public class Controller extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+   
 
 }
