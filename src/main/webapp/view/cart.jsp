@@ -64,9 +64,10 @@ font-size: 25px;
 		<table class="table table-light">
 			<thead>
 				<tr>
-					<th scope="col">Name</th>
+					<th scope="col">Item</th>
 					<th scope="col">Category</th>
 					<th scope="col">Price </th>
+                                        
                                         <th scope="col">Quantity </th>
 					
 				</tr>
@@ -83,13 +84,15 @@ font-size: 25px;
 					<td><%=p.getName() %></td>
 					<td><%=p.getCategory()%></td>
 					<td><%= deciForm.format(p.getCP())%></td>
+                                        
 					<td>
 						<form action="order" method="post" class="form-inline">
 						<input type="hidden" name="id" value="<%=p.getProductId()%>" class="form-input">
 							<div class="form-group d-flex justify-content-between">
-								<button type="button" class="btn btn-decre">-</button>
-								<input type="text" name="quantity" class="form-control"  value="<%=item.getQuantity()%>" > 
-								<button type="button" class="btn btn-incre">+</button>
+								
+								
+                                                                        <span><%=item.getQuantity()%></span>
+                                                                    
 							</div>
 							
 						</form>
