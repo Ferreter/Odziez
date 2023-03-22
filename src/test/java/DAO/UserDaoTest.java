@@ -49,7 +49,7 @@ public class UserDaoTest {
         String uname = "Kian";
         String pword = "Password@123";
         UserDao userDao = new UserDao("clothes_shop_test");
-        String expResult = "Kian_test";
+        
         user result = userDao.findUserByUsernamePassword(uname, pword);
 
         // assert that the method returns a non-null user

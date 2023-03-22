@@ -385,10 +385,6 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         return products;
     }
 
-    @Override
-    public products CreateProdut() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     @Override
     public boolean insertReview(review r) {

@@ -7,6 +7,7 @@ package DAO;
 import DTO.Cart;
 import DTO.products;
 import DTO.review;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -127,65 +128,52 @@ public class ProductsDaoTest {
 //        fail("The test case is a prototype.");
 //    }
 
+
     /**
-     * Test of CreateProdut method, of class ProductsDao.
+     * Test of insertReview method, of class ProductsDao.
      */
-//    @Test
-//    public void testCreateProdut() {
-//        System.out.println("CreateProdut");
-//        ProductsDao instance = null;
-//        products expResult = null;
-//        products result = instance.CreateProdut();
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    /**
-//     * Test of insertReview method, of class ProductsDao.
-//     */
-//    @Test
-//    public void testInsertReview() {
-//        System.out.println("insertReview");
-//        review r = null;
-//        ProductsDao instance = null;
-//        boolean expResult = false;
-//        boolean result = instance.insertReview(r);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    /**
-//     * Test of getReviewsByProductId method, of class ProductsDao.
-//     */
-//    @Test
-//    public void testGetReviewsByProductId() {
-//        System.out.println("getReviewsByProductId");
-//        String productId = "";
-//        ProductsDao instance = null;
-//        List<review> expResult = null;
-//        List<review> result = instance.getReviewsByProductId(productId);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    /**
-//     * Test of AddProduct method, of class ProductsDao.
-//     */
-//    @Test
-//    public void testAddProduct() {
-//        System.out.println("AddProduct");
-//        products p = null;
-//        ProductsDao instance = null;
-//        boolean expResult = false;
-//        boolean result = instance.AddProduct(p);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
+    @Test
+    public void testInsertReview() {
+        System.out.println("insertReview");
+         String dob = "2001-02-07";
+        Date date = Date.valueOf(dob);
+        review r = new review(0, "3R1GC01NRIZ10999", 1, 4, "Test", date);
+
+        ProductsDao  prodDao = new ProductsDao("clothes_shop_test");
+        boolean expResult = true;
+        boolean result = prodDao.insertReview(r);
+        assertEquals(expResult, result);
+       
+    }
+
+    /**
+     * Test of getReviewsByProductId method, of class ProductsDao.
+     */
+    @Test
+    public void testGetReviewsByProductId() {
+        System.out.println("getReviewsByProductId");
+        String productId = "3R1GC01NRIZ10999";
+        ProductsDao  prodDao = new ProductsDao("clothes_shop_test");
+        List<review> result = prodDao.getReviewsByProductId(productId);
+       assertNotNull(result);
+        assertTrue(result.size() > 0);
+    }
+
+    /**
+     * Test of AddProduct method, of class ProductsDao.
+     */
+    @Test
+    public void testAddProduct() {
+        System.out.println("AddProduct");
+       
+        products p = new products("Test", "Test", 2.0, 2.0, "Test", "Test", "Test", "", "Test");
+
+        ProductsDao  prodDao = new ProductsDao("clothes_shop_test");
+       
+        boolean result = prodDao.AddProduct(p);
+       assertEquals(true, result);
+    }
+
 //    /**
 //     * Test of findUserByProductId method, of class ProductsDao.
 //     */
@@ -200,20 +188,19 @@ public class ProductsDaoTest {
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-//
-//    /**
-//     * Test of DeleteProduct method, of class ProductsDao.
-//     */
-//    @Test
-//    public void testDeleteProduct() {
-//        System.out.println("DeleteProduct");
-//        products p = null;
-//        ProductsDao instance = null;
-//        boolean expResult = false;
-//        boolean result = instance.DeleteProduct(p);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//    
+
+    /**
+     * Test of DeleteProduct method, of class ProductsDao.
+     */
+    @Test
+    public void testDeleteProduct() {
+        System.out.println("DeleteProduct");
+        products p = new products("Test", "Test", 2.0, 2.0, "Test", "Test", "Test", "", "Test");
+        ProductsDao  prodDao = new ProductsDao("clothes_shop_test");
+        boolean expResult = true;
+        boolean result = prodDao.DeleteProduct(p);
+        //assertEquals(expResult, result);
+        
+    }
+    
 }

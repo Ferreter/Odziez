@@ -45,8 +45,6 @@ public interface ProductsDaoInterface {
      */
     public products searchbyId(String Name);
 
-    public products CreateProdut();
-
     /**
      *
      * Calculates the total price of items in the given cart list based on their
