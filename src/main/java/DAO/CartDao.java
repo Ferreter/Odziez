@@ -169,6 +169,16 @@ public class CartDao extends Dao implements CartDaoInterface {
         e.printStackTrace();
     }
 }
+    
+     public void EmptyCartItem(int userId) {
+    try (Connection conn = getConnection();
+         PreparedStatement stmt = conn.prepareStatement("DELETE FROM cart WHERE userId = ?")) {
+        stmt.setInt(1, userId);
+        stmt.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
 }
 
 

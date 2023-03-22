@@ -64,19 +64,19 @@
 
                 <div style="margin-bottom: 20px;">
                     <br>
-                    <button style="margin-left: 20px;" class="btn btn-light" type="button">
+                    <button name="Size" style="margin-left: 20px;" class="btn btn-light" type="button">
                         XS
                     </button>
-                    <button style="margin-left: 20px;" class="btn btn-light" type="button">
+                    <button name="Size" style="margin-left: 20px;" class="btn btn-light" type="button">
                         S
                     </button>
-                    <button style="margin-left: 20px;" class="btn btn-light" type="button">
+                    <button name="Size" style="margin-left: 20px;" class="btn btn-light" type="button">
                         M
                     </button>
-                    <button style="margin-left: 20px;" class="btn btn-light" type="button">
+                    <button  name="Size"style="margin-left: 20px;" class="btn btn-light" type="button">
                         L
                     </button>
-                    <button style="margin-left: 20px;" class="btn btn-light" type="button">
+                    <button  name="Size" style="margin-left: 20px;" class="btn btn-light" type="button">
                         XL
                     </button>
 

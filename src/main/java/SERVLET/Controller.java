@@ -5,10 +5,14 @@
 package SERVLET;
 
 import DAO.CartDao;
+import DAO.OrderDao;
+import DAO.OrderDetailsDao;
 import DAO.ProductsDao;
 import DAO.ProductsDaoInterface;
 import DAO.UserDao;
 import DTO.Cart;
+import DTO.OrderDetails;
+import DTO.orders;
 import DTO.products;
 import DTO.review;
 import DTO.user;
@@ -88,6 +92,10 @@ public class Controller extends HttpServlet {
                     break;
                 case "Remove":
                     forwardToJsp = RemoveItem(request, response);
+                    break;
+                    
+                case "order":
+                    forwardToJsp = Order(request, response);
                     break;
 
             }
@@ -603,6 +611,74 @@ public class Controller extends HttpServlet {
 
         return forwardToJsp;
     }
+    
+    private String Order(HttpServletRequest request, HttpServletResponse response) {
+        String forwardToJsp = "controller/index.jsp";
+        HttpSession session = request.getSession(true);
+        
+        int userId = Integer.parseInt(request.getParameter("userId"));
+        
+        String firstname = request.getParameter("firstname");
+        String lastname = request.getParameter("lastname");
+        String email = request.getParameter("email");
+        String address1 = request.getParameter("address1");
+        String address2 = request.getParameter("address2");
+        String country = request.getParameter("country");
+        String state = request.getParameter("state");
+        String zipcode = request.getParameter("zipcode");
+        String cardNumber = request.getParameter("cardNumber");
+         String expiry = request.getParameter("expiry");
+          String cvv = request.getParameter("cvv");
+          double total = Double.parseDouble(request.getParameter("total"));
+        
+       //ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
+        if (firstname != null && lastname != null && email != null && address1 != null && address2 != null && country != null && state != null && zipcode != null && !firstname.isEmpty() && !lastname.isEmpty() && !email.isEmpty() && !address1.isEmpty() && !address2.isEmpty() && !country.isEmpty() && !state.isEmpty() && !zipcode.isEmpty())
+        {
+            
+            
+            ProductsDao pdao = new ProductsDao("clothes_shop");
+            products p = new products();
+            OrderDao orderDao = new OrderDao("clothes_shop");
+            OrderDetailsDao detailsDao = new OrderDetailsDao("clothes_shop");
+            CartDao cartdao = new CartDao("clothes_shop");
+            user u = (user) session.getAttribute("user");
+            boolean addOrder = false;
+            boolean addDetails = false;
+
+            
+                orders order = new orders(firstname, lastname, email, address1, address2, country, state, zipcode, cardNumber, expiry, cvv, total);
+                
+                
+                addOrder = orderDao.addOrder(order);
+                
+                int orderId = orderDao.getLastIndex();
+                
+              List<Cart> cartItems = cartdao.ListAllCart(userId);
+                        
+                    //if (cart_list != null) {
+	
+                        for (Cart cartItem : cartItems) {
+                        String productId = cartItem.getProductId();
+                        String productName = cartItem.getName();
+                        double productPrice = cartItem.getCP();
+                        int quantity = cartItem.getQuantity();
+
+                    OrderDetails orderDet = new OrderDetails(orderId, productId, productName, productPrice, quantity);
+                    addDetails = detailsDao.addOrderDetails(orderDet);
+            }
+                cartdao.EmptyCartItem(userId);
+                forwardToJsp = "controller/index.jsp";
+        
+            } else
+        {
+            forwardToJsp = "view/error.jsp";
+            String error = "No username and/or password and/or email and/or phone and/or firstname and/or lastname supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
+            session.setAttribute("errorMessage", error);
+        }
+        
+        return forwardToJsp;
+    }
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
