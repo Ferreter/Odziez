@@ -14,7 +14,7 @@
         <div class="container" style="padding-top:100px; padding-bottom: 100px;">
             <h1 class="display-4 text-left">New Arrivals</h1>
             <p class="lead text-left">Check out the latest styles in our collection</p>
-            <a href="#" class="btn btn-light text-left">Shop Now</a>
+            <a href="../view/productsView.jsp" class="btn btn-light text-left">Shop Now</a>
         </div>
     </div>
 </div>

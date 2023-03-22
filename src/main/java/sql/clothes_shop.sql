@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 22, 2023 at 12:43 PM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 8.1.2
+-- Generation Time: Mar 22, 2023 at 01:48 PM
+-- Server version: 10.4.20-MariaDB
+-- PHP Version: 8.0.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -26,6 +26,10 @@ create database if not exists clothes_shop;
 use clothes_shop;
 -- --------------------------------------------------------
 
+--
+-- Table structure for table `cart`
+--
+
 CREATE TABLE `cart` (
   `id` int(11) NOT NULL,
   `UserId` int(11) NOT NULL,
@@ -43,13 +47,11 @@ CREATE TABLE `cart` (
 --
 
 CREATE TABLE `orderdetails` (
-  `id` int(11) NOT NULL,
-  `orderId` int(11) NOT NULL,
-  `productId` varchar(255) CHARACTER SET utf8mb4 DEFAULT NULL,
-  `productName` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
-  `productPrice` double(6,2) DEFAULT NULL,
-  `quantity` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `OrderId` int(11) NOT NULL,
+  `productName` varchar(255) NOT NULL,
+  `productPrice` double(6,2) NOT NULL,
+  `quantity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -79,9 +81,10 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`orderId`, `firstname`, `lastname`, `email`, `address1`, `address2`, `country`, `state`, `zipcode`, `cardNumber`, `expiry`, `cvv`, `total`, `created_at`) VALUES
-(5, 'Bhig', 'Khali', 'amicusyaba@yahoo.com', '18 CUL NA GREINE CO.CORK', 'crk', 'Ireland', 'IE-CO', 'P47E438', '128747384787', '10/24', '333', 7600.00, '2023-03-22 04:13:36'),
-(6, 'Bhig', 'khali', 'amicusyaba@yahoo.com', '18 CUL NA GREINE CO.CORK', 'cork', 'Ireland', 'IE-CO', 'P47E438', '128363526672', '10/26', '333', 390.00, '2023-03-22 04:16:27'),
-(7, 'Bhig', 'Khali', 'amicusyaba@yahoo.com', '18 CUL NA GREINE CO.CORK', 'cork', 'Ireland', 'IE-CO', 'P47E438', '12383762524', '10/24', '444', 975.00, '2023-03-22 04:20:54');
+(1, 'Bhig', 'Khali', 'amicusyaba@yahoo.com', '18 CUL NA GREINE CO.CORK', 'crk', 'Ireland', 'IE-CO', 'P47E438', '128747384787', '10/24', '333', 7600.00, '2023-03-22 04:13:36'),
+(2, 'Bhig', 'khali', 'amicusyaba@yahoo.com', '18 CUL NA GREINE CO.CORK', 'cork', 'Ireland', 'IE-CO', 'P47E438', '128363526672', '10/26', '333', 390.00, '2023-03-22 04:16:27'),
+(3, 'Bhig', 'Khali', 'amicusyaba@yahoo.com', '18 CUL NA GREINE CO.CORK', 'cork', 'Ireland', 'IE-CO', 'P47E438', '12383762524', '10/24', '444', 975.00, '2023-03-22 04:20:54'),
+(4, 'Kian', 'Harding', 'kian2ki@hotmail.com', '29 Brookville', '', 'Ireland', 'County Louth', 'A92 HCY6', '323234234', '22/2', '232', 1915.00, '2023-03-22 12:40:37');
 
 -- --------------------------------------------------------
 
@@ -251,7 +254,7 @@ INSERT INTO `user` (`UserId`, `username`, `password`, `FirstName`, `Lastname`, `
 (4, 'Deji', '37d6794a4b4fb5f1769b97adf6d73223b8dfaa5d1054087fea9416584677935c', 'Destiny', 'Wassup', 'deji@gmail.com', 830995017, 'What was the name of your first stuffed animal?', 'Kakashi Hatake', '2023-01-02', 0, 0),
 (5, 'Ruth', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Catherine', 'Mc Keever', 'ruth.mckeever@dkit.ie', 0, 'Pingu', '830995017', '2023-01-02', 0, 0),
 (6, 'Michelle', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Michelle', 'Graham', 'Michelle.Graham@dkit.ie', 0, 'Rhodes Greece', '830995017', '2023-01-02', 0, 0),
-(21, 'Bhig', '214c8377ffb724150205789f4a593a6182b66f56eca714a53bb7493a7391e0d8', 'Bhig', 'Khali', 'amicusyaba@yahoo.com', 894355518, 'To what city did you go on your honeymoon?', 'Singapore', '2000-05-09', NULL, 1);
+(7, 'Bhig', '214c8377ffb724150205789f4a593a6182b66f56eca714a53bb7493a7391e0d8', 'Bhig', 'Khali', 'amicusyaba@yahoo.com', 894355518, 'To what city did you go on your honeymoon?', 'Singapore', '2000-05-09', NULL, 1);
 
 --
 -- Indexes for dumped tables
@@ -269,8 +272,7 @@ ALTER TABLE `cart`
 -- Indexes for table `orderdetails`
 --
 ALTER TABLE `orderdetails`
-  ADD KEY `orderdetails_ibfk_1` (`productId`),
-  ADD KEY `orderdetails_ibfk_2` (`orderId`);
+  ADD KEY `OrderId` (`OrderId`);
 
 --
 -- Indexes for table `orders`
@@ -318,13 +320,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `review`
@@ -336,7 +338,7 @@ ALTER TABLE `review`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `UserId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `UserId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
@@ -346,8 +348,7 @@ ALTER TABLE `user`
 -- Constraints for table `orderdetails`
 --
 ALTER TABLE `orderdetails`
-  ADD CONSTRAINT `orderdetails_ibfk_1` FOREIGN KEY (`productId`) REFERENCES `products` (`ProductId`),
-  ADD CONSTRAINT `orderdetails_ibfk_2` FOREIGN KEY (`orderId`) REFERENCES `orders` (`orderId`);
+  ADD CONSTRAINT `orderdetails_ibfk_1` FOREIGN KEY (`OrderId`) REFERENCES `orders` (`orderId`);
 
 --
 -- Constraints for table `productfilter`

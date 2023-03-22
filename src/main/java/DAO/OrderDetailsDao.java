@@ -31,14 +31,13 @@ public class OrderDetailsDao extends Dao implements OrderDetailsDaoInterface {
             con = getConnection();
             
             // not needed to name fields since we are filling it all
-            String command = "INSERT INTO orderdetails(orderId, productId, productName, productPrice, quantity) VALUES (?, ?, ?, ?, ?)";
+            String command = "INSERT INTO orderdetails(orderId, productName, productPrice, quantity) VALUES (?,  ?, ?, ?)";
             ps = con.prepareStatement(command);
            
             ps.setInt(1, u.getOrderId());
-            ps.setString(2, u.getProductId());
-            ps.setString(3, u.getProductName());
-            ps.setDouble(4, u.getProductPrice());
-            ps.setInt(5, u.getQuantity());
+            ps.setString(2, u.getProductName());
+            ps.setDouble(3, u.getProductPrice());
+            ps.setInt(4, u.getQuantity());
             
             
             

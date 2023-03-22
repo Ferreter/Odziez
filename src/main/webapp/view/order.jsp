@@ -150,7 +150,7 @@ font-size: 25px;
 
   <div class="form-outline mb-4">
                  <label class="form-label" for="form2Example17">Address Line 2:</label>
-  <input type="text"  name="address2" required id="form2Example17"   class="form-control form-control-lg"><br>
+  <input type="text"  name="address2"  id="form2Example17"   class="form-control form-control-lg"><br>
   </div>
                                
   <div class="form-outline mb-4">

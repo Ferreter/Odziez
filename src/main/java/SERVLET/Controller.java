@@ -670,7 +670,7 @@ public class Controller extends HttpServlet {
           double total = Double.parseDouble(request.getParameter("total"));
         
        //ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
-        if (firstname != null && lastname != null && email != null && address1 != null && address2 != null && country != null && state != null && zipcode != null && !firstname.isEmpty() && !lastname.isEmpty() && !email.isEmpty() && !address1.isEmpty() && !address2.isEmpty() && !country.isEmpty() && !state.isEmpty() && !zipcode.isEmpty())
+        if (firstname != null && lastname != null && email != null && address1 != null  && country != null && state != null && zipcode != null && !firstname.isEmpty() && !lastname.isEmpty() && !email.isEmpty() && !address1.isEmpty() && !country.isEmpty() && !state.isEmpty() && !zipcode.isEmpty())
         {
             
             
@@ -696,12 +696,12 @@ public class Controller extends HttpServlet {
                     //if (cart_list != null) {
 	
                         for (Cart cartItem : cartItems) {
-                        String productId = cartItem.getProductId();
-                        String productName = cartItem.getName();
-                        double productPrice = cartItem.getCP();
+                           products pro =  pdao.searchbyId( cartItem.getProductId());
+                        String productName = pro.getName();
+                        double productPrice = pro.getCP();
                         int quantity = cartItem.getQuantity();
 
-                    OrderDetails orderDet = new OrderDetails(orderId, productId, productName, productPrice, quantity);
+                    OrderDetails orderDet = new OrderDetails(orderId, productName, productPrice, quantity);
                     addDetails = detailsDao.addOrderDetails(orderDet);
             }
                 cartdao.EmptyCartItem(userId);

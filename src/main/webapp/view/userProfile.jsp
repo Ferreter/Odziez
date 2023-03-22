@@ -8,8 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     user u = (user) session.getAttribute("user");
-    if (u != null)
-    {
+    if (u != null) {
 %>
 <jsp:include page="../model/header.jsp" /> 
 <jsp:include page="../view/nav.jsp" /> 
@@ -73,7 +72,7 @@
                                 <p style="font-size:17px;">
                                     <span style="color:gray; font-size: 14px;">First Name </span><br><%out.print(u.getFirstName());%> <!--bug here that password is being stored as last name and vice versa-->
                                         <br>
-                                            <span style="color:gray; font-size: 14px;">Last Name </span><br><%out.print(u.getPassword());%><br>
+                                            <span style="color:gray; font-size: 14px;">Last Name </span><br><%out.print(u.getLastName());%><br>
                                                     <span style="color:gray; font-size: 14px;">Email :</span><br> <%out.print(u.getEmail());%><br>
                                                             <span style="color:gray; font-size: 14px;">Phone : </span><br><%out.print(u.getPhone());%><br>
                                                                     <span style="color:gray; font-size: 14px;">DOB : </span><br><%out.print(u.getDOB());%><br>
@@ -137,9 +136,9 @@
                                                                                                                                                                             <span style="color:gray; font-size: 14px;">Want to Leave and Delete all your information?
                                                                                                                                                                                 <br>
                                                                                                                                                                                     <form action="../Controller" method="post">
-                                                                                                                                                                                            <div class="pt-1 mb-4">
-                                                                                                                                                                                                <button class="btn btn-dark btn-lg btn-block" type="submit" name="action" value="DeleteUserProfile" placeholder="">DELETE USER DATA</button>
-                                                                                                                                                                                            </div>
+                                                                                                                                                                                        <div class="pt-1 mb-4">
+                                                                                                                                                                                            <button class="btn btn-dark btn-lg btn-block" type="submit" name="action" value="DeleteUserProfile" placeholder="">DELETE USER DATA</button>
+                                                                                                                                                                                        </div>
                                                                                                                                                                                     </form>
                                                                                                                                                                                     </p>
                                                                                                                                                                                     </li>
@@ -180,8 +179,7 @@
                                                                                                                                                                                     </div>
 
                                                                                                                                                                                     <jsp:include page="../view/footer.jsp" /> 
-                                                                                                                                                                                    <%} else
-                                                                                                                                                                                        {
+                                                                                                                                                                                    <%} else {
                                                                                                                                                                                             String redirectURL = "../view/LoginNdRegister.jsp";
                                                                                                                                                                                             response.sendRedirect(redirectURL);
 
