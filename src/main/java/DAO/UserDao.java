@@ -76,9 +76,9 @@ public class UserDao extends Dao implements UserDaoInterface {
             {
                 int UserId = rs.getInt("UserId");
                 String username = rs.getString("username");
-                String password = rs.getString("lastName");
+                String password = rs.getString("password");
                 String FirstName = rs.getString("firstName");
-                String LastName = rs.getString("password");
+                String LastName = rs.getString("LastName");
                 String Email = rs.getString("email");
                 String phone = rs.getString("phone");
                 String Question = rs.getString("question");
@@ -336,9 +336,9 @@ public class UserDao extends Dao implements UserDaoInterface {
 
                 int UserId = rs.getInt("UserId");
                 String username = rs.getString("firstName");
-                String password = rs.getString("lastName");
+                String password = rs.getString("password");
                 String FirstName = rs.getString("username");
-                String LastName = rs.getString("password");
+                String LastName = rs.getString("lastName");
                 String Email = rs.getString("email");
                 String phone = rs.getString("phone");
                 String Question = rs.getString("Question");
@@ -583,7 +583,7 @@ public class UserDao extends Dao implements UserDaoInterface {
             }
         } catch (SQLException e)
         {
-            System.out.println("Exception occured in the ViewBooks() method: " + e.getMessage());
+            System.out.println("Exception occured in the ListAllUsers() method: " + e.getMessage());
         } finally
         {
             try
@@ -602,7 +602,7 @@ public class UserDao extends Dao implements UserDaoInterface {
                 }
             } catch (SQLException e)
             {
-                System.out.println("Exception occured in the finally section of the ViewBooks() method: " + e.getMessage());
+                System.out.println("Exception occured in the finally section of the ListAllUsers() method: " + e.getMessage());
             }
         }
         return users;

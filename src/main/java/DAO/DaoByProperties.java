@@ -9,11 +9,11 @@ import java.sql.SQLException;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
-public class Dao {
+public class DaoByProperties {
 
     private final String databaseName;
 
-    public Dao(String databaseName) {
+    public DaoByProperties(String databaseName) {
         this.databaseName = databaseName;
     }
 
@@ -32,23 +32,40 @@ public class Dao {
     public Connection getConnection() {
 
         Connection con = null;
+        try ( InputStream input = new FileInputStream("config.properties"))
+        {
 
-        String driver = "com.mysql.cj.jdbc.Driver";
-        String url = "jdbc:mysql://localhost:3306/" + databaseName;
-        String username = "root";
-        String password = "";
-        try
+            Properties prop = new Properties();
+
+            // load a properties file
+            prop.load(input);
+
+            // get the property value and print it out
+            System.out.println(prop.getProperty("db.url"));
+            System.out.println(prop.getProperty("db.user"));
+            System.out.println(prop.getProperty("db.password"));
+
+            String driver = "com.mysql.cj.jdbc.Driver";
+            String url = "jdbc:mysql://localhost:3306/" + databaseName;
+            String username = "root";
+            String password = "";
+            try
+            {
+                Class.forName(driver);
+                con = DriverManager.getConnection(url, username, password);
+            } catch (ClassNotFoundException ex1)
+            {
+                System.out.println("Failed to find driver class " + ex1.getMessage());
+                System.exit(1);
+            } catch (SQLException ex2)
+            {
+                System.out.println("Connection failed " + ex2.getMessage());
+                System.exit(2);
+            }
+
+        } catch (IOException ex)
         {
-            Class.forName(driver);
-            con = DriverManager.getConnection(url, username, password);
-        } catch (ClassNotFoundException ex1)
-        {
-            System.out.println("Failed to find driver class " + ex1.getMessage());
-            System.exit(1);
-        } catch (SQLException ex2)
-        {
-            System.out.println("Connection failed " + ex2.getMessage());
-            System.exit(2);
+            ex.printStackTrace();
         }
 
         return con;

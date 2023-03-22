@@ -37,10 +37,11 @@ import javax.servlet.http.HttpSession;
  *
  * @author kian2
  */
-@WebServlet(name = "Controller", urlPatterns =
-{
-    "/Controller"
-})
+@WebServlet(name = "Controller", urlPatterns
+        =
+        {
+            "/Controller"
+        })
 public class Controller extends HttpServlet {
 
     /**
@@ -74,17 +75,23 @@ public class Controller extends HttpServlet {
                 case "EnterReview":
                     forwardToJsp = EnterReview(request, response);
                     break;
+                case "SearchProductbyBrand":
+                    forwardToJsp = SearchProductbyBrand(request, response);
+                    break;
                 case "SearchProduct":
                     forwardToJsp = SearchProduct(request, response);
                     break;
-                case "AddProduct":
+                case "addProduct":
                     forwardToJsp = AddProduct(request, response);
+                    break;
+                case "deleteProduct":
+                    forwardToJsp = deleteProduct(request, response);
                     break;
                 case "Cart":
                     forwardToJsp = Cart(request, response);
                     break;
                 case "DeleteUserProfile":
-                    forwardToJsp = Cart(request, response);
+                    forwardToJsp = DeleteUserProfile(request, response);
                     break;
 
                 case "Update":
@@ -261,7 +268,6 @@ public class Controller extends HttpServlet {
         String answer = request.getParameter("answer");
 
         if (username != null && password != null && question != null && answer != null && !username.isEmpty() && !password.isEmpty() && !question.isEmpty() && !answer.isEmpty())
-
         {
             UserDao userDao = new UserDao("clothes_shop");
             user u = userDao.findUserDetails(username, question, answer);
@@ -311,6 +317,39 @@ public class Controller extends HttpServlet {
             ProductsDao pdao = new ProductsDao("clothes_shop");
             ProductsDaoInterface productdao = new ProductsDao("clothes_shop");
             List<products> p = productdao.searchbyname(product);
+
+            boolean login = false;
+
+            if (p != null)
+            {
+                session.setAttribute("products", p);
+
+                forwardToJsp = "view/productsView.jsp";
+            } else
+            {
+                forwardToJsp = "view/productsView.jsp";
+                String error = "No Products by that name";
+                session.setAttribute("errorMessage", error);
+            }
+        } else
+        {
+            forwardToJsp = "view/productsView.jsp";
+            String error = "No Product Namesupplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
+            session.setAttribute("errorMessage", error);
+        }
+        return forwardToJsp;
+    }
+
+    private String SearchProductbyBrand(HttpServletRequest request, HttpServletResponse response) {
+        String forwardToJsp = "controller/index.jsp";
+        HttpSession session = request.getSession(true);
+        String product = request.getParameter("product");
+
+        if (product != null && !product.isEmpty())
+        {
+            ProductsDao pdao = new ProductsDao("clothes_shop");
+            ProductsDaoInterface productdao = new ProductsDao("clothes_shop");
+            List<products> p = productdao.searchbybrand(product);
 
             boolean login = false;
 
@@ -537,7 +576,6 @@ public class Controller extends HttpServlet {
 
             if (removed == true)
             {
-
                 forwardToJsp = "controller/index.jsp";
             } else
             {
@@ -555,7 +593,7 @@ public class Controller extends HttpServlet {
     }
 
     private String AddProduct(HttpServletRequest request, HttpServletResponse response) {
-        String forwardToJsp = "controller/index.jsp";
+        String forwardToJsp = "controller/error.jsp";
         HttpSession session = request.getSession(true);
 
         ProductsDao pdao = new ProductsDao("clothes_shop");
@@ -580,7 +618,7 @@ public class Controller extends HttpServlet {
 
             if (entered == true)
             {
-                forwardToJsp = "/Oziz/view/productAdmin";
+                forwardToJsp = "view/productAdmin.jsp";
             } else
             {
                 forwardToJsp = "controller/error.jsp";
@@ -679,6 +717,38 @@ public class Controller extends HttpServlet {
         return forwardToJsp;
     }
 
+
+    private String deleteProduct(HttpServletRequest request, HttpServletResponse response) {
+        String forwardToJsp = "controller/error.jsp";
+        HttpSession session = request.getSession(true);
+
+        String ProductId = request.getParameter("ProductId");
+        if (ProductId != null)
+        {
+            ProductsDao pdao = new ProductsDao("clothes_shop");
+            ProductsDaoInterface productdao = new ProductsDao("clothes_shop");
+
+            products prod = productdao.searchbyId(ProductId);
+
+            boolean removed = productdao.DeleteProduct(prod);
+
+            if (removed == true)
+            {
+                forwardToJsp = "view/productAdmin.jsp";
+            } else
+            {
+                forwardToJsp = "controller/error.jsp";
+                String error = "Could Not delete the product, Try again ";
+                session.setAttribute("errorMessage", error);
+            }
+        } else
+        {
+            forwardToJsp = "controller/error.jsp";
+            String error = "no productId supplied. Please <a href=\"productAdmin.jsp\">try again.</a>";
+            session.setAttribute("errorMessage", error);
+        }
+        return forwardToJsp;
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
