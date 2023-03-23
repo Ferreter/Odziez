@@ -217,10 +217,11 @@ public class Controller extends HttpServlet {
                 subscriptionVal = 1;
             }
             UserDao userDao = new UserDao("clothes_shop");
+            user usernameCheck = userDao.findUserByUsername(username);
             user u = userDao.findUserByEmail(email, username);
             boolean login = false;
 
-            if (u == null)
+            if (u == null&& usernameCheck == null)
             {
                 user user = new user(0, username, password, firstname, lastname, email, phone, question, answer, date, isAdmin, subscriptionVal);
                 session.setAttribute("username", username);
@@ -230,13 +231,13 @@ public class Controller extends HttpServlet {
                 forwardToJsp = "controller/index.jsp";
             } else
             {
-                forwardToJsp = "view/error.jsp";
+                forwardToJsp = "controller/error.jsp";
                 String error = "user already exists <a href=\"LoginNdRegister.jsp\">try again.</a>";
                 session.setAttribute("errorMessage", error);
             }
         } else
         {
-            forwardToJsp = "view/error.jsp";
+            forwardToJsp = "controller/error.jsp";
             String error = "No username and/or password and/or email and/or phone and/or firstname and/or lastname supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
             session.setAttribute("errorMessage", error);
         }

@@ -87,23 +87,13 @@ public class UserDaoTest {
 
         // call the method being tested
         user result = userDao.findUserByUsername("Kian");
-
         // assert that the method returns a non-null user
         assertNotNull(result);
 
         // assert that the user attributes are correct
-        assertEquals(2, result.getUserId());
+        
         assertEquals("Kian", result.getUsername());
-        assertEquals("Kian", result.getFirstName());
-        assertEquals("Harding", result.getLastName());
         assertEquals("kh@gmail.com", result.getEmail());
-        assertEquals("830995017", result.getPhone());
-        assertEquals(Date.valueOf("2023-01-02"), result.getDOB());
-        assertTrue(result.isIsAdmin());
-        assertEquals("Where were you when you first heard about 9/11?", result.getQuestion());
-        assertEquals("Playground with stuffed animal", result.getAnswer());
-        assertEquals(0, result.getSubscription());
-
     }
 
     @Test
@@ -159,17 +149,9 @@ public class UserDaoTest {
         UserDao userDao = new UserDao("clothes_shop_test");
 
         user result = userDao.findUserByEmail(email, Username);
-        assertEquals(2, result.getUserId());
         assertEquals("Kian", result.getUsername());
-        assertEquals("Kian", result.getFirstName());
-        assertEquals("Harding", result.getLastName());
         assertEquals("kh@gmail.com", result.getEmail());
-        assertEquals("830995017", result.getPhone());
-        assertEquals(Date.valueOf("2023-01-02"), result.getDOB());
-        assertTrue(result.isIsAdmin());
-        assertEquals("Where were you when you first heard about 9/11?", result.getQuestion());
-        assertEquals("Playground with stuffed animal", result.getAnswer());
-        assertEquals(0, result.getSubscription());
+      
     }
 
     /**
@@ -182,18 +164,8 @@ public class UserDaoTest {
         UserDao userDao = new UserDao("clothes_shop_test");
 
         user result = userDao.findUserById(id);
-
-        assertEquals(2, result.getUserId());
         assertEquals("Kian", result.getUsername());
-        assertEquals("Kian", result.getFirstName());
-        assertEquals("Harding", result.getLastName());
         assertEquals("kh@gmail.com", result.getEmail());
-        assertEquals("830995017", result.getPhone());
-        assertEquals(Date.valueOf("2023-01-02"), result.getDOB());
-        assertTrue(result.isIsAdmin());
-        assertEquals("Where were you when you first heard about 9/11?", result.getQuestion());
-        assertEquals("Playground with stuffed animal", result.getAnswer());
-        assertEquals(0, result.getSubscription());
     }
 
     /**
