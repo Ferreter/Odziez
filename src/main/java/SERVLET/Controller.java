@@ -586,7 +586,7 @@ public class Controller extends HttpServlet {
 
             if (removed == true)
             {
-                forwardToJsp = "controller/index.jsp";
+                forwardToJsp = "model/Logout.jsp";
             } else
             {
                 forwardToJsp = "controller/error.jsp";
