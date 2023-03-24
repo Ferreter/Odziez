@@ -228,7 +228,7 @@ public class UserDao extends Dao implements UserDaoInterface {
             }
         } catch (SQLException e)
         {
-            System.err.println("\tA problem occurred during the findUserByUsername method:");
+            System.err.println("\tA problem occurred during the findUserDetails() method:");
             System.err.println("\t" + e.getMessage());
         } finally
         {
@@ -248,7 +248,7 @@ public class UserDao extends Dao implements UserDaoInterface {
                 }
             } catch (SQLException e)
             {
-                System.err.println("A problem occurred when closing down the findUserByUsername method:\n" + e.getMessage());
+                System.err.println("A problem occurred when closing down the findUserDetails() method:\n" + e.getMessage());
             }
         }
         return u;     // u may be null 
@@ -289,7 +289,7 @@ public class UserDao extends Dao implements UserDaoInterface {
             }
         } catch (SQLException e)
         {
-            System.err.println("\tA problem occurred during the findUserByUsername method:");
+            System.err.println("\tA problem occurred during the findUserByEmail method:");
             System.err.println("\t" + e.getMessage());
         } finally
         {
@@ -309,7 +309,7 @@ public class UserDao extends Dao implements UserDaoInterface {
                 }
             } catch (SQLException e)
             {
-                System.err.println("A problem occurred when closing down the findUserByUsername method:\n" + e.getMessage());
+                System.err.println("A problem occurred when closing down the findUserByEmail method:\n" + e.getMessage());
             }
         }
         return u;     // u may be null 
@@ -351,7 +351,7 @@ public class UserDao extends Dao implements UserDaoInterface {
             }
         } catch (SQLException e)
         {
-            System.err.println("\tA problem occurred during the findUserByUsername method:");
+            System.err.println("\tA problem occurred during the findUserById method:");
             System.err.println("\t" + e.getMessage());
         } finally
         {
@@ -371,7 +371,7 @@ public class UserDao extends Dao implements UserDaoInterface {
                 }
             } catch (SQLException e)
             {
-                System.err.println("A problem occurred when closing down the findUserByUsername method:\n" + e.getMessage());
+                System.err.println("A problem occurred when closing down the findUserById() method:\n" + e.getMessage());
             }
         }
         return u;     // u may be null 
@@ -641,7 +641,7 @@ public class UserDao extends Dao implements UserDaoInterface {
 
         } catch (SQLException e)
         {
-            System.err.println("\tA problem occurred during the addUser method:");
+            System.err.println("\tA problem occurred during the editUser method:");
             System.err.println("\t" + e.getMessage());
 
         } finally
@@ -661,7 +661,7 @@ public class UserDao extends Dao implements UserDaoInterface {
                 }
             } catch (SQLException e)
             {
-                System.err.println("A problem occurred when closing down the addUser method:\n" + e.getMessage());
+                System.err.println("A problem occurred when closing down the editUser method:\n" + e.getMessage());
             }
         }
         return edit;
@@ -800,7 +800,7 @@ public class UserDao extends Dao implements UserDaoInterface {
             } catch (SQLException e) {
                 
 
-                System.err.println("\tA problem occurred during the addUser method:");
+                System.err.println("\tA problem occurred during the updatePass method:");
                 System.err.println("\t" + e.getMessage());
             } catch (NoSuchAlgorithmException ex)
             {
@@ -819,7 +819,7 @@ public class UserDao extends Dao implements UserDaoInterface {
                     }
                 } catch (SQLException e)
                 {
-                    System.err.println("A problem occurred when closing down the addUser method:\n" + e.getMessage());
+                    System.err.println("A problem occurred when closing down the updatePass method:\n" + e.getMessage());
                 }
             }
 
@@ -851,7 +851,7 @@ public class UserDao extends Dao implements UserDaoInterface {
 
         } catch (SQLException e)
         {
-            System.err.println("\tA problem occurred during the addUser method:");
+            System.err.println("\tA problem occurred during the addReset method:");
             System.err.println("\t" + e.getMessage());
 
         } finally
@@ -871,7 +871,7 @@ public class UserDao extends Dao implements UserDaoInterface {
                 }
             } catch (SQLException e)
             {
-                System.err.println("A problem occurred when closing down the addUser method:\n" + e.getMessage());
+                System.err.println("A problem occurred when closing down the addReset method:\n" + e.getMessage());
             }
         }
         return added;
@@ -896,7 +896,7 @@ public class UserDao extends Dao implements UserDaoInterface {
             }
         } catch (SQLException e)
         {
-            System.err.println("\tA problem occurred during the removeUser method:");
+            System.err.println("\tA problem occurred during the deleteUserProfile method:");
             System.err.println("\t" + e.getMessage());
             removed = false;
         } finally
@@ -913,7 +913,7 @@ public class UserDao extends Dao implements UserDaoInterface {
                 }
             } catch (SQLException e)
             {
-                System.err.println("A problem occurred when closing down the removeUser method:\n" + e.getMessage());
+                System.err.println("A problem occurred when closing down the deleteUserProfile method:\n" + e.getMessage());
             }
         }
         return removed;

@@ -53,7 +53,7 @@ public class OrderDao extends Dao implements OrderDaoInterface {
             ps.execute();
             } catch (SQLException e)
             {
-                System.err.println("\tA problem occurred during the addUser method:");
+                System.err.println("\tA problem occurred during the addOrder method:");
                 System.err.println("\t" + e.getMessage());
             } finally
             {
@@ -69,7 +69,7 @@ public class OrderDao extends Dao implements OrderDaoInterface {
                     }
                 } catch (SQLException e)
                 {
-                    System.err.println("A problem occurred when closing down the addUser method:\n" + e.getMessage());
+                    System.err.println("A problem occurred when closing down the addOrder method:\n" + e.getMessage());
                 }
             }
             return true;
@@ -97,7 +97,7 @@ public class OrderDao extends Dao implements OrderDaoInterface {
          
             } catch (SQLException e)
             {
-                System.err.println("\tA problem occurred during the addUser method:");
+                System.err.println("\tA problem occurred during the getLastIndex() method:");
                 System.err.println("\t" + e.getMessage());
             } finally
             {
@@ -113,7 +113,7 @@ public class OrderDao extends Dao implements OrderDaoInterface {
                     }
                 } catch (SQLException e)
                 {
-                    System.err.println("A problem occurred when closing down the addUser method:\n" + e.getMessage());
+                    System.err.println("A problem occurred when closing down the getLastIndex() method:\n" + e.getMessage());
                 }
             }
             return lastIndex;

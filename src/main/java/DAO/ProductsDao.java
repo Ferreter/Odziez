@@ -11,6 +11,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,7 +55,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             }
         } catch (SQLException e)
         {
-            System.out.println("Exception occured in the ViewBooks() method: " + e.getMessage());
+            System.out.println("Exception occured in the ListAllProducts() method: " + e.getMessage());
         } finally
         {
             try
@@ -73,7 +74,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
                 }
             } catch (SQLException e)
             {
-                System.out.println("Exception occured in the finally section of the ViewBooks() method: " + e.getMessage());
+                System.out.println("Exception occured in the finally section of the ListAllProducts() method: " + e.getMessage());
             }
         }
         return products;
@@ -112,7 +113,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             }
         } catch (SQLException e)
         {
-            System.err.println("\tA problem occurred during the findUserByUsername method:");
+            System.err.println("\tA problem occurred during the searchbyname() method:");
             System.err.println("\t" + e.getMessage());
         } finally
         {
@@ -132,7 +133,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
                 }
             } catch (SQLException e)
             {
-                System.err.println("A problem occurred when closing down the findUserByUsername method:\n" + e.getMessage());
+                System.err.println("A problem occurred when closing down the searchbyname() method:\n" + e.getMessage());
             }
         }
         return products;     // u may be null 
@@ -162,7 +163,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             }
         } catch (SQLException e)
         {
-            System.err.println("\tA problem occurred during the findUserByUsername method:");
+            System.err.println("\tA problem occurred during the searchbyname() method:");
             System.err.println("\t" + e.getMessage());
         } finally
         {
@@ -182,7 +183,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
                 }
             } catch (SQLException e)
             {
-                System.err.println("A problem occurred when closing down the findUserByUsername method:\n" + e.getMessage());
+                System.err.println("A problem occurred when closing down the searchbyname() method:\n" + e.getMessage());
             }
         }
         return products;     // u may be null 
@@ -220,7 +221,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             }
         } catch (SQLException e)
         {
-            System.err.println("\tA problem occurred during the findUserByUsername method:");
+            System.err.println("\tA problem occurred during the searchbyId() method:");
             System.err.println("\t" + e.getMessage());
         } finally
         {
@@ -240,7 +241,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
                 }
             } catch (SQLException e)
             {
-                System.err.println("A problem occurred when closing down the findUserByUsername method:\n" + e.getMessage());
+                System.err.println("A problem occurred when closing down the searchbyId() method:\n" + e.getMessage());
             }
         }
         return p;     // u may be null 
@@ -306,7 +307,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
                 }
             } catch (SQLException e)
             {
-                System.err.println("A problem occurred when closing down the findUserByUsername method:\n" + e.getMessage());
+                System.err.println("A problem occurred when closing down the getTotalCartPrice() method:\n" + e.getMessage());
             }
         }
         return sum;
@@ -379,7 +380,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
                 }
             } catch (SQLException e)
             {
-                System.err.println("A problem occurred when closing down the findUserByUsername method:\n" + e.getMessage());
+                System.err.println("A problem occurred when closing down the getCartProducts() method:\n" + e.getMessage());
             }
         }
         return products;
@@ -413,7 +414,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
 
         } catch (SQLException e)
         {
-            System.err.println("\tA problem occurred during the addUser method:");
+            System.err.println("\tA problem occurred during the insertReview() method:");
             System.err.println("\t" + e.getMessage());
 
         } finally
@@ -433,11 +434,13 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
                 }
             } catch (SQLException e)
             {
-                System.err.println("A problem occurred when closing down the addUser method:\n" + e.getMessage());
+                System.err.println("A problem occurred when closing down the insertReview() method:\n" + e.getMessage());
             }
         }
         return added;
     }
+    
+    
 
     @Override
     public List<review> getReviewsByProductId(String productId) {
@@ -465,7 +468,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             }
         } catch (SQLException e)
         {
-            System.out.println("Exception occured in the ViewBooks() method: " + e.getMessage());
+            System.out.println("Exception occured in the getReviewsByProductId() method: " + e.getMessage());
         } finally
         {
             try
@@ -484,7 +487,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
                 }
             } catch (SQLException e)
             {
-                System.out.println("Exception occured in the finally section of the ViewBooks() method: " + e.getMessage());
+                System.out.println("Exception occured in the finally section of the getReviewsByProductId() method: " + e.getMessage());
             }
         }
         return reviews;
@@ -518,7 +521,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
                 ps.execute();
             } catch (SQLException e)
             {
-                System.err.println("\tA problem occurred during the addUser method:");
+                System.err.println("\tA problem occurred during the AddProduct() method:");
                 System.err.println("\t" + e.getMessage());
             } finally
             {
@@ -534,7 +537,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
                     }
                 } catch (SQLException e)
                 {
-                    System.err.println("A problem occurred when closing down the addUser method:\n" + e.getMessage());
+                    System.err.println("A problem occurred when closing down the AddProduct() method:\n" + e.getMessage());
                 }
             }
             return true;
@@ -576,7 +579,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             }
         } catch (SQLException e)
         {
-            System.err.println("\tA problem occurred during the findUserByUsername method:");
+            System.err.println("\tA problem occurred during the findUserByProductId method:");
             System.err.println("\t" + e.getMessage());
         } finally
         {
@@ -596,7 +599,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
                 }
             } catch (SQLException e)
             {
-                System.err.println("A problem occurred when closing down the findUserByUsername method:\n" + e.getMessage());
+                System.err.println("A problem occurred when closing down the findUserByProductId method:\n" + e.getMessage());
             }
         }
         return p;     // u may be null 
@@ -623,7 +626,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             }
         } catch (SQLException e)
         {
-            System.err.println("\tA problem occurred during the removeUser method:");
+            System.err.println("\tA problem occurred during the DeleteProduct method:");
             System.err.println("\t" + e.getMessage());
             removed = false;
         } finally
@@ -640,7 +643,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
                 }
             } catch (SQLException e)
             {
-                System.err.println("A problem occurred when closing down the removeUser method:\n" + e.getMessage());
+                System.err.println("A problem occurred when closing down the DeleteProduct method:\n" + e.getMessage());
             }
         }
         return removed;
@@ -674,7 +677,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
                 ps.execute();
             } catch (SQLException e)
             {
-                System.err.println("\tA problem occurred during the addUser method:");
+                System.err.println("\tA problem occurred during the EditProduct method:");
                 System.err.println("\t" + e.getMessage());
             } finally
             {
@@ -690,7 +693,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
                     }
                 } catch (SQLException e)
                 {
-                    System.err.println("A problem occurred when closing down the addUser method:\n" + e.getMessage());
+                    System.err.println("A problem occurred when closing down the EditProduct method:\n" + e.getMessage());
                 }
             }
             return true;

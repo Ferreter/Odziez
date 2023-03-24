@@ -44,7 +44,7 @@ public class OrderDetailsDao extends Dao implements OrderDetailsDaoInterface {
             ps.execute();
             } catch (SQLException e)
             {
-                System.err.println("\tA problem occurred during the addUser method:");
+                System.err.println("\tA problem occurred during the addOrderDetails method:");
                 System.err.println("\t" + e.getMessage());
             } finally
             {
@@ -60,7 +60,7 @@ public class OrderDetailsDao extends Dao implements OrderDetailsDaoInterface {
                     }
                 } catch (SQLException e)
                 {
-                    System.err.println("A problem occurred when closing down the addUser method:\n" + e.getMessage());
+                    System.err.println("A problem occurred when closing down the addOrderDetails method:\n" + e.getMessage());
                 }
             }
             return true;

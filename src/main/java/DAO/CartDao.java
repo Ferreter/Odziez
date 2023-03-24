@@ -48,7 +48,7 @@ public class CartDao extends Dao implements CartDaoInterface {
             ps.execute();
             } catch (SQLException e)
             {
-                System.err.println("\tA problem occurred during the addUser method:");
+                System.err.println("\tA problem occurred during the addCart method:");
                 System.err.println("\t" + e.getMessage());
             } finally
             {
@@ -64,7 +64,7 @@ public class CartDao extends Dao implements CartDaoInterface {
                     }
                 } catch (SQLException e)
                 {
-                    System.err.println("A problem occurred when closing down the addUser method:\n" + e.getMessage());
+                    System.err.println("A problem occurred when closing down the addCart method:\n" + e.getMessage());
                 }
             }
             return true;
@@ -100,7 +100,7 @@ public class CartDao extends Dao implements CartDaoInterface {
             }
         } catch (SQLException e)
         {
-            System.out.println("Exception occured in the ViewBooks() method: " + e.getMessage());
+            System.out.println("Exception occured in the ListAllCart() method: " + e.getMessage());
         } finally
         {
             try
@@ -119,7 +119,7 @@ public class CartDao extends Dao implements CartDaoInterface {
                 }
             } catch (SQLException e)
             {
-                System.out.println("Exception occured in the finally section of the ViewBooks() method: " + e.getMessage());
+                System.out.println("Exception occured in the finally section of the ListAllCart() method: " + e.getMessage());
             }
         }
         return cartItems;

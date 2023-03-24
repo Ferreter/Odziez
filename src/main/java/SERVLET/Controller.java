@@ -23,6 +23,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
@@ -301,7 +302,7 @@ public class Controller extends HttpServlet {
         } else
         {
             forwardToJsp = "controller/error.jsp";
-            String error = "No username and/or password and/or email and/or phone and/or firstname and/or lastname supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
+            String error = "No username and/or password and/or question and/or answer supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
             session.setAttribute("errorMessage", error);
         }
         return forwardToJsp;
@@ -344,7 +345,7 @@ public class Controller extends HttpServlet {
         } else
         {
             forwardToJsp = "view/productsView.jsp";
-            String error = "No Product Namesupplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
+            String error = "No Product Namesupplied. Please <a href=\"individualProduct.jsp\">try again.</a>";
             session.setAttribute("errorMessage", error);
         }
         return forwardToJsp;
@@ -371,13 +372,13 @@ public class Controller extends HttpServlet {
             } else
             {
                 forwardToJsp = "view/productsView.jsp";
-                String error = "No Products by that name";
+                String error = "No Products by that Brand";
                 session.setAttribute("errorMessage", error);
             }
         } else
         {
             forwardToJsp = "view/productsView.jsp";
-            String error = "No Product Namesupplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
+            String error = "No Product Namesupplied. Please <a href=\"individualProduct.jsp\">try again.</a>";
             session.setAttribute("errorMessage", error);
         }
         return forwardToJsp;
@@ -486,52 +487,60 @@ public class Controller extends HttpServlet {
     }
 
     private String EnterReview(HttpServletRequest request, HttpServletResponse response) {
-        String forwardToJsp = "controller/index.jsp";
-        HttpSession session = request.getSession(true);
-        String ratingstring = request.getParameter("rating");
-        String review = request.getParameter("review");
-        ProductsDao pdao = new ProductsDao("clothes_shop");
-        ProductsDaoInterface productdao = new ProductsDao("clothes_shop");
+    String forwardToJsp = "controller/index.jsp";
+    HttpSession session = request.getSession(true);
+    String ratingstring = request.getParameter("rating");
+    String review = request.getParameter("review");
+    ProductsDao pdao = new ProductsDao("clothes_shop");
+    ProductsDaoInterface productdao = new ProductsDao("clothes_shop");
+    
+    List<String> profanityList = Arrays.asList("fuck", "badword2", "badword3");
 
-        int rating = Integer.parseInt(ratingstring);
-        user u = (user) session.getAttribute("user");
+    int rating = Integer.parseInt(ratingstring);
+    user u = (user) session.getAttribute("user");
 
-        if (review != null && !review.isEmpty())
-        {
-            if (u == null)
-            {
-                forwardToJsp = "controller/error.jsp";
-                String error = "Not Logged in please sign up to Review. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
-                session.setAttribute("errorMessage", error);
-            } else
-            {
-
-                long millis = System.currentTimeMillis();
-                java.sql.Date date = new java.sql.Date(millis);
-                products p = (products) session.getAttribute("product");
-                review r = new review(0, p.getProductId(), u.getUserId(), rating, review, date);
-                boolean entered = productdao.insertReview(r);
-
-                if (entered == true)
-                {
-                    forwardToJsp = "/Oziz/view/individualProduct.jsp?Name=" + p.getName();
-                } else
-                {
-                    forwardToJsp = "controller/error.jsp";
-                    String error = "No rating and/or review supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
-                    session.setAttribute("errorMessage", error);
-                }
-            }
-
-        } else
+    if (review != null && !review.isEmpty())
+    {
+        if (u == null)
         {
             forwardToJsp = "controller/error.jsp";
-            String error = "No rating and/or review supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
+            String error = "Not Logged in please sign up to Review. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
             session.setAttribute("errorMessage", error);
+        } else
+        {
+
+            long millis = System.currentTimeMillis();
+            java.sql.Date date = new java.sql.Date(millis);
+            products p = (products) session.getAttribute("product");
+
+            // Censor profanity
+            for (String word : profanityList) {
+                review = review.replaceAll("(?i)" +word, "****");
+            }
+
+            review r = new review(0, p.getProductId(), u.getUserId(), rating, review, date);
+            boolean entered = productdao.insertReview(r);
+
+            if (entered == true)
+            {
+                forwardToJsp = "/Oziz/view/individualProduct.jsp?Name=" + p.getName();
+            } else
+            {
+                forwardToJsp = "controller/error.jsp";
+                String error = "No rating and/or review supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
+                session.setAttribute("errorMessage", error);
+            }
         }
 
-        return forwardToJsp;
+    } else
+    {
+        forwardToJsp = "controller/error.jsp";
+        String error = "No rating and/or review supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
+        session.setAttribute("errorMessage", error);
     }
+
+    return forwardToJsp;
+}
 
     /**
      *
@@ -562,7 +571,7 @@ public class Controller extends HttpServlet {
             } else
             {
                 forwardToJsp = "controller/error.jsp";
-                String error = "prodcut doesnt exists <a href=\"userAdmin.jsp\">try again.</a>";
+                String error = "user doesnt exists <a href=\"userAdmin.jsp\">try again.</a>";
                 session.setAttribute("errorMessage", error);
             }
         } else
@@ -720,7 +729,7 @@ public class Controller extends HttpServlet {
             } else
         {
             forwardToJsp = "view/error.jsp";
-            String error = "No username and/or password and/or email and/or phone and/or firstname and/or lastname supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
+            String error = "No product in cart supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
             session.setAttribute("errorMessage", error);
         }
         

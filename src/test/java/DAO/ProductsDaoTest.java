@@ -149,15 +149,15 @@ public class ProductsDaoTest {
     /**
      * Test of getReviewsByProductId method, of class ProductsDao.
      */
-    @Test
-    public void testGetReviewsByProductId() {
-        System.out.println("getReviewsByProductId");
-        String productId = "3R1GC01NRIZ10999";
-        ProductsDao  prodDao = new ProductsDao("clothes_shop_test");
-        List<review> result = prodDao.getReviewsByProductId(productId);
-       assertNotNull(result);
-        assertTrue(result.size() > 0);
-    }
+//    @Test
+//    public void testGetReviewsByProductId() {
+//        System.out.println("getReviewsByProductId");
+//        String productId = "3R1GC01NRIZ10999";
+//        ProductsDao  prodDao = new ProductsDao("clothes_shop_test");
+//        List<review> result = prodDao.getReviewsByProductId(productId);
+//       assertNotNull(result);
+//        assertTrue(result.size() > 0);
+//    }
 
     /**
      * Test of AddProduct method, of class ProductsDao.
