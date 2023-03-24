@@ -494,7 +494,7 @@ public class Controller extends HttpServlet {
     ProductsDao pdao = new ProductsDao("clothes_shop");
     ProductsDaoInterface productdao = new ProductsDao("clothes_shop");
     
-    List<String> profanityList = Arrays.asList("fuck", "badword2", "badword3");
+    List<String> profanityList = Arrays.asList("fuck", "shit", "doodoo");
 
     int rating = Integer.parseInt(ratingstring);
     user u = (user) session.getAttribute("user");
