@@ -523,7 +523,7 @@ public class Controller extends HttpServlet {
 
             if (entered == true)
             {
-                forwardToJsp = "/Oziz/view/individualProduct.jsp?Name=" + p.getName();
+                forwardToJsp = "/Oziz/view/individualProduct.jsp?ID=" + p.getProductId();
             } else
             {
                 forwardToJsp = "controller/error.jsp";
