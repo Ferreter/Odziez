@@ -85,14 +85,14 @@
                 <div class="">
 
                     <form action="../Controller?id=<%=p.getProductId()%>" method="post">
-                    <br>
-                    <input type="hidden" name="ProductId" value="<%= p.getProductId() %>">
-                    <input type="number" name="quantity" min="1" value="1">
-                    <input style="margin-left: 20px;width:50%" class="btn btn-outline-dark btn-light" type="submit" name="action" value="Cart">
-                        
-                    
-                    <button style="margin-left: 20px;" class="btn btn-outline-dark btn-light" type="button">
-                        Wishlist
+                        <br>
+                        <input type="hidden" name="ProductId" value="<%= p.getProductId()%>">
+                        <input type="number" name="quantity" min="1" value="1">
+                        <input style="margin-left: 20px;width:50%" class="btn btn-outline-dark btn-light" type="submit" name="action" value="Cart">
+
+
+                        <button style="margin-left: 20px;" class="btn btn-outline-dark btn-light" type="button">
+                            Wishlist
 
                     </form>
                 </div>
@@ -159,20 +159,32 @@
                             <label for="review-text">Review</label>
                             <textarea class="form-control" id="review-text" name="review" rows="3"></textarea>
                         </div>
+                        <%
+                            user uLog = (user) session.getAttribute("user");
+                            if (uLog != null) {
+                        %>
                         <input class="btn btn-dark btn-lg btn-block" type="submit" name="action" value="EnterReview">
-
+                        <%
+                            } else {
+                        %>
+                        <h5 class="text-center mb-4">Login or Signup to Review the Product</h5>
+                        <%
+                            }
+                        %>
                     </form>
                 </div>
                 <div class="col-md-6 mb-4">
 
                     <%
-
                         List<review> reviews = productdao.getReviewsByProductId(p.getProductId());
 
                     %>
 
                     <h2 class="text-center mb-4">Previous Reviews</h2>
-                    <%    if (reviews != null && !reviews.isEmpty()) {
+                    <%    if (reviews
+
+                        != null && !reviews.isEmpty () 
+                            ) {
                             // Loop to print out all of the rows
                             for (review r : reviews) {
 
@@ -189,10 +201,14 @@
                     </div>
                     <%
                             }
-                        } else {
-                        %>
-                        <p class="card-text">no reviews for this product yet</p>
-                        <%
+                        }
+
+                        
+                        
+                    else {
+                    %>
+                    <p class="card-text">no reviews for this product yet</p>
+                    <%
                         }
 
                     %>
