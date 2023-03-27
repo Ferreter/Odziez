@@ -1,6 +1,7 @@
 package DAO;
 
 import DTO.*;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -91,6 +92,7 @@ public interface UserDaoInterface {
      */
     public boolean removeUser(String UserId);
 public user findUserDetails(String uname, String question, String answer);
+public boolean editProfile(user u, String FirstName, String LastName, String Email, String Phone, Date DOB);
     public user findUserById(int id);
 
 }

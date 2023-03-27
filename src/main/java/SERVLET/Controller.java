@@ -114,6 +114,9 @@ public class Controller extends HttpServlet {
                     case "-":
                     forwardToJsp = Del(request,response);
                     break;
+                case "Edit":
+                    forwardToJsp = editUserProfile(request, response);
+                    break;    
 
             }
 
@@ -846,6 +849,43 @@ public class Controller extends HttpServlet {
 
         return forwardToJsp;
 }
+      
+      private String editUserProfile(HttpServletRequest request, HttpServletResponse response) {
+    String forwardToJsp = "#";
+    HttpSession session = request.getSession(true);
+
+    String firstname = request.getParameter("firstname");
+    String lastname = request.getParameter("lastname");
+    String email = request.getParameter("email");
+    String phone = request.getParameter("phone");
+    String dob = request.getParameter("dob");
+
+    Date date = Date.valueOf(dob);
+
+    if (firstname != null && lastname != null && !firstname.isEmpty() && !lastname.isEmpty() && email != null && phone != null && !email.isEmpty() && !phone.isEmpty() && dob != null && !dob.isEmpty()) {
+        UserDao userDao = new UserDao("clothes_shop");
+        user u = (user) session.getAttribute("user");
+        boolean edit = userDao.editProfile(u, firstname, lastname, email, phone, date);
+        if (edit) {
+            // User was successfully updated
+            session.invalidate(); // Log user out
+            forwardToJsp = "view/LoginNdRegister.jsp?logout=true"; // Redirect to login page with logout parameter
+        } else {
+            // Error occurred while updating user
+            forwardToJsp = "controller/error.jsp";
+            String error = "An error occurred while updating your profile. Please try again.";
+            session.setAttribute("errorMessage", error);
+        }
+    } else {
+        // Missing or invalid parameters
+        forwardToJsp = "controller/error.jsp";
+        String error = "Please fill in all fields.";
+        session.setAttribute("errorMessage", error);
+    }
+
+    return forwardToJsp;
+}
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
