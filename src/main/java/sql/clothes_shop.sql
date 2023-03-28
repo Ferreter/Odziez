@@ -245,6 +245,7 @@ INSERT INTO `stock` (`ProductId`, `XS`, `S`, `M`, `L`, `XL`) VALUES
 --
 
 CREATE TABLE `address` (
+    `AddressId` int(11) NOT NULL,
   `UserId` int(11) NOT NULL,
   `Address1` varchar(500) NOT NULL,
   `Address2` varchar(500) NOT NULL,
