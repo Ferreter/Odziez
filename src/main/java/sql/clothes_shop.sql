@@ -222,6 +222,23 @@ CREATE TABLE `stock` (
   `XL` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `stock`
+--
+
+INSERT INTO `stock` (`ProductId`, `XS`, `S`, `M`, `L`, `XL`) VALUES
+('3R1GC01NRIZ10999\r\n', 13, 12, 10, 9, 2),
+('3R1GC11NNIZ10999\r\n', 22, 32, 11, 4, 5),
+('3R1MDN1JWPZ10920\r\n', 12, 10, 4, 7, 2),
+('620973TNVQ11059\r\n', 2, 3, 4, 2, 3),
+('727163TNVR31070\r\n', 22, 12, 12, 12, 12),
+('PMAA001C99JER0050110\r\n', 22, 32, 32, 21, 42),
+('PMAA001C99JER0171010\r\n', 22, 12, 41, 20, 10),
+('PMAA001C99JER0241055\r\n', 11, 14, 13, 21, 32),
+('PMAA066S23JER0021084\r\n', 11, 23, 21, 44, 10),
+('PMAB001S23JER0021055\r\n', 10, 4, 9, 8, 7),
+('UJN847_12VV_F0002_S_231\r\n', 12, 32, 44, 92, 19);
+
 -- --------------------------------------------------------
 --
 -- Table structure for table `address`
