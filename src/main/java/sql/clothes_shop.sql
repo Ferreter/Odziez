@@ -47,7 +47,8 @@ CREATE TABLE `address` (
 --
 
 INSERT INTO `address` (`AddressId`, `UserId`, `Address1`, `Address2`, `Address3`, `City`, `County`, `Country`, `Pincode`) VALUES
-(1, 7, '18 Home', 'Drim', 'crk', 'IE-CO', 'IE-CO', 'Ireland', '128747384787');
+(1, 7, '18 Home', 'Drim', 'crk', 'IE-CO', 'IE-CO', 'Ireland', '128747384787'),
+(2, 4, '18 Home', 'Drim', 'crk', 'IE-CO', 'IE-CO', 'Ireland', '128747384787');
 
 -- --------------------------------------------------------
 

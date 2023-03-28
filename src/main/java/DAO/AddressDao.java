@@ -38,7 +38,7 @@ public class AddressDao extends Dao implements AddressDaoInterface {
             rs = ps.executeQuery();
             if (rs.next())
             {
-                addressId = p.getAddressId();
+                addressId = rs.getInt("AddressId");
                
             }
         } catch (SQLException e)
