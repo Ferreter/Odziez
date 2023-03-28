@@ -4,6 +4,13 @@
     Author     : hkhat
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="java.util.List"%>
+<%@page import="DTO.orders"%>
+<%@page import="DAO.OrderDaoInterface"%>
+<%@page import="DAO.OrderDao"%>
+<%@page import="DAO.UserDaoInterface"%>
+<%@page import="DAO.UserDao"%>
 <%@page import="DTO.user"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -55,7 +62,19 @@
         </div>
         <div class="col-md-1" style="background-color:black"></div>
         <div class="col-md-7" style=" background-color: black">
+<%
 
+    OrderDao Odao = new OrderDao("clothes_shop");
+    OrderDaoInterface Orderdao = new OrderDao("clothes_shop");
+    UserDao udao = new UserDao("clothes_shop");
+    UserDaoInterface userdao = new UserDao("clothes_shop");
+    List<orders> orders = Orderdao.findOrdersById(u.getEmail());
+    // If there is a Products list returned (and it's not empty)
+
+    // Carrying out this check avoids the page breaking when the session times out
+%>
+
+  
             <li class="list-group-item">
                 <h3>Order History</h3>
                 <table class="table table-striped">
@@ -69,24 +88,30 @@
                             <th>Products </th>
                         </tr>
                     </thead>
+                    <%    if (orders != null && !orders.isEmpty() )
+            {
+                // Loop to print out all of the rows
+                for (orders order : orders)
+                {
+        %>
                     <tbody>
                         <tr>
                             <td>12345</td>
-                            <td>Your Moms House</td>
+                            <td><%=order.getAddress1()%></td>
                             <td>01/01/2021</td>
-                            <td>$100.00</td>
+                            <td><%=order.getTotal()%></td>
                             <td>Shipped</td>
-                            <td>Vibrators</td>
-                        </tr>
-                        <tr>
-                            <td>12345</td>
-                            <td>Your Moms House</td>
-                            <td>01/01/2021</td>
-                            <td>$100.00</td>
-                            <td>Shipped</td>
-                            <td>Vibrators</td>
+                            <td><%=order.getAddress1()%></td>
                         </tr>
                     </tbody>
+                        <%
+                }
+}else{
+%>
+no orders
+<%
+    }
+            %>
                 </table>
             </li>
 
@@ -95,7 +120,8 @@
 </div>
 
 <jsp:include page="../view/footer.jsp" /> 
-<%} else {
+<%
+    }else {
         String redirectURL = "../view/LoginNdRegister.jsp";
         response.sendRedirect(redirectURL);
 

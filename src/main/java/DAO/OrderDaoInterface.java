@@ -5,6 +5,8 @@
 package DAO;
 
 import DTO.orders;
+import java.util.List;
+
 
 /**
  *
@@ -14,5 +16,6 @@ public interface OrderDaoInterface {
     
     public boolean addOrder(orders u);
     public int getLastIndex() ;
+    public List<orders> findOrdersById(String UserId);
 
 }
