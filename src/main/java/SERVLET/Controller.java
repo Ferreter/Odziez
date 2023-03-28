@@ -675,10 +675,10 @@ public class Controller extends HttpServlet {
     private String Order(HttpServletRequest request, HttpServletResponse response) {
         String forwardToJsp = "controller/index.jsp";
         HttpSession session = request.getSession(true);
-        
+        user u = (user) session.getAttribute("user");
         int userId = Integer.parseInt(request.getParameter("userId"));
         
-        String firstname = request.getParameter("firstname");
+        String firstname = u.getFirstName();
         String lastname = request.getParameter("lastname");
         String email = request.getParameter("email");
         String address1 = request.getParameter("address1");
@@ -701,7 +701,7 @@ public class Controller extends HttpServlet {
             OrderDao orderDao = new OrderDao("clothes_shop");
             OrderDetailsDao detailsDao = new OrderDetailsDao("clothes_shop");
             CartDao cartdao = new CartDao("clothes_shop");
-            user u = (user) session.getAttribute("user");
+            
             boolean addOrder = false;
             boolean addDetails = false;
 

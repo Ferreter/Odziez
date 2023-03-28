@@ -51,9 +51,7 @@
 
 
 <body>
-    <%             double total = 0;
-    %>
-
+    <% double total = 0; %>
 
     <div class="container my-3">
 
@@ -63,60 +61,57 @@
                     <th scope="col">Item</th>
                     <th scope="col">Category</th>
                     <th scope="col">Price </th>
-
                     <th scope="col">Quantity </th>
-
                 </tr>
             </thead>
             <tbody>
-
-                <%
-                    if (cartProduct != null) {
-                        for (Cart item : cartProduct) {
-                            products p = pDao.searchbyId(item.getProductId());
-                            total += p.getCP() * item.getQuantity();
+                <% if (cartProduct != null) {
+                    for (Cart item : cartProduct) {
+                        products p = pDao.searchbyId(item.getProductId());
+                        total += p.getCP() * item.getQuantity();
                 %>
                 <tr>
                     <td><%=p.getName()%></td>
                     <td><%=p.getCategory()%></td>
                     <td><%= deciForm.format(p.getCP())%></td>
-
                     <td>
                         <form action="order" method="post" class="form-inline">
                             <input type="hidden" name="id" value="<%=p.getProductId()%>" class="form-input">
                             <div class="form-group d-flex justify-content-between">
-
-
                                 <span><%=item.getQuantity()%></span>
-                                
                             </div>
                         </form>
+                    </td>
                     <td>
-                         <form action="../Controller?id=<%=p.getProductId()%>" method="post" class="form-inline">
+                        <form action="../Controller?id=<%=p.getProductId()%>" method="post" class="form-inline">
                             <input style="margin-left: 10px;width:80%;background-color: black;color:white"  class="btn btn-sm btn-primary" type="submit" name="action" value="+">
                         </form>
                         <form action="../Controller?id=<%=p.getProductId()%>" method="post" class="form-inline">
                             <input style="margin-left: 10px;width:80%;background-color: black;color:white"  class="btn btn-sm btn-primary" type="submit" name="action" value="-">
                         </form>
-
                     </td>
                     <td>
                         <form action="../Controller?id=<%=p.getProductId()%>" method="post" class="form-inline">
                             <input type="hidden" name="id" value="<%=p.getProductId()%>" class="form-input">
-
                             <input style="margin-left: 10px;width:80%;background-color: black;color:white"  class="btn btn-sm btn-primary" type="submit" name="action" value="Remove">
                         </form>
                     </td>
                 </tr>
 
-                <%
-                                        }
-                                    }%>
-            <div class="d-flex py-3"><h3 >Total Price: € <%=deciForm.format(total)%></h3> <a style="background-color: white;color:black;" class="mx-3 btn btn-primary" href="order.jsp">Check Out</a></div>
+                <% }
+                } %>
+                <% if (total > 0) { %>
+                <div class="d-flex py-3">
+                    <h3>Total Price: € <%=deciForm.format(total)%></h3>
+                    <a style="background-color: white;color:black;" class="mx-3 btn btn-primary" href="order.jsp">Check Out</a>
+                </div>
+                <% } else { %>
+                <div class="alert alert-warning" role="alert">
+                    Your cart is empty!
+                </div>
+                <% } %>
             </tbody>
         </table>
     </div>
-
-
 </body>
 <jsp:include page="../view/footer.jsp" /> 
