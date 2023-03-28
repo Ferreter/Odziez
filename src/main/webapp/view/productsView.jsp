@@ -38,7 +38,8 @@
 %>
 
 
-<!-- Filter -->
+<!-- Filter
+-->
 
 
 <p class="text-center" style="font-size: 13px; color:whitesmoke; padding-top: 20px">Odziez.com/allproducts

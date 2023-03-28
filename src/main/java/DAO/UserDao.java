@@ -920,8 +920,51 @@ public class UserDao extends Dao implements UserDaoInterface {
     }
 
     
+    public boolean editProfile(user u, String FirstName, String LastName, String Email, String Phone, Date DOB) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        boolean edit = false;
+        try {
+            con = this.getConnection();
 
-        
+            String query = "UPDATE user SET FirstName = ? , Lastname = ? , Email = ? , Phone = ? , DOB = ? WHERE username = ?";
+
+            ps = con.prepareStatement(query);
+
+            ps.setString(1, FirstName);
+            ps.setString(2, LastName);
+            ps.setString(3, Email);
+            ps.setString(4, Phone);
+            ps.setDate(5, DOB);
+            ps.setString(6, u.getUsername());
+
+            // Because this is CHANGING the database, use the executeUpdate method
+            ps.executeUpdate();
+            edit = true;
+            // Find out what the id generated for this entry was
+
+        } catch (SQLException e) {
+            System.err.println("\tA problem occurred during the editProfile method:");
+            System.err.println("\t" + e.getMessage());
+
+        } finally {
+            try {
+
+                if (ps != null) {
+                    ps.close();
+
+                }
+
+                if (con != null) {
+                    freeConnection(con);
+                }
+            } catch (SQLException e) {
+                System.err.println("A problem occurred when closing down the editProfile method:\n" + e.getMessage());
+            }
+        }
+        return edit;
+    }
+
 
 
 }
