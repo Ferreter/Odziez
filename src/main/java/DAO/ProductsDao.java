@@ -702,4 +702,54 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             return false;
         }
     }
+
+    @Override
+    public List<products> searchByFilters(String Style, String NeckLine, String Material, String Fit, String Length, String Occasion, String Printed, String Color) {
+    Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<products> products = new ArrayList();
+//        try
+//        {
+//            con = this.getConnection();
+//
+//            String query = "SELECT * FROM products WHERE Brand like ?";
+//            ps = con.prepareStatement(query);
+//            ps.setString(1, "%" + Brand + "%");
+//
+//            rs = ps.executeQuery();
+//            while (rs.next())
+//            {
+//
+//                products p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Images"), rs.getString("Brand"));
+//
+//                products.add(p);
+//            }
+//        } catch (SQLException e)
+//        {
+//            System.err.println("\tA problem occurred during the searchbyname() method:");
+//            System.err.println("\t" + e.getMessage());
+//        } finally
+//        {
+//            try
+//            {
+//                if (rs != null)
+//                {
+//                    rs.close();
+//                }
+//                if (ps != null)
+//                {
+//                    ps.close();
+//                }
+//                if (con != null)
+//                {
+//                    freeConnection(con);
+//                }
+//            } catch (SQLException e)
+//            {
+//                System.err.println("A problem occurred when closing down the searchbyname() method:\n" + e.getMessage());
+//            }
+//        }
+        return products;     // u may be null 
+    }
 }
