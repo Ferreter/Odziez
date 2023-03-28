@@ -31,22 +31,13 @@ public class OrderDao extends Dao implements OrderDaoInterface {
             con = getConnection();
             
             // not needed to name fields since we are filling it all
-            String command = "INSERT INTO orders( firstname, lastname, email, address1, address2, country, state, zipcode, cardNumber, expiry, cvv, total) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String command = "INSERT INTO orders( UserId, AddressId, total) VALUES (?, ?, ?)";
             ps = con.prepareStatement(command);
            
            
-            ps.setString(1, u.getFirstname());
-            ps.setString(2, u.getLastname());
-            ps.setString(3, u.getEmail());
-            ps.setString(4, u.getAddress1());
-            ps.setString(5, u.getAddress2());
-            ps.setString(6, u.getCountry());
-            ps.setString(7, u.getState());
-            ps.setString(8, u.getZipcode());
-            ps.setString(9, u.getCardNumber());
-            ps.setString(10, u.getExpiry());
-            ps.setString(11, u.getCvv());
-            ps.setDouble(12, u.getTotal());
+            ps.setInt(1, u.getUserId());
+            ps.setInt(2, u.getAddressId());
+            ps.setDouble(3, u.getTotal());
             
             
             

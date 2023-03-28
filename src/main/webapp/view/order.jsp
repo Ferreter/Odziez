@@ -139,32 +139,13 @@
                                     <p><%= u.getEmail()%> </p>
                                 </div>
 
-                                <div class="form-outline mb-4">
-                                    <label class="form-label" for="form2Example17">Address Line 1:</label>
-                                    <input type="text"  name="address1" required id="form2Example17"   class="form-control form-control-lg"><br>
-                                </div>
+                                 <div class="form-check mb-4">
+                                            <input type="checkbox" name="exAdd" value="on">
+                                            <label class="form-check-label" for="subscribeCheckbox">
+                                                   Use Existing Address
+                                           </label>
+                                        </div>
 
-
-                                <div class="form-outline mb-4">
-                                    <label class="form-label" for="form2Example17">Address Line 2:</label>
-                                    <input type="text"  name="address2"  id="form2Example17"   class="form-control form-control-lg"><br>
-                                </div>
-
-                                <div class="form-outline mb-4">
-                                    <label class="form-label" for="form2Example17">Country:</label>
-                                    <input type="text"  name="country" required id="form2Example17"   class="form-control form-control-lg"><br>
-                                </div>
-
-                                <div class="form-outline mb-4">
-                                    <label class="form-label" for="form2Example17">State/County:</label>
-                                    <input type="text"  name="state" required id="form2Example17"   class="form-control form-control-lg"><br>
-                                </div>
-
-
-                                <div class="form-outline mb-4">
-                                    <label class="form-label" for="form2Example17">Postal/Zip:</label>
-                                    <input type="text"  name="zipcode" required id="form2Example17"   class="form-control form-control-lg"><br>
-                                </div>
 
                                 <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 0px;">Card Details</h5>
 

@@ -106,7 +106,7 @@
                     <a style="background-color: white;color:black;" class="mx-3 btn btn-primary" href="order.jsp">Check Out</a>
                 </div>
                 <% } else { %>
-                <div class="alert alert-warning" role="alert">
+                <div class="alert alert-warning"style="background-color: black; color: white;" role="alert">
                     Your cart is empty!
                 </div>
                 <% } %>

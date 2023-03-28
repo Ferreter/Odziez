@@ -27,6 +27,31 @@ use clothes_shop;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `address`
+--
+
+CREATE TABLE `address` (
+  `AddressId` int(11) NOT NULL,
+  `UserId` int(11) NOT NULL,
+  `Address1` varchar(500) NOT NULL,
+  `Address2` varchar(500) NOT NULL,
+  `Address3` varchar(500) DEFAULT NULL,
+  `City` varchar(500) NOT NULL,
+  `County` varchar(500) NOT NULL,
+  `Country` varchar(500) NOT NULL,
+  `Pincode` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `address`
+--
+
+INSERT INTO `address` (`AddressId`, `UserId`, `Address1`, `Address2`, `Address3`, `City`, `County`, `Country`, `Pincode`) VALUES
+(1, 7, '18 Home', 'Drim', 'crk', 'IE-CO', 'IE-CO', 'Ireland', '128747384787');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `cart`
 --
 
@@ -61,30 +86,11 @@ CREATE TABLE `orderdetails` (
 
 CREATE TABLE `orders` (
   `orderId` int(11) NOT NULL,
-  `firstname` varchar(255) NOT NULL,
-  `lastname` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `address1` varchar(255) NOT NULL,
-  `address2` varchar(255) DEFAULT NULL,
-  `country` varchar(255) NOT NULL,
-  `state` varchar(255) NOT NULL,
-  `zipcode` varchar(255) DEFAULT NULL,
-  `cardNumber` varchar(225) NOT NULL,
-  `expiry` varchar(225) DEFAULT NULL,
-  `cvv` varchar(255) NOT NULL,
+  `UserId` int(11) NOT NULL,
+  `AddressId` int(11) NOT NULL,
   `total` double(6,2) NOT NULL DEFAULT 0.00,
   `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`orderId`, `firstname`, `lastname`, `email`, `address1`, `address2`, `country`, `state`, `zipcode`, `cardNumber`, `expiry`, `cvv`, `total`, `created_at`) VALUES
-(1, 'Bhig', 'Khali', 'amicusyaba@yahoo.com', '18 CUL NA GREINE CO.CORK', 'crk', 'Ireland', 'IE-CO', 'P47E438', '128747384787', '10/24', '333', 7600.00, '2023-03-22 04:13:36'),
-(2, 'Bhig', 'khali', 'amicusyaba@yahoo.com', '18 CUL NA GREINE CO.CORK', 'cork', 'Ireland', 'IE-CO', 'P47E438', '128363526672', '10/26', '333', 390.00, '2023-03-22 04:16:27'),
-(3, 'Bhig', 'Khali', 'amicusyaba@yahoo.com', '18 CUL NA GREINE CO.CORK', 'cork', 'Ireland', 'IE-CO', 'P47E438', '12383762524', '10/24', '444', 975.00, '2023-03-22 04:20:54'),
-(4, 'Kian', 'Harding', 'kian2ki@hotmail.com', '29 Brookville', '', 'Ireland', 'County Louth', 'A92 HCY6', '323234234', '22/2', '232', 1915.00, '2023-03-22 12:40:37');
 
 -- --------------------------------------------------------
 
@@ -240,21 +246,7 @@ INSERT INTO `stock` (`ProductId`, `XS`, `S`, `M`, `L`, `XL`) VALUES
 ('UJN847_12VV_F0002_S_231\r\n', 12, 32, 44, 92, 19);
 
 -- --------------------------------------------------------
---
--- Table structure for table `address`
---
 
-CREATE TABLE `address` (
-    `AddressId` int(11) NOT NULL,
-  `UserId` int(11) NOT NULL,
-  `Address1` varchar(500) NOT NULL,
-  `Address2` varchar(500) NOT NULL,
-  `Address3` varchar(500) DEFAULT NULL,
-  `City` varchar(500) NOT NULL,
-  `County` varchar(500) NOT NULL,
-  `Country` varchar(500) NOT NULL,
-  `Pincode` varchar(500) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 --
 -- Table structure for table `user`
 --
@@ -292,6 +284,13 @@ INSERT INTO `user` (`UserId`, `username`, `password`, `FirstName`, `Lastname`, `
 --
 
 --
+-- Indexes for table `address`
+--
+ALTER TABLE `address`
+  ADD PRIMARY KEY (`AddressId`),
+  ADD KEY `address_ibfk_1` (`UserId`);
+
+--
 -- Indexes for table `cart`
 --
 ALTER TABLE `cart`
@@ -309,7 +308,9 @@ ALTER TABLE `orderdetails`
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
-  ADD PRIMARY KEY (`orderId`);
+  ADD PRIMARY KEY (`orderId`),
+  ADD KEY `orders_ibfk_1` (`UserId`),
+  ADD KEY `orders_ibfk_2` (`AddressId`);
 
 --
 -- Indexes for table `productfilter`
@@ -348,6 +349,12 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `address`
+--
+ALTER TABLE `address`
+  MODIFY `AddressId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
@@ -376,10 +383,23 @@ ALTER TABLE `user`
 --
 
 --
+-- Constraints for table `address`
+--
+ALTER TABLE `address`
+  ADD CONSTRAINT `address_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `user` (`UserId`);
+
+--
 -- Constraints for table `orderdetails`
 --
 ALTER TABLE `orderdetails`
   ADD CONSTRAINT `orderdetails_ibfk_1` FOREIGN KEY (`OrderId`) REFERENCES `orders` (`orderId`);
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `user` (`UserId`),
+  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`AddressId`) REFERENCES `address` (`AddressId`);
 
 --
 -- Constraints for table `productfilter`

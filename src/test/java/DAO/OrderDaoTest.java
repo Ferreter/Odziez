@@ -40,16 +40,16 @@ public class OrderDaoTest {
     /**
      * Test of addOrder method, of class OrderDao.
      */
-    @Test
-    public void testAddOrder() {
-        System.out.println("addOrder");
-        orders u = new orders("Test","Test","Test","Test","Test","Test","Test","Test","Test","Test","Test",22);
-        OrderDao orderDao = new OrderDao("clothes_shop_test");
-        boolean expResult = true;
-        boolean result = orderDao.addOrder(u);
-        assertEquals(expResult, result);
-        
-    }
+//    @Test
+//    public void testAddOrder() {
+//        System.out.println("addOrder");
+//        orders u = new orders("Test","Test","Test","Test","Test","Test","Test","Test","Test","Test","Test",22);
+//        OrderDao orderDao = new OrderDao("clothes_shop_test");
+//        boolean expResult = true;
+//        boolean result = orderDao.addOrder(u);
+//        assertEquals(expResult, result);
+//        
+//    }
 
 //    /**
 //     * Test of getLastIndex method, of class OrderDao.

@@ -4,6 +4,7 @@
  */
 package SERVLET;
 
+import DAO.AddressDao;
 import DAO.CartDao;
 import DAO.OrderDao;
 import DAO.OrderDetailsDao;
@@ -12,6 +13,7 @@ import DAO.ProductsDaoInterface;
 import DAO.UserDao;
 import DTO.Cart;
 import DTO.OrderDetails;
+import DTO.address;
 import DTO.orders;
 import DTO.products;
 import DTO.review;
@@ -678,35 +680,28 @@ public class Controller extends HttpServlet {
         user u = (user) session.getAttribute("user");
         int userId = Integer.parseInt(request.getParameter("userId"));
         
-        String firstname = u.getFirstName();
-        String lastname = request.getParameter("lastname");
-        String email = request.getParameter("email");
-        String address1 = request.getParameter("address1");
-        String address2 = request.getParameter("address2");
-        String country = request.getParameter("country");
-        String state = request.getParameter("state");
-        String zipcode = request.getParameter("zipcode");
-        String cardNumber = request.getParameter("cardNumber");
-         String expiry = request.getParameter("expiry");
-          String cvv = request.getParameter("cvv");
+        
           double total = Double.parseDouble(request.getParameter("total"));
         
        //ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
-        if (firstname != null && lastname != null && email != null && address1 != null  && country != null && state != null && zipcode != null && !firstname.isEmpty() && !lastname.isEmpty() && !email.isEmpty() && !address1.isEmpty() && !country.isEmpty() && !state.isEmpty() && !zipcode.isEmpty())
+        if ( total != 0.0)
         {
             
             
             ProductsDao pdao = new ProductsDao("clothes_shop");
             products p = new products();
+            address add = new address();
+            AddressDao addressDao = new AddressDao("clothes_shop");
             OrderDao orderDao = new OrderDao("clothes_shop");
             OrderDetailsDao detailsDao = new OrderDetailsDao("clothes_shop");
             CartDao cartdao = new CartDao("clothes_shop");
             
             boolean addOrder = false;
             boolean addDetails = false;
-
+                int id = addressDao.searchbyUserId(userId);
+                
             
-                orders order = new orders(firstname, lastname, email, address1, address2, country, state, zipcode, cardNumber, expiry, cvv, total);
+                orders order = new orders(u.getUserId(),id, total);
                 
                 
                 addOrder = orderDao.addOrder(order);

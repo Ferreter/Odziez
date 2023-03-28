@@ -10,6 +10,7 @@ package DTO;
  */
 public class address {
 
+    int addressId;
     private int userId;
     private String address1;
     private String address2;
@@ -19,6 +20,30 @@ public class address {
     private String country;
     private String pincode;
 
+    public address() {
+    }
+    
+    public address(int addressId,int userId, String address1, String address2, String address3, String city, String county, String country, String pincode) {
+   
+   this.addressId = addressId;
+   this.userId = userId;
+   this.address1 = address1;
+   this.address2 = address2;
+   this.address3 = address3;
+   this.city = city;
+   this.county = county;
+   this.country = country;
+   this.pincode = pincode;
+    }
+
+    public int getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
+    }
+    
     public int getUserId() {
         return userId;
     }
