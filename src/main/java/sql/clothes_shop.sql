@@ -223,7 +223,20 @@ CREATE TABLE `stock` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
+--
+-- Table structure for table `address`
+--
 
+CREATE TABLE `address` (
+  `UserId` int(11) NOT NULL,
+  `Address1` varchar(500) NOT NULL,
+  `Address2` varchar(500) NOT NULL,
+  `Address3` varchar(500) DEFAULT NULL,
+  `City` varchar(500) NOT NULL,
+  `County` varchar(500) NOT NULL,
+  `Country` varchar(500) NOT NULL,
+  `Pincode` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 --
 -- Table structure for table `user`
 --
