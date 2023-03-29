@@ -78,8 +78,12 @@
 
                     <p style="padding-top:10px;padding-bottom: 2px;margin:0px;">Printed</p>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input"  name="Printed" value="Printed">Printed
+                        <input type="radio" class="form-check-input"  name="Printed" value="Printed" checked>Printed
                         <label class="form-check-label" for="radio1"></label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input"  name="Printed" value="Not-Printed">Not-Printed
+                        <label class="form-check-label" for="radio2"></label>
                     </div>
 
                     <p style="padding-top:20px;padding-bottom: 2px;margin:0px;">Occasion</p>
@@ -110,6 +114,10 @@
                      <div class="form-check">
                         <input type="radio" class="form-check-input"  name="Material" value="Wool">Wool
                         <label class="form-check-label" for="radio3"></label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input"  name="Material" value="Fleece">Fleece
+                        <label class="form-check-label" for="radio4"></label>
                     </div>
 
                     <p style="padding-top:10px;padding-bottom: 2px;margin:0px;">Fit</p>
@@ -147,7 +155,7 @@
                         <label class="form-check-label" for="radio1"></label>
                     </div>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input"  name="NeckLine" value="V Neck">V Neck
+                        <input type="radio" class="form-check-input"  name="NeckLine" value="V-Neck">V Neck
                         <label class="form-check-label" for="radio2"></label>
                     </div>
                      <div class="form-check">
@@ -163,6 +171,10 @@
                     <div class="form-check">
                         <input type="radio" class="form-check-input"  name="NeckLine" value="Zip Up">Zip Up
                         <label class="form-check-label" for="radio5"></label>
+                    </div>
+                     <div class="form-check">
+                        <input type="radio" class="form-check-input"  name="NeckLine" value="U-Neck">U-Neck
+                        <label class="form-check-label" for="radio6"></label>
                     </div>
                 </div>
                 <div class="col-2">
