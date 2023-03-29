@@ -39,41 +39,32 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         ResultSet rs = null;
         List<products> products = new ArrayList();
 
-        try
-        {
+        try {
             con = getConnection();
 
             String query = "SELECT * FROM `products` ORDER BY `products`.`ProductId` DESC";
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
 
-            while (rs.next())
-            {
+            while (rs.next()) {
                 products p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Images"), rs.getString("Brand"));
 
                 products.add(p);
             }
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             System.out.println("Exception occured in the ListAllProducts() method: " + e.getMessage());
-        } finally
-        {
-            try
-            {
-                if (rs != null)
-                {
+        } finally {
+            try {
+                if (rs != null) {
                     rs.close();
                 }
-                if (ps != null)
-                {
+                if (ps != null) {
                     ps.close();
                 }
-                if (con != null)
-                {
+                if (con != null) {
                     freeConnection(con);
                 }
-            } catch (SQLException e)
-            {
+            } catch (SQLException e) {
                 System.out.println("Exception occured in the finally section of the ListAllProducts() method: " + e.getMessage());
             }
         }
@@ -95,8 +86,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<products> products = new ArrayList();
-        try
-        {
+        try {
             con = this.getConnection();
 
             String query = "SELECT * FROM products WHERE Name like ?";
@@ -104,35 +94,27 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             ps.setString(1, "%" + Name + "%");
 
             rs = ps.executeQuery();
-            while (rs.next())
-            {
+            while (rs.next()) {
 
                 products p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Images"), rs.getString("Brand"));
 
                 products.add(p);
             }
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             System.err.println("\tA problem occurred during the searchbyname() method:");
             System.err.println("\t" + e.getMessage());
-        } finally
-        {
-            try
-            {
-                if (rs != null)
-                {
+        } finally {
+            try {
+                if (rs != null) {
                     rs.close();
                 }
-                if (ps != null)
-                {
+                if (ps != null) {
                     ps.close();
                 }
-                if (con != null)
-                {
+                if (con != null) {
                     freeConnection(con);
                 }
-            } catch (SQLException e)
-            {
+            } catch (SQLException e) {
                 System.err.println("A problem occurred when closing down the searchbyname() method:\n" + e.getMessage());
             }
         }
@@ -145,8 +127,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<products> products = new ArrayList();
-        try
-        {
+        try {
             con = this.getConnection();
 
             String query = "SELECT * FROM products WHERE Brand like ?";
@@ -154,35 +135,27 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             ps.setString(1, "%" + Brand + "%");
 
             rs = ps.executeQuery();
-            while (rs.next())
-            {
+            while (rs.next()) {
 
                 products p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Images"), rs.getString("Brand"));
 
                 products.add(p);
             }
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             System.err.println("\tA problem occurred during the searchbyname() method:");
             System.err.println("\t" + e.getMessage());
-        } finally
-        {
-            try
-            {
-                if (rs != null)
-                {
+        } finally {
+            try {
+                if (rs != null) {
                     rs.close();
                 }
-                if (ps != null)
-                {
+                if (ps != null) {
                     ps.close();
                 }
-                if (con != null)
-                {
+                if (con != null) {
                     freeConnection(con);
                 }
-            } catch (SQLException e)
-            {
+            } catch (SQLException e) {
                 System.err.println("A problem occurred when closing down the searchbyname() method:\n" + e.getMessage());
             }
         }
@@ -204,8 +177,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         PreparedStatement ps = null;
         ResultSet rs = null;
         products p = null;
-        try
-        {
+        try {
             con = this.getConnection();
 
             String query = "SELECT * FROM products WHERE ProductId like ?";
@@ -213,34 +185,26 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             ps.setString(1, "%" + ProductId + "%");
 
             rs = ps.executeQuery();
-            if (rs.next())
-            {
+            if (rs.next()) {
 
                 p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Images"), rs.getString("Brand"));
 
             }
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             System.err.println("\tA problem occurred during the searchbyId() method:");
             System.err.println("\t" + e.getMessage());
-        } finally
-        {
-            try
-            {
-                if (rs != null)
-                {
+        } finally {
+            try {
+                if (rs != null) {
                     rs.close();
                 }
-                if (ps != null)
-                {
+                if (ps != null) {
                     ps.close();
                 }
-                if (con != null)
-                {
+                if (con != null) {
                     freeConnection(con);
                 }
-            } catch (SQLException e)
-            {
+            } catch (SQLException e) {
                 System.err.println("A problem occurred when closing down the searchbyId() method:\n" + e.getMessage());
             }
         }
@@ -265,48 +229,37 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
 
         double sum = 0;
 
-        try
-        {
+        try {
 
             con = this.getConnection();
-            if (cartList.size() > 0)
-            {
-                for (Cart item : cartList)
-                {
+            if (cartList.size() > 0) {
+                for (Cart item : cartList) {
                     String query = "SELECT CP from products where id=?";
                     ps = con.prepareStatement(query);
                     ps.setString(1, item.getProductId());
                     rs = ps.executeQuery();
-                    while (rs.next())
-                    {
+                    while (rs.next()) {
                         sum += rs.getDouble("CP") * item.getQuantity();
                     }
 
                 }
             }
 
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
 
             System.out.println("\tA problem occurred during the getTotalCartPrice: " + e.getMessage());
-        } finally
-        {
-            try
-            {
-                if (rs != null)
-                {
+        } finally {
+            try {
+                if (rs != null) {
                     rs.close();
                 }
-                if (ps != null)
-                {
+                if (ps != null) {
                     ps.close();
                 }
-                if (con != null)
-                {
+                if (con != null) {
                     freeConnection(con);
                 }
-            } catch (SQLException e)
-            {
+            } catch (SQLException e) {
                 System.err.println("A problem occurred when closing down the getTotalCartPrice() method:\n" + e.getMessage());
             }
         }
@@ -332,19 +285,15 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         ResultSet rs = null;
 
         List<Cart> products = new ArrayList<>();
-        try
-        {
+        try {
             con = this.getConnection();
-            if (cartList.size() > 0)
-            {
-                for (Cart item : cartList)
-                {
+            if (cartList.size() > 0) {
+                for (Cart item : cartList) {
                     String query = "SELECT * FROM products where ProductId=?";
                     ps = con.prepareStatement(query);
                     ps.setString(1, item.getProductId());
                     rs = ps.executeQuery();
-                    while (rs.next())
-                    {
+                    while (rs.next()) {
                         Cart row = new Cart();
                         row.setProductId(rs.getString("ProductId"));
                         row.setName(rs.getString("Name"));
@@ -358,42 +307,33 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
                 }
             }
 
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("\tA problem occurred during the getCartProducts: " + e.getMessage());
-        } finally
-        {
-            try
-            {
-                if (rs != null)
-                {
+        } finally {
+            try {
+                if (rs != null) {
                     rs.close();
                 }
-                if (ps != null)
-                {
+                if (ps != null) {
                     ps.close();
                 }
-                if (con != null)
-                {
+                if (con != null) {
                     freeConnection(con);
                 }
-            } catch (SQLException e)
-            {
+            } catch (SQLException e) {
                 System.err.println("A problem occurred when closing down the getCartProducts() method:\n" + e.getMessage());
             }
         }
         return products;
     }
 
-
     @Override
     public boolean insertReview(review r) {
         Connection con = null;
         PreparedStatement ps = null;
         boolean added = false;
-        try
-        {
+        try {
             con = this.getConnection();
 
             String query = "INSERT INTO review (reviewId, ProductId, UserId, rating, review, reviewDate) VALUES (?, ?, ?, ?, ?, ?)";
@@ -412,35 +352,27 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             added = true;
             // Find out what the id generated for this entry was
 
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             System.err.println("\tA problem occurred during the insertReview() method:");
             System.err.println("\t" + e.getMessage());
 
-        } finally
-        {
-            try
-            {
+        } finally {
+            try {
 
-                if (ps != null)
-                {
+                if (ps != null) {
                     ps.close();
 
                 }
 
-                if (con != null)
-                {
+                if (con != null) {
                     freeConnection(con);
                 }
-            } catch (SQLException e)
-            {
+            } catch (SQLException e) {
                 System.err.println("A problem occurred when closing down the insertReview() method:\n" + e.getMessage());
             }
         }
         return added;
     }
-    
-    
 
     @Override
     public List<review> getReviewsByProductId(String productId) {
@@ -451,8 +383,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
 
         String review = "";
 
-        try
-        {
+        try {
             con = getConnection();
 
             String query = "SELECT * FROM review WHERE productId = ?";
@@ -460,33 +391,25 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             ps.setString(1, productId);
             rs = ps.executeQuery();
 
-            while (rs.next())
-            {
+            while (rs.next()) {
                 review r = new review(rs.getInt("reviewId"), rs.getString("ProductId"), rs.getInt("UserId"), rs.getInt("rating"), rs.getString("review"), rs.getDate("reviewDate"));
 
                 reviews.add(r);
             }
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             System.out.println("Exception occured in the getReviewsByProductId() method: " + e.getMessage());
-        } finally
-        {
-            try
-            {
-                if (rs != null)
-                {
+        } finally {
+            try {
+                if (rs != null) {
                     rs.close();
                 }
-                if (ps != null)
-                {
+                if (ps != null) {
                     ps.close();
                 }
-                if (con != null)
-                {
+                if (con != null) {
                     freeConnection(con);
                 }
-            } catch (SQLException e)
-            {
+            } catch (SQLException e) {
                 System.out.println("Exception occured in the finally section of the getReviewsByProductId() method: " + e.getMessage());
             }
         }
@@ -498,11 +421,9 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         Connection con = null;
         PreparedStatement ps = null;
 
-        if (findUserByProductId(p.getProductId()) == null)
-        {
+        if (findUserByProductId(p.getProductId()) == null) {
 
-            try
-            {
+            try {
                 con = this.getConnection();
 
                 String query = "INSERT INTO products (ProductId, Name, MRP, CP, Description, Category, Tags, Images, Brand) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -519,30 +440,23 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
                 ps.setString(9, p.getBrand());
 
                 ps.execute();
-            } catch (SQLException e)
-            {
+            } catch (SQLException e) {
                 System.err.println("\tA problem occurred during the AddProduct() method:");
                 System.err.println("\t" + e.getMessage());
-            } finally
-            {
-                try
-                {
-                    if (ps != null)
-                    {
+            } finally {
+                try {
+                    if (ps != null) {
                         ps.close();
                     }
-                    if (con != null)
-                    {
+                    if (con != null) {
                         freeConnection(con);
                     }
-                } catch (SQLException e)
-                {
+                } catch (SQLException e) {
                     System.err.println("A problem occurred when closing down the AddProduct() method:\n" + e.getMessage());
                 }
             }
             return true;
-        } else
-        {
+        } else {
             return false;
         }
     }
@@ -553,8 +467,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         PreparedStatement ps = null;
         ResultSet rs = null;
         products p = null;
-        try
-        {
+        try {
             con = this.getConnection();
 
             String query = "SELECT * FROM products WHERE ProductId = ?";
@@ -562,8 +475,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             ps.setString(1, pId);
 
             rs = ps.executeQuery();
-            if (rs.next())
-            {
+            if (rs.next()) {
 
                 String ProductId = rs.getString("ProductId");
                 String Name = rs.getString("Name");
@@ -577,28 +489,21 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
 
                 p = new products(ProductId, Name, MRP, CP, Description, Category, Tags, Images, Brand);
             }
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             System.err.println("\tA problem occurred during the findUserByProductId method:");
             System.err.println("\t" + e.getMessage());
-        } finally
-        {
-            try
-            {
-                if (rs != null)
-                {
+        } finally {
+            try {
+                if (rs != null) {
                     rs.close();
                 }
-                if (ps != null)
-                {
+                if (ps != null) {
                     ps.close();
                 }
-                if (con != null)
-                {
+                if (con != null) {
                     freeConnection(con);
                 }
-            } catch (SQLException e)
-            {
+            } catch (SQLException e) {
                 System.err.println("A problem occurred when closing down the findUserByProductId method:\n" + e.getMessage());
             }
         }
@@ -611,8 +516,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         Connection con = null;
         PreparedStatement ps = null;
         boolean removed = false;
-        try
-        {
+        try {
             con = this.getConnection();
 
             String query = "DELETE FROM products WHERE ProductId = ?";
@@ -620,45 +524,36 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             ps.setString(1, p.getProductId());
 
             int rowsAffected = ps.executeUpdate();
-            if (rowsAffected != 0)
-            {
+            if (rowsAffected != 0) {
                 removed = true;
             }
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             System.err.println("\tA problem occurred during the DeleteProduct method:");
             System.err.println("\t" + e.getMessage());
             removed = false;
-        } finally
-        {
-            try
-            {
-                if (ps != null)
-                {
+        } finally {
+            try {
+                if (ps != null) {
                     ps.close();
                 }
-                if (con != null)
-                {
+                if (con != null) {
                     freeConnection(con);
                 }
-            } catch (SQLException e)
-            {
+            } catch (SQLException e) {
                 System.err.println("A problem occurred when closing down the DeleteProduct method:\n" + e.getMessage());
             }
         }
         return removed;
     }
-    
+
     @Override
     public boolean EditProduct(products p) {
         Connection con = null;
         PreparedStatement ps = null;
 
-        if (findUserByProductId(p.getProductId()) == null)
-        {
+        if (findUserByProductId(p.getProductId()) == null) {
 
-            try
-            {
+            try {
                 con = this.getConnection();
 
                 String query = "UPDATE products SET ProductId = ?, Name = ?, MRP = ?, CP = ?, Description = ?, Category = ?,Tags = ?, Images = ?, Brand = ? WHERE ProductId like ? ";
@@ -672,84 +567,76 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
                 ps.setString(7, p.getTags());
                 ps.setString(8, p.getImages());
                 ps.setString(9, p.getBrand());
-                ps.setString(10, "%"+p.getProductId()+"%");
+                ps.setString(10, "%" + p.getProductId() + "%");
 
                 ps.execute();
-            } catch (SQLException e)
-            {
+            } catch (SQLException e) {
                 System.err.println("\tA problem occurred during the EditProduct method:");
                 System.err.println("\t" + e.getMessage());
-            } finally
-            {
-                try
-                {
-                    if (ps != null)
-                    {
+            } finally {
+                try {
+                    if (ps != null) {
                         ps.close();
                     }
-                    if (con != null)
-                    {
+                    if (con != null) {
                         freeConnection(con);
                     }
-                } catch (SQLException e)
-                {
+                } catch (SQLException e) {
                     System.err.println("A problem occurred when closing down the EditProduct method:\n" + e.getMessage());
                 }
             }
             return true;
-        } else
-        {
+        } else {
             return false;
         }
     }
 
     @Override
     public List<products> searchByFilters(String Style, String NeckLine, String Material, String Fit, String Length, String Occasion, String Printed, String Color) {
-    Connection con = null;
+        Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<products> products = new ArrayList();
-//        try
-//        {
-//            con = this.getConnection();
-//
-//            String query = "SELECT * FROM products WHERE Brand like ?";
-//            ps = con.prepareStatement(query);
-//            ps.setString(1, "%" + Brand + "%");
-//
-//            rs = ps.executeQuery();
-//            while (rs.next())
-//            {
-//
-//                products p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Images"), rs.getString("Brand"));
-//
-//                products.add(p);
-//            }
-//        } catch (SQLException e)
-//        {
-//            System.err.println("\tA problem occurred during the searchbyname() method:");
-//            System.err.println("\t" + e.getMessage());
-//        } finally
-//        {
-//            try
-//            {
-//                if (rs != null)
-//                {
-//                    rs.close();
-//                }
-//                if (ps != null)
-//                {
-//                    ps.close();
-//                }
-//                if (con != null)
-//                {
-//                    freeConnection(con);
-//                }
-//            } catch (SQLException e)
-//            {
-//                System.err.println("A problem occurred when closing down the searchbyname() method:\n" + e.getMessage());
-//            }
-//        }
+        try {
+            con = this.getConnection();
+
+            String query = "SELECT * FROM products WHERE Tags like ? AND Tags like ? AND Tags like ? AND Tags like ? AND Tags like ? AND Tags like ? AND Tags like ? AND Tags like ? ";
+            ps = con.prepareStatement(query);
+            ps.setString(1, "%" + Color + "%");
+            ps.setString(2, "%" + Style + "%");
+            ps.setString(3, "%" + Printed + "%");
+            ps.setString(4, "%" + Length + "%");
+            ps.setString(5, "%" + Occasion + "%");
+            ps.setString(6, "%" + Fit + "%");
+            ps.setString(7, "%" + NeckLine + "%");
+            ps.setString(8, "%" + Material + "%");
+
+            rs = ps.executeQuery();
+            while (rs.next()) {
+
+                products p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Images"), rs.getString("Brand"));
+
+                products.add(p);
+            }
+        } catch (SQLException e) {
+            System.err.println("\tA problem occurred during the searchbyname() method:");
+            System.err.println("\t" + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    freeConnection(con);
+                }
+            } catch (SQLException e) {
+                System.err.println("A problem occurred when closing down the searchbyname() method:\n" + e.getMessage());
+            }
+        }
         return products;     // u may be null 
+
     }
 }

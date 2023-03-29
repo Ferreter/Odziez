@@ -833,6 +833,7 @@ public class Controller extends HttpServlet {
     }
 
     private String FilterProduct(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession(true);
         String forwardToJsp = "controller/error.jsp";
         String Style = request.getParameter("Style");
         String NeckLine = request.getParameter("NeckLine");
@@ -845,19 +846,21 @@ public class Controller extends HttpServlet {
 
         ProductsDao pdao = new ProductsDao("clothes_shop");
         ProductsDaoInterface productdao = new ProductsDao("clothes_shop");
+        
+        
         List<products> p = productdao.searchByFilters(Style,NeckLine,Material,Fit,Length,Occasion,Printed,Color);
 
         boolean login = false;
-//
-//        if (p != null) {
-//            session.setAttribute("products", p);
-//
-//            forwardToJsp = "view/productsView.jsp";
-//        } else {
-//            forwardToJsp = "view/productsView.jsp";
-//            String error = "No Products by that name";
-//            session.setAttribute("errorMessage", error);
-//        }
+
+        if (p != null) {
+            session.setAttribute("products", p);
+
+            forwardToJsp = "view/productsView.jsp";
+        } else {
+            forwardToJsp = "view/productsView.jsp";
+            String error = "No Products by that name";
+            session.setAttribute("errorMessage", error);
+        }
 
         return forwardToJsp;
 
