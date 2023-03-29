@@ -21,13 +21,15 @@ public class orders {
     public orders() {
     }
 
-    public orders(int OrderId, int UserId, int AddressId, double total) {
+    public orders(int OrderId, int UserId, int AddressId, double total, String Status) {
         this.OrderId = OrderId;
         this.UserId = UserId;
         this.AddressId = AddressId;
         this.total = total;
-        
+        this.Status = Status;
     }
+
+  
 
     public String getStatus() {
         return Status;

@@ -4,6 +4,8 @@
     Author     : hkhat
 --%>
 
+<%@page import="DTO.address"%>
+<%@page import="DAO.AddressDao"%>
 <%@page import="DTO.OrderDetails"%>
 <%@page import="DAO.OrderDetailsDao"%>
 <%@page import="java.util.List"%>
@@ -71,8 +73,8 @@
     OrderDetailsDao OrderDetailsDao = new OrderDetailsDao("clothes_shop");
     UserDao udao = new UserDao("clothes_shop");
     UserDaoInterface userdao = new UserDao("clothes_shop");
+    AddressDao AddDao = new AddressDao("clothes_shop");
     List<orders> orders = Orderdao.findOrdersByUserId(u.getUserId());
-    List<OrderDetails> OrderDetails = OrderDetailsDao.findOrderDetailsById(u.getUserId());
     // If there is a Products list returned (and it's not empty)
 
     // Carrying out this check avoids the page breaking when the session times out
@@ -88,23 +90,21 @@
                             <th>Address</th>
                             <th>Total</th>
                             <th>Status</th>
-                            <th>Products </th>
                         </tr>
                     </thead>
                     <%    if (orders != null && !orders.isEmpty() )
             {
                 // Loop to print out all of the rows
                
-                for(OrderDetails ord : OrderDetails){
-                    
+                for(orders ord : orders){
+                    address add = AddDao.AddressByUserId(ord.getUserId());
         %>
                     <tbody>
                         <tr>
                             <td><%=ord.getOrderId()%></td>
-                            <td>address</td>
-                            <td><%=ord.getProductPrice()%></td>
-                            <td>Shipped</td>
-                            <td><%=ord.getProductName()%></td>
+                            <td><%=add.getAddress1()%></td>
+                            <td><%=ord.getTotal()%></td>
+                            <td><%=ord.getStatus()%></td>
                         </tr>
                     </tbody>
                         <%

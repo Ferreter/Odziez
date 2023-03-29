@@ -122,7 +122,52 @@ public class OrderDao extends Dao implements OrderDaoInterface {
                 double total = rs.getDouble("total");
                 String Status = rs.getString("Status");
 
-                orders order = new orders(orderId, UserId, AddressId, total);
+                orders order = new orders(orderId, UserId, AddressId, total,Status);
+                o.add(order);
+            }
+        } catch (SQLException e) {
+            System.err.println("\tA problem occurred during the findOrdersById method:");
+            System.err.println("\t" + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    freeConnection(con);
+                }
+            } catch (SQLException e) {
+                System.err.println("A problem occurred when closing down the findOrdersById() method:\n" + e.getMessage());
+            }
+        }
+        return o;     // o may be null 
+    }
+    
+    @Override
+    public List<orders> AllOrders() {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<orders> o = new ArrayList();
+        try {
+            con = this.getConnection();
+
+            String query = "SELECT * FROM orders ";
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                int orderId = rs.getInt("orderId");
+                int UserId = rs.getInt("UserId");
+                int AddressId = rs.getInt("AddressId");
+                double total = rs.getDouble("total");
+                String Status = rs.getString("Status");
+
+                orders order = new orders(orderId, UserId, AddressId, total,Status);
                 o.add(order);
             }
         } catch (SQLException e) {

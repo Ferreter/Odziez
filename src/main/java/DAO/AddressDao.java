@@ -69,6 +69,53 @@ public class AddressDao extends Dao implements AddressDaoInterface {
         return addressId;     // u may be null 
     }
     
+     public address AddressByUserId(int UserId) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        address p = null;
+        
+        try
+        {
+            con = this.getConnection();
+
+            String query = "SELECT * FROM address WHERE UserId like ?";
+            ps = con.prepareStatement(query);
+            ps.setString(1, "%" + UserId + "%");
+
+            rs = ps.executeQuery();
+            if (rs.next())
+            {
+              p = new address(rs.getInt("AddressId"),rs.getInt("UserId"),rs.getString("Address1"),rs.getString("Address2"),rs.getString("Address3"),rs.getString("City"),rs.getString("County"),rs.getString("Country"),rs.getString("Pincode"));
+            }
+        } catch (SQLException e)
+        {
+            System.err.println("\tA problem occurred during the searchbyUserId() method:");
+            System.err.println("\t" + e.getMessage());
+        } finally
+        {
+            try
+            {
+                if (rs != null)
+                {
+                    rs.close();
+                }
+                if (ps != null)
+                {
+                    ps.close();
+                }
+                if (con != null)
+                {
+                    freeConnection(con);
+                }
+            } catch (SQLException e)
+            {
+                System.err.println("A problem occurred when closing down the searchbyUserId() method:\n" + e.getMessage());
+            }
+        }
+        return p;     // u may be null 
+    }
+    
     @Override
     public boolean addNewAddress(address u) {
         Connection con = null;

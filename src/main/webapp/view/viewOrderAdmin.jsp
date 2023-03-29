@@ -5,6 +5,14 @@
 --%>
 
 
+<%@page import="DTO.address"%>
+<%@page import="DTO.orders"%>
+<%@page import="DAO.AddressDao"%>
+<%@page import="DAO.UserDaoInterface"%>
+<%@page import="DAO.UserDao"%>
+<%@page import="DAO.UserDao"%>
+<%@page import="DAO.OrderDaoInterface"%>
+<%@page import="DAO.OrderDao"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="../model/header.jsp" /> 
@@ -16,78 +24,75 @@
 </p>
 <%
 
-    ProductsDao pdao = new ProductsDao("clothes_shop");
-    ProductsDaoInterface productdao = new ProductsDao("clothes_shop");
-    products p = (products) session.getAttribute("products");
-    List<products> products = productdao.ListAllProducts();
+    OrderDao Odao = new OrderDao("clothes_shop");
+    OrderDaoInterface Orderdao = new OrderDao("clothes_shop");
+    
+    UserDao udao = new UserDao("clothes_shop");
+    UserDaoInterface userdao = new UserDao("clothes_shop");
+    AddressDao AddDao = new AddressDao("clothes_shop");
+    List<orders> orders = Orderdao.AllOrders();
     // If there is a Products list returned (and it's not empty)
 
     // Carrying out this check avoids the page breaking when the session times out
 %>
 <!-- product section in admin -->
 <div class="container" style="margin-top: 70px">
-    <h3>The Product table:</h3>
-    <div style="overflow-y:auto; max-height: 600px;">
-        <table id="dtDynamicVerticalScrollExample" class="table table-striped table-bordered table-sm" cellspacing="0"
-               width="100%" style="color:white;max-height: 100px;">
-            <thead style="background-color: white;color:black;">
-                <tr>
-                    <th class="th-sm">ProductId
-                    </th>
-                    <th class="th-sm">Name
-                    </th>
-                    <th class="th-sm">MRP
-                    </th>
-                    <th class="th-sm">CP
-                    </th>
-                    <th class="th-sm">Description
-                    </th>
-                    <th class="th-sm">Category
-                    </th>
-                    <th class="th-sm">Tags
-                    </th>
-                    <th class="th-sm">Brand
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <%                    if (products != null && !products.isEmpty() && p == null) {
-                        // Loop to print out all of the rows
-                        for (products Products : products) {
-                %>
+    <h3>All Orders:</h3>
+    <div class="col-md-7" style=" background-color: black">
 
-                <tr>
-                    <td><%=Products.getProductId()%></td>
-                    <td><%=Products.getName()%></td>
-                    <td><%=Products.getMRP()%></td>
-                    <td><%=Products.getCP()%></td>
-                    <td><%=Products.getDescription()%></td>
-                    <td><%=Products.getCategory()%></td>
-                    <td><%=Products.getTags()%></td>
-                    <td><%=Products.getBrand()%></td>
-                </tr>
-                <%
-                        }
-                        //Search 
-                    } else {
 
-                    }
-                %>
-            </tbody>
-        </table>
-    </div>
+  
+            <li class="list-group-item">
+                <h3>Order History</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Address</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <%    if (orders != null && !orders.isEmpty() )
+            {
+                // Loop to print out all of the rows
+               
+                for(orders ord : orders){
+                    address add = AddDao.AddressByUserId(ord.getUserId());
+        %>
+                    <tbody>
+                        <tr>
+                            <td><%=ord.getOrderId()%></td>
+                            <td><%=add.getAddress1()%></td>
+                            <td><%=ord.getTotal()%></td>
+                            <td><%=ord.getStatus()%></td>
+                        </tr>
+                    </tbody>
+                        <%
+                            }
+                
+}else{
+%>
+no orders
+<%
+    }
+            %>
+                </table>
+            </li>
+
+        </div>
 
     <h5 style="margin-top:60px;"><b>Change Order Status</b></h5>
     <form action="../Controller" method="post">
         <table>
 
             <p style="padding-right: 20px;">Order ID: </p>
-            <br><input type="text" name="ProductId" /><br><br>
-            <select class="form-select" aria-label="Default select example">
+            <br><input type="text" name="OrderId" /><br><br>
+            <select class="form-select" id="Changed" name="Changed" aria-label="Default select example">
                 <option selected>Select Status to update to</option>
-                <option value="1">Proccessed</option>
-                <option value="2">In Transit</option>
-                <option value="3">Delivered</option>
+                <option value="Proccessed">Proccessed</option>
+                <option value="In Transit">In Transit</option>
+                <option value="Delivered">Delivered</option>
             </select>
             <td style="padding-top:20px;" colspan="2"><input type="submit" name="action" value="updateStatus" /></td>
             </tr>
