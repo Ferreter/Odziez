@@ -6,10 +6,13 @@ package DAO;
 
 import DTO.OrderDetails;
 
+import java.util.List;
+
 /**
  *
  * @author Khali
  */
 public interface OrderDetailsDaoInterface {
      public boolean addOrderDetails(OrderDetails u);
+     public List<OrderDetails> findOrderDetailsById(int UserId);
 }

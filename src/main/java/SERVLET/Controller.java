@@ -659,7 +659,7 @@ public class Controller extends HttpServlet {
                 int id = addressDao.searchbyUserId(userId);
                 
             
-                orders order = new orders(u.getUserId(),id, total);
+                orders order = new orders(0,u.getUserId(),id, total);
                 
                 
                 addOrder = orderDao.addOrder(order);
@@ -694,7 +694,7 @@ public class Controller extends HttpServlet {
                  addAddress = addressDao.addNewAddress(newAddress);
                  
                  int id2 = addressDao.searchbyUserId(userId);
-                orders order2 = new orders(u.getUserId(),addressId, total);
+                orders order2 = new orders(0,u.getUserId(),addressId, total);
                 
                 
                 addOrder = orderDao.addOrder(order2);

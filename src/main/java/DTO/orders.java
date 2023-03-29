@@ -12,24 +12,23 @@ import java.util.Objects;
  * @author kian2
  */
 public class orders {
-     
+   private int OrderId;
    private int UserId;
    private int AddressId;
     double total;
-    
 
     public orders() {
     }
 
-    public orders(int UserId, int AddressId,  double total) {
-       
+    public orders(int OrderId, int UserId, int AddressId, double total) {
+        this.OrderId = OrderId;
         this.UserId = UserId;
         this.AddressId = AddressId;
         this.total = total;
     }
+    
 
    
-
     public double getTotal() {
         return total;
     }
@@ -52,6 +51,14 @@ public class orders {
 
     public void setAddressId(int AddressId) {
         this.AddressId = AddressId;
+    }
+
+    public int getOrderId() {
+        return OrderId;
+    }
+
+    public void setOrderId(int OrderId) {
+        this.OrderId = OrderId;
     }
     
 

@@ -12,6 +12,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -108,38 +109,29 @@ public class OrderDao extends Dao implements OrderDaoInterface {
     }
 
     @Override
-    public List<orders> findOrdersById(String Email) {
+    public List<orders> findOrdersById(int userId) {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        List<orders> o = null;
+        List<orders> o = new ArrayList();
         try {
             con = this.getConnection();
 
-            String query = "SELECT * FROM orders WHERE email = ?";
+            String query = "SELECT * FROM orders WHERE UserId = ?";
             ps = con.prepareStatement(query);
-            ps.setString(1, Email);
+            ps.setInt(1, userId);
 
             rs = ps.executeQuery();
 
             while (rs.next()) {
 
-                //int orderId = rs.getInt("orderId");
-//                String firstname = rs.getString("firstname");
-//                String lastname = rs.getString("lastname");
-//                String email = rs.getString("email");
-//                String address1 = rs.getString("address1");
-//                String address2 = rs.getString("address2");
-//                String country = rs.getString("country");
-//                String state = rs.getString("state");
-//                String zipcode = rs.getString("zipcode");
-//                String cardNumber = rs.getString("cardNumber");
-//                String expiry = rs.getString("expiry");
-//                String cvv = rs.getString("cvv");
-//                double total = rs.getDouble("total");
-                //Date date = rs.getDate("created_at");
-//                orders order  = new orders(rs.getString("firstname"), rs.getString("lastname"), rs.getString("email"), rs.getString("address1"), rs.getString("address2"), rs.getString("country"), rs.getString("state"), rs.getString("zipcode"), rs.getString("cardNumber"), rs.getString("expiry"), rs.getString("cvv"), rs.getDouble("total"));
-//                o.add(order);
+                int orderId = rs.getInt("orderId");
+                int UserId  = rs.getInt("UserId");
+                int AddressId  = rs.getInt("AddressId");
+                double total = rs.getDouble("total");
+
+                orders order  = new orders(orderId,UserId,AddressId,total);
+                o.add(order);
             }
         } catch (SQLException e) {
             System.err.println("\tA problem occurred during the findOrdersById method:");

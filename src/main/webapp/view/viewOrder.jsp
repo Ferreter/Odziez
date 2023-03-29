@@ -4,6 +4,8 @@
     Author     : hkhat
 --%>
 
+<%@page import="DTO.OrderDetails"%>
+<%@page import="DAO.OrderDetailsDao"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
 <%@page import="DTO.orders"%>
@@ -66,9 +68,11 @@
 
     OrderDao Odao = new OrderDao("clothes_shop");
     OrderDaoInterface Orderdao = new OrderDao("clothes_shop");
+    OrderDetailsDao OrderDetailsDao = new OrderDetailsDao("clothes_shop");
     UserDao udao = new UserDao("clothes_shop");
     UserDaoInterface userdao = new UserDao("clothes_shop");
-    List<orders> orders = Orderdao.findOrdersById(u.getEmail());
+    List<orders> orders = Orderdao.findOrdersById(u.getUserId());
+    List<OrderDetails> OrderDetails = OrderDetailsDao.findOrderDetailsById(u.getUserId());
     // If there is a Products list returned (and it's not empty)
 
     // Carrying out this check avoids the page breaking when the session times out
@@ -82,7 +86,6 @@
                         <tr>
                             <th>Order ID</th>
                             <th>Address</th>
-                            <th>Date</th>
                             <th>Total</th>
                             <th>Status</th>
                             <th>Products </th>
@@ -91,21 +94,22 @@
                     <%    if (orders != null && !orders.isEmpty() )
             {
                 // Loop to print out all of the rows
-                for (orders order : orders)
-                {
+               
+                for(OrderDetails ord : OrderDetails){
+                    
         %>
                     <tbody>
                         <tr>
-                            <td>12345</td>
-                            <td><%=order.getAddress1()%></td>
-                            <td>01/01/2021</td>
-                            <td><%=order.getTotal()%></td>
+                            <td><%=ord.getOrderId()%></td>
+                            <td>address</td>
+                            <td><%=ord.getProductPrice()%></td>
                             <td>Shipped</td>
-                            <td><%=order.getAddress1()%></td>
+                            <td><%=ord.getProductName()%></td>
                         </tr>
                     </tbody>
                         <%
-                }
+                            }
+                
 }else{
 %>
 no orders
