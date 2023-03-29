@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 22, 2023 at 01:48 PM
--- Server version: 10.4.20-MariaDB
--- PHP Version: 8.0.9
+-- Generation Time: Mar 29, 2023 at 05:19 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -47,8 +47,7 @@ CREATE TABLE `address` (
 --
 
 INSERT INTO `address` (`AddressId`, `UserId`, `Address1`, `Address2`, `Address3`, `City`, `County`, `Country`, `Pincode`) VALUES
-(1, 7, '18 Home', 'Drim', 'crk', 'IE-CO', 'IE-CO', 'Ireland', '128747384787'),
-(2, 4, '18 Home', 'Drim', 'crk', 'IE-CO', 'IE-CO', 'Ireland', '128747384787');
+(1, 7, '18 Home', 'Drim', 'crk', 'IE-CO', 'IE-CO', 'Ireland', '128747384787');
 
 -- --------------------------------------------------------
 
@@ -79,6 +78,23 @@ CREATE TABLE `orderdetails` (
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `orderdetails`
+--
+
+INSERT INTO `orderdetails` (`OrderId`, `productName`, `productPrice`, `quantity`) VALUES
+(5, 'PALMS&SKULL LONG SLEEVED OVER TEE\r\n', 495.00, 1),
+(6, 'PALMS&SKULL LONG SLEEVED OVER TEE\r\n', 495.00, 2),
+(6, 'STAR SPRAYED T-SHIRT\r\n', 195.00, 2),
+(7, 'PALMS&SKULL LONG SLEEVED OVER TEE\r\n', 495.00, 2),
+(8, 'I LOVE PA CLASSIC TEE\r\n', 235.00, 1),
+(9, 'PALMS&SKULL LONG SLEEVED OVER TEE\r\n', 495.00, 3),
+(10, 'Prada Triangle Cotton T-shirt\r\n', 760.00, 1),
+(11, 'Prada Triangle Cotton T-shirt\r\n', 760.00, 2),
+(11, 'PARIS SPRAYED T-SHIRT\r\n', 195.00, 1),
+(12, 'Water-repellent two-way stretch technical nylon jacket\r\n', 525.00, 1),
+(13, 'Heavy-jersey hooded sweatshirt with bold rubberised logo\r\n', 345.00, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -90,8 +106,18 @@ CREATE TABLE `orders` (
   `UserId` int(11) NOT NULL,
   `AddressId` int(11) NOT NULL,
   `total` double(6,2) NOT NULL DEFAULT 0.00,
-  `created_at` datetime DEFAULT current_timestamp()
+  `created_at` datetime DEFAULT current_timestamp(),
+  `Status` varchar(225) NOT NULL DEFAULT 'Confirmed '
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`orderId`, `UserId`, `AddressId`, `total`, `created_at`, `Status`) VALUES
+(11, 7, 1, 1715.00, '2023-03-29 15:35:05', ''),
+(12, 7, 1, 525.00, '2023-03-29 16:01:38', 'Confirmed '),
+(13, 7, 1, 1035.00, '2023-03-29 16:17:52', 'Confirmed ');
 
 -- --------------------------------------------------------
 
@@ -145,7 +171,6 @@ INSERT INTO `products` (`ProductId`, `Name`, `MRP`, `CP`, `Description`, `Catego
 ('PMAA066S23JER0021084\r\n', 'I LOVE PA CLASSIC TEE\r\n', 235, 235, '\"SHORT SLEEVES T-SHIRT IN BLACK COTTON WITH MULTICOLOR I LOVE PA GRAPHIC PRINTED AT FRONT. REGULAR FIT.\r\nFABRIC 100% COTTON\"\r\n', 'T-Shirt\r\n', 'Black,T-Shirt,Printed,Normal,Streetwear,Oversized,U-Neck,Cotton\r\n', '', 'Palm Angels\r\n'),
 ('PMAB001S23JER0021055\r\n', 'PALMS&SKULL LONG SLEEVED OVER TEE\r\n', 495, 495, '\"LONG SLEEVES T-SHIRT IN BLACK COTTON FEATURING \"\"PALM ANGELS\"\" BURNING LOGO AT FRONT AND BACK. PALM TREE & SKULLS GRAPHIC AT HEM. CREWNECK COLLAR AND REGULAR FIT.\r\nFABRIC 100% COTTON\"\r\n', 'T-Shirt\r\n', 'Black,T-Shirt,Printed,Normal,Streetwear,Relaxed,U-Neck,Cotton\r\n', '', 'Palm Angels\r\n'),
 ('UJN847_12VV_F0002_S_231\r\n', 'Prada Triangle Cotton T-shirt\r\n', 760, 760, 'An oversized decorative trim evoking details of Tyrolean style is reinvented with a modern twist, creating the unusual, conceptual graphic designs that enrich this classic cotton T-shirt.\n', 'T-Shirt\r\n', 'White,T-Shirt,Printed,Normal,Streetwear,Relaxed,U-Neck,Cotton\r\n', '', 'Prada');
-
 -- --------------------------------------------------------
 
 --
@@ -353,19 +378,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `address`
 --
 ALTER TABLE `address`
-  MODIFY `AddressId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `AddressId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `review`
