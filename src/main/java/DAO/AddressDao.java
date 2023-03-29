@@ -140,13 +140,6 @@ public class AddressDao extends Dao implements AddressDaoInterface {
             ps.setString(7, u.getCounty());
             ps.setString(8, u.getCountry());
             ps.setString(9, u.getPincode());
-            
-            
-            
-
-
-           
-
 
             ps.execute();
         } catch (SQLException e) {
