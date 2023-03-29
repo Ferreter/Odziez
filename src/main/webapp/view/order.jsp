@@ -140,7 +140,7 @@
                                 </div>
 
                                  <div class="form-check mb-4">
-                                            <input type="checkbox" name="exAdd" value="on">
+                                            <input type="checkbox" id="exAdd" name="exAdd" value="on">
                                             <label class="form-check-label" for="subscribeCheckbox">
                                                    Use Existing Address
                                            </label>
@@ -193,14 +193,28 @@
 
                                 <script> 
                                     // Get references to the checkbox and the new address form
+                                    const exAdd = document.getElementById('exAdd');
                                     const newAddCheckbox = document.getElementById('newAdd');
                                     const newAddressForm = document.getElementById('new-address-form');
 
                                     // Add an event listener to the checkbox to toggle the visibility of the new address form
                                         newAddCheckbox.addEventListener('change', () => {
                                          if (newAddCheckbox.checked) {
+                                             exAdd.disabled = true;
                                          newAddressForm.style.display = 'block';
                                     } else {
+                                            exAdd.disabled = false;
+                                           newAddressForm.style.display = 'none';
+                                            }
+                                    });
+                                    
+                                    // Add an event listener to the checkbox to toggle the visibility of the new address form
+                                        exAdd.addEventListener('change', () => {
+                                         if (exAdd.checked) {
+                                             newAddCheckbox.disabled = true;
+                                         newAddressForm.style.display = 'none';
+                                    } else {
+                                            newAddCheckbox.disabled = false;
                                            newAddressForm.style.display = 'none';
                                             }
                                     });
