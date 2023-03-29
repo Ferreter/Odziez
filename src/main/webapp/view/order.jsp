@@ -221,25 +221,23 @@
 
                                 </script>
                                 
-                                
+
                                 <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 0px;">Card Details</h5>
 
                                 <div class="form-outline mb-4">
                                     <label class="form-label" for="form2Example17">Card Number:</label>
-                                    <input type="text"  name="cardNumber" required id="form2Example17"   class="form-control form-control-lg"><br>
+                                    <input type="text" name="cardNumber" required id="form2Example17" pattern="[0-9]{13,16}" title="Please enter a valid credit card number" class="form-control form-control-lg"><br>
                                 </div>
-
 
                                 <div class="form-outline mb-4">
                                     <label class="form-label" for="form2Example17">Expiry Date:</label>
-                                    <input type="text"  name="expiry" required id="form2Example17"  placeholder="MM/YYYY" class="form-control form-control-lg"><br>
+                                    <input type="text" name="expiry" required id="form2Example17" pattern="(0[1-9]|1[0-2])\/[0-9]{4}" title="Please enter a valid expiry date in the format MM/YYYY" placeholder="MM/YYYY" class="form-control form-control-lg"><br>
                                 </div>
 
                                 <div class="form-outline mb-4">
                                     <label class="form-label" for="form2Example17">CVV:</label>
-                                    <input type="text"  name="cvv" required id="form2Example17"  placeholder="3 Digits" class="form-control form-control-lg"><br>
+                                    <input type="text" name="cvv" required id="form2Example17" pattern="[0-9]{3}" title="Please enter a valid CVV consisting of 3 digits" placeholder="3 Digits" class="form-control form-control-lg"><br>
                                 </div>
-
                                 <div class="pt-1 mb-4">
                                     <input type="hidden" name="total" value="<%=deciForm.format(total)%>">
 
