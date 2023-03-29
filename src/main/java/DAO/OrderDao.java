@@ -129,6 +129,7 @@ public class OrderDao extends Dao implements OrderDaoInterface {
                 int UserId  = rs.getInt("UserId");
                 int AddressId  = rs.getInt("AddressId");
                 double total = rs.getDouble("total");
+                String Status = rs.getString("Status");
 
                 orders order  = new orders(orderId,UserId,AddressId,total);
                 o.add(order);
