@@ -47,7 +47,7 @@
                                 <a class="nav-link navDropSection" style="font-size:14px;" href="#">Street Looks</a>
                                 <a class="nav-link navDropSection" style="font-size:14px;" href="#">Smart Looks</a>
                             </div>
-                            
+
                             <div class="col-4">
                                 <p style="padding-top:4px;padding-bottom: 2px;margin:0px;">Brand's</p>
                                 <a class="nav-link navDropSection" style="font-size:14px;" href="#">Emporio Armani</a>
@@ -84,33 +84,35 @@
             </li>
         </ul>
         <%
-             user u = (user) session.getAttribute("user");
-             if(u != null && u.isIsAdmin()){
-             
-            
+            user u = (user) session.getAttribute("user");
+            if (u != null && u.isIsAdmin()) {
+
+
         %>    
         <!-- admin part-->
-        
+
         <ul class="navbar-nav">
             <div class="dropdown show">
                 <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                   Admin
+                    Admin
                 </a>
 
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <a class="dropdown-item" href="../view/userAdmin.jsp">User</a>
                     <a class="dropdown-item" href="../view/productAdmin.jsp">Product</a>
+                    <a class="dropdown-item" href="../view/viewOrderAdmin.jsp">Order</a>
                 </div>
             </div>
         </ul>
         <!-- Replace this with JSP which is seprate if logged IN or not -->
-        <%
-            }
-            if (u == null)
-            {
+        <%            }
+            if (u == null) {
         %>
         <ul class="nav navbar-nav navbar-right  ml-auto">
-
+            <form class="form-inline my-2 my-lg-0" action="../Controller" method="post">
+                <input class="form-control mr-sm-2" type="text" name="product"  placeholder="Search for product" aria-label="Search" placeholder="Search by Name">
+                <button class="btn btn-dark my-2 my-sm-0" type="submit" name="action" value="SearchProduct">Search</button>
+            </form>
             <li class="nav-item">
                 <a class="nav-link" href="../view/LoginNdRegister.jsp" ><span class="glyphicon glyphicon-log-in"></span>Login</a>
             </li>
@@ -118,10 +120,10 @@
                 <span class="glyphicon glyphicon-user" style="color:black"></span><a class="nav-link" href="../view/LoginNdRegister.jsp">Sign Up</a>
             </li>
         </ul>
-        <%} else
-        {
+        <%} else {
         %>
         <ul class="nav navbar-nav navbar-right  ml-auto" style="padding-right: 20px;">
+
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
@@ -169,6 +171,10 @@
                     </svg>
                     Favourites</a>
             </li>
+            <form class="form-inline my-2 my-lg-0" action="../Controller" method="post">
+                <input class="form-control mr-sm-2" type="text" name="product"  placeholder="Search for product" aria-label="Search" placeholder="Search by Name">
+                <button class="btn btn-dark my-2 my-sm-0" type="submit" name="action" value="SearchProduct">Search</button>
+            </form>
         </ul>
         <%
             }
