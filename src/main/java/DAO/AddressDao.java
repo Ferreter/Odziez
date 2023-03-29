@@ -16,19 +16,28 @@ import java.sql.SQLException;
  * @author Dell
  */
 public class AddressDao extends Dao implements AddressDaoInterface {
-    
+
     public AddressDao(String dbName) {
         super(dbName);
     }
-    
-    public  int searchbyUserId(int UserId) {
+
+    /**
+     *
+     * A method to search for an address record in the database using a given
+     * user ID.
+     *
+     * @param UserId the ID of the user to search for
+     *
+     * @return an integer representing the ID of the address record found, or 0
+     * if no record is found or an error occurs
+     */
+    public int searchbyUserId(int UserId) {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         address p = null;
-        int addressId =0;
-        try
-        {
+        int addressId = 0;
+        try {
             con = this.getConnection();
 
             String query = "SELECT AddressId FROM address WHERE UserId like ?";
@@ -36,47 +45,48 @@ public class AddressDao extends Dao implements AddressDaoInterface {
             ps.setString(1, "%" + UserId + "%");
 
             rs = ps.executeQuery();
-            if (rs.next())
-            {
+            if (rs.next()) {
                 addressId = rs.getInt("AddressId");
-               
+
             }
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             System.err.println("\tA problem occurred during the searchbyUserId() method:");
             System.err.println("\t" + e.getMessage());
-        } finally
-        {
-            try
-            {
-                if (rs != null)
-                {
+        } finally {
+            try {
+                if (rs != null) {
                     rs.close();
                 }
-                if (ps != null)
-                {
+                if (ps != null) {
                     ps.close();
                 }
-                if (con != null)
-                {
+                if (con != null) {
                     freeConnection(con);
                 }
-            } catch (SQLException e)
-            {
+            } catch (SQLException e) {
                 System.err.println("A problem occurred when closing down the searchbyUserId() method:\n" + e.getMessage());
             }
         }
         return addressId;     // u may be null 
     }
-    
-     public address AddressByUserId(int UserId) {
+
+    /**
+     *
+     * A method to retrieve everything in the address database using a given
+     * user ID.
+     *
+     * @param UserId the ID of the user to search for
+     *
+     * @return an integer representing the ID of the address record found, or 0
+     * if no record is found or an error occurs
+     */
+    public address AddressByUserId(int UserId) {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         address p = null;
-        
-        try
-        {
+
+        try {
             con = this.getConnection();
 
             String query = "SELECT * FROM address WHERE UserId like ?";
@@ -84,38 +94,39 @@ public class AddressDao extends Dao implements AddressDaoInterface {
             ps.setString(1, "%" + UserId + "%");
 
             rs = ps.executeQuery();
-            if (rs.next())
-            {
-              p = new address(rs.getInt("AddressId"),rs.getInt("UserId"),rs.getString("Address1"),rs.getString("Address2"),rs.getString("Address3"),rs.getString("City"),rs.getString("County"),rs.getString("Country"),rs.getString("Pincode"));
+            if (rs.next()) {
+                p = new address(rs.getInt("AddressId"), rs.getInt("UserId"), rs.getString("Address1"), rs.getString("Address2"), rs.getString("Address3"), rs.getString("City"), rs.getString("County"), rs.getString("Country"), rs.getString("Pincode"));
             }
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             System.err.println("\tA problem occurred during the searchbyUserId() method:");
             System.err.println("\t" + e.getMessage());
-        } finally
-        {
-            try
-            {
-                if (rs != null)
-                {
+        } finally {
+            try {
+                if (rs != null) {
                     rs.close();
                 }
-                if (ps != null)
-                {
+                if (ps != null) {
                     ps.close();
                 }
-                if (con != null)
-                {
+                if (con != null) {
                     freeConnection(con);
                 }
-            } catch (SQLException e)
-            {
+            } catch (SQLException e) {
                 System.err.println("A problem occurred when closing down the searchbyUserId() method:\n" + e.getMessage());
             }
         }
         return p;     // u may be null 
     }
-    
+
+    /**
+     * Add a new address to the database for the logged in user and returns true
+     * for success and false for error
+     *
+     * @param u The Address to be added to the database.
+     *
+     * @return True if the Address was successfully added to the database, false
+     * otherwise.
+     */
     @Override
     public boolean addNewAddress(address u) {
         Connection con = null;
@@ -130,8 +141,7 @@ public class AddressDao extends Dao implements AddressDaoInterface {
             String command = "INSERT INTO address( AddressId, UserId, Address1, Address2, Address3, City, County, Country, Pincode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ? )";
             ps = con.prepareStatement(command);
 
-           
-           ps.setInt(1, u.getAddressId());
+            ps.setInt(1, u.getAddressId());
             ps.setInt(2, u.getUserId());
             ps.setString(3, u.getAddress1());
             ps.setString(4, u.getAddress2());
@@ -160,7 +170,14 @@ public class AddressDao extends Dao implements AddressDaoInterface {
         return true;
 
     }
-    
+
+    /**
+     * This method retrieves the last index from the 'Address' table in the
+     * database.
+     *
+     * @return the last index (an integer value) from the 'Address' table in the
+     * database. If no index exists in the table, this method returns 0.
+     */
     public int getLastIndex() {
         Connection con = null;
         PreparedStatement ps = null;

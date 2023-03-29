@@ -58,9 +58,6 @@ public interface UserDaoInterface {
      */
     public boolean addUser(user u);
 
-    public boolean updatePass(user u, String password);
-
-
     /**
      *
      * Updates the password for a given user in the database. Uses SHA-256
@@ -72,7 +69,7 @@ public interface UserDaoInterface {
      * @throws SQLException if there is an error with the SQL query
      * @throws NoSuchAlgorithmException if SHA-256 encryption is not available
      */
-    
+    public boolean updatePass(user u, String password);
 
     /**
      *
@@ -91,8 +88,17 @@ public interface UserDaoInterface {
      * @return true if the user was successfully removed, false otherwise
      */
     public boolean removeUser(String UserId);
-public user findUserDetails(String uname, String question, String answer);
-public boolean editProfile(user u, String FirstName, String LastName, String Email, String Phone, Date DOB);
+
+    public user findUserDetails(String uname, String question, String answer);
+
+    /**
+     * Edits a user's profile from the database.
+     *
+     * @param u the user object to be edited
+     * @return true if the user profile was successfully edited, false otherwise
+     */
+    public boolean editProfile(user u, String FirstName, String LastName, String Email, String Phone, Date DOB);
+
     public user findUserById(int id);
 
 }
