@@ -38,18 +38,9 @@ public class OrderDao extends Dao implements OrderDaoInterface {
             String command = "INSERT INTO orders( UserId, AddressId, total) VALUES (?, ?, ?)";
             ps = con.prepareStatement(command);
 
-           
-           
             ps.setInt(1, u.getUserId());
             ps.setInt(2, u.getAddressId());
             ps.setDouble(3, u.getTotal());
-            
-            
-            
-
-
-           
-
 
             ps.execute();
         } catch (SQLException e) {
@@ -109,7 +100,7 @@ public class OrderDao extends Dao implements OrderDaoInterface {
     }
 
     @Override
-    public List<orders> findOrdersById(int userId) {
+    public List<orders> findOrdersByUserId(int userId) {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -126,12 +117,12 @@ public class OrderDao extends Dao implements OrderDaoInterface {
             while (rs.next()) {
 
                 int orderId = rs.getInt("orderId");
-                int UserId  = rs.getInt("UserId");
-                int AddressId  = rs.getInt("AddressId");
+                int UserId = rs.getInt("UserId");
+                int AddressId = rs.getInt("AddressId");
                 double total = rs.getDouble("total");
                 String Status = rs.getString("Status");
 
-                orders order  = new orders(orderId,UserId,AddressId,total);
+                orders order = new orders(orderId, UserId, AddressId, total);
                 o.add(order);
             }
         } catch (SQLException e) {
@@ -155,4 +146,37 @@ public class OrderDao extends Dao implements OrderDaoInterface {
         return o;     // o may be null 
     }
 
-}
+    @Override
+    public boolean ChangeStatus(int OrderId,String Changed) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        
+            try {
+                con = this.getConnection();
+
+                String query = "UPDATE orders SET Status = ? WHERE orderId = ? ";
+                ps = con.prepareStatement(query);
+                ps.setString(1,Changed);
+                ps.setInt(2, OrderId);
+
+                ps.execute();
+            } catch (SQLException e) {
+                System.err.println("\tA problem occurred during the EditProduct method:");
+                System.err.println("\t" + e.getMessage());
+            } finally {
+                try {
+                    if (ps != null) {
+                        ps.close();
+                    }
+                    if (con != null) {
+                        freeConnection(con);
+                    }
+                } catch (SQLException e) {
+                    System.err.println("A problem occurred when closing down the EditProduct method:\n" + e.getMessage());
+                }
+            }
+            return true;
+        } 
+    }
+
+

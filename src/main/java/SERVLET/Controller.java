@@ -116,7 +116,10 @@ public class Controller extends HttpServlet {
                     break;
                 case "Edit":
                     forwardToJsp = editUserProfile(request, response);
-                    break;    
+                    break;
+                case "updateStatus":
+                    forwardToJsp = updateStatus(request, response);
+                    break;
 
             }
 
@@ -902,6 +905,21 @@ public class Controller extends HttpServlet {
 
     return forwardToJsp;
 }
+      private String updateStatus(HttpServletRequest request, HttpServletResponse response) {
+        String forwardToJsp = "controller/index.jsp";
+        HttpSession session = request.getSession(true);
+        OrderDao orderDao = new OrderDao("clothes_shop");
+        
+        String  Id = request.getParameter("OrderId");
+        int OrderId = Integer.valueOf(Id);
+        String Change = request.getParameter("Change");
+        
+        orderDao.ChangeStatus(OrderId,Change);
+
+        forwardToJsp = "view/cart.jsp";
+
+        return forwardToJsp;
+      }
 
 
 
@@ -943,5 +961,7 @@ public class Controller extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    
 
 }

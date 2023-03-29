@@ -71,7 +71,7 @@
     OrderDetailsDao OrderDetailsDao = new OrderDetailsDao("clothes_shop");
     UserDao udao = new UserDao("clothes_shop");
     UserDaoInterface userdao = new UserDao("clothes_shop");
-    List<orders> orders = Orderdao.findOrdersById(u.getUserId());
+    List<orders> orders = Orderdao.findOrdersByUserId(u.getUserId());
     List<OrderDetails> OrderDetails = OrderDetailsDao.findOrderDetailsById(u.getUserId());
     // If there is a Products list returned (and it's not empty)
 
