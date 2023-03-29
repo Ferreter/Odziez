@@ -13,4 +13,5 @@ import DTO.address;
 public interface AddressDaoInterface {
      
     public  int searchbyUserId(int UserId);
+     public boolean addNewAddress(address u);
 }

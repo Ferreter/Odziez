@@ -145,8 +145,69 @@
                                                    Use Existing Address
                                            </label>
                                         </div>
+                                
+                                <div class="form-check mb-4">
+                                    <input type="checkbox" name="newAdd" id="newAdd" value="on">
+                                    <label class="form-check-label" for="newAdd">Add New Address</label>
+                                </div>
+
+                                <div id="new-address-form" style="display: none;">
+                                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 0px;">New Address Details</h5>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="form2Example17">Address 1:</label>
+                                        <input type="text" name="address1" id="address1" class="form-control form-control-lg">
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="form2Example17">Address 2:</label>
+                                        <input type="text" name="address2" id="address2" class="form-control form-control-lg">
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="form2Example17">Address 3:</label>
+                                        <input type="text" name="address3" id="address3" class="form-control form-control-lg">
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="form2Example17">City:</label>
+                                        <input type="text" name="city" id="city" class="form-control form-control-lg">
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="form2Example17">County:</label>
+                                        <input type="text" name="county" id="county" class="form-control form-control-lg">
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="form2Example17">Country:</label>
+                                        <input type="text" name="country" id="country" class="form-control form-control-lg">
+                                    </div>
 
 
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="form2Example17">Pin Code:</label>
+                                        <input type="text" name="pincode" id="pincode" class="form-control form-control-lg">
+                                    </div>
+                                </div>
+
+                                <script> 
+                                    // Get references to the checkbox and the new address form
+                                    const newAddCheckbox = document.getElementById('newAdd');
+                                    const newAddressForm = document.getElementById('new-address-form');
+
+                                    // Add an event listener to the checkbox to toggle the visibility of the new address form
+                                        newAddCheckbox.addEventListener('change', () => {
+                                         if (newAddCheckbox.checked) {
+                                         newAddressForm.style.display = 'block';
+                                    } else {
+                                           newAddressForm.style.display = 'none';
+                                            }
+                                    });
+
+                                </script>
+                                
+                                
                                 <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 0px;">Card Details</h5>
 
                                 <div class="form-outline mb-4">
@@ -171,7 +232,7 @@
                                     <input class="btn btn-dark btn-lg btn-block" type="submit" name="action" value="order">
                                 </div>
                             </form>
-
+                                 
                         </div>
                     </div>
                 </div>

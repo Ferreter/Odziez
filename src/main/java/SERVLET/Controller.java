@@ -625,6 +625,14 @@ public class Controller extends HttpServlet {
         int userId = Integer.parseInt(request.getParameter("userId"));
 
         String exAdd = request.getParameter("exAdd");
+         String newAdd = request.getParameter("newAdd");
+           String address1 = request.getParameter("address1");
+        String address2 = request.getParameter("address2");
+        String address3 = request.getParameter("address3");
+        String city = request.getParameter("city");
+        String county = request.getParameter("county");
+        String country = request.getParameter("country");
+        String pincode = request.getParameter("pincode");
         String cardNumber = request.getParameter("cardNumber");
          String expiry = request.getParameter("expiry");
           String cvv = request.getParameter("cvv");
@@ -633,8 +641,7 @@ public class Controller extends HttpServlet {
        //ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
         if ( total != 0.0 && cardNumber != null && expiry != null && cvv != null)
         {
-             if (exAdd != null && exAdd.equals("on")) {
-                
+             
             
             ProductsDao pdao = new ProductsDao("clothes_shop");
             products p = new products();
@@ -646,7 +653,9 @@ public class Controller extends HttpServlet {
             
             boolean addOrder = false;
             boolean addDetails = false;
-
+            boolean addAddress = false;
+            if (exAdd != null && exAdd.equals("on")) {
+                
                 int id = addressDao.searchbyUserId(userId);
                 
             
@@ -672,7 +681,42 @@ public class Controller extends HttpServlet {
                 OrderDetails orderDet = new OrderDetails(orderId, productName, productPrice, quantity);
                 addDetails = detailsDao.addOrderDetails(orderDet);
             }
+                        
             cartdao.EmptyCartItem(userId);
+            forwardToJsp = "controller/index.jsp";
+             } else if (newAdd != null && newAdd.equals("on")){
+                                
+                           
+                 int addressId = addressDao.getLastIndex() + 1;
+                         
+                 address newAddress = new address( addressId, u.getUserId(), address1, address2, address3, city, county, country, pincode);
+                 
+                 addAddress = addressDao.addNewAddress(newAddress);
+                 
+                 int id2 = addressDao.searchbyUserId(userId);
+                orders order2 = new orders(u.getUserId(),addressId, total);
+                
+                
+                addOrder = orderDao.addOrder(order2);
+                
+               int orderId2 = orderDao.getLastIndex();
+             
+              List<Cart> cartItems2 = cartdao.ListAllCart(userId);
+                        
+                    //if (cart_list != null) {
+	
+                        for (Cart cartItem : cartItems2) {
+                           products pro =  pdao.searchbyId( cartItem.getProductId());
+                        String productName = pro.getName();
+                        double productPrice = pro.getCP();
+                        int quantity = cartItem.getQuantity();
+
+                        
+          
+                OrderDetails orderDet = new OrderDetails(orderId2, productName, productPrice, quantity);
+                addDetails = detailsDao.addOrderDetails(orderDet);
+                        }
+                          cartdao.EmptyCartItem(userId);
             forwardToJsp = "controller/index.jsp";
              }
         } else {
