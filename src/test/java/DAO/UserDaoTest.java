@@ -271,4 +271,27 @@ public class UserDaoTest {
 //        fail("The test case is a prototype.");
 //    }
 
+
+    /**
+     * Test of editProfile method, of class UserDao.
+     */
+    @Test
+    public void testEditProfile() {
+        System.out.println("editProfile");
+        String dob = "2023-01-02";
+        Date date = Date.valueOf(dob);
+        user u = new user(7, "Kiantest", "Password4", "kian", "Harding", "kian2ki@hotmail.com", "0838381391", "Test", "Test", date, false, 1);
+        String FirstName = "KianEditTest";
+        String LastName = "HardingEdited";
+        String Email = "kianEdit@hotmail.com";
+        String Phone = "1111111111";
+        String DateEdit = "2001-03-06";
+        Date EditD = Date.valueOf(DateEdit);
+         UserDao userDao = new UserDao("clothes_shop_test");
+        boolean expResult = true;
+        boolean result = userDao.editProfile(u, FirstName, LastName, Email, Phone, EditD);
+        assertEquals(expResult, result);
+     
+    }
+
 }

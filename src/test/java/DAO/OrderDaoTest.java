@@ -5,6 +5,7 @@
 package DAO;
 
 import DTO.orders;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -40,29 +41,57 @@ public class OrderDaoTest {
     /**
      * Test of addOrder method, of class OrderDao.
      */
-//    @Test
-//    public void testAddOrder() {
-//        System.out.println("addOrder");
-//        orders u = new orders("Test","Test","Test","Test","Test","Test","Test","Test","Test","Test","Test",22);
-//        OrderDao orderDao = new OrderDao("clothes_shop_test");
-//        boolean expResult = true;
-//        boolean result = orderDao.addOrder(u);
-//        assertEquals(expResult, result);
-//        
-//    }
+    @Test
+    public void testAddOrder() {
+        System.out.println("addOrder");
+        
+        orders u = new orders(2,2,0,2.0,"Test");
+        OrderDao orderDao = new OrderDao("clothes_shop_test");
+        boolean expResult = true;
+        boolean result = orderDao.addOrder(u);
+        assertEquals(expResult, result);
+      
+    }
 
-//    /**
-//     * Test of getLastIndex method, of class OrderDao.
-//     */
-//    @Test
-//    public void testGetLastIndex() {
-//        System.out.println("getLastIndex");
-//        OrderDao orderDao = new OrderDao("clothes_shop_test");
-//        int expResult = 0;
-//        int result = orderDao.getLastIndex();
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-    
+
+    /**
+     * Test of findOrdersByUserId method, of class OrderDao.
+     */
+    @Test
+    public void testFindOrdersByUserId() {
+        System.out.println("findOrdersByUserId");
+        int userId = 2;
+        OrderDao orderDao = new OrderDao("clothes_shop_test");
+        List<orders> result = orderDao.findOrdersByUserId(userId);
+        assertNotNull(result);
+        assertTrue(result.size() > 0);
+    }
+
+    /**
+     * Test of AllOrders method, of class OrderDao.
+     */
+    @Test
+    public void testAllOrders() {
+        System.out.println("AllOrders");
+        OrderDao orderDao = new OrderDao("clothes_shop_test");
+        List<orders> result = orderDao.AllOrders();
+        assertNotNull(result);
+        assertTrue(result.size() > 0);
+    }
+
+    /**
+     * Test of ChangeStatus method, of class OrderDao.
+     */
+    @Test
+    public void testChangeStatus() {
+        System.out.println("ChangeStatus");
+        int OrderId = 15;
+        String Changed = "Processed";
+        OrderDao orderDao = new OrderDao("clothes_shop_test");
+        boolean expResult = true;
+        boolean result = orderDao.ChangeStatus(OrderId, Changed);
+        assertEquals(expResult, result);
+        
+    }
+
 }

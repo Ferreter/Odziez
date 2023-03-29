@@ -5,6 +5,7 @@
 package DAO;
 
 import DTO.OrderDetails;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -50,5 +51,18 @@ public class OrderDetailsDaoTest {
         assertEquals(expResult, result);
         
     }
+
+//    /**
+//     * Test of findOrderDetailsById method, of class OrderDetailsDao.
+//     */
+//    @Test
+//    public void testFindOrderDetailsById() {
+//        System.out.println("findOrderDetailsById");
+//        int UserId = 2;
+//         OrderDetailsDao detailsDao = new OrderDetailsDao("clothes_shop_test");
+//        List<OrderDetails> result = detailsDao.findOrderDetailsById(UserId);
+//         assertNotNull(result);
+//        assertTrue(result.size() > 0);
+//    }
     
 }

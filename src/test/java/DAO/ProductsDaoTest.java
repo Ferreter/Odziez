@@ -202,5 +202,45 @@ public class ProductsDaoTest {
         //assertEquals(expResult, result);
         
     }
+
+    
+
+
+    /**
+     * Test of EditProduct method, of class ProductsDao.
+     */
+    @Test
+    public void testEditProduct() {
+        System.out.println("EditProduct");
+        products p = new products("Test", "Test", 2.0, 2.0, "Test", "Test", "Test", "", "Test");
+        products Edit = new products("Test", "ChangeTest", 2.0, 2.0, "ChangeTest", "ChangeTest", "ChangeTest", "", "ChangeTest");
+        ProductsDao  prodDao = new ProductsDao("clothes_shop_test");
+        prodDao.AddProduct(p);
+        boolean expResult = true;
+        boolean result = prodDao.EditProduct(Edit);
+        assertEquals(expResult, result);
+      
+    }
+
+    /**
+     * Test of searchByFilters method, of class ProductsDao.
+     */
+    @Test
+    public void testSearchByFilters() {
+        System.out.println("searchByFilters");
+        String Style = "T-Shirt";
+        String NeckLine = "U-Neck";
+        String Material = "Cotton";
+        String Fit = "Oversized";
+        String Length = "Normal";
+        String Occasion = "Streetwear";
+        String Printed = "Printed";
+        String Color = "Black";
+        ProductsDao  prodDao = new ProductsDao("clothes_shop_test");
+        List<products> expResult = null;
+        List<products> result = prodDao.searchByFilters(Style, NeckLine, Material, Fit, Length, Occasion, Printed, Color);
+        assertNotNull(result);
+        assertTrue(result.size() > 0);
+    }
     
 }
