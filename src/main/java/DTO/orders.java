@@ -16,6 +16,7 @@ public class orders {
    private int UserId;
    private int AddressId;
     double total;
+    private String Status;
 
     public orders() {
     }
@@ -25,6 +26,15 @@ public class orders {
         this.UserId = UserId;
         this.AddressId = AddressId;
         this.total = total;
+        
+    }
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String Status) {
+        this.Status = Status;
     }
     
 
