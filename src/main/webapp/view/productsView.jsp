@@ -52,10 +52,7 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
             Filter <span class="navbar-toggler-icon"></span>
         </button>
-        <form class="form-inline my-2 my-lg-0" action="../Controller" method="post">
-            <input class="form-control mr-sm-2" type="text" name="product"  placeholder="Search" aria-label="Search" placeholder="Search by Name">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="action" value="SearchProduct">Search</button>
-        </form>
+
     </nav>
     <div class="collapse" id="navbarToggleExternalContent" >
         <form class="form-inline my-2 my-lg-0" action="../Controller" method="post">
