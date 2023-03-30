@@ -124,7 +124,7 @@
                                 </div> 
                             </div>
 
-                            <form action="../Controller?userId=<%=u.getUserId()%>" method="post">
+                            <form action="../Controller?userId=<%=u.getUserId()%>" method="post" onsubmit="return orderPlaced()">
                                 <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 0px;">Address Details</h5>
                                 <div class="form-outline mb-4">
                                     <label class="form-label" for="form2Example17">First Name:</label>
@@ -244,6 +244,12 @@
                                     <input class="btn btn-dark btn-lg btn-block" type="submit" name="action" value="order">
                                 </div>
                             </form>
+                                    <script>
+function orderPlaced() {
+  alert("Order Placed!");
+  return true;
+}
+</script>
                                  
                         </div>
                     </div>

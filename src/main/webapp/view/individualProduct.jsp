@@ -84,7 +84,7 @@
 
                 <div class="">
 
-                    <form action="../Controller?id=<%=p.getProductId()%>" method="post">
+                    <form action="../Controller?id=<%=p.getProductId()%>" method="post" onsubmit="return addToCart()">
                         <br>
                         <input type="hidden" name="ProductId" value="<%= p.getProductId()%>">
                         <input type="number" name="quantity" min="1" value="1">
@@ -95,6 +95,12 @@
                             Wishlist
 
                     </form>
+                        <script>
+function addToCart() {
+  alert("Item added to cart!");
+  return true;
+}
+</script>
                 </div>
             </div>
         </div>
