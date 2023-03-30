@@ -72,7 +72,7 @@ CREATE TABLE `cart` (
 --
 
 CREATE TABLE `orderdetails` (
-  `OrderId` int(11) NOT NULL,
+  `orderId` int(11) NOT NULL,
   `productName` varchar(255) NOT NULL,
   `productPrice` double(6,2) NOT NULL,
   `quantity` int(11) NOT NULL
