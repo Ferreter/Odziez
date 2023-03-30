@@ -96,9 +96,10 @@
                                                                                         </p>
                                                                                         <br><br>
                                                                                                 <p style="font-size:16px;">
-                                                                                                    <span style="color:gray; font-size: 14px;">You can also add and edit delivery addresses here </span><br> <!--bug here that password is being stored as last name and vice versa-->
+                                                                                                    <span style="color:gray; font-size: 14px;">You can also add and edit delivery addresses here </span><br>Coming Soon!<br> <!--bug here that password is being stored as last name and vice versa-->
                                                                                                         <br>
-                                                                                                            <span style="color:gray; font-size: 14px;">Billing Address </span><br>Insert Address Here<br>
+                                                                                                            <span style="color:gray; font-size: 14px;">Billing Address </span><br><br>
+                                                                                                                    Coming Soon!
                                                                                                                     </p>
                                                                                                                     </li>
                                                                                                                     </div>
