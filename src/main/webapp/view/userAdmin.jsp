@@ -17,54 +17,31 @@
 <jsp:include page="../model/header.jsp" /> 
 <jsp:include page="../view/nav.jsp" /> 
 
-<p class="text-center" style="font-size: 13px; color:whitesmoke; padding-top: 20px">Odziez.com/allproducts
-</p>
- <%
-    
-       
-            UserDao udao = new UserDao("clothes_shop");
-            UserDaoInterface userdao = new UserDao("clothes_shop");
-            user u = (user) session.getAttribute("user");
-            List<user> user = userdao.ListAllUsers();
-            // If there is a Products list returned (and it's not empty)
-            
-            // Carrying out this check avoids the page breaking when the session times out
-%>
-
-<!-- user section in admin -->
-<div class="container">
+<div class="container mt-4">
     <h3>The user table:</h3>
-    <div style="overflow-y:auto; max-height: 300px;">
-        <table id="dtDynamicVerticalScrollExample" class="table table-striped table-bordered table-sm" cellspacing="0"
-               width="100%" style="color:white;max-height: 100px;">
-            <thead style="background-color: white;color:black;">
-                 <%
- if (user != null && !user.isEmpty() )
-            {
-                // Loop to print out all of the rows
-                for (user us : user)
-                {
-            %>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover">
+            <thead style="background-color: #f8f9fa; color: #343a40;">
                 <tr>
-                    <th class="th-sm">UserId
-                    </th>
-                    <th class="th-sm">username
-                    </th>
-                    <th class="th-sm">FirstName
-                    </th>
-                    <th class="th-sm">LastName
-                    </th>
-                    <th class="th-sm">Email
-                    </th>
-                    <th class="th-sm">Phone
-                    </th>
-                    <th class="th-sm">DOB
-                    </th>
-                    <th class="th-sm">isAdmin
-                    </th>
+                    <th>User ID</th>
+                    <th>Username</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Date of Birth</th>
+                    <th>Admin</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody style="background-color: #f8f9fa; color: #343a40;">
+                <%
+                    UserDao udao = new UserDao("clothes_shop");
+                    UserDaoInterface userdao = new UserDao("clothes_shop");
+                    user u = (user) session.getAttribute("user");
+                    List<user> user = userdao.ListAllUsers();
+                    if (user != null && !user.isEmpty()) {
+                        for (user us : user) {
+                %>
                 <tr>
                     <td><%=us.getUserId()%></td>
                     <td><%=us.getUsername()%></td>
@@ -75,31 +52,23 @@
                     <td><%=us.getDOB()%></td>
                     <td><%=us.isIsAdmin()%></td>
                 </tr>
- <%
- }
-                //Search 
-            } else{
-            
-                
-}
- %>
+                <%
+                        }
+                    }
+                %>
             </tbody>
         </table>
-</div>
+    </div>
 
+    <div class="mt-4">
         <h5><b>Enter username of user you wish to delete</b></h5>
-        <form action="../Controller" method="post">
-            <table>
-                <tr>
-                    <td style="padding-right: 20px;">Enter Username: </td>
-                    <td><input  type="text" required="" autocomplete="off" id="form2Example17" name="userN"/></td>
-               </tr>
-               <tr>
-                    <td style="padding-top:20px;" colspan="2"><input class="btn btn-dark btn-lg btn-block" type="submit" name="action" value="DeleteUser"></td>
-                </tr>
-            </table>
+        <form class="form-inline" action="../Controller" method="post">
+            <div class="form-group mr-2">
+                <input class="form-control" type="text" required="" autocomplete="off" id="form2Example17" name="userN" placeholder="Enter Username">
+            </div>
+            <button class="btn btn-danger" type="submit" name="action" value="DeleteUser">Delete User</button>
         </form>
-    
+    </div>
 </div>
 
 <jsp:include page="../view/footer.jsp" />

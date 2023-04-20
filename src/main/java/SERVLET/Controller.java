@@ -660,7 +660,8 @@ public class Controller extends HttpServlet {
             if (exAdd != null && exAdd.equals("on")) {
                 
                 int id = addressDao.searchbyUserId(userId);
-                
+                 
+                if(id != 0 ){
             
                 orders order = new orders(0,u.getUserId(),id, total,"Confirmed");
                 
@@ -687,7 +688,13 @@ public class Controller extends HttpServlet {
                         
             cartdao.EmptyCartItem(userId);
             forwardToJsp = "controller/index.jsp";
-             } else if (newAdd != null && newAdd.equals("on")){
+             } else {
+        forwardToJsp = "controller/error.jsp";
+            String error = "You do not have an existing address Please <a href=\"../view/order.jsp\">add address.</a>";
+            
+            session.setAttribute("errorMessage", error);
+                }
+            }else if (newAdd != null && newAdd.equals("on")){
                                 
                            
                  int addressId = addressDao.getLastIndex() + 1;

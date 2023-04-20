@@ -35,7 +35,7 @@
     <div style="overflow-y:auto; max-height: 600px;">
         <table id="dtDynamicVerticalScrollExample" class="table table-striped table-bordered table-sm" cellspacing="0"
                width="100%" style="color:white;max-height: 100px;">
-            <thead style="background-color: white;color:black;">
+            <thead style="background-color: black; color:white;">
                 <tr>
                     <th class="th-sm">ProductId
                     </th>
@@ -55,8 +55,8 @@
                     </th>
                 </tr>
             </thead>
-            <tbody>
-                <%                    if (products != null && !products.isEmpty() && p == null) {
+            <tbody style="background-color: #f8f9fa; color: #343a40;">
+                <% if (products != null && !products.isEmpty() && p == null) {
                         // Loop to print out all of the rows
                         for (products Products : products) {
                 %>
@@ -71,13 +71,13 @@
                     <td><%=Products.getTags()%></td>
                     <td><%=Products.getBrand()%></td>
                 </tr>
-                <%
-                        }
-                        //Search 
-                    } else {
-
-                    }
+                <% }
+                } else {
                 %>
+                <tr>
+                    <td colspan="8" style="text-align:center;">No Products Found</td>
+                </tr>
+                <% }%>
             </tbody>
         </table>
     </div>
@@ -87,11 +87,11 @@
         <table>
             <tr>
                 <td style="padding-right: 20px;">Product Id: </td>
-                <td><input type="text" name="ProductId" /></td>
+                <td><input type="text" name="ProductId" style="padding: 5px;" /></td>
             </tr>
 
             <tr >
-                <td style="padding-top:20px;" colspan="2"><input type="submit" name="action" value="deleteProduct" /></td>
+                <td style="padding-top:20px;" colspan="2"><input type="submit" name="action" value="deleteProduct" style="background-color: red; color:white; padding: 10px 20px; border:none; border-radius: 5px; cursor:pointer;"/></td>
             </tr>
         </table>
     </form>
@@ -100,87 +100,97 @@
 
 
     <div class="container-fluid">
-        <div class = "row">
+        <div class="row">
             <div class="col-md-6">
-                <h5 style="margin-top:60px;    "><b>Enter Product details for adding product</b></h5>
+                <h5 style="margin-top:60px;"><b>Enter Product details for adding product</b></h5>
                 <form action="../Controller" method="post">
                     <table>
                         <tr>
-                            <td style="padding-right: 20px;">Product Id: </td>
-                            <td><input type="text" name="ProductId" /></td>
+                            <td style="padding-right: 20px;">Product Id:</td>
+                            <td><input type="text" name="ProductId"></td>
                         </tr>
                         <tr>
-                            <td style="padding-right: 20px;">Name : </td>
-                            <td><input type="text" name="Name" /></td>
+                            <td style="padding-right: 20px;">Name:</td>
+                            <td><input type="text" name="Name"></td>
                         </tr>
                         <tr>
-                            <td style="padding-right: 20px;">MRP: </td>
-                            <td style="width:200px;"><input type="number" name="MRP" /></td>
+                            <td style="padding-right: 20px;">MRP:</td>
+                            <td style="width:200px;"><input type="number" name="MRP"></td>
                         </tr>
                         <tr>
-                            <td style="padding-right: 20px;">CP: </td>
-                            <td><input type="number" name="CP" /></td>
+                            <td style="padding-right: 20px;">CP:</td>
+                            <td><input type="number" name="CP"></td>
                         </tr>
                         <tr>
-                            <td style="padding-right: 20px;">Description: </td>
-                            <td  colspan="6"><input type="text" name="Description" style="height:150px; overflow: auto;width:200px"/></td>
+                            <td style="padding-right: 20px;">Description:</td>
+                            
+                            <td style="padding-top:20px;" colspan="2">
+                                <textarea name="Description" rows="5" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;"></textarea>
+                            </td>
                         </tr>
                         <tr>
-                            <td style="padding-right: 20px;">Category: </td>
-                            <td><input type="text" name="Category" /></td>
+                            <td style="padding-right: 20px;">Category:</td>
+                            <td><input type="text" name="Category"></td>
                         </tr>
                         <tr>
-                            <td style="padding-right: 20px;">Tags: </td>
-                            <td><input type="text" name="Tags" /></td>
+                            <td style="padding-right: 20px;">Tags:</td>
+                            <td><input type="text" name="Tags"></td>
                         </tr>
                         <tr>
-                            <td style="padding-right: 20px;">Brand: </td>
-                            <td><input type="text" name="Brand" /></td>
+                            <td style="padding-right: 20px;">Brand:</td>
+                            <td><input type="text" name="Brand"></td>
                         </tr>
                         <tr>
-                            <td style="padding-top:20px;" colspan="2"><input type="submit" name="action" value="addProduct"></td>
+                            <td style="padding-top:20px;" colspan="2">
+                                <input  type="submit" name="action" value="addProduct" style=" background-color: red; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;padding-top: 20px;">
+                            </td>
                         </tr>
                     </table>
                 </form>
             </div>
+
             <div class="col-md-6">
-                <h5 style="margin-top:60px;    "><b>Enter Product details for editing the product</b></h5>
+                <h5 style="margin-top:60px;"><b>Enter Product details for adding product</b></h5>
                 <form action="../Controller" method="post">
                     <table>
                         <tr>
-                            <td style="padding-right: 20px;">Product Id: </td>
-                            <td><input type="text" name="ProductId" /></td>
+                            <td style="padding-right: 20px;">Product Id:</td>
+                            <td><input type="text" name="ProductId"></td>
                         </tr>
                         <tr>
-                            <td style="padding-right: 20px;">Name : </td>
-                            <td><input type="text" name="Name" /></td>
+                            <td style="padding-right: 20px;">Name:</td>
+                            <td><input type="text" name="Name"></td>
                         </tr>
                         <tr>
-                            <td style="padding-right: 20px;">MRP: </td>
-                            <td style="width:200px;"><input type="number" name="MRP" /></td>
+                            <td style="padding-right: 20px;">MRP:</td>
+                            <td style="width:200px;"><input type="number" name="MRP"></td>
                         </tr>
                         <tr>
-                            <td style="padding-right: 20px;">CP: </td>
-                            <td><input type="number" name="CP" /></td>
+                            <td style="padding-right: 20px;">CP:</td>
+                            <td><input type="number" name="CP"></td>
                         </tr>
                         <tr>
-                            <td style="padding-right: 20px;">Description: </td>
-                            <td  colspan="6"><input type="text" name="Description" style="height:150px; overflow: auto;width:200px"/></td>
+                            <td style="padding-right: 20px;">Description:</td>
+                            <td colspan="2">
+                                <textarea name="Description" rows="5" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;"></textarea>
+                            </td>
                         </tr>
                         <tr>
-                            <td style="padding-right: 20px;">Category: </td>
-                            <td><input type="text" name="Category" /></td>
+                            <td style="padding-right: 20px;">Category:</td>
+                            <td><input type="text" name="Category"></td>
                         </tr>
                         <tr>
-                            <td style="padding-right: 20px;">Tags: </td>
-                            <td><input type="text" name="Tags" /></td>
+                            <td style="padding-right: 20px;">Tags:</td>
+                            <td><input type="text" name="Tags"></td>
                         </tr>
                         <tr>
-                            <td style="padding-right: 20px;">Brand: </td>
-                            <td><input type="text" name="Brand" /></td>
+                            <td style="padding-right: 20px;">Brand:</td>
+                            <td><input type="text" name="Brand"></td>
                         </tr>
                         <tr>
-                            <td style="padding-top:20px;" colspan="2"><input type="submit" name="action" value="EditProduct"/></td>
+                            <td style="padding-top:20px;" colspan="2">
+                                <input type="submit" name="action" value="EditProduct" style="padding: 10px 20px; background-color: red; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">
+                            </td>
                         </tr>
                     </table>
                 </form>
@@ -188,7 +198,7 @@
         </div>
     </div>
 
-    
+
 </div>
 
 <jsp:include page="../view/footer.jsp" />

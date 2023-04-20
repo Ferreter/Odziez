@@ -38,67 +38,60 @@
 <!-- product section in admin -->
 <div class="container" style="margin-top: 70px">
     <h3>All Orders:</h3>
-    <div class="col-md-7" style=" background-color: black">
-
-
-  
-            <li class="list-group-item">
-                <h3>Order History</h3>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Address</th>
-                            <th>Total</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <%    if (orders != null && !orders.isEmpty() )
-            {
-                // Loop to print out all of the rows
-               
-                for(orders ord : orders){
-                    address add = AddDao.AddressByUserId(ord.getUserId());
-        %>
-                    <tbody>
-                        <tr>
-                            <td><%=ord.getOrderId()%></td>
-                            <td><%=add.getAddress1()%></td>
-                            <td><%=ord.getTotal()%></td>
-                            <td><%=ord.getStatus()%></td>
-                        </tr>
-                    </tbody>
-                        <%
-                            }
-                
-}else{
-%>
-no orders
-<%
-    }
-            %>
-                </table>
-            </li>
-
+    <div class="col-md-7">
+        <div class="card" style="background-color: white;">
+            <div class="card-body">
+                <h3 class="card-title" style="color:black">Order History</h3>
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Address</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (orders != null && !orders.isEmpty() ) {
+                                    for(orders ord : orders){
+                                        address add = AddDao.AddressByUserId(ord.getUserId());
+                            %>
+                            <tr>
+                                <td><%=ord.getOrderId()%></td>
+                                <td><%=add.getAddress1()%></td>
+                                <td>$<%=ord.getTotal()%></td>
+                                <td><%=ord.getStatus()%></td>
+                            </tr>
+                            <%  }
+                                } else { %>
+                            <tr>
+                                <td colspan="4">No orders</td>
+                            </tr>
+                            <%  } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
+    </div>
 
     <h5 style="margin-top:60px;"><b>Change Order Status</b></h5>
     <form action="../Controller" method="post">
-        <table>
-
-            <p style="padding-right: 20px;">Order ID: </p>
-            <br><input type="text" name="OrderId" /><br><br>
-            <select class="form-select" id="Changed" name="Changed" aria-label="Default select example">
-                <option selected>Select Status to update to</option>
-                <option value="Proccessed">Proccessed</option>
+        <div class="form-group">
+            <label for="OrderId">Order ID:</label>
+            <input type="text" class="form-control" name="OrderId" />
+        </div>
+        <div class="form-group">
+            <label for="Changed">Select Status to update to:</label>
+            <select class="form-control" id="Changed" name="Changed">
+                <option selected>Select Status</option>
+                <option value="Processed">Processed</option>
                 <option value="In Transit">In Transit</option>
                 <option value="Delivered">Delivered</option>
             </select>
-            <td style="padding-top:20px;" colspan="2"><input type="submit" name="action" value="updateStatus" /></td>
-            </tr>
-        </table>
+        </div>
+        <button type="submit" class="btn btn-danger">Update Status</button>
     </form>
 </div>
-
-
 <jsp:include page="../view/footer.jsp" />
