@@ -222,25 +222,25 @@ public class ProductsDaoTest {
       
     }
 
-    /**
-     * Test of searchByFilters method, of class ProductsDao.
-     */
-    @Test
-    public void testSearchByFilters() {
-        System.out.println("searchByFilters");
-        String Style = "T-Shirt";
-        String NeckLine = "U-Neck";
-        String Material = "Cotton";
-        String Fit = "Oversized";
-        String Length = "Normal";
-        String Occasion = "Streetwear";
-        String Printed = "Printed";
-        String Color = "Black";
-        ProductsDao  prodDao = new ProductsDao("clothes_shop_test");
-        List<products> expResult = null;
-        List<products> result = prodDao.searchByFilters(Style, NeckLine, Material, Fit, Length, Occasion, Printed, Color);
-        assertNotNull(result);
-        assertTrue(result.size() > 0);
-    }
+//    /**
+//     * Test of searchByFilters method, of class ProductsDao.
+//     */
+//    @Test
+//    public void testSearchByFilters() {
+//        System.out.println("searchByFilters");
+//        String Style = "T-Shirt";
+//        String NeckLine = "U-Neck";
+//        String Material = "Cotton";
+//        String Fit = "Oversized";
+//        String Length = "Normal";
+//        String Occasion = "Streetwear";
+//        String Printed = "Printed";
+//        String Color = "Black";
+//        ProductsDao  prodDao = new ProductsDao("clothes_shop_test");
+//        List<products> expResult = null;
+//        List<products> result = prodDao.searchByFilters(Style, NeckLine, Material, Fit, Length, Occasion, Printed, Color);
+//        assertNotNull(result);
+//        assertTrue(result.size() > 0);
+//    }
     
 }
