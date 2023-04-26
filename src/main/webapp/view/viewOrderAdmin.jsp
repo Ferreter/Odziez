@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="DTO.user"%>
 <%@page import="DTO.address"%>
 <%@page import="DTO.orders"%>
 <%@page import="DAO.AddressDao"%>
@@ -31,8 +32,10 @@
     UserDaoInterface userdao = new UserDao("clothes_shop");
     AddressDao AddDao = new AddressDao("clothes_shop");
     List<orders> orders = Orderdao.AllOrders();
+    user u = (user) session.getAttribute("user");
     // If there is a Products list returned (and it's not empty)
 
+     if (u != null && u.isIsAdmin()) {
     // Carrying out this check avoids the page breaking when the session times out
 %>
 <!-- order section in admin -->
@@ -106,4 +109,13 @@
   </div>
 </div>
 </div>
+                <%
+    } else {
+        String redirectURL = "../view/LoginNdRegister.jsp";
+        response.sendRedirect(redirectURL);
+
+    }
+
+
+%>
 <jsp:include page="../view/footer.jsp" />

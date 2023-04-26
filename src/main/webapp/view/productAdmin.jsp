@@ -4,6 +4,7 @@
     Author     : hkhat
 --%>
 
+<%@page import="DTO.user"%>
 <%@page import="java.util.List"%>
 <%--
     Document   : adminView
@@ -25,8 +26,10 @@
     ProductsDaoInterface productdao = new ProductsDao("clothes_shop");
     products p = (products) session.getAttribute("products");
     List<products> products = productdao.ListAllProducts();
+    user u = (user) session.getAttribute("user");
     // If there is a Products list returned (and it's not empty)
 
+        if (u != null && u.isIsAdmin()) {
     // Carrying out this check avoids the page breaking when the session times out
 %>
 <!-- product section in admin -->
@@ -204,5 +207,13 @@
 
 
 </div>
+<%
+    } else {
+        String redirectURL = "../view/LoginNdRegister.jsp";
+        response.sendRedirect(redirectURL);
 
+    }
+
+
+%>
 <jsp:include page="../view/footer.jsp" />
