@@ -39,7 +39,7 @@
 %> 
 
         <div>
-            <a href="index.jsp" class="btn btn-secondary">Back to Home Page</a>
+            <a href="../controller/index.jsp" class="btn btn-secondary">Back to Home Page</a>
         </div>
     </div>
     <jsp:include page="../view/footer.jsp" /> 
