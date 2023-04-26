@@ -132,7 +132,7 @@
                                                                                                                                                         }
                                                                                                                                                     %>
                                                                                                                                                     <br>
-                                                                                                                                                        <span style="color:gray; font-size: 14px;">Direct Mail Marketing </span><br>Not Subscribed<br>
+                                                                                                                                                        
                                                                                                                                                                 </p>
                                                                                                                                                                 </li>
                                                                                                                                                                 </div>
