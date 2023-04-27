@@ -120,6 +120,10 @@ public class Controller extends HttpServlet {
                 case "updateStatus":
                     forwardToJsp = updateStatus(request, response);
                     break;
+                case "Update Address":
+                    forwardToJsp = ResetAddress(request, response);
+                    break;
+                
 
             }
 
@@ -294,6 +298,47 @@ public class Controller extends HttpServlet {
         } else {
             forwardToJsp = "controller/error.jsp";
             String error = "No username and/or password and/or question and/or answer supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
+            session.setAttribute("errorMessage", error);
+        }
+        return forwardToJsp;
+    }
+
+    private String ResetAddress(HttpServletRequest request, HttpServletResponse response) {
+        String forwardToJsp = "#";
+        HttpSession session = request.getSession(true);
+
+        String address1 = request.getParameter("address1");
+        String address2 = request.getParameter("address2");
+        String address3 = request.getParameter("address3");
+        String city = request.getParameter("city");
+         String county = request.getParameter("county");
+        String country = request.getParameter("country");
+        String pincode = request.getParameter("pincode");
+        
+       
+       
+        if (address1 != null && address2 != null && address3 != null && city != null && !address1.isEmpty() && !address2.isEmpty() && !address3.isEmpty() && !city.isEmpty()) {
+            UserDao userDao = new UserDao("clothes_shop");
+            AddressDao addressDao = new AddressDao("clothes_shop");
+             user u = (user) session.getAttribute("user");
+            address add = addressDao.AddressByUserId(u.getUserId());
+            
+            address a = (address) session.getAttribute("address");
+            if (add != null) {
+
+                
+
+               boolean  update = addressDao.editAddress(a, address1, address2, address3, city, county, country, pincode);
+
+                forwardToJsp = "view/userProfile.jsp";
+            }else {
+                forwardToJsp = "controller/error.jsp";
+                String error = "NO Address found<a href=\"LoginNdRegister.jsp\">try again.</a>";
+                session.setAttribute("errorMessage", error);
+            }
+        } else {
+            forwardToJsp = "controller/error.jsp";
+            String error = "Failed to retrieve address. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
             session.setAttribute("errorMessage", error);
         }
         return forwardToJsp;
@@ -886,22 +931,37 @@ public class Controller extends HttpServlet {
     String email = request.getParameter("email");
     String phone = request.getParameter("phone");
     String dob = request.getParameter("dob");
+    String username = request.getParameter("username");
+    String password = request.getParameter("password");
 
     Date date = Date.valueOf(dob);
 
     if (firstname != null && lastname != null && !firstname.isEmpty() && !lastname.isEmpty() && email != null && phone != null && !email.isEmpty() && !phone.isEmpty() && dob != null && !dob.isEmpty()) {
         UserDao userDao = new UserDao("clothes_shop");
         user u = (user) session.getAttribute("user");
-        boolean edit = userDao.editProfile(u, firstname, lastname, email, phone, date);
-        if (edit) {
-            // User was successfully updated
-            session.invalidate(); // Log user out
-            forwardToJsp = "view/LoginNdRegister.jsp?logout=true"; // Redirect to login page with logout parameter
-        } else {
-            // Error occurred while updating user
+        forwardToJsp = "view/EditAuth.jsp";
+
+        // Verify password
+        
+        boolean passwordMatch = userDao.confirmUserByUsernamePassword(username, password);
+
+        if (!passwordMatch) {
+            // Password is incorrect
             forwardToJsp = "controller/error.jsp";
-            String error = "An error occurred while updating your profile. Please try again.";
+            String error = "Incorrect username or password.";
             session.setAttribute("errorMessage", error);
+        } else {
+            boolean edit = userDao.editProfile(u, firstname, lastname, email, phone, date);
+            if (edit) {
+                // User was successfully updated
+                session.invalidate(); // Log user out
+                forwardToJsp = "view/LoginNdRegister.jsp?logout=true"; // Redirect to login page with logout parameter
+            } else {
+                // Error occurred while updating user
+                forwardToJsp = "controller/error.jsp";
+                String error = "An error occurred while updating your profile. Please try again.";
+                session.setAttribute("errorMessage", error);
+            }
         }
     } else {
         // Missing or invalid parameters
@@ -912,6 +972,7 @@ public class Controller extends HttpServlet {
 
     return forwardToJsp;
 }
+      
       private String updateStatus(HttpServletRequest request, HttpServletResponse response) {
         String forwardToJsp = "controller/index.jsp";
         HttpSession session = request.getSession(true);

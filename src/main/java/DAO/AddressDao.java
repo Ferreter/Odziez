@@ -118,6 +118,48 @@ public class AddressDao extends Dao implements AddressDaoInterface {
         return p;     // u may be null 
     }
 
+    public int findAddressId(int UserId) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        address p = null;
+        int id = 0;
+
+        try {
+            con = this.getConnection();
+
+            String query = "SELECT AddressId FROM address WHERE UserId like ?";
+            ps = con.prepareStatement(query);
+            ps.setString(1, "%" + UserId + "%");
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                
+                p = new address(rs.getInt("AddressId"), rs.getInt("UserId"), rs.getString("Address1"), rs.getString("Address2"), rs.getString("Address3"), rs.getString("City"), rs.getString("County"), rs.getString("Country"), rs.getString("Pincode"));
+                
+                id = p.getAddressId();
+            }
+        } catch (SQLException e) {
+            System.err.println("\tA problem occurred during the searchbyUserId() method:");
+            System.err.println("\t" + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    freeConnection(con);
+                }
+            } catch (SQLException e) {
+                System.err.println("A problem occurred when closing down the searchbyUserId() method:\n" + e.getMessage());
+            }
+        }
+        return id;     // u may be null 
+    }
+
     /**
      * Add a new address to the database for the logged in user and returns true
      * for success and false for error
@@ -214,4 +256,52 @@ public class AddressDao extends Dao implements AddressDaoInterface {
         return lastIndex;
 
     }
+    
+     public boolean editAddress(address u, String Address1, String Address2, String Address3, String City, String County, String Country, String Pincode) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        boolean edit = false;
+        try {
+            con = this.getConnection();
+
+            String query = "UPDATE address SET Address1 = ? , Address2 = ? , Address3 = ? , City = ? , County = ? , Country = ? , Pincode = ? WHERE AddressId = ?";
+
+            ps = con.prepareStatement(query);
+
+            ps.setString(1, Address1);
+            ps.setString(2, Address2);
+            ps.setString(3, Address3);
+            ps.setString(4, City);
+            ps.setString(5, County);
+            ps.setString(6, Country);
+             ps.setString(7, Pincode);
+              ps.setInt(8, u.getAddressId());
+
+            // Because this is CHANGING the database, use the executeUpdate method
+            ps.executeUpdate();
+            edit = true;
+            
+
+        } catch (SQLException e) {
+            System.err.println("\tA problem occurred during the editAddress method:");
+            System.err.println("\t" + e.getMessage());
+
+        } finally {
+            try {
+
+                if (ps != null) {
+                    ps.close();
+
+                }
+
+                if (con != null) {
+                    freeConnection(con);
+                }
+            } catch (SQLException e) {
+                System.err.println("A problem occurred when closing down the editAddress method:\n" + e.getMessage());
+            }
+        }
+        return edit;
+    }
+
 }

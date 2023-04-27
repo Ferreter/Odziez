@@ -91,7 +91,8 @@
                 <option value="Delivered">Delivered</option>
             </select>
         </div>
-        <button type="submit" class="btn btn-danger">Update Status</button>
+       <button class="btn btn-danger" type="submit" name="action" value="updateStatus"></button>
+
     </form>
 </div>
 <jsp:include page="../view/footer.jsp" />

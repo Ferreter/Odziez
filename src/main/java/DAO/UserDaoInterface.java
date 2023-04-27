@@ -100,5 +100,7 @@ public interface UserDaoInterface {
     public boolean editProfile(user u, String FirstName, String LastName, String Email, String Phone, Date DOB);
 
     public user findUserById(int id);
+    
+      public boolean confirmUserByUsernamePassword(String uname, String Password);
 
 }

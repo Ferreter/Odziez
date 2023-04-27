@@ -4,12 +4,23 @@
     Author     : hkhat
 --%>
 
+<%@page import="DAO.AddressDao"%>
 <%@page import="DTO.user"%>
+<%@page import="DTO.address"%>
+<%@page import="DAO.AddressDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     user u = (user) session.getAttribute("user");
     if (u != null) {
+    AddressDao adao = new AddressDao("clothes_shop");
+    address a = (address) session.getAttribute("address");
+   address add = adao.AddressByUserId(u.getUserId());
+   
+
 %>
+
+    
+
 <jsp:include page="../model/header.jsp" /> 
 <jsp:include page="../view/nav.jsp" /> 
 <p class="text-center" style="font-size: 13px; color:whitesmoke; padding-top: 50px">Odziez.com/profile/account-settings
@@ -85,15 +96,24 @@
                                                                                     <li class="list-group-item" style="border: none;">
                                                                                         <p style="font-size: 21px">Address Book
                                                                                             <span style="float: right;font-size: 16px;color:gray">
-                                                                                                <a href="#" style="color:gray">
+                                                                                                <a href="../view/EditAddress.jsp?ID=<%=add.getAddressId()%>" style="color:gray">
                                                                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                                                                                         <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                                                                                                         <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                                                                                                     </svg>
                                                                                                     Edit
                                                                                                 </a>
+                                                                                                
                                                                                             </span>
+                                                                                            
                                                                                         </p>
+                                                                                        <br><%out.print(add.getAddress1());%><br>
+                                                                                                <br><%out.print(add.getAddress2());%><br><!-- comment -->
+                                                                                                        <br><%out.print(add.getAddress3());%><br>
+                                                                                                                <br><%out.print(add.getCity());%><br>
+                                                                                                                        <br><%out.print(add.getCounty());%><br>
+                                                                                                                                <br><%out.print(add.getCountry());%><br>
+                                                                                                                                        <br><%out.print(add.getPincode());%><br>
                                                                                         <br><br>
                                                                                                 <p style="font-size:16px;">
                                                                                                     <span style="color:gray; font-size: 14px;">You can also add and edit delivery addresses here </span><br>Coming Soon!<br> <!--bug here that password is being stored as last name and vice versa-->
