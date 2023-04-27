@@ -24,10 +24,15 @@
         <link href="https://fonts.cdnfonts.com/css/bahnschrift" rel="stylesheet">
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+        <!--Flatpickr-->
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
         <script>
 
-            $(document).ready(function (){
+            $(document).ready(function () {
                 $('#dtDynamicVerticalScrollExample').DataTable({
                     "scrollY": "50vh",
                     "scrollCollapse": true,

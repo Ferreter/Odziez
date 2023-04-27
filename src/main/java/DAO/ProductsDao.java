@@ -591,52 +591,60 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         }
     }
 
-    @Override
-    public List<products> searchByFilters(String Style, String NeckLine, String Material, String Fit, String Length, String Occasion, String Printed, String Color) {
-        Connection con = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        List<products> products = new ArrayList();
+   @Override
+public List<products> searchByFilters(String Style, String NeckLine, String Material, String Fit, String Length, String Occasion, String Printed, String Color) {
+    Connection con = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    List<products> products = new ArrayList();
+    try {
+        con = this.getConnection();
+if (Style.equalsIgnoreCase("all") && NeckLine.equalsIgnoreCase("all") && Material.equalsIgnoreCase("all") && Fit.equalsIgnoreCase("all") && Length.equalsIgnoreCase("all") && Occasion.equalsIgnoreCase("all") && Printed.equalsIgnoreCase("all") && Color.equalsIgnoreCase("all")) {
+   products = ListAllProducts();
+
+} else {
+   String query = "SELECT * FROM products WHERE Tags like ? OR Tags like ? OR Tags like ? OR Tags like ? OR Tags like ? OR Tags like ? OR Tags like ? OR Tags like ? ";
+ps = con.prepareStatement(query);
+ps.setString(1, "%" + Color + "%");
+ps.setString(2, "%" + Style + "%");
+ps.setString(3, "%" + Printed + "%");
+ps.setString(4, "%" + Length + "%");
+ps.setString(5, "%" + Occasion + "%");
+ps.setString(6, "%" + Fit + "%");
+ps.setString(7, "%" + NeckLine + "%");
+ps.setString(8, "%" + Material + "%");
+rs = ps.executeQuery();
+        while (rs.next()) {
+
+            products p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Images"), rs.getString("Brand"));
+
+            products.add(p);
+        }
+}
+
+
+    
+
+        
+    } catch (SQLException e) {
+        System.err.println("\tA problem occurred during the searchbyname() method:");
+        System.err.println("\t" + e.getMessage());
+    } finally {
         try {
-            con = this.getConnection();
-
-            String query = "SELECT * FROM products WHERE Tags like ? AND Tags like ? AND Tags like ? AND Tags like ? AND Tags like ? AND Tags like ? AND Tags like ? AND Tags like ? ";
-            ps = con.prepareStatement(query);
-            ps.setString(1, "%" + Color + "%");
-            ps.setString(2, "%" + Style + "%");
-            ps.setString(3, "%" + Printed + "%");
-            ps.setString(4, "%" + Length + "%");
-            ps.setString(5, "%" + Occasion + "%");
-            ps.setString(6, "%" + Fit + "%");
-            ps.setString(7, "%" + NeckLine + "%");
-            ps.setString(8, "%" + Material + "%");
-
-            rs = ps.executeQuery();
-            while (rs.next()) {
-
-                products p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Images"), rs.getString("Brand"));
-
-                products.add(p);
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                freeConnection(con);
             }
         } catch (SQLException e) {
-            System.err.println("\tA problem occurred during the searchbyname() method:");
-            System.err.println("\t" + e.getMessage());
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (ps != null) {
-                    ps.close();
-                }
-                if (con != null) {
-                    freeConnection(con);
-                }
-            } catch (SQLException e) {
-                System.err.println("A problem occurred when closing down the searchbyname() method:\n" + e.getMessage());
-            }
+            System.err.println("A problem occurred when closing down the searchbyname() method:\n" + e.getMessage());
         }
-        return products;     // u may be null 
-
     }
+    return products;
+}
+
 }

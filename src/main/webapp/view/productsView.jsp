@@ -75,132 +75,160 @@
 
                     <p style="padding-top:10px;padding-bottom: 2px;margin:0px;">Printed</p>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input"  name="Printed" value="Printed" checked>Printed
+                        <input type="radio" class="form-check-input"  name="Printed" value="All" checked>all
                         <label class="form-check-label" for="radio1"></label>
                     </div>
                     <div class="form-check">
                         <input type="radio" class="form-check-input"  name="Printed" value="Not-Printed">Not-Printed
                         <label class="form-check-label" for="radio2"></label>
                     </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input"  name="Printed" value="Printed" >Printed
+                        <label class="form-check-label" for="radio3"></label>
+                    </div>
 
                     <p style="padding-top:20px;padding-bottom: 2px;margin:0px;">Occasion</p>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input"  name="Occasion" value="Streetwear" checked>Streetwear
+                        <input type="radio" class="form-check-input"  name="Occasion" value="All" checked>all
                         <label class="form-check-label" for="radio1"></label>
                     </div>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input"  name="Occasion" value="Formal">Formal
+                        <input type="radio" class="form-check-input"  name="Occasion" value="Streetwear">Streetwear
                         <label class="form-check-label" for="radio2"></label>
                     </div>
                     <div class="form-check">
+                        <input type="radio" class="form-check-input"  name="Occasion" value="Formal">Formal
+                        <label class="form-check-label" for="radioe3"></label>
+                    </div>
+                    <div class="form-check">
                         <input type="radio" class="form-check-input"  name="Occasion" value="Casual">Casual
-                        <label class="form-check-label" for="radio2"></label>
+                        <label class="form-check-label" for="radio4"></label>
                     </div>
                 </div>
 
                 <div class="col-2">
                     <p style="padding-top:4px;padding-bottom: 2px;margin:0px;">Material</p>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input"  name="Material" value="Cotton" checked>Cotton
+                        <input type="radio" class="form-check-input"  name="Material" value="All" checked>all
                         <label class="form-check-label" for="radio1"></label>
                     </div>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input"  name="Material" value="Nylon">Nylon
+                        <input type="radio" class="form-check-input"  name="Material" value="Cotton" >Cotton
                         <label class="form-check-label" for="radio2"></label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input"  name="Material" value="Nylon">Nylon
+                        <label class="form-check-label" for="radio3"></label>
                     </div>
                      <div class="form-check">
                         <input type="radio" class="form-check-input"  name="Material" value="Wool">Wool
-                        <label class="form-check-label" for="radio3"></label>
+                        <label class="form-check-label" for="radio4"></label>
                     </div>
                     <div class="form-check">
                         <input type="radio" class="form-check-input"  name="Material" value="Fleece">Fleece
-                        <label class="form-check-label" for="radio4"></label>
+                        <label class="form-check-label" for="radio5"></label>
                     </div>
 
                     <p style="padding-top:10px;padding-bottom: 2px;margin:0px;">Fit</p>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input"  name="Fit" value="Oversized" checked>Oversized
+                        <input type="radio" class="form-check-input"  name="Fit" value="All" checked>all
                         <label class="form-check-label" for="radio1"></label>
                     </div>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input"  name="Fit" value="Body">Body
+                        <input type="radio" class="form-check-input"  name="Fit" value="Oversized" >Oversized
                         <label class="form-check-label" for="radio2"></label>
                     </div>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input"  name="Fit" value="Relaxed">Relaxed
+                        <input type="radio" class="form-check-input"  name="Fit" value="Body">Body
                         <label class="form-check-label" for="radio3"></label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input"  name="Fit" value="Relaxed">Relaxed
+                        <label class="form-check-label" for="radio4"></label>
                     </div>
 
                     <p style="padding-top:10px;padding-bottom: 2px;margin:0px;">Length</p>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input"  name="Length" value="Long" checked>Long
+                        <input type="radio" class="form-check-input"  name="Length" value="All" checked>all
                         <label class="form-check-label" for="radio1"></label>
                     </div>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input"  name="Length" value="Normal">Normal
+                        <input type="radio" class="form-check-input"  name="Length" value="Long">Long
                         <label class="form-check-label" for="radio2"></label>
                     </div>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input"  name="Length" value="Short">Short
+                        <input type="radio" class="form-check-input"  name="Length" value="Normal">Normal
                         <label class="form-check-label" for="radio3"></label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input"  name="Length" value="Short">Short
+                        <label class="form-check-label" for="radio4"></label>
                     </div>
                 </div>
                 <div class="col-2">
                     <p style="padding-top:10px;padding-bottom: 2px;margin:0px;">Neck Line</p>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input"  name="NeckLine" value="Turtleneck" checked>Turtleneck
+                        <input type="radio" class="form-check-input"  name="NeckLine" value="All" checked>all
                         <label class="form-check-label" for="radio1"></label>
                     </div>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input"  name="NeckLine" value="V-Neck">V Neck
+                        <input type="radio" class="form-check-input"  name="NeckLine" value="Turtleneck">Turtleneck
                         <label class="form-check-label" for="radio2"></label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input"  name="NeckLine" value="V-Neck">V Neck
+                        <label class="form-check-label" for="radio3"></label>
                     </div>
                      <div class="form-check">
                         <input type="radio" class="form-check-input"  name="NeckLine" value="CLossed">CLossed
-                        <label class="form-check-label" for="radio3"></label>
-                    </div>
-
-                    <div class="form-check">
-                        <input type="radio" class="form-check-input"  name="NeckLine" value="Button Up">Button Up
                         <label class="form-check-label" for="radio4"></label>
                     </div>
 
                     <div class="form-check">
-                        <input type="radio" class="form-check-input"  name="NeckLine" value="Zip Up">Zip Up
+                        <input type="radio" class="form-check-input"  name="NeckLine" value="Button Up">Button Up
                         <label class="form-check-label" for="radio5"></label>
+                    </div>
+
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input"  name="NeckLine" value="Zip Up">Zip Up
+                        <label class="form-check-label" for="radio6"></label>
                     </div>
                      <div class="form-check">
                         <input type="radio" class="form-check-input"  name="NeckLine" value="U-Neck">U-Neck
-                        <label class="form-check-label" for="radio6"></label>
+                        <label class="form-check-label" for="radio7"></label>
                     </div>
                 </div>
                 <div class="col-2">
                     <p style="padding-top:10px;padding-bottom: 2px;margin:0px;">Style</p>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input" name="Style" value="Puffer" checked>Puffer
+                        <input type="radio" class="form-check-input"  name="Style" value="All" checked>all
                         <label class="form-check-label" for="radio1"></label>
                     </div>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input" name="Style" value="Hoodie">Hoodie
+                        <input type="radio" class="form-check-input" name="Style" value="Puffer">Puffer
                         <label class="form-check-label" for="radio2"></label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" name="Style" value="Hoodie">Hoodie
+                        <label class="form-check-label" for="radio3"></label>
                     </div>
                      <div class="form-check">
                         <input type="radio" class="form-check-input"  name="Style" value="Jacket">Jacket
-                        <label class="form-check-label" for="radio3"></label>
-                    </div>
-
-                     <div class="form-check">
-                        <input type="radio" class="form-check-input"  name="Style" value="Blazer">Blazer
                         <label class="form-check-label" for="radio4"></label>
                     </div>
 
                      <div class="form-check">
-                        <input type="radio" class="form-check-input"  name="Style" value="T-Shirt">T-Shirt
+                        <input type="radio" class="form-check-input"  name="Style" value="Blazer">Blazer
                         <label class="form-check-label" for="radio5"></label>
+                    </div>
+
+                     <div class="form-check">
+                        <input type="radio" class="form-check-input"  name="Style" value="T-Shirt">T-Shirt
+                        <label class="form-check-label" for="radio6"></label>
                     </div>
                      <div class="form-check">
                         <input type="radio" class="form-check-input" name="Style" value="Polo">Polo
-                        <label class="form-check-label" for="radio6"></label>
+                        <label class="form-check-label" for="radio7"></label>
                     </div>
                      
                 </div>

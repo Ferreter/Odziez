@@ -1,10 +1,11 @@
-<%-- 
+<%--
     Document   : viewOrderAdmin
     Created on : 29 Mar, 2023, 4:03:56 PM
     Author     : hkhat
 --%>
 
 
+<%@page import="DTO.user"%>
 <%@page import="DTO.address"%>
 <%@page import="DTO.orders"%>
 <%@page import="DAO.AddressDao"%>
@@ -15,8 +16,8 @@
 <%@page import="DAO.OrderDao"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:include page="../model/header.jsp" /> 
-<jsp:include page="../view/nav.jsp" /> 
+<jsp:include page="../model/header.jsp" />
+<jsp:include page="../view/nav.jsp" />
 <%@page import="DTO.products"%>
 <%@page import="DAO.ProductsDao"%>
 <%@page import="DAO.ProductsDaoInterface"%>
@@ -26,73 +27,99 @@
 
     OrderDao Odao = new OrderDao("clothes_shop");
     OrderDaoInterface Orderdao = new OrderDao("clothes_shop");
-    
+
     UserDao udao = new UserDao("clothes_shop");
     UserDaoInterface userdao = new UserDao("clothes_shop");
     AddressDao AddDao = new AddressDao("clothes_shop");
     List<orders> orders = Orderdao.AllOrders();
+    user u = (user) session.getAttribute("user");
     // If there is a Products list returned (and it's not empty)
 
+     if (u != null && u.isIsAdmin()) {
     // Carrying out this check avoids the page breaking when the session times out
 %>
-<!-- product section in admin -->
-<div class="container" style="margin-top: 70px">
-    <h3>All Orders:</h3>
+<!-- order section in admin -->
+
+<div class="container" style="margin-top: 70px; background-color: white; padding: 50px; color: black;">
     <div class="col-md-7">
-        <div class="card" style="background-color: white;">
-            <div class="card-body">
-                <h3 class="card-title" style="color:black">Order History</h3>
-                <div class="table-responsive">
-                    <table class="table table-hover table-striped">
-                        <thead>
+        <h3>Order History</h3>
+        <div style="overflow-y: auto; max-height: 300px;">
+            <table class="table table-striped table-bordered table-hover" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Address</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <% if (orders != null && !orders.isEmpty()) { %>
+                    <tbody>
+                        <% for (orders ord : orders) {
+                                address add = AddDao.AddressByUserId(ord.getUserId());
+                        %>
                             <tr>
-                                <th>Order ID</th>
-                                <th>Address</th>
-                                <th>Total</th>
-                                <th>Status</th>
+                                <td><%= ord.getOrderId() %></td>
+                                <td><%= add.getAddress1() %></td>
+                                <td><%= ord.getTotal() %></td>
+                                <td><%= ord.getStatus() %></td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <% if (orders != null && !orders.isEmpty() ) {
-                                    for(orders ord : orders){
-                                        address add = AddDao.AddressByUserId(ord.getUserId());
-                            %>
-                            <tr>
-                                <td><%=ord.getOrderId()%></td>
-                                <td><%=add.getAddress1()%></td>
-                                <td>$<%=ord.getTotal()%></td>
-                                <td><%=ord.getStatus()%></td>
-                            </tr>
-                            <%  }
-                                } else { %>
-                            <tr>
-                                <td colspan="4">No orders</td>
-                            </tr>
-                            <%  } %>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                        <% } %>
+                    </tbody>
+                <% } else { %>
+                    <tbody>
+                        <tr>
+                            <td colspan="4">No orders</td>
+                        </tr>
+                    </tbody>
+                <% } %>
+            </table>
         </div>
     </div>
 
-    <h5 style="margin-top:60px;"><b>Change Order Status</b></h5>
-    <form action="../Controller" method="post">
-        <div class="form-group">
-            <label for="OrderId">Order ID:</label>
-            <input type="text" class="form-control" name="OrderId" />
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6">
+      <h5 class="my-4"><b>Change Order Status</b></h5>
+      <form action="../Controller" method="post">
+        <div class="form-group row">
+          <label for="OrderId" class="col-sm-4 col-form-label">Order ID:</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="OrderId" name="OrderId">
+          </div>
         </div>
-        <div class="form-group">
-            <label for="Changed">Select Status to update to:</label>
+        <div class="form-group row">
+          <label for="Changed" class="col-sm-4 col-form-label">Status:</label>
+          <div class="col-sm-8">
             <select class="form-control" id="Changed" name="Changed">
-                <option selected>Select Status</option>
-                <option value="Processed">Processed</option>
-                <option value="In Transit">In Transit</option>
-                <option value="Delivered">Delivered</option>
+              <option selected>Select Status to Update to</option>
+              <option value="Processed">Processed</option>
+              <option value="In Transit">In Transit</option>
+              <option value="Delivered">Delivered</option>
             </select>
+          </div>
         </div>
-       <button class="btn btn-danger" type="submit" name="action" value="updateStatus"></button>
 
-    </form>
+       
+
+        <div class="form-group row">
+          <div class="col-sm-12 text-center">
+            <button type="submit"  class="btn btn-primary" name="action" value="updateStatus">Update Status</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
 </div>
+</div>
+                <%
+    } else {
+        String redirectURL = "../view/LoginNdRegister.jsp";
+        response.sendRedirect(redirectURL);
+
+    }
+
+
+%>
 <jsp:include page="../view/footer.jsp" />
