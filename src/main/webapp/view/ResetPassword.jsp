@@ -46,8 +46,9 @@
                                             
                                         </div>
                                         <div class="form-outline mb-4">
-                                            <input  type="text" autocomplete="off" required="" id="form2Example17" name="answer"   class="form-control form-control-lg" />
                                             <label class="form-label" for="form2Example17">Security Answer:</label>
+                                            <input  type="text" autocomplete="off" required="" id="form2Example17" name="answer"   class="form-control form-control-lg" />
+                                            
                                             
                                         </div>
                                         <div class="form-outline mb-4">

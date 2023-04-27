@@ -110,6 +110,87 @@ public class UserDao extends Dao implements UserDaoInterface {
         return u;    // u may be null 
     }
 
+    @Override
+    public boolean confirmUserByUsernamePassword(String uname, String pword) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        user u = null;
+        boolean confirm = false;
+        try {
+            con = this.getConnection();
+
+            String query = "SELECT * FROM user WHERE username = ? AND password = ?";
+
+            //Password to harsh Variable
+            String Pass = pword;
+            // salt String to add to SHA abbreviation of teammate names
+            String salt = "ferkhki";
+            // Variable to store Generated secure hashed and saltes password
+            String hashPass = null;
+            ps = con.prepareStatement(query);
+
+            MessageDigest sha = MessageDigest.getInstance("SHA-256");
+
+            // Add password bytes to digest
+            sha.update(salt.getBytes());
+
+            // Get the hash's bytes
+            byte[] bytes = sha.digest(Pass.getBytes());
+            // This bytes[] has bytes in decimal format. Convert it to hexadecimal format
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < bytes.length; i++) {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            // Get complete hashed password in hex format
+            hashPass = sb.toString();
+            ps.setString(1, uname);
+            //pass hashed password as user password and compare with hashed password in database
+            ps.setString(2, hashPass);
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                int UserId = rs.getInt("UserId");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                String FirstName = rs.getString("firstName");
+                String LastName = rs.getString("LastName");
+                String Email = rs.getString("email");
+                String phone = rs.getString("phone");
+                String Question = rs.getString("question");
+                String Answer = rs.getString("answer");
+                Date DOB = rs.getDate("DOB");
+                boolean isAdmin = rs.getBoolean("isAdmin");
+                int subscription = rs.getInt("subscription");
+
+                u = new user(UserId, username, password, FirstName, LastName, Email, phone, Question, Answer, DOB, isAdmin, subscription);
+            
+                 confirm = true;
+            }
+        } catch (SQLException e) {
+            System.err.println("\tA problem occurred during the findUserByUsernamePassword method:");
+            System.err.println("\t" + e.getMessage());
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    freeConnection(con);
+                }
+            } catch (SQLException e) {
+                System.err.println("A problem occurred when closing down the findUserByUsernamePassword method:\n" + e.getMessage());
+            }
+
+        }
+        return confirm;    // u may be null 
+    }
+
     /**
      * Find the first <code>User</code> matching a specified username. If more
      * than one <code>User</code> matching the username is found, only the first
