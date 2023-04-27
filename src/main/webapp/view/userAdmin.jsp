@@ -21,8 +21,24 @@
 <p class="text-center" style="font-size: 13px; color:whitesmoke; padding-top: 20px">Odziez.com/allproducts
 </p>
 <%
-
-    UserDao udao = new UserDao("clothes_shop");
+    // Get the error message variable out of the session
+    Object msg = session.getAttribute("successMessage");
+    // If there is an success message to print
+    String success = "";
+    if (msg != null) {
+        // Cast it to a String so we can use it
+        success = (String) msg;
+        // Display the message
+%>
+<script>
+     var msg = '<%= success %>';
+    alert(msg);
+</script>
+<%
+    session.removeAttribute("successMessage");
+    }
+%>
+<%    UserDao udao = new UserDao("clothes_shop");
     UserDaoInterface userdao = new UserDao("clothes_shop");
     user u = (user) session.getAttribute("user");
     List<user> user = userdao.ListAllUsers();
@@ -52,8 +68,8 @@
             </thead>
             <tbody>
                 <% if (user != null && !user.isEmpty()) {
-            // Loop to print out all of the rows
-            for (user us : user) {%>
+                        // Loop to print out all of the rows
+                        for (user us : user) {%>
                 <tr>
                     <td><%=us.getUserId()%></td>
                     <td><%=us.getUsername()%></td>

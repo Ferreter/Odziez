@@ -82,7 +82,7 @@
                                         </div>
                                         <div class="form-outline mb-4">
                                             <label class="form-label" for="form2Example17">Date Of Birth:</label>
-                                            <input  type="date" autocomplete="off" required="" id="form2Example17" name="dob"   class="form-control form-control-lg" />
+                                            <input  type="date" autocomplete="off" required="" id="dob" name="dob"  class="form-control form-control-lg" />
                                         </div>
                                         
                                         <div class="form-check mb-4">
@@ -144,6 +144,12 @@
         </div>
     </section>
 </body>
+    <script>
+      flatpickr("#dob", {
+        maxDate: new Date().fpYearstoDate(-18),
+        dateFormat: "Y-m-d",
+      });
+    </script>
 
 <jsp:include page="../view/footer.jsp" /> 
 <%} else

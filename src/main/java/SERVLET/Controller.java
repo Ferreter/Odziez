@@ -528,11 +528,13 @@ public class Controller extends HttpServlet {
             boolean removed = userDao.removeUser(username);
 
             if (removed == true) {
-
+                
                 forwardToJsp = "view/userAdmin.jsp";
+               String success = "Action Successful";
+                session.setAttribute("successMessage", success);
             } else {
                 forwardToJsp = "controller/error.jsp";
-                String error = "user doesnt exists <a href=\"userAdmin.jsp\">try again.</a>";
+                String error = "user doesnt exists <a href=\"../view/userAdmin.jsp\">try again.</a>";
                 session.setAttribute("errorMessage", error);
             }
         } else {
