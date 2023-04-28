@@ -4,6 +4,7 @@
     Author     : hkhat
 --%>
 
+<%@page import="java.util.Collections"%>
 <%@page import="DAO.UserDaoInterface"%>
 <%@page import="DAO.UserDao"%>
 <%@page import="DTO.user"%>
@@ -26,6 +27,7 @@
 <%session.setAttribute("product", p);%>
 <%UserDao udao = new UserDao("clothes_shop");%>
 <%UserDaoInterface userdao = new UserDao("clothes_shop");%>
+<%List<products> prods = productdao.ListAllProducts();%>
 
 <!-- Product section-->
 <section class="py-5">
@@ -95,52 +97,43 @@
                             Wishlist
 
                     </form>
-                        <script>
-function addToCart() {
-  alert("Item added to cart!");
-  return true;
-}
-</script>
+                    <script>
+                        function addToCart() {
+                            alert("Item added to cart!");
+                            return true;
+                        }
+                    </script>
                 </div>
             </div>
         </div>
     </div>
     <div class="container-fluid" style="margin-bottom: 50px;padding-top:20px; border-top: 2px solid white" >
-        <p class="lead text-center">Coustomer Favourite Brands</p>
+        <p class="lead text-center">You Also Might like</p>
         <div class="row">
-            <div class="col-lg-3 col-md-3 col-xs-12 ">
-                <a href="#" style="color:white;">
-                    <div class="text-center p-3">
-                        <img src="../media/products/hmimg.jpg" alt="hoodie" class="product-categorie img-responsive" width="264px" height="396px"/>
-                        <p style="padding-top: 5px;  font-size: 22px;" >Palm Angels </p>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-3 col-xs-12  ">
-                <a href="#" style="color:white;">
-                    <div class=" text-center p-3">
-                        <img src="../media/products/hmimg3.jpg" alt="hoodie" class="product-categorie img-responsive"/>
-                        <p style="padding-top: 5px;  font-size: 22px;" >Balenciaga </p>
-                    </div>
-                </a>
-            </div>
+            <%
+                if (prods != null && !prods.isEmpty()) {
+                    // Shuffle the products list
+                    Collections.shuffle(prods);
+
+                    // Loop to print out four random products
+                    for (int i = 0; i < 4; i++) {
+                        products Products = prods.get(i);
+            %>
+            <!-- Code to display the product -->
 
             <div class="col-lg-3 col-md-3 col-xs-12 ">
-                <div class="text-center p-3">
-                    <a href="#" style="color:white;">
-                        <img src="../media/products/hmimg2.jpg" alt="hoodie" class="product-categorie img-responsive"/>
-                        <p style="padding-top: 5px;  font-size: 22px;" >Broken Planet </p>
-                </div>
+                <a href="../view/individualProduct.jsp?ID=<%=Products.getProductId()%>" style="color:white;">
+                    <div class="text-center p-3">
+                        <img src="../media/products/<%=Products.getProductId()%>2.jpg" alt="hoodie" class="product-categorie img-responsive" width="500px" height="500px"/>
+                        <p style="padding-top: 5px;  font-size: 22px;" ><%= Products.getName()%> </p>
+                    </div>
                 </a>
             </div>
-            <div class="col-lg-3 col-md-3 col-xs-12 ">
-                <div class="text-center p-3">
-                    <a href="#" style="color:white;">
-                        <img src="../media/products/hmimg2.jpg" alt="hoodie" class="product-categorie img-responsive"/>
-                        <p style="padding-top: 5px;  font-size: 22px;" >Prada </p>
-                </div>
-                </a>
-            </div>
+            <%
+                    }
+                }
+            %>
+
         </div>
     </div>
     <!-- Review Section -->
@@ -171,7 +164,7 @@ function addToCart() {
                         %>
                         <input class="btn btn-dark btn-lg btn-block" type="submit" name="action" value="EnterReview">
                         <%
-                            } else {
+                        } else {
                         %>
                         <h5 class="text-center mb-4">Login or Signup to Review the Product</h5>
                         <%
@@ -188,9 +181,7 @@ function addToCart() {
 
                     <h2 class="text-center mb-4">Previous Reviews</h2>
                     <%    if (reviews
-
-                        != null && !reviews.isEmpty () 
-                            ) {
+                                != null && !reviews.isEmpty()) {
                             // Loop to print out all of the rows
                             for (review r : reviews) {
 
@@ -206,12 +197,8 @@ function addToCart() {
                         </div>
                     </div>
                     <%
-                            }
                         }
-
-                        
-                        
-                    else {
+                    } else {
                     %>
                     <p class="card-text">no reviews for this product yet</p>
                     <%

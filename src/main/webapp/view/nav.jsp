@@ -9,14 +9,11 @@
 <!-- Top Nav Bar with logo-->
 <nav class="navbar-light bg-light">
     <a class="navbar-brand logo" style="padding-left: 45%; font-size: 45px;" href="#">Odziez</a>
-
-
-
 </nav>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav navbar-left">
+        <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class="nav-link" href="../controller/index.jsp">Home <span class="sr-only">(current)</span></a>
             </li>

@@ -54,3 +54,8 @@ bottom: .5em;
 #dtDynamicVerticalScrollExample{
     max-height: 100px;
 }
+
+input[type="radio"] {
+  margin-top: -1px;
+  vertical-align: middle;
+}
