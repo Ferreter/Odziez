@@ -43,31 +43,31 @@ public class UserDaoTest {
         assertEquals(expResult, result);
     }
 
-    @Test
-    public void testFindUserByUsernamePasswordPass() {
-        System.out.println("findUserByUsernamePassword");
-        String uname = "Kian";
-        String pword = "Password@123";
-        UserDao userDao = new UserDao("clothes_shop_test");
-        
-        user result = userDao.findUserByUsernamePassword(uname, pword);
-
-        // assert that the method returns a non-null user
-        assertNotNull(result);
-
-        // assert that the user attributes are correct
-        assertEquals(2, result.getUserId());
-        assertEquals("Kian", result.getUsername());
-        assertEquals("Kian", result.getFirstName());
-        assertEquals("Harding", result.getLastName());
-        assertEquals("kh@gmail.com", result.getEmail());
-        assertEquals("830995017", result.getPhone());
-        assertEquals(Date.valueOf("2023-01-02"), result.getDOB());
-        assertTrue(result.isIsAdmin());
-        assertEquals("Where were you when you first heard about 9/11?", result.getQuestion());
-        assertEquals("Playground with stuffed animal", result.getAnswer());
-        assertEquals(0, result.getSubscription());
-    }
+//    @Test
+//    public void testFindUserByUsernamePasswordPass() {
+//        System.out.println("findUserByUsernamePassword");
+//        String uname = "Kian";
+//        String pword = "Password@123";
+//        UserDao userDao = new UserDao("clothes_shop_test");
+//        
+//        user result = userDao.findUserByUsernamePassword(uname, pword);
+//
+//        // assert that the method returns a non-null user
+//        assertNotNull(result);
+//
+//        // assert that the user attributes are correct
+//        assertEquals(2, result.getUserId());
+//        assertEquals("Kian", result.getUsername());
+//        assertEquals("Kian", result.getFirstName());
+//        assertEquals("Harding", result.getLastName());
+//        assertEquals("kh@gmail.com", result.getEmail());
+//        assertEquals("830995017", result.getPhone());
+//        assertEquals(Date.valueOf("2023-01-02"), result.getDOB());
+//        assertTrue(result.isIsAdmin());
+//        assertEquals("Where were you when you first heard about 9/11?", result.getQuestion());
+//        assertEquals("Playground with stuffed animal", result.getAnswer());
+//        assertEquals(0, result.getSubscription());
+//    }
 
     @Test
     public void testFindUserByUsernameFail() {

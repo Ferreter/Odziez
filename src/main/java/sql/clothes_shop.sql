@@ -47,7 +47,7 @@ CREATE TABLE `address` (
 --
 
 INSERT INTO `address` (`AddressId`, `UserId`, `Address1`, `Address2`, `Address3`, `City`, `County`, `Country`, `Pincode`) VALUES
-(1, 7, '18 Home', 'Drim', 'crk', 'IE-CO', 'IE-CO', 'Ireland', '128747384787');
+(1, 7, '18 CUL NA GREINE CO.CORK', 'Home', 'Home', 'CORK', 'Cork', 'Ireland', 'P47E438');
 
 -- --------------------------------------------------------
 
@@ -72,7 +72,7 @@ CREATE TABLE `cart` (
 --
 
 CREATE TABLE `orderdetails` (
-  `orderId` int(11) NOT NULL,
+  `OrderId` int(11) NOT NULL,
   `productName` varchar(255) NOT NULL,
   `productPrice` double(6,2) NOT NULL,
   `quantity` int(11) NOT NULL
@@ -93,7 +93,21 @@ INSERT INTO `orderdetails` (`OrderId`, `productName`, `productPrice`, `quantity`
 (11, 'Prada Triangle Cotton T-shirt\r\n', 760.00, 2),
 (11, 'PARIS SPRAYED T-SHIRT\r\n', 195.00, 1),
 (12, 'Water-repellent two-way stretch technical nylon jacket\r\n', 525.00, 1),
-(13, 'Heavy-jersey hooded sweatshirt with bold rubberised logo\r\n', 345.00, 3);
+(13, 'Heavy-jersey hooded sweatshirt with bold rubberised logo\r\n', 345.00, 3),
+(14, 'HAND DRAWN BB ICON HOODIE LARGE FIT IN BLACK\r\n', 850.00, 1),
+(15, 'PALMS&SKULL LONG SLEEVED OVER TEE\r\n', 495.00, 1),
+(16, 'Prada Triangle Cotton T-shirt\r\n', 760.00, 1),
+(16, 'PARIS SPRAYED T-SHIRT\r\n', 195.00, 1),
+(17, 'Water-repellent two-way stretch technical nylon jacket\r\n', 525.00, 1),
+(17, 'Quilted water-repellent recycled nylon blazer with detachable inner panel\r\n', 675.00, 4),
+(17, 'Prada Triangle Cotton T-shirt\r\n', 760.00, 4),
+(17, 'PARIS SPRAYED T-SHIRT\r\n', 195.00, 2),
+(20, 'PARIS SPRAYED T-SHIRT\r\n', 195.00, 2),
+(21, 'Prada Triangle Cotton T-shirt\r\n', 760.00, 10),
+(22, 'Heavy-jersey hooded sweatshirt with bold rubberised logo\r\n', 345.00, 1),
+(23, 'PALMS&SKULL LONG SLEEVED OVER TEE\r\n', 495.00, 2),
+(24, 'Prada Triangle Cotton T-shirt\r\n', 760.00, 1),
+(25, 'PARIS SPRAYED T-SHIRT\r\n', 195.00, 1);
 
 -- --------------------------------------------------------
 
@@ -115,9 +129,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`orderId`, `UserId`, `AddressId`, `total`, `created_at`, `Status`) VALUES
-(11, 7, 1, 1715.00, '2023-03-29 15:35:05', ''),
-(12, 7, 1, 525.00, '2023-03-29 16:01:38', 'Confirmed '),
-(13, 7, 1, 1035.00, '2023-03-29 16:17:52', 'Confirmed ');
+(24, 7, 1, 760.00, '2023-04-19 17:54:21', 'In Transit'),
+(25, 7, 1, 195.00, '2023-04-26 16:56:48', 'Processed');
 
 -- --------------------------------------------------------
 
@@ -160,17 +173,18 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`ProductId`, `Name`, `MRP`, `CP`, `Description`, `Category`, `Tags`, `Images`, `Brand`) VALUES
-('3R1GC01NRIZ10999\r\n', 'Quilted water-repellent recycled nylon blazer with detachable inner panel\r\n', 675, 675, 'An outerwear garment made from a sustainable, unique and exclusive Korean fabric, in a deep colour, with good climatic resistance and exceptional durability, thanks to the very high-quality texture made from recycled nylon fibres, a reduced use of chemica', 'Jacket\r\n', 'Black,Jacket,Not-Printed,Normal,Formal,Relaxed,V-Neck,Nylon\r\n', '', 'Emporio Armani\r\n'),
-('3R1GC11NNIZ10999\r\n', 'Water-repellent two-way stretch technical nylon jacket\r\n', 525, 525, 'The perfect fusion of a flawless fit and a matte, stretchy, performance fabric creates a garment designed to naturally follow every movement. Jacket with zip fastening and side pockets. The garment also features several standout technical properties: it i', 'Jacket\r\n', 'Black,Jacket,Not-Printed,Normal,Formal,Relaxed,V-Neck,Nylon\r\n', '', 'Emporio Armani\r\n'),
-('3R1MDN1JWPZ10920\r\n', 'Heavy-jersey hooded sweatshirt with bold rubberised logo\r\n', 345, 345, 'Heavyweight hooded sweatshirt in pure cotton jersey. Featuring a bold logo in matching-tone rubber print on the front and back, an affirmation that the Emporio Armani logo is still a constant of undeniable style. Brushed lining.\r\n', 'Hoodie\r\n', 'Black,Hoodie,Not-Printed,Normal,Streetwear,Relaxed,U-Neck,Fleece\r\n', '', 'Armani\r\n'),
-('620973TNVQ11059\r\n', 'HAND DRAWN BB ICON HOODIE LARGE FIT IN BLACK\r\n', 850, 850, '• Curly fleece\r\n• Large fit\r\n• Hood without drawstring\r\n• 1 kangaroo pocket on front\r\n• Gathered at cuffs and waistline\r\n• Hand Drawn BB Icon artwork printed at front and back\r\n• Worn-out effect\r\n• Made in Portugal\r\n• Dry cleaning\r\n', 'Hoodie\r\n', 'Black,Hoodie,Not-Printed,Normal,Streetwear,Relaxed,U-Neck,Fleece\r\n', '', 'Balenciaga\r\n'),
-('727163TNVR31070\r\n', 'MIRROR BALENCIAGA HOODIE OVERSIZED IN BLACK\r\n', 895, 895, '\"• Medium fleece\n• This item is unisex\n• Oversize fit\n• Hood without drawstring\n• Dropped shoulder\n• 1 kangaroo pocket on front\n• Gathered at cuffs and waistline\n• Mirror Balenciaga artwork printed at front\n• Made in Portugal\n• Cold machine wash\"', 'Hoodie\r\n', 'Black,Hoodie,Printed,Normal,Streetwear,Oversized,U-Neck,Fleece\r\n', '', 'Balenciaga\r\n'),
-('PMAA001C99JER0050110\r\n', 'PARIS SPRAYED T-SHIRT\r\n', 195, 195, 'SHORT SLEEVES T-SHIRT IN WHITE WITH BLACK SPRAYED PRINT AT FRONT. CREW NECK. LOGO AND \"PARIS\" PRINTED IN BLACK AT FRONT. STRAIGHT HEM. Fabric 100% Cotton\r\n', 'T-Shirt\r\n', 'White,T-shirt,Printed,Normal,Streetwear,Oversized,U-Neck,Cotton\r\n', '', 'Palm Angels\r\n'),
-('PMAA001C99JER0171010\r\n', 'PARIS SPRAYED T-SHIRT\r\n', 195, 195, 'SHORT SLEEVES T-SHIRT IN BLACK WITH BLACK SPRAYED PRINT AT FRONT. CREW NECK. LOGO AND \"PARIS\" PRINTED IN WHITE AT FRONT. STRAIGHT HEM. Fabric 100% Cotton\r\n', 'T-Shirt\r\n', 'Black,T-Shirt,Printed,Normal,Streetwear,Oversized,U-Neck,Cotton\r\n', '', 'Palm Angels\r\n'),
-('PMAA001C99JER0241055\r\n', 'STAR SPRAYED T-SHIRT\r\n', 195, 195, 'SHORT SLEEVES T-SHIRT IN BLACK COTTON WITH \"PALM ANGELS\" LOGO AND A GREEN SPRAYED STAR GRAPHIC PRINTED AT FRONT. CREWNECK COLLAR AND DROP SHOULDERS.FABRIC 100% COTTON\r\n', 'T-Shirt\r\n', 'Black,T-Shirt,Printed,Normal,Streetwear,Oversized,U-Neck,Cotton\r\n\r\n', '', 'Palm Angels'),
-('PMAA066S23JER0021084\r\n', 'I LOVE PA CLASSIC TEE\r\n', 235, 235, '\"SHORT SLEEVES T-SHIRT IN BLACK COTTON WITH MULTICOLOR I LOVE PA GRAPHIC PRINTED AT FRONT. REGULAR FIT.\r\nFABRIC 100% COTTON\"\r\n', 'T-Shirt\r\n', 'Black,T-Shirt,Printed,Normal,Streetwear,Oversized,U-Neck,Cotton\r\n', '', 'Palm Angels\r\n'),
-('PMAB001S23JER0021055\r\n', 'PALMS&SKULL LONG SLEEVED OVER TEE\r\n', 495, 495, '\"LONG SLEEVES T-SHIRT IN BLACK COTTON FEATURING \"\"PALM ANGELS\"\" BURNING LOGO AT FRONT AND BACK. PALM TREE & SKULLS GRAPHIC AT HEM. CREWNECK COLLAR AND REGULAR FIT.\r\nFABRIC 100% COTTON\"\r\n', 'T-Shirt\r\n', 'Black,T-Shirt,Printed,Normal,Streetwear,Relaxed,U-Neck,Cotton\r\n', '', 'Palm Angels\r\n'),
-('UJN847_12VV_F0002_S_231\r\n', 'Prada Triangle Cotton T-shirt\r\n', 760, 760, 'An oversized decorative trim evoking details of Tyrolean style is reinvented with a modern twist, creating the unusual, conceptual graphic designs that enrich this classic cotton T-shirt.\n', 'T-Shirt\r\n', 'White,T-Shirt,Printed,Normal,Streetwear,Relaxed,U-Neck,Cotton\r\n', '', 'Prada');
+('3R1GC01NRIZ10999\r\n', 'Quilted water-repellent recycled nylon blazer with detachable inner panel\r\n', 675, 675, 'An outerwear garment made from a sustainable, unique and exclusive Korean fabric, in a deep colour, with good climatic resistance and exceptional durability, thanks to the very high-quality texture made from recycled nylon fibres, a reduced use of chemica', 'Jacket\r\n', 'EA, WaterRep, Nylon, Jacket, Black, Technical \r\n', '', 'Emporio Armani\r\n'),
+('3R1GC11NNIZ10999\r\n', 'Water-repellent two-way stretch technical nylon jacket\r\n', 525, 525, 'The perfect fusion of a flawless fit and a matte, stretchy, performance fabric creates a garment designed to naturally follow every movement. Jacket with zip fastening and side pockets. The garment also features several standout technical properties: it i', 'Jacket\r\n', 'EA, WaterRep, Nylon, Blazer, Quilted\r\n', '', 'Emporio Armani\r\n'),
+('3R1MDN1JWPZ10920\r\n', 'Heavy-jersey hooded sweatshirt with bold rubberised logo\r\n', 345, 345, 'Heavyweight hooded sweatshirt in pure cotton jersey. Featuring a bold logo in matching-tone rubber print on the front and back, an affirmation that the Emporio Armani logo is still a constant of undeniable style. Brushed lining.\r\n', 'Hoodie\r\n', 'Armani, Hoodie, Black, Large, Printed\r\n', '', 'Armani\r\n'),
+('620973TNVQ11059\r\n', 'HAND DRAWN BB ICON HOODIE LARGE FIT IN BLACK\r\n', 850, 850, '• Curly fleece\r\n• Large fit\r\n• Hood without drawstring\r\n• 1 kangaroo pocket on front\r\n• Gathered at cuffs and waistline\r\n• Hand Drawn BB Icon artwork printed at front and back\r\n• Worn-out effect\r\n• Made in Portugal\r\n• Dry cleaning\r\n', 'Hoodie\r\n', 'Armani, Hoodie, Black\r\n', '', 'Balenciaga\r\n'),
+('727163TNVR31070\r\n', 'MIRROR BALENCIAGA HOODIE OVERSIZED IN BLACK\r\n', 895, 895, '\"• Medium fleece\n• This item is unisex\n• Oversize fit\n• Hood without drawstring\n• Dropped shoulder\n• 1 kangaroo pocket on front\n• Gathered at cuffs and waistline\n• Mirror Balenciaga artwork printed at front\n• Made in Portugal\n• Cold machine wash\"', 'Hoodie\r\n', 'Balenciaga, Hoodie, Black, Oversized, Printed\r\n', '', 'Balenciaga\r\n'),
+('PMAA001C99JER0050110\r\n', 'PARIS SPRAYED T-SHIRT\r\n', 195, 195, 'SHORT SLEEVES T-SHIRT IN WHITE WITH BLACK SPRAYED PRINT AT FRONT. CREW NECK. LOGO AND \"PARIS\" PRINTED IN BLACK AT FRONT. STRAIGHT HEM. Fabric 100% Cotton\r\n', 'T-Shirt\r\n', 'PalmAngels, T-Shirt, White, Printed\r\n', '', 'Palm Angels\r\n'),
+('PMAA001C99JER0171010\r\n', 'PARIS SPRAYED T-SHIRT\r\n', 195, 195, 'SHORT SLEEVES T-SHIRT IN BLACK WITH BLACK SPRAYED PRINT AT FRONT. CREW NECK. LOGO AND \"PARIS\" PRINTED IN WHITE AT FRONT. STRAIGHT HEM. Fabric 100% Cotton\r\n', 'T-Shirt\r\n', 'PalmAngels, T-Shirt, Black, Printed\r\n', '', 'Palm Angels\r\n'),
+('PMAA001C99JER0241055\r\n', 'STAR SPRAYED T-SHIRT\r\n', 195, 195, 'SHORT SLEEVES T-SHIRT IN BLACK COTTON WITH \"PALM ANGELS\" LOGO AND A GREEN SPRAYED STAR GRAPHIC PRINTED AT FRONT. CREWNECK COLLAR AND DROP SHOULDERS.FABRIC 100% COTTON\r\n', 'T-Shirt\r\n', 'Palm Angels,, T-Shirt, Black, Printed\n\n', '', 'Palm Angels'),
+('PMAA066S23JER0021084\r\n', 'I LOVE PA CLASSIC TEE\r\n', 235, 235, '\"SHORT SLEEVES T-SHIRT IN BLACK COTTON WITH MULTICOLOR I LOVE PA GRAPHIC PRINTED AT FRONT. REGULAR FIT.\r\nFABRIC 100% COTTON\"\r\n', 'T-Shirt\r\n', 'PalmAngels, T-Shirt, Black, Printed\r\n', '', 'Palm Angels\r\n'),
+('PMAB001S23JER0021055\r\n', 'PALMS&SKULL LONG SLEEVED OVER TEE\r\n', 495, 495, '\"LONG SLEEVES T-SHIRT IN BLACK COTTON FEATURING \"\"PALM ANGELS\"\" BURNING LOGO AT FRONT AND BACK. PALM TREE & SKULLS GRAPHIC AT HEM. CREWNECK COLLAR AND REGULAR FIT.\r\nFABRIC 100% COTTON\"\r\n', 'T-Shirt\r\n', 'PalmAngels, T-Shirt, Black, Printed, Long Sleeve\r\n', '', 'Palm Angels\r\n'),
+('UJN847_12VV_F0002_S_231\r\n', 'Prada Triangle Cotton T-shirt\r\n', 760, 760, 'An oversized decorative trim evoking details of Tyrolean style is reinvented with a modern twist, creating the unusual, conceptual graphic designs that enrich this classic cotton T-shirt.\n', 'T-Shirt\r\n', 'Prada, T-Shirt, White, Printed\n\n', '', 'Prada');
+
 -- --------------------------------------------------------
 
 --
@@ -237,7 +251,19 @@ INSERT INTO `review` (`reviewId`, `ProductId`, `UserId`, `rating`, `review`, `re
 (44, 'UJN847_12VV_F0002_S_231\r\n', 3, 4, 'I\'m really happy with this purchase. The t-shirt is comfortable and fits well. The only downside is that it\'s a bit expensive.', '2022-08-01'),
 (45, 'UJN847_12VV_F0002_S_231\r\n', 4, 2, 'I was really disappointed with this t-shirt. The quality is poor and the fit is not good. Would not recommend.', '2022-09-01'),
 (46, 'UJN847_12VV_F0002_S_231\r\n', 5, 3, 'The t-shirt is okay, but nothing special. The quality is average and the design is a bit boring.', '2022-10-01'),
-(50, 'PMAA001C99JER0241055\r\n', 21, 5, 'Comfy', '2023-03-20');
+(50, 'PMAA001C99JER0241055\r\n', 21, 5, 'Comfy', '2023-03-20'),
+(51, 'UJN847_12VV_F0002_S_231\r\n', 9, 5, 'menii sika biossu', '2023-03-30');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `salt`
+--
+
+CREATE TABLE `salt` (
+  `username` varchar(255) NOT NULL,
+  `salt` varchar(16) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -303,7 +329,10 @@ INSERT INTO `user` (`UserId`, `username`, `password`, `FirstName`, `Lastname`, `
 (4, 'Deji', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Destiny', 'Wassup', 'deji@gmail.com', 830995017, 'What was the name of your first stuffed animal?', 'Kakashi Hatake', '2023-01-02', 0, 1),
 (5, 'Ruth', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Catherine', 'Mc Keever', 'ruth.mckeever@dkit.ie', 830995017, 'What was the name of your first stuffed animal?', 'Pingu', '2023-01-02', 0, 0),
 (6, 'Michelle', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Michelle', 'Graham', 'Michelle.Graham@dkit.ie', 830995017, 'What was the name of your first stuffed animal?', 'Mr Rhino', '2023-01-02', 0, 0),
-(7, 'Bhig', '214c8377ffb724150205789f4a593a6182b66f56eca714a53bb7493a7391e0d8', 'Bhig', 'Khali', 'amicusyaba@yahoo.com', 894355518, 'To what city did you go on your honeymoon?', 'Singapore', '2000-05-09', 0, 1);
+(7, 'Bhig', '214c8377ffb724150205789f4a593a6182b66f56eca714a53bb7493a7391e0d8', 'biggaaaa', 'dhfhfs', 'attanyarkomeshach@gmail.com', 876352637, 'To what city did you go on your honeymoon?', 'Singapore', '2000-10-10', 1, 1),
+(9, 'awwmee19', '172620255ee20252a50f83ad088a6f499750ae17dfe3a4e50b0c321f05e632fe', 'aww', 'mee', 'awwmee19@gmail.com', 876018205, 'What was the first concert you attended?', 'wo nana to jams', '1999-05-21', NULL, 0),
+(13, 'kaka', 'GTHk9Xuo8PsoMeQZFncWnVbL/d48KirW6dfrBSqpjCE=', 'kjahjka', 'khkhjh', 'ajgjkga@gmail.com', 876263784, 'What was a thing you did as a child which was unique?', 'jggj', '2000-10-10', NULL, 1),
+(14, 'sad', 'qGzFYKnXHSJnqmQZT6sL4wfGu5fFIe1eFqGyr3ZqczI=', 'sgjgdh', 'djghjghjd', 'shjghjghj@gmail.com', 876527364, 'What was the first concert you attended?', 'fjhjhf', '2000-08-09', NULL, 0);
 
 --
 -- Indexes for dumped tables
@@ -357,6 +386,12 @@ ALTER TABLE `review`
   ADD PRIMARY KEY (`reviewId`);
 
 --
+-- Indexes for table `salt`
+--
+ALTER TABLE `salt`
+  ADD KEY `salt_ibfk_1` (`username`);
+
+--
 -- Indexes for table `stock`
 --
 ALTER TABLE `stock`
@@ -378,31 +413,31 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `address`
 --
 ALTER TABLE `address`
-  MODIFY `AddressId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `AddressId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `review`
 --
 ALTER TABLE `review`
-  MODIFY `reviewId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `reviewId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `UserId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `UserId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables
@@ -413,12 +448,6 @@ ALTER TABLE `user`
 --
 ALTER TABLE `address`
   ADD CONSTRAINT `address_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `user` (`UserId`);
-
---
--- Constraints for table `orderdetails`
---
-ALTER TABLE `orderdetails`
-  ADD CONSTRAINT `orderdetails_ibfk_1` FOREIGN KEY (`OrderId`) REFERENCES `orders` (`orderId`);
 
 --
 -- Constraints for table `orders`
@@ -432,6 +461,12 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `productfilter`
   ADD CONSTRAINT `productfilter_ibfk_1` FOREIGN KEY (`ProductId`) REFERENCES `products` (`ProductId`);
+
+--
+-- Constraints for table `salt`
+--
+ALTER TABLE `salt`
+  ADD CONSTRAINT `salt_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`);
 
 --
 -- Constraints for table `stock`

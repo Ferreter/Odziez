@@ -8,8 +8,10 @@ import DTO.products;
 import DTO.user;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,81 +36,101 @@ public class UserDao extends Dao implements UserDaoInterface {
      */
     @Override
     public user findUserByUsernamePassword(String uname, String pword) {
-        Connection con = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        user u = null;
-        try {
-            con = this.getConnection();
+    Connection con = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    PreparedStatement ps2 = null;
+    ResultSet rs2 = null;
+    user u = null;
+    try {
+        con = this.getConnection();
 
-            String query = "SELECT * FROM user WHERE username = ? AND password = ?";
+        // Retrieve the user's data from the user table
+        String query = "SELECT * FROM user WHERE username=?";
+        ps = con.prepareStatement(query);
+        ps.setString(1, uname);
+        rs = ps.executeQuery();
 
-            //Password to harsh Variable
-            String Pass = pword;
-            // salt String to add to SHA abbreviation of teammate names
-            String salt = "ferkhki";
-            // Variable to store Generated secure hashed and saltes password
-            String hashPass = null;
-            ps = con.prepareStatement(query);
+        if (rs.next()) {
+            // Get the hashed password and salt for the user
+            int UserId = rs.getInt("UserId");
+            String username = rs.getString("username");
+            String password = rs.getString("password");
+            String FirstName = rs.getString("firstName");
+            String LastName = rs.getString("LastName");
+            String Email = rs.getString("email");
+            String phone = rs.getString("phone");
+            String Question = rs.getString("question");
+            String Answer = rs.getString("answer");
+            Date DOB = rs.getDate("DOB");
+            boolean isAdmin = rs.getBoolean("isAdmin");
+            int subscription = rs.getInt("subscription");
+            String storedSalt = null;
 
-            MessageDigest sha = MessageDigest.getInstance("SHA-256");
+            // Retrieve the user's salt from the salt table
+            String saltQuery = "SELECT * FROM salt WHERE username=?";
+            ps2 = con.prepareStatement(saltQuery);
+            ps2.setString(1, uname);
+            rs2 = ps2.executeQuery();
 
-            // Add password bytes to digest
-            sha.update(salt.getBytes());
-
-            // Get the hash's bytes
-            byte[] bytes = sha.digest(Pass.getBytes());
-            // This bytes[] has bytes in decimal format. Convert it to hexadecimal format
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < bytes.length; i++) {
-                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            if (rs2.next()) {
+                storedSalt = rs2.getString("salt");
             }
-            // Get complete hashed password in hex format
-            hashPass = sb.toString();
-            ps.setString(1, uname);
-            //pass hashed password as user password and compare with hashed password in database
-            ps.setString(2, hashPass);
 
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                int UserId = rs.getInt("UserId");
-                String username = rs.getString("username");
-                String password = rs.getString("password");
-                String FirstName = rs.getString("firstName");
-                String LastName = rs.getString("LastName");
-                String Email = rs.getString("email");
-                String phone = rs.getString("phone");
-                String Question = rs.getString("question");
-                String Answer = rs.getString("answer");
-                Date DOB = rs.getDate("DOB");
-                boolean isAdmin = rs.getBoolean("isAdmin");
-                int subscription = rs.getInt("subscription");
+            // Hash the entered password with the stored salt
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(Base64.getDecoder().decode(storedSalt));
+            byte[] hashedEnteredPasswordBytes = md.digest(pword.getBytes());
+            String hashedEnteredPassword = Base64.getEncoder().encodeToString(hashedEnteredPasswordBytes);
 
+            // Compare the hashed entered password with the stored hashed password
+            if (hashedEnteredPassword.equals(password)) {
+                // Create a User object and return it
                 u = new user(UserId, username, password, FirstName, LastName, Email, phone, Question, Answer, DOB, isAdmin, subscription);
+                return u;
+            }
+        }
+
+    } catch (SQLException e) {
+        System.err.println("\tA problem occurred during the findUserByUsername method:");
+        System.err.println("\t" + e.getMessage());
+    } catch (NoSuchAlgorithmException ex) {
+        Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (rs2 != null) {
+                rs2.close();
+            }
+            if (ps2 != null) {
+                ps2.close();
+            }
+            if (con != null) {
+                freeConnection(con);
             }
         } catch (SQLException e) {
-            System.err.println("\tA problem occurred during the findUserByUsernamePassword method:");
-            System.err.println("\t" + e.getMessage());
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (ps != null) {
-                    ps.close();
-                }
-                if (con != null) {
-                    freeConnection(con);
-                }
-            } catch (SQLException e) {
-                System.err.println("A problem occurred when closing down the findUserByUsernamePassword method:\n" + e.getMessage());
-            }
-
+            System.err.println("A problem occurred when closing down the findUserByUsername method:\n" + e.getMessage());
         }
-        return u;    // u may be null 
     }
+    return null;
+}
+
+private static String bytesToHex(byte[] hash) {
+    StringBuilder hexString = new StringBuilder(2 * hash.length);
+    for (byte b : hash) {
+        String hex = Integer.toHexString(0xff & b);
+        if (hex.length() == 1) {
+            hexString.append('0');
+        }
+        hexString.append(hex);
+    }
+    return hexString.toString();
+}
 
     @Override
     public boolean confirmUserByUsernamePassword(String uname, String pword) {
@@ -469,88 +491,76 @@ public class UserDao extends Dao implements UserDaoInterface {
      * database, false otherwise.
      */
     @Override
-    public boolean addUser(user u) {
-        Connection con = null;
-        PreparedStatement ps = null;
+   public boolean addUser(user u) {
+    Connection con = null;
+    PreparedStatement ps = null;
+    PreparedStatement ps2 = null;
 
-        if (findUserByUsername(u.getUsername()) == null) {
+    if (findUserByUsername(u.getUsername()) == null) {
 
+        try {
+            con = this.getConnection();
+
+            // Generate a random salt
+            SecureRandom random = new SecureRandom();
+            byte[] saltBytes = new byte[16];
+            random.nextBytes(saltBytes);
+            String salt = Base64.getEncoder().encodeToString(saltBytes);
+
+            // Hash the password with the salt
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(saltBytes);
+            byte[] hashedPasswordBytes = md.digest(u.getPassword().getBytes());
+            String hashedPassword = Base64.getEncoder().encodeToString(hashedPasswordBytes);
+
+            // Insert the user's data into the user table
+            String userQuery = "INSERT INTO user(UserId, username, password, FirstName, Lastname,  Email, Phone, Question, Answer,  DOB, subscription) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            ps = con.prepareStatement(userQuery);
+            ps.setInt(1, 0);
+            ps.setString(2, u.getUsername());
+            ps.setString(3, hashedPassword);
+            ps.setString(4, u.getFirstName());
+            ps.setString(5, u.getLastName());
+            ps.setString(6, u.getEmail());
+            ps.setString(7, u.getPhone());
+            ps.setString(8, u.getQuestion());
+            ps.setString(9, u.getAnswer());
+            ps.setDate(10, u.getDOB());
+            ps.setInt(11, u.getSubscription());
+            ps.executeUpdate();
+
+            // Insert the salt into the salt table
+            String saltQuery = "INSERT INTO salt(username, salt) VALUES (?, ?)";
+            ps2 = con.prepareStatement(saltQuery);
+            ps2.setString(1, u.getUsername());
+            ps2.setString(2, salt);
+            ps2.executeUpdate();
+
+        } catch (SQLException e) {
+            System.err.println("\tA problem occurred during the addUser method:");
+            System.err.println("\t" + e.getMessage());
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
             try {
-                con = this.getConnection();
-                // Create MessageDigest instance for SHA-256
-
-                String query = "INSERT INTO user(UserId, username, password, FirstName, Lastname,  Email, Phone, Question, Answer,  DOB, subscription) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-                /*
-                *variable to store password of user to hash
-                
-                 */
-                String Pass = u.getPassword();
-
-                /**
-                 * string to use fro salting
-                 *
-                 *
-                 */
-                String salt = "ferkhki";
-
-                /**
-                 *
-                 * variable to store secure generated password /
-                 */
-                String hashPass = null;
-                ps = con.prepareStatement(query);
-                MessageDigest sha = MessageDigest.getInstance("SHA-256");
-
-                // Add password bytes to digest
-                sha.update(salt.getBytes());
-
-                // Get the hash's bytes
-                byte[] bytes = sha.digest(Pass.getBytes());
-                // This bytes[] has bytes in decimal format. Convert it to hexadecimal format
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < bytes.length; i++) {
-                    sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+                if (ps != null) {
+                    ps.close();
                 }
-                // Get complete hashed password in hex format
-                hashPass = sb.toString();
-
-                ps.setInt(1, 0);
-                ps.setString(2, u.getUsername());
-                //set hashed password as user password
-                ps.setString(3, hashPass);
-                ps.setString(4, u.getFirstName());
-                ps.setString(5, u.getLastName());
-                ps.setString(6, u.getEmail());
-                ps.setString(7, u.getPhone());
-                ps.setString(8, u.getQuestion());
-                ps.setString(9, u.getAnswer());
-                ps.setDate(10, u.getDOB());
-                ps.setInt(11, u.getSubscription());
-
-                ps.execute();
+                if (ps2 != null) {
+                    ps2.close();
+                }
+                if (con != null) {
+                    freeConnection(con);
+                }
             } catch (SQLException e) {
-                System.err.println("\tA problem occurred during the addUser method:");
-                System.err.println("\t" + e.getMessage());
-            } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
-            } finally {
-                try {
-                    if (ps != null) {
-                        ps.close();
-                    }
-                    if (con != null) {
-                        freeConnection(con);
-                    }
-                } catch (SQLException e) {
-                    System.err.println("A problem occurred when closing down the addUser method:\n" + e.getMessage());
-                }
+                System.err.println("A problem occurred when closing down the addUser method:\n" + e.getMessage());
             }
-            return true;
-        } else {
-            return false;
         }
+        return true;
+    } else {
+        return false;
     }
+}
 
     /**
      *
@@ -720,86 +730,65 @@ public class UserDao extends Dao implements UserDaoInterface {
      * @throws NoSuchAlgorithmException if SHA-256 encryption is not available
      */
     @Override
-    public boolean updatePass(user u, String password) {
-        Connection con = null;
-        PreparedStatement ps = null;
-        boolean update = false;
+    public boolean updatePass(user u, String newPassword) {
+    Connection con = null;
+    PreparedStatement ps = null;
+    PreparedStatement ps2 = null;
+    boolean update = false;
 
+    try {
+        con = this.getConnection();
+
+        // Generate a random salt
+        SecureRandom random = new SecureRandom();
+        byte[] saltBytes = new byte[16];
+        random.nextBytes(saltBytes);
+        String salt = Base64.getEncoder().encodeToString(saltBytes);
+
+        // Hash the new password with the salt
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        md.update(saltBytes);
+        byte[] hashedPasswordBytes = md.digest(newPassword.getBytes());
+        String hashedPassword = Base64.getEncoder().encodeToString(hashedPasswordBytes);
+
+        // Insert the salt into the salt table
+        String saltQuery = "INSERT INTO salt(username, salt) VALUES (?, ?)";
+        ps = con.prepareStatement(saltQuery);
+        ps.setString(1, u.getUsername());
+        ps.setString(2, salt);
+        ps.executeUpdate();
+
+        // Update the user's password in the user table
+        String userQuery = "UPDATE user SET password = ? WHERE username = ?";
+        ps2 = con.prepareStatement(userQuery);
+        ps2.setString(1, hashedPassword);
+        ps2.setString(2, u.getUsername());
+        ps2.executeUpdate();
+
+        update = true;
+    } catch (SQLException e) {
+        System.err.println("\tA problem occurred during the updatePass method:");
+        System.err.println("\t" + e.getMessage());
+    } catch (NoSuchAlgorithmException ex) {
+        Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
         try {
-
-            con = this.getConnection();
-            // Create MessageDigest instance for SHA-256
-
-            /**
-             * Query to update pass
-             *
-             *
-             */
-            String query = "UPDATE  user SET password = ? WHERE username = ?";
-
-            /*user password with new password ?
-                *
-                
-             */
-            String Pass = password;
-
-            /**
-             * string to use fro salting
-             *
-             *
-             */
-            String salt = "ferkhki";
-
-            /**
-             *
-             * variable to store secure generated password /
-             */
-            String hashPass = null;
-            ps = con.prepareStatement(query);
-//                ps.setString(0, u.getUsername());
-            ps.setString(1, u.getPassword());
-            MessageDigest sha = MessageDigest.getInstance("SHA-256");
-
-            // Add password bytes to digest
-            sha.update(salt.getBytes());
-
-            // Get the hash's bytes
-            byte[] bytes = sha.digest(Pass.getBytes());
-            // This bytes[] has bytes in decimal format. Convert it to hexadecimal format
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < bytes.length; i++) {
-                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            if (ps != null) {
+                ps.close();
             }
-            // Get complete hashed password in hex format
-            hashPass = sb.toString();
-
-            //set hashed password as user password
-            ps.setString(1, hashPass);
-            ps.setString(2, u.getUsername());
-
-            ps.executeUpdate();
-            update = true;
+            if (ps2 != null) {
+                ps2.close();
+            }
+            if (con != null) {
+                freeConnection(con);
+            }
         } catch (SQLException e) {
-
-            System.err.println("\tA problem occurred during the updatePass method:");
-            System.err.println("\t" + e.getMessage());
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-                if (con != null) {
-                    freeConnection(con);
-                }
-            } catch (SQLException e) {
-                System.err.println("A problem occurred when closing down the updatePass method:\n" + e.getMessage());
-            }
+            System.err.println("A problem occurred when closing down the updatePass method:\n" + e.getMessage());
         }
-
-        return update;
     }
+
+    return update;
+}
 
     public boolean addReset(String email, String token) {
         Connection con = null;

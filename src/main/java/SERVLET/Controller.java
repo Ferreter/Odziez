@@ -314,17 +314,21 @@ public class Controller extends HttpServlet {
          String county = request.getParameter("county");
         String country = request.getParameter("country");
         String pincode = request.getParameter("pincode");
-        
+        String username = request.getParameter("username");
+    String password = request.getParameter("password");
+
        
        
-        if (address1 != null && address2 != null && address3 != null && city != null && !address1.isEmpty() && !address2.isEmpty() && !address3.isEmpty() && !city.isEmpty()) {
+        if (address1 != null  && city != null && !address1.isEmpty() && !address2.isEmpty() && !address3.isEmpty() && !city.isEmpty() && password != null && !password.isEmpty()) {
             UserDao userDao = new UserDao("clothes_shop");
             AddressDao addressDao = new AddressDao("clothes_shop");
              user u = (user) session.getAttribute("user");
             address add = addressDao.AddressByUserId(u.getUserId());
-            
+            session.setAttribute("address", add);
             address a = (address) session.getAttribute("address");
-            if (add != null) {
+            
+             boolean passwordMatch = userDao.confirmUserByUsernamePassword(username, password);
+            if (add != null && !passwordMatch) {
 
                 
 

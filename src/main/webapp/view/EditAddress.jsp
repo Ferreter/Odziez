@@ -11,7 +11,7 @@
 <%
     user u = (user) session.getAttribute("user");
     if (u != null) {
-    address a = (address) session.getAttribute("address");
+        address a = (address) session.getAttribute("address");
         AddressDao adao = new AddressDao("clothes_shop");
 
         address add = adao.AddressByUserId(u.getUserId());
@@ -60,9 +60,49 @@
                             <label class="form-label" for="form2Example17">PostCode</label>
                             <input type="text" id="form2Example17" name="pincode" placeholder="<%= add.getPincode()%>" class="form-control form-control-lg" />
                         </div><!-- comment -->
-                        <div class="pt-1 mb-4">
-                            <input class="btn btn-dark btn-lg btn-block" type="submit" name="action" value="Update Address">
+                        <div class="form-check mb-4">
+                            <input type="checkbox" name="newAdd" id="editConfirm" value="on">
+                            <label class="form-check-label" for="newAdd">Confirm Edit</label>
                         </div>
+                        <div id="editForm" style="display: none;">
+                            <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 0px;">Confirm Edit</h3>
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="form2Example17">Username</label>
+                                <input  type="text" id="form2Example17" name="username"   class="form-control form-control-lg" />
+
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="form2Example27">Password</label>
+                                <input type="password"  id="form2Example27" name="password" class="form-control form-control-lg" />
+
+                            </div>
+
+                            <div class="pt-1 mb-4">
+                                <input class="btn btn-dark btn-lg btn-block" type="submit" name="action" value="Update Address">
+                            </div>
+
+                        </div>
+                        <script>
+                            // Get references to the checkbox and the new address form
+
+                            const editConfirmBox = document.getElementById('editConfirm');
+                            const editForm = document.getElementById('editForm');
+
+                            // Add an event listener to the checkbox to toggle the visibility of the new address form
+                            editConfirmBox.addEventListener('change', () => {
+                                if (editConfirmBox.checked) {
+
+                                    editForm.style.display = 'block';
+                                } else {
+
+                                    editForm.style.display = 'none';
+                                }
+                            });
+
+
+
+                        </script>
                     </form>
                 </div>
             </div>
