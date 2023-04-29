@@ -179,7 +179,7 @@ public class Controller extends HttpServlet {
             }
         } else {
             forwardToJsp = "controller/error.jsp";
-            String error = "No username and/or password supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
+            String error = "No username and/or password supplied. Please <a href=\"../view/LoginNdRegister.jsp\">try again.</a>";
             session.setAttribute("errorMessage", error);
         }
         return forwardToJsp;
@@ -233,12 +233,12 @@ public class Controller extends HttpServlet {
                 forwardToJsp = "controller/index.jsp";
             } else {
                 forwardToJsp = "controller/error.jsp";
-                String error = "user already exists <a href=\"LoginNdRegister.jsp\">try again.</a>";
+                String error = "user already exists <a href=\"../view/LoginNdRegister.jsp\">try again.</a>";
                 session.setAttribute("errorMessage", error);
             }
         } else {
             forwardToJsp = "controller/error.jsp";
-            String error = "No username and/or password and/or email and/or phone and/or firstname and/or lastname supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
+            String error = "No username and/or password and/or email and/or phone and/or firstname and/or lastname supplied. Please <a href=\"../view/LoginNdRegister.jsp\">try again.</a>";
             session.setAttribute("errorMessage", error);
         }
 
@@ -292,12 +292,12 @@ public class Controller extends HttpServlet {
                 forwardToJsp = "view/LoginNdRegister.jsp";
             } else {
                 forwardToJsp = "controller/error.jsp";
-                String error = "NO User Found <a href=\"LoginNdRegister.jsp\">try again.</a>";
+                String error = "NO User Found <a href=\"../view/LoginNdRegister.jsp\">try again.</a>";
                 session.setAttribute("errorMessage", error);
             }
         } else {
             forwardToJsp = "controller/error.jsp";
-            String error = "No username and/or password and/or question and/or answer supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
+            String error = "No username and/or password and/or question and/or answer supplied. Please <a href=\"../view/LoginNdRegister.jsp\">try again.</a>";
             session.setAttribute("errorMessage", error);
         }
         return forwardToJsp;
@@ -337,12 +337,12 @@ public class Controller extends HttpServlet {
                 forwardToJsp = "view/userProfile.jsp";
             }else {
                 forwardToJsp = "controller/error.jsp";
-                String error = "NO Address found<a href=\"LoginNdRegister.jsp\">try again.</a>";
+                String error = "NO Address found<a href=\"../view/LoginNdRegister.jsp\">try again.</a>";
                 session.setAttribute("errorMessage", error);
             }
         } else {
             forwardToJsp = "controller/error.jsp";
-            String error = "Failed to retrieve address. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
+            String error = "Failed to retrieve address. Please <a href=\"../view/LoginNdRegister.jsp\">try again.</a>";
             session.setAttribute("errorMessage", error);
         }
         return forwardToJsp;
@@ -444,7 +444,7 @@ public class Controller extends HttpServlet {
             }
         } else {
             forwardToJsp = "controller/error.jsp";
-            String error = "No username and/or password supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
+            String error = "No username and/or password supplied. Please <a href=\"../view/LoginNdRegister.jsp\">try again.</a>";
             session.setAttribute("errorMessage", error);
         }
         return forwardToJsp;
@@ -521,7 +521,7 @@ public class Controller extends HttpServlet {
         if (review != null && !review.isEmpty()) {
             if (u == null) {
                 forwardToJsp = "controller/error.jsp";
-                String error = "Not Logged in please sign up to Review. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
+                String error = "Not Logged in please sign up to Review. Please <a href=\"../view/LoginNdRegister.jsp\">try again.</a>";
                 session.setAttribute("errorMessage", error);
             } else {
 
@@ -541,14 +541,14 @@ public class Controller extends HttpServlet {
                     forwardToJsp = "/Oziz/view/individualProduct.jsp?ID=" + p.getProductId();
                 } else {
                     forwardToJsp = "controller/error.jsp";
-                    String error = "No rating and/or review supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
+                    String error = "No rating and/or review supplied. Please <a href=\"../view/LoginNdRegister.jsp\">try again.</a>";
                     session.setAttribute("errorMessage", error);
                 }
             }
 
         } else {
             forwardToJsp = "controller/error.jsp";
-            String error = "No rating and/or review supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
+            String error = "No rating and/or review supplied. Please <a href=\"../view/LoginNdRegister.jsp\">try again.</a>";
             session.setAttribute("errorMessage", error);
         }
 
@@ -588,7 +588,7 @@ public class Controller extends HttpServlet {
             }
         } else {
             forwardToJsp = "controller/error.jsp";
-            String error = "No username and/or password and/or email and/or phone and/or firstname and/or lastname supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
+            String error = "No username and/or password and/or email and/or phone and/or firstname and/or lastname supplied. Please <a href=\"../view/LoginNdRegister.jsp\">try again.</a>";
             session.setAttribute("errorMessage", error);
         }
         return forwardToJsp;
@@ -612,7 +612,7 @@ public class Controller extends HttpServlet {
             }
         } else {
             forwardToJsp = "controller/error.jsp";
-            String error = "No username and/or password and/or email and/or phone and/or firstname and/or lastname supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
+            String error = "No username and/or password and/or email and/or phone and/or firstname and/or lastname supplied. Please <a href=\"../view/LoginNdRegister.jsp\">try again.</a>";
             session.setAttribute("errorMessage", error);
         }
         return forwardToJsp;
@@ -645,13 +645,13 @@ public class Controller extends HttpServlet {
                 forwardToJsp = "view/productAdmin.jsp";
             } else {
                 forwardToJsp = "controller/error.jsp";
-                String error = "Not enough info supplied. Please <a href=\"productAdmin.jsp\">try again.</a>";
+                String error = "Not enough info supplied. Please <a href=\"../view/productAdmin.jsp\">try again.</a>";
                 session.setAttribute("errorMessage", error);
             }
 
         } else {
             forwardToJsp = "controller/error.jsp";
-            String error = "Not enough info supplied. Please <a href=\"productAdmin.jsp\">try again.</a>";
+            String error = "Not enough info supplied. Please <a href=\"../view/productAdmin.jsp\">try again.</a>";
             session.setAttribute("errorMessage", error);
         }
 
@@ -782,7 +782,7 @@ public class Controller extends HttpServlet {
              }
         } else {
             forwardToJsp = "view/error.jsp";
-            String error = "No product in cart supplied. Please <a href=\"LoginNdRegister.jsp\">try again.</a>";
+            String error = "No product in cart supplied. Please <a href=\"../view/LoginNdRegister.jsp\">try again.</a>";
             session.setAttribute("errorMessage", error);
         }
 
@@ -811,7 +811,7 @@ public class Controller extends HttpServlet {
             }
         } else {
             forwardToJsp = "controller/error.jsp";
-            String error = "no productId supplied. Please <a href=\"productAdmin.jsp\">try again.</a>";
+            String error = "no productId supplied. Please <a href=\"../view/productAdmin.jsp\">try again.</a>";
             session.setAttribute("errorMessage", error);
         }
         return forwardToJsp;
@@ -879,13 +879,13 @@ public class Controller extends HttpServlet {
                 forwardToJsp = "view/productAdmin.jsp";
             } else {
                 forwardToJsp = "controller/error.jsp";
-                String error = "Not enough info supplied. Please <a href=\"productAdmin.jsp\">try again.</a>";
+                String error = "Not enough info supplied. Please <a href=\"../view/productAdmin.jsp\">try again.</a>";
                 session.setAttribute("errorMessage", error);
             }
 
         } else {
             forwardToJsp = "controller/error.jsp";
-            String error = "Not enough info supplied. Please <a href=\"productAdmin.jsp\">try again.</a>";
+            String error = "Not enough info supplied. Please <a href=\"../view/productAdmin.jsp\">try again.</a>";
             session.setAttribute("errorMessage", error);
         }
 
