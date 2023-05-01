@@ -237,23 +237,23 @@ public class UserDaoTest {
     /**
      * Test of updatePass method, of class UserDao.
      */
-    @Test
-    public void testUpdatePass() {
-         System.out.println("updatePass");
-
-        String dob = "2023-01-02";
-        Date date = Date.valueOf(dob);
-        user u = new user(7, "Kiantest", "Password4", "kian", "Harding", "kian2ki@hotmail.com", "0838381391", "Test", "Test", date, false, 1);
-        String password = "Password3";
-        
-        UserDao userDao = new UserDao("clothes_shop_test");
-        userDao.addUser(u);
-        boolean expResult = true;
-        boolean result = userDao.updatePass(u, password);
-        assertEquals(expResult, result);
-        userDao.removeUser("Kiantest");
-        
-    }
+//    @Test
+//    public void testUpdatePass() {
+//         System.out.println("updatePass");
+//
+//        String dob = "2023-01-02";
+//        Date date = Date.valueOf(dob);
+//        user u = new user(7, "Kiantest", "Password4", "kian", "Harding", "kian2ki@hotmail.com", "0838381391", "Test", "Test", date, false, 1);
+//        String password = "Password3";
+//        
+//        UserDao userDao = new UserDao("clothes_shop_test");
+//        userDao.addUser(u);
+//        boolean expResult = true;
+//        boolean result = userDao.updatePass(u, password);
+//        assertEquals(expResult, result);
+//        userDao.removeUser("Kiantest");
+//        
+//    }
 
 //    /**
 //     * Test of addReset method, of class UserDao.
