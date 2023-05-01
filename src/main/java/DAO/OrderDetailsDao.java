@@ -71,7 +71,7 @@ public class OrderDetailsDao extends Dao implements OrderDetailsDaoInterface {
             con = this.getConnection();
             OrderDao Odao = new OrderDao("clothes_shop");
             OrderDaoInterface Orderdao = new OrderDao("clothes_shop");
-            List<orders> orders = Orderdao.findOrdersByUserId(UserId);
+            List<orders> orders = Orderdao.findOrdersByOrderId(UserId);
             for (orders order : orders) {
                 String query = "SELECT * FROM orderdetails WHERE OrderId = ?";
                 ps = con.prepareStatement(query);

@@ -17,6 +17,7 @@ public interface OrderDaoInterface {
     public boolean addOrder(orders u);
     public int getLastIndex() ;
     public List<orders> findOrdersByUserId(int UserId);
+    public List<orders> findOrdersByOrderId(int ordersId);
     public boolean ChangeStatus(int Id,String Changed);
      public List<orders> AllOrders();
 

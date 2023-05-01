@@ -75,9 +75,9 @@
     UserDaoInterface userdao = new UserDao("clothes_shop");
     AddressDao AddDao = new AddressDao("clothes_shop");
     List<orders> orders = Orderdao.findOrdersByUserId(u.getUserId());
-    // If there is a Products list returned (and it's not empty)
+    
 
-    // Carrying out this check avoids the page breaking when the session times out
+    
 %>
 
   
@@ -87,6 +87,7 @@
                     <thead>
                         <tr>
                             <th>Order ID</th>
+                            <th>Product Names:</th>
                             <th>Address</th>
                             <th>Total</th>
                             <th>Status</th>
@@ -96,20 +97,36 @@
             {
                 // Loop to print out all of the rows
                
-                for(orders ord : orders){
-                    address add = AddDao.AddressByUserId(ord.getUserId());
-        %>
+              
+for (orders ord : orders) {
+    address add = AddDao.AddressByUserId(ord.getUserId());
+%>
+    <tbody>
+        <tr>
+            <td><%= ord.getOrderId() %></td>
+            <td colspan="4">
+                <table>
                     <tbody>
                         <tr>
-                            <td><%=ord.getOrderId()%></td>
-                            <td><%=add.getAddress1()%></td>
-                            <td><%=ord.getTotal()%></td>
-                            <td><%=ord.getStatus()%></td>
+                            <th>Product Name</th>
                         </tr>
+                        <% List<OrderDetails> ordersdetail = OrderDetailsDao.findOrderDetailsById(ord.getOrderId());
+                        for (OrderDetails det : ordersdetail) { %>
+                            <tr>
+                                <td><%= det.getProductName() %></td>
+                            </tr>
+                        <% } %>
                     </tbody>
-                        <%
-                            }
-                
+                </table>
+            </td>
+            <td><%= add.getAddress1() %></td>
+            <td><%= ord.getTotal() %></td>
+            <td><%= ord.getStatus() %></td>
+
+        </tr>
+    </tbody>
+<%
+    }        
 }else{
 %>
 no orders
