@@ -34,25 +34,166 @@
     <div class="container-fluid px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-7">
-
-
                 <div class="row">
-                    <div class =" col-md-6">
-                        <img class="card-img-top mb-5 mb-md-0" src="../media/products/<%=p.getProductId()%>1.jpg"" alt="..." />
+                    <div class="col-md-6">
+                        <a href="#" data-toggle="modal" data-target="#exampleModal1">
+                            <img class="card-img-top mb-5 mb-md-0" src="../media/products/<%=p.getProductId()%>1.jpg" alt="..." />
+                        </a>
                     </div>
-                    <div class =" col-md-6">
-                        <img class="card-img-top mb-5 mb-md-0" src="../media/products/<%=p.getProductId()%>2.jpg"" alt="..." />
+                    <div class="col-md-6">
+                        <a href="#" data-toggle="modal" data-target="#exampleModal2">
+                            <img class="card-img-top mb-5 mb-md-0" src="../media/products/<%=p.getProductId()%>2.jpg" alt="..." />
+                        </a>
                     </div>
-                    <div class =" col-md-6" style="margin-top: 20px">
-                        <img class="card-img-top mb-5 mb-md-0" src="../media/products/<%=p.getProductId()%>3.jpg"" alt="..." />
+                    <div class="col-md-6" style="margin-top: 20px">
+                        <a href="#" data-toggle="modal" data-target="#exampleModal3">
+                            <img class="card-img-top mb-5 mb-md-0" src="../media/products/<%=p.getProductId()%>3.jpg" alt="..." />
+                        </a>
                     </div>
-                    <div class =" col-md-6" style="margin-top: 20px">
-                        <img class="card-img-top mb-5 mb-md-0" src="../media/products/<%=p.getProductId()%>4.jpg"" alt="..." />
+                    <div class="col-md-6" style="margin-top: 20px">
+                        <a href="#" data-toggle="modal" data-target="#exampleModal4">
+                            <img class="card-img-top mb-5 mb-md-0" src="../media/products/<%=p.getProductId()%>4.jpg" alt="..." />
+                        </a>
                     </div>
-
-
                 </div>
 
+                <!-- Modal -->
+                <!-- Modal 1 -->
+                <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" style="border:none">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <img src="../media/products/<%=p.getProductId()%>1.jpg" class="img-fluid">
+                            </div>
+                            <div class="modal-footer justify-content-center">
+                                <button type="button" class="btn btn-secondary prev" data-dismiss="modal" data-toggle="modal" data-target="#exampleModal4"><</button>
+                                <button type="button" class="btn btn-secondary next" data-dismiss="modal" data-toggle="modal" data-target="#exampleModal2">></button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal 2 -->
+                <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" style="border:none">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <img  src="../media/products/<%=p.getProductId()%>2.jpg" class="img-fluid">
+                            </div>
+                            <div class="modal-footer justify-content-center">
+                                <button type="button" class="btn btn-secondary prev" data-dismiss="modal" data-toggle="modal" data-target="#exampleModal1"><</button>
+                                <button type="button" class="btn btn-secondary next" data-dismiss="modal" data-toggle="modal" data-target="#exampleModal3">></button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal 3 -->
+                <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" style="border:none">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+
+                            </div>
+                            <div class="modal-body">
+                                <img  src="../media/products/<%=p.getProductId()%>3.jpg" class="img-fluid">
+                            </div>
+                            <div class="modal-footer justify-content-center">
+                                <button type="button" class="btn btn-secondary prev" data-dismiss="modal" data-toggle="modal" data-target="#exampleModal2"><</button>
+                                <button type="button" class="btn btn-secondary next" data-dismiss="modal" data-toggle="modal" data-target="#exampleModal4">></button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal 4 -->
+                <div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" style="border:none">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <img  src="../media/products/<%=p.getProductId()%>4.jpg" class="img-fluid">
+                            </div>
+                            <div class="modal-footer justify-content-center">
+                                <button type="button" class="btn btn-secondary prev" data-dismiss="modal" data-toggle="modal" data-target="#exampleModal3"><</button>
+                                <button type="button" class="btn btn-secondary next" data-dismiss="modal" data-toggle="modal" data-target="#exampleModal1">></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    var currentModal = null;
+                    var currentImage = null;
+                    var imageCount = null;
+
+                    function openModal(modalId) {
+                        currentModal = $("#" + modalId);
+                        currentImage = currentModal.find(".img-fluid:first");
+                        imageCount = currentModal.find(".img-fluid").length;
+
+                        currentModal.modal('show');
+                    }
+
+                    function closeModal() {
+                        currentModal.modal('hide');
+                        currentImage = null;
+                        imageCount = null;
+                    }
+
+                    function nextImage() {
+                        if (currentImage.next(".img-fluid").length > 0) {
+                            currentImage.hide();
+                            currentImage = currentImage.next(".img-fluid");
+                            currentImage.show();
+                        } else {
+                            currentImage.hide();
+                            currentImage = currentModal.find(".img-fluid:first");
+                            currentImage.show();
+                        }
+                    }
+
+                    function prevImage() {
+                        if (currentImage.prev(".img-fluid").length > 0) {
+                            currentImage.hide();
+                            currentImage = currentImage.prev(".img-fluid");
+                            currentImage.show();
+                        } else {
+                            currentImage.hide();
+                            currentImage = currentModal.find(".img-fluid:last");
+                            currentImage.show();
+                        }
+                    }
+
+                    $(document).ready(function () {
+                        $(".modal").on('shown.bs.modal', function () {
+                            currentModal = $(this);
+                            currentImage = currentModal.find(".img-fluid:first");
+                            imageCount = currentModal.find(".img-fluid").length;
+                        });
+                    });
+                </script>
             </div>
 
             <div class="col-md-5">
@@ -126,11 +267,11 @@
                     <div class=" p-3">
                         <img src="../media/products/<%=Products.getProductId()%>2.jpg" alt="hoodie" class="product-categorie img-responsive" width="100%" height="450"/>
                         <p style="padding-top: 5px;  font-size: 22px; " ><%= Products.getName()%> 
-                        <br> <small>
+                            <br> <small>
 
-                            <%=Products.getCP()%>
-                            <span style='float:right;'><%=Products.getBrand()%></span>
-                        </small>
+                                <%=Products.getCP()%>
+                                <span style='float:right;'><%=Products.getBrand()%></span>
+                            </small>
                         </p>
                     </div>
                 </a>

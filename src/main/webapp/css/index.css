@@ -59,3 +59,7 @@ input[type="radio"] {
   margin-top: -1px;
   vertical-align: middle;
 }
+
+.modal-dialog {
+  max-width: 30%;
+}
