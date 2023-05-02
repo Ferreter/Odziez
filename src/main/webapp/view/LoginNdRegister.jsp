@@ -10,8 +10,48 @@
     if (u == null)
     {
 %>
+
 <jsp:include page="../model/header.jsp" /> 
 <jsp:include page="../view/nav.jsp" /> 
+
+<%
+    // Get the success message variable out of the session
+    Object msg = session.getAttribute("successMessage");
+    // If there is an success message to print
+    String success = "";
+    if (msg != null) {
+        // Cast it to a String so we can use it
+        success = (String) msg;
+        // Display the message
+%>
+<script>
+     var msg = '<%= success %>';
+    swal("",msg,"success");
+</script>
+<%
+    session.removeAttribute("successMessage");
+    }
+%>
+
+<%
+    // Get the error message variable out of the session
+    Object errmsg = session.getAttribute("errorMessages");
+    // If there is an success message to print
+    String error = "";
+    if (errmsg != null) {
+        // Cast it to a String so we can use it
+        success = (String)errmsg;
+        // Display the message
+%>
+<script>
+     var msg = '<%= success %>';
+    swal("",msg,"error");
+</script>
+<%
+    session.removeAttribute("errorMessages");
+    }
+%>
+
 <body>               
 
 

@@ -32,6 +32,45 @@
         if (u != null && u.isIsAdmin()) {
     // Carrying out this check avoids the page breaking when the session times out
 %>
+
+<%
+    // Get the success message variable out of the session
+    Object msg = session.getAttribute("successMessage");
+    // If there is an success message to print
+    String success = "";
+    if (msg != null) {
+        // Cast it to a String so we can use it
+        success = (String) msg;
+        // Display the message
+%>
+<script>
+     var msg = '<%= success %>';
+    swal("",msg,"success");
+</script>
+<%
+    session.removeAttribute("successMessage");
+    }
+%>
+
+<%
+    // Get the error message variable out of the session
+    Object errmsg = session.getAttribute("errorMessages");
+    // If there is an success message to print
+    String error = "";
+    if (errmsg != null) {
+        // Cast it to a String so we can use it
+        success = (String)errmsg;
+        // Display the message
+%>
+<script>
+     var msg = '<%= success %>';
+    swal("",msg,"error");
+</script>
+<%
+    session.removeAttribute("errorMessages");
+    }
+%>
+
 <!-- product section in admin -->
 <div class="container" style="margin-top: 70px; background-color: white; padding: 50px; color: black;width:70%;">
     <h3>The Product table:</h3>

@@ -28,7 +28,8 @@
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+        <!--sweetalert-->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
         <script>
 
