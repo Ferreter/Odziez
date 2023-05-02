@@ -180,10 +180,10 @@ INSERT INTO `products` (`ProductId`, `Name`, `MRP`, `CP`, `Description`, `Catego
 ('727163TNVR31070\r\n', 'MIRROR BALENCIAGA HOODIE OVERSIZED IN BLACK\r\n', 895, 895, '\"• Medium fleece\n• This item is unisex\n• Oversize fit\n• Hood without drawstring\n• Dropped shoulder\n• 1 kangaroo pocket on front\n• Gathered at cuffs and waistline\n• Mirror Balenciaga artwork printed at front\n• Made in Portugal\n• Cold machine wash\"', 'Hoodie\r\n', 'Balenciaga, Hoodie, Black, Oversized, Printed\r\n', '', 'Balenciaga\r\n'),
 ('PMAA001C99JER0050110\r\n', 'PARIS SPRAYED T-SHIRT\r\n', 195, 195, 'SHORT SLEEVES T-SHIRT IN WHITE WITH BLACK SPRAYED PRINT AT FRONT. CREW NECK. LOGO AND \"PARIS\" PRINTED IN BLACK AT FRONT. STRAIGHT HEM. Fabric 100% Cotton\r\n', 'T-Shirt\r\n', 'PalmAngels, T-Shirt, White, Printed\r\n', '', 'Palm Angels\r\n'),
 ('PMAA001C99JER0171010\r\n', 'PARIS SPRAYED T-SHIRT\r\n', 195, 195, 'SHORT SLEEVES T-SHIRT IN BLACK WITH BLACK SPRAYED PRINT AT FRONT. CREW NECK. LOGO AND \"PARIS\" PRINTED IN WHITE AT FRONT. STRAIGHT HEM. Fabric 100% Cotton\r\n', 'T-Shirt\r\n', 'PalmAngels, T-Shirt, Black, Printed\r\n', '', 'Palm Angels\r\n'),
-('PMAA001C99JER0241055\r\n', 'STAR SPRAYED T-SHIRT\r\n', 195, 195, 'SHORT SLEEVES T-SHIRT IN BLACK COTTON WITH \"PALM ANGELS\" LOGO AND A GREEN SPRAYED STAR GRAPHIC PRINTED AT FRONT. CREWNECK COLLAR AND DROP SHOULDERS.FABRIC 100% COTTON\r\n', 'T-Shirt\r\n', 'Palm Angels,, T-Shirt, Black, Printed\n\n', '', 'Palm Angels\r\n'),
+('PMAA001C99JER0241055\r\n', 'STAR SPRAYED T-SHIRT\r\n', 195, 195, 'SHORT SLEEVES T-SHIRT IN BLACK COTTON WITH \"PALM ANGELS\" LOGO AND A GREEN SPRAYED STAR GRAPHIC PRINTED AT FRONT. CREWNECK COLLAR AND DROP SHOULDERS.FABRIC 100% COTTON\r\n', 'T-Shirt\r\n', 'Palm Angels,, T-Shirt, Black, Printed\n\n', '', 'Palm Angels'),
 ('PMAA066S23JER0021084\r\n', 'I LOVE PA CLASSIC TEE\r\n', 235, 235, '\"SHORT SLEEVES T-SHIRT IN BLACK COTTON WITH MULTICOLOR I LOVE PA GRAPHIC PRINTED AT FRONT. REGULAR FIT.\r\nFABRIC 100% COTTON\"\r\n', 'T-Shirt\r\n', 'PalmAngels, T-Shirt, Black, Printed\r\n', '', 'Palm Angels\r\n'),
 ('PMAB001S23JER0021055\r\n', 'PALMS&SKULL LONG SLEEVED OVER TEE\r\n', 495, 495, '\"LONG SLEEVES T-SHIRT IN BLACK COTTON FEATURING \"\"PALM ANGELS\"\" BURNING LOGO AT FRONT AND BACK. PALM TREE & SKULLS GRAPHIC AT HEM. CREWNECK COLLAR AND REGULAR FIT.\r\nFABRIC 100% COTTON\"\r\n', 'T-Shirt\r\n', 'PalmAngels, T-Shirt, Black, Printed, Long Sleeve\r\n', '', 'Palm Angels\r\n'),
-('UJN847_12VV_F0002_S_231\r\n', 'Prada Triangle Cotton T-shirt\r\n', 760, 760, 'An oversized decorative trim evoking details of Tyrolean style is reinvented with a modern twist, creating the unusual, conceptual graphic designs that enrich this classic cotton T-shirt.\n', 'T-Shirt\r\n', 'Prada, T-Shirt, White, Printed\n\n', '', 'Prada\r\n');
+('UJN847_12VV_F0002_S_231\r\n', 'Prada Triangle Cotton T-shirt\r\n', 760, 760, 'An oversized decorative trim evoking details of Tyrolean style is reinvented with a modern twist, creating the unusual, conceptual graphic designs that enrich this classic cotton T-shirt.\n', 'T-Shirt\r\n', 'Prada, T-Shirt, White, Printed\n\n', '', 'Prada');
 
 -- --------------------------------------------------------
 
@@ -262,8 +262,22 @@ INSERT INTO `review` (`reviewId`, `ProductId`, `UserId`, `rating`, `review`, `re
 
 CREATE TABLE `salt` (
   `username` varchar(255) NOT NULL,
-  `salt` varchar(16) NOT NULL
+  `salt` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `salt`
+--
+
+INSERT INTO `salt` (`username`, `salt`) VALUES
+('kaka', 'IjVA/bKSY5NU7ljURBBVjw=='),
+('Bhig', 'L45XZIUzFCUaBiqGYy5GXg=='),
+('Khali', 'G4Ed7sBSZp5VODd1QaQw9g=='),
+('Ruth', 'E6HOR3HJS900rFuh9BRXjw=='),
+('Michelle', 'Tph5KGQ1hP3n5OGO3IDFOQ=='),
+('Deji', 'x/KGnyjj7r2V5SvQ1wyjww=='),
+('Kian', 'EoTHCnVjj3A1tC52C2UoFA=='),
+('Harsh', 'ZDtSTjRxg6IkFkFmtnOMRQ==');
 
 -- --------------------------------------------------------
 
@@ -323,16 +337,15 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`UserId`, `username`, `password`, `FirstName`, `Lastname`, `Email`, `Phone`, `Question`, `Answer`, `DOB`, `isAdmin`, `subscription`) VALUES
-(1, 'Harsh', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Harsh', 'Khatri', 'hkhatri731@gmail.com', 871498876, 'To what city did you go on your honeymoon?', 'Khalis House', '2023-01-12', 1, 0),
-(2, 'Kian', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Kian', 'Harding', 'kh@gmail.com', 830995017, 'Where were you when you first heard about 9/11?', 'Playground with stuffed animal', '2023-01-02', 1, 0),
-(3, 'Khali', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Meshach', 'Atta-Nyarko', 'Mh@gmail.com', 830995017, 'Where were you when you first heard about 9/11?', 'At Osamas House', '2023-01-02', 1, 0),
-(4, 'Deji', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Destiny', 'Wassup', 'deji@gmail.com', 830995017, 'What was the name of your first stuffed animal?', 'Kakashi Hatake', '2023-01-02', 0, 1),
-(5, 'Ruth', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Catherine', 'Mc Keever', 'ruth.mckeever@dkit.ie', 830995017, 'What was the name of your first stuffed animal?', 'Pingu', '2023-01-02', 0, 0),
-(6, 'Michelle', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Michelle', 'Graham', 'Michelle.Graham@dkit.ie', 830995017, 'What was the name of your first stuffed animal?', 'Mr Rhino', '2023-01-02', 0, 0),
-(7, 'Bhig', '214c8377ffb724150205789f4a593a6182b66f56eca714a53bb7493a7391e0d8', 'biggaaaa', 'dhfhfs', 'attanyarkomeshach@gmail.com', 876352637, 'To what city did you go on your honeymoon?', 'Singapore', '2000-10-10', 1, 1),
+(1, 'Harsh', 'nqobMEeNziZTuYjDMhkblSDjGT0gyKfS7lsHOhfTra4=', 'Harsh', 'Khatri', 'hkhatri731@gmail.com', 871498876, 'To what city did you go on your honeymoon?', 'Khalis House', '2023-01-12', 1, 0),
+(2, 'Kian', 'wTpfMLnCxMcqPcU6mSljoGctFEAI0UDU+CHwzGTcGYo=', 'Kian', 'Harding', 'kh@gmail.com', 830995017, 'Where were you when you first heard about 9/11?', 'Playground with stuffed animal', '2023-01-02', 1, 0),
+(3, 'Khali', '2oD7MQpnMBDAJI6XcS+RHsKg2sl7oIMlDreF974pJkw=', 'Meshach', 'Atta-Nyarko', 'Mh@gmail.com', 830995017, 'Where were you when you first heard about 9/11?', 'At Osamas House', '2023-01-02', 1, 0),
+(4, 'Deji', '9l8StQ5vovsD6Nf2RyFvc0O9LxslKengvg5doXkr9gA=', 'Destiny', 'Wassup', 'deji@gmail.com', 830995017, 'What was the name of your first stuffed animal?', 'Kakashi Hatake', '2023-01-02', 0, 1),
+(5, 'Ruth', 'EpQxicMgAMaLTABx3AtQYKs8SADYMSghwtKOTvQ6HMQ=', 'Catherine', 'Mc Keever', 'ruth.mckeever@dkit.ie', 830995017, 'What was the name of your first stuffed animal?', 'Pingu', '2023-01-02', 0, 0),
+(6, 'Michelle', 'pVpwhk2N3kWrAU++tcQhbFtBEJKjvswmhY81q+Flmvk=', 'Michelle', 'Graham', 'Michelle.Graham@dkit.ie', 830995017, 'What was the name of your first stuffed animal?', 'Mr Rhino', '2023-01-02', 0, 0),
+(7, 'Bhig', '6yQG6xEhYxyadqFY7Z3qH2wBIIbbITE6M+Iljlr4ZW4=', 'biggaaaa', 'dhfhfs', 'attanyarkomeshach@gmail.com', 876352637, 'To what city did you go on your honeymoon?', 'Singapore', '2000-10-10', 0, 1),
 (9, 'awwmee19', '172620255ee20252a50f83ad088a6f499750ae17dfe3a4e50b0c321f05e632fe', 'aww', 'mee', 'awwmee19@gmail.com', 876018205, 'What was the first concert you attended?', 'wo nana to jams', '1999-05-21', NULL, 0),
-(13, 'kaka', 'GTHk9Xuo8PsoMeQZFncWnVbL/d48KirW6dfrBSqpjCE=', 'kjahjka', 'khkhjh', 'ajgjkga@gmail.com', 876263784, 'What was a thing you did as a child which was unique?', 'jggj', '2000-10-10', NULL, 1),
-(14, 'sad', 'qGzFYKnXHSJnqmQZT6sL4wfGu5fFIe1eFqGyr3ZqczI=', 'sgjgdh', 'djghjghjd', 'shjghjghj@gmail.com', 876527364, 'What was the first concert you attended?', 'fjhjhf', '2000-08-09', NULL, 0);
+(16, 'kaka', 'Y1C6tvQtyES0KkajOhSFvWOhd3mfKZ4eqhbtCRaqM0Q=', 'sjghjgjhs', 'djhgjjhd', 'shghjgs@gmail.com', 876083627, 'what is your favorite fictional character', 'fdhdj', '2000-10-10', NULL, 1);
 
 --
 -- Indexes for dumped tables
@@ -419,7 +432,7 @@ ALTER TABLE `address`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -437,7 +450,7 @@ ALTER TABLE `review`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `UserId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `UserId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Constraints for dumped tables
