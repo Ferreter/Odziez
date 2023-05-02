@@ -242,7 +242,7 @@ public class OrderDao extends Dao implements OrderDaoInterface {
     public boolean ChangeStatus(int OrderId,String Changed) {
         Connection con = null;
         PreparedStatement ps = null;
-        
+        boolean returned = false;
             try {
                 con = this.getConnection();
 
@@ -251,10 +251,15 @@ public class OrderDao extends Dao implements OrderDaoInterface {
                 ps.setString(1,Changed);
                 ps.setInt(2, OrderId);
 
-                ps.execute();
+                int rowsAffected = ps.executeUpdate();
+                if (rowsAffected != 0) {
+                returned = true;
+            }
+                
             } catch (SQLException e) {
                 System.err.println("\tA problem occurred during the EditProduct method:");
                 System.err.println("\t" + e.getMessage());
+                returned = false;
             } finally {
                 try {
                     if (ps != null) {
@@ -263,12 +268,13 @@ public class OrderDao extends Dao implements OrderDaoInterface {
                     if (con != null) {
                         freeConnection(con);
                     }
+                  
                 } catch (SQLException e) {
                     System.err.println("A problem occurred when closing down the EditProduct method:\n" + e.getMessage());
                 }
             }
-            return true;
-        } 
+            return returned;
+        }
     }
 
 
