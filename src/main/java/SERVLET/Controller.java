@@ -813,7 +813,7 @@ public class Controller extends HttpServlet {
         String id = request.getParameter("id");
         CartDao cartdao = new CartDao("clothes_shop");
         cartdao.AddQuantity(id);
-
+        
         forwardToJsp = "view/cart.jsp";
 
         return forwardToJsp;
