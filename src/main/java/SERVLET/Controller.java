@@ -814,7 +814,7 @@ public class Controller extends HttpServlet {
         CartDao cartdao = new CartDao("clothes_shop");
         if (id != null){
         cartdao.AddQuantity(id);
-
+        
         forwardToJsp = "view/cart.jsp";
         } else {
             forwardToJsp = "controller/error.jsp";
