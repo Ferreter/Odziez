@@ -47,7 +47,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                products p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Images"), rs.getString("Brand"));
+                products p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"),  rs.getString("Brand"));
 
                 products.add(p);
             }
@@ -96,7 +96,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             rs = ps.executeQuery();
             while (rs.next()) {
 
-                products p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Images"), rs.getString("Brand"));
+                products p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Brand"));
 
                 products.add(p);
             }
@@ -137,7 +137,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             rs = ps.executeQuery();
             while (rs.next()) {
 
-                products p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Images"), rs.getString("Brand"));
+                products p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Brand"));
 
                 products.add(p);
             }
@@ -187,7 +187,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             rs = ps.executeQuery();
             if (rs.next()) {
 
-                p = new products(ProductId, rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Images"), rs.getString("Brand"));
+                p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Brand"));
 
             }
         } catch (SQLException e) {
@@ -436,8 +436,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
                 ps.setString(5, p.getDescription());
                 ps.setString(6, p.getCategory());
                 ps.setString(7, p.getTags());
-                ps.setString(8, p.getImages());
-                ps.setString(9, p.getBrand());
+                ps.setString(8, p.getBrand());
 
                 ps.execute();
             } catch (SQLException e) {
@@ -484,10 +483,9 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
                 String Description = rs.getString("Description");
                 String Category = rs.getString("Category");
                 String Tags = rs.getString("Tags");
-                String Images = rs.getString("	Images");
                 String Brand = rs.getString("Brand");
 
-                p = new products(ProductId, Name, MRP, CP, Description, Category, Tags, Images, Brand);
+                p = new products(ProductId, Name, MRP, CP, Description, Category, Tags,  Brand);
             }
         } catch (SQLException e) {
             System.err.println("\tA problem occurred during the findUserByProductId method:");
@@ -522,7 +520,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             String query = "DELETE FROM products WHERE ProductId = ?";
             ps = con.prepareStatement(query);
             ps.setString(1, p.getProductId());
-
+            archiveProduct(p.getProductId());
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected != 0) {
                 removed = true;
@@ -545,6 +543,21 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         }
         return removed;
     }
+    
+   public void archiveProduct(String productId) {
+    String query = "CALL archive_product(?)";
+    Connection con = null;
+    try {
+        con = this.getConnection();
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, productId);
+        ps.executeUpdate();
+
+    } catch (SQLException e) {
+        System.err.println("\tA problem occurred during the archiveProduct method:");
+        System.err.println("\t" + e.getMessage());
+    }
+}
 
     @Override
     public boolean EditProduct(products p) {
@@ -556,7 +569,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             try {
                 con = this.getConnection();
 
-                String query = "UPDATE products SET ProductId = ?, Name = ?, MRP = ?, CP = ?, Description = ?, Category = ?,Tags = ?, Images = ?, Brand = ? WHERE ProductId like ? ";
+                String query = "UPDATE products SET ProductId = ?, Name = ?, MRP = ?, CP = ?, Description = ?, Category = ?,Tags = ?,  Brand = ? WHERE ProductId like ? ";
                 ps = con.prepareStatement(query);
                 ps.setString(1, p.getProductId());
                 ps.setString(2, p.getName());
@@ -565,9 +578,8 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
                 ps.setString(5, p.getDescription());
                 ps.setString(6, p.getCategory());
                 ps.setString(7, p.getTags());
-                ps.setString(8, p.getImages());
-                ps.setString(9, p.getBrand());
-                ps.setString(10, "%" + p.getProductId() + "%");
+                ps.setString(8, p.getBrand());
+                ps.setString(9, "%" + p.getProductId() + "%");
 
                 ps.execute();
             } catch (SQLException e) {
@@ -616,7 +628,7 @@ ps.setString(8, "%" + Material + "%");
 rs = ps.executeQuery();
         while (rs.next()) {
 
-            products p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Images"), rs.getString("Brand"));
+            products p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Brand"));
 
             products.add(p);
         }

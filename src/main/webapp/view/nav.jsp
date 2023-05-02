@@ -97,6 +97,7 @@
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <a class="dropdown-item" href="../view/userAdmin.jsp">User</a>
                     <a class="dropdown-item" href="../view/productAdmin.jsp">Product</a>
+                    <a class="dropdown-item" href="../view/archived.jsp">archived</a>
                     <a class="dropdown-item" href="../view/viewOrderAdmin.jsp">Order</a>
                 </div>
             </div>

@@ -5,6 +5,8 @@
 package SERVLET;
 
 import DAO.AddressDao;
+import DAO.ArchivedDao;
+import DAO.ArchivedDaoInterface;
 import DAO.CartDao;
 import DAO.OrderDao;
 import DAO.OrderDetailsDao;
@@ -125,6 +127,9 @@ public class Controller extends HttpServlet {
                     break;
                 case "Add":
                     forwardToJsp = addAddress(request, response);
+                    break;
+                case "archivedProductsReturn":
+                    forwardToJsp = archivedProductsReturn(request, response);
                     break;
 
             }
@@ -638,7 +643,7 @@ public class Controller extends HttpServlet {
             double mrp = Double.valueOf(MRP);
             double cp = Double.valueOf(CP);
 
-            products p = new products(ProductId, Name, mrp, cp, Description, Category, Tags, "", Brand);
+            products p = new products(ProductId, Name, mrp, cp, Description, Category, Tags,  Brand);
             boolean entered = productdao.AddProduct(p);
 
             if (entered == true) {
@@ -807,6 +812,34 @@ public class Controller extends HttpServlet {
         }
         return forwardToJsp;
     }
+    
+    private String archivedProductsReturn(HttpServletRequest request, HttpServletResponse response) {
+        String forwardToJsp = "controller/error.jsp";
+        HttpSession session = request.getSession(true);
+
+        String ProductId = request.getParameter("ProductId");
+        if (ProductId != null) {
+            ArchivedDao Adao = new ArchivedDao("clothes_shop");
+            ArchivedDaoInterface adao = new ArchivedDao("clothes_shop");
+
+            boolean removed = adao.ReturnToProducts(ProductId);
+
+            if (removed == true) {
+                forwardToJsp = "view/archived.jsp";
+                String success = "Action Successful, Product has been removed";
+                session.setAttribute("successMessage", success);
+            } else {
+                forwardToJsp = "view/archived.jsp";
+                String error = "Could Not delete the product, Try again ";
+                session.setAttribute("errorMessages", error);
+            }
+        } else {
+            forwardToJsp = "view/archived.jsp";
+            String error = "No productId supplied";
+            session.setAttribute("errorMessages", error);
+        }
+        return forwardToJsp;
+    }
 
     private String IncQuantity(HttpServletRequest request, HttpServletResponse response) {
         String forwardToJsp = "controller/index.jsp";
@@ -873,7 +906,7 @@ public class Controller extends HttpServlet {
             double mrp = Double.valueOf(MRP);
             double cp = Double.valueOf(CP);
 
-            products p = new products(ProductId, Name, mrp, cp, Description, Category, Tags, "", Brand);
+            products p = new products(ProductId, Name, mrp, cp, Description, Category, Tags, Brand);
             boolean entered = productdao.EditProduct(p);
 
             if (entered == true) {
