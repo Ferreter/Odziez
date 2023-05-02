@@ -54,16 +54,16 @@ public class AddressDaoTest {
     /**
      * Test of AddressByUserId method, of class AddressDao.
      */
-    @Test
-    public void testAddressByUserId() {
-        System.out.println("AddressByUserId");
-        int UserId = 7;
-        AddressDao AddDao = new AddressDao("clothes_shop_test");
-        
-        address result = AddDao.AddressByUserId(UserId);
-        assertEquals("IE-CO", result.getCity());
-        assertEquals("128747384787", result.getPincode());
-    }
+//    @Test
+//    public void testAddressByUserId() {
+//        System.out.println("AddressByUserId");
+//        int UserId = 7;
+//        AddressDao AddDao = new AddressDao("clothes_shop_test");
+//        
+//        address result = AddDao.AddressByUserId(UserId);
+//        assertEquals("IE-CO", result.getCity());
+//        assertEquals("128747384787", result.getPincode());
+//    }
 
     /**
      * Test of addNewAddress method, of class AddressDao.

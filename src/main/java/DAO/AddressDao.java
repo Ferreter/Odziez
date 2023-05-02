@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -80,44 +82,54 @@ public class AddressDao extends Dao implements AddressDaoInterface {
      * @return an integer representing the ID of the address record found, or 0
      * if no record is found or an error occurs
      */
-    public address AddressByUserId(int UserId) {
-        Connection con = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        address p = null;
+   public List<address> AddressByUserId(int UserId) {
+    Connection con = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    List<address> addressList = new ArrayList<>();
 
+    try {
+        con = this.getConnection();
+
+        String query = "SELECT * FROM address WHERE UserId = ?";
+        ps = con.prepareStatement(query);
+        ps.setInt(1, UserId);
+
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            address a = new address(
+                    rs.getInt("AddressId"),
+                    rs.getInt("UserId"),
+                    rs.getString("Address1"),
+                    rs.getString("Address2"),
+                    rs.getString("Address3"),
+                    rs.getString("City"),
+                    rs.getString("County"),
+                    rs.getString("Country"),
+                    rs.getString("Pincode")
+            );
+            addressList.add(a);
+        }
+    } catch (SQLException e) {
+        System.err.println("\tA problem occurred during the AddressByUserId() method:");
+        System.err.println("\t" + e.getMessage());
+    } finally {
         try {
-            con = this.getConnection();
-
-            String query = "SELECT * FROM address WHERE UserId like ?";
-            ps = con.prepareStatement(query);
-            ps.setString(1, "%" + UserId + "%");
-
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                p = new address(rs.getInt("AddressId"), rs.getInt("UserId"), rs.getString("Address1"), rs.getString("Address2"), rs.getString("Address3"), rs.getString("City"), rs.getString("County"), rs.getString("Country"), rs.getString("Pincode"));
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                freeConnection(con);
             }
         } catch (SQLException e) {
-            System.err.println("\tA problem occurred during the searchbyUserId() method:");
-            System.err.println("\t" + e.getMessage());
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (ps != null) {
-                    ps.close();
-                }
-                if (con != null) {
-                    freeConnection(con);
-                }
-            } catch (SQLException e) {
-                System.err.println("A problem occurred when closing down the searchbyUserId() method:\n" + e.getMessage());
-            }
+            System.err.println("A problem occurred when closing down the AddressByUserId() method:\n" + e.getMessage());
         }
-        return p;     // u may be null 
     }
-
+    return addressList;
+}
     public int findAddressId(int UserId) {
         Connection con = null;
         PreparedStatement ps = null;

@@ -123,7 +123,10 @@ public class Controller extends HttpServlet {
                     forwardToJsp = updateStatus(request, response);
                     break;
                 case "Update Address":
-                    forwardToJsp = ResetAddress(request, response);
+                    forwardToJsp = ResetAddress(request, response );
+                    break;
+                case "Add":
+                    forwardToJsp = addAddress(request, response);
                     break;
                 case "archivedProductsReturn":
                     forwardToJsp = archivedProductsReturn(request, response);
@@ -308,46 +311,45 @@ public class Controller extends HttpServlet {
     }
 
     private String ResetAddress(HttpServletRequest request, HttpServletResponse response) {
-        String forwardToJsp = "#";
-        HttpSession session = request.getSession(true);
+    String forwardToJsp = "#";
+    HttpSession session = request.getSession(true);
 
-        String address1 = request.getParameter("address1");
-        String address2 = request.getParameter("address2");
-        String address3 = request.getParameter("address3");
-        String city = request.getParameter("city");
-        String county = request.getParameter("county");
-        String country = request.getParameter("country");
-        String pincode = request.getParameter("pincode");
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+    String address1 = request.getParameter("address1");
+    String address2 = request.getParameter("address2");
+    String address3 = request.getParameter("address3");
+    String city = request.getParameter("city");
+    String county = request.getParameter("county");
+    String country = request.getParameter("country");
+    String pincode = request.getParameter("pincode");
+    String username = request.getParameter("username");
+    String password = request.getParameter("password");
 
-        if (address1 != null && city != null && !address1.isEmpty() && !address2.isEmpty() && !address3.isEmpty() && !city.isEmpty() && password != null && !password.isEmpty()) {
-            UserDao userDao = new UserDao("clothes_shop");
-            AddressDao addressDao = new AddressDao("clothes_shop");
-            user u = (user) session.getAttribute("user");
-            address add = addressDao.AddressByUserId(u.getUserId());
-            session.setAttribute("address", add);
-            address a = (address) session.getAttribute("address");
+    if (address1 != null && city != null && !address1.isEmpty() && !address2.isEmpty() && !address3.isEmpty() && !city.isEmpty() && password != null && !password.isEmpty()) {
+        UserDao userDao = new UserDao("clothes_shop");
+        AddressDao addressDao = new AddressDao("clothes_shop");
+        user u = (user) session.getAttribute("user");
+        List<address> add = addressDao.AddressByUserId(u.getUserId());
+        session.setAttribute("address", add);
+        
+        address a = add.get(0);
 
-            boolean passwordMatch = userDao.confirmUserByUsernamePassword(username, password);
-            if (add != null && !passwordMatch) {
+        boolean passwordMatch = userDao.confirmUserByUsernamePassword(username, password);
+        if (add != null && !add.isEmpty() && !passwordMatch) {
+            boolean update = addressDao.editAddress(a, address1, address2, address3, city, county, country, pincode);
 
-                boolean update = addressDao.editAddress(a, address1, address2, address3, city, county, country, pincode);
-
-                forwardToJsp = "view/userProfile.jsp";
-            } else {
-                forwardToJsp = "controller/error.jsp";
-                String error = "NO Address found<a href=\"../view/LoginNdRegister.jsp\">try again.</a>";
-                session.setAttribute("errorMessage", error);
-            }
+            forwardToJsp = "view/userProfile.jsp";
         } else {
             forwardToJsp = "controller/error.jsp";
-            String error = "Failed to retrieve address. Please <a href=\"../view/LoginNdRegister.jsp\">try again.</a>";
+            String error = "NO Address found<a href=\"../view/LoginNdRegister.jsp\">try again.</a>";
             session.setAttribute("errorMessage", error);
         }
-        return forwardToJsp;
+    } else {
+        forwardToJsp = "controller/error.jsp";
+        String error = "Failed to retrieve address. Please <a href=\"../view/LoginNdRegister.jsp\">try again.</a>";
+        session.setAttribute("errorMessage", error);
     }
-
+    return forwardToJsp;
+}
     /**
      *
      * This method handles the search of a product by name.
@@ -845,10 +847,10 @@ public class Controller extends HttpServlet {
 
         String id = request.getParameter("id");
         CartDao cartdao = new CartDao("clothes_shop");
-        if (id != null){
-        cartdao.AddQuantity(id);
-        
-        forwardToJsp = "view/cart.jsp";
+        if (id != null) {
+            cartdao.AddQuantity(id);
+
+            forwardToJsp = "view/cart.jsp";
         } else {
             forwardToJsp = "controller/error.jsp";
             String error = "Product Doesnt Exist <a href=\"../view/cart.jsp\">try again.</a>";
@@ -862,22 +864,21 @@ public class Controller extends HttpServlet {
         HttpSession session = request.getSession(true);
         user u = (user) session.getAttribute("user");
         String id = request.getParameter("id");
-        if (id != null){
-        CartDao cartdao = new CartDao("clothes_shop");
-        List<Cart> c = cartdao.ListAllCart(u.getUserId());
-        for (Cart cartItem : c) {
-            if (cartItem.getProductId().equals(id)) {
-                if (cartItem.getQuantity() == 1) {
-                    cartdao.deleteCartItem(id);
-                } else {
-                    cartdao.DelQuantity(id);
+        if (id != null) {
+            CartDao cartdao = new CartDao("clothes_shop");
+            List<Cart> c = cartdao.ListAllCart(u.getUserId());
+            for (Cart cartItem : c) {
+                if (cartItem.getProductId().equals(id)) {
+                    if (cartItem.getQuantity() == 1) {
+                        cartdao.deleteCartItem(id);
+                    } else {
+                        cartdao.DelQuantity(id);
+                    }
                 }
             }
-        }
 
-        forwardToJsp = "view/cart.jsp";
-        }
-        else {
+            forwardToJsp = "view/cart.jsp";
+        } else {
             forwardToJsp = "controller/error.jsp";
             String error = "Product Doesnt Exist <a href=\"../view/cart.jsp\">try again.</a>";
             session.setAttribute("errorMessage", error);
@@ -979,28 +980,27 @@ public class Controller extends HttpServlet {
             forwardToJsp = "view/EditProfile.jsp";
 
             // Verify password
-           // boolean passwordMatch = userDao.confirmUserByUsernamePassword(username, password);
-
+            // boolean passwordMatch = userDao.confirmUserByUsernamePassword(username, password);
 //            if (!passwordMatch) {
 //                // Password is incorrect
 //                forwardToJsp = "view/EditProfile.jsp";
 //                String error = "Incorrect username or password.";
 //                session.setAttribute("errorMessages", error);
 //            } else {
-                boolean edit = userDao.editProfile(u, firstname, lastname, email, phone, date);
-                if (edit) {
-                    // User was successfully updated
-                    // Log user out
-                    String success = "Action Successful, Profile updated";
-                    session.setAttribute("successMessage", success);
-                    session.invalidate(); 
-                    forwardToJsp = "view/LoginNdRegister.jsp?logout=true"; // Redirect to login page with logout parameter
-                } else {
-                    // Error occurred while updating user
-                    forwardToJsp = "view/EditAuth.jsp";
-                    String error = "An error occurred while updating your profile. Please try again.";
-                    session.setAttribute("errorMessages", error);
-                }
+            boolean edit = userDao.editProfile(u, firstname, lastname, email, phone, date);
+            if (edit) {
+                // User was successfully updated
+                // Log user out
+                String success = "Action Successful, Profile updated";
+                session.setAttribute("successMessage", success);
+                session.invalidate();
+                forwardToJsp = "view/LoginNdRegister.jsp?logout=true"; // Redirect to login page with logout parameter
+            } else {
+                // Error occurred while updating user
+                forwardToJsp = "view/EditAuth.jsp";
+                String error = "An error occurred while updating your profile. Please try again.";
+                session.setAttribute("errorMessages", error);
+            }
 //            }
         } else {
             // Missing or invalid parameters
@@ -1030,6 +1030,47 @@ public class Controller extends HttpServlet {
             forwardToJsp = "view/viewOrderAdmin.jsp";
             String error = "Could Not update, Try again ";
             session.setAttribute("errorMessages", error);
+        }
+
+        return forwardToJsp;
+    }
+
+    private String addAddress(HttpServletRequest request, HttpServletResponse response) {
+        String forwardToJsp = "controller/index.jsp";
+        HttpSession session = request.getSession(true);
+        user u = (user) session.getAttribute("user");
+        int userId = Integer.parseInt(request.getParameter("userId"));
+
+        String newAdd = request.getParameter("newAdd");
+        String address1 = request.getParameter("address1");
+        String address2 = request.getParameter("address2");
+        String address3 = request.getParameter("address3");
+        String city = request.getParameter("city");
+        String county = request.getParameter("county");
+        String country = request.getParameter("country");
+        String pincode = request.getParameter("pincode");
+
+        //ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
+        if (address1 != null && address2 != null && address3 != null && city != null && county != null & country != null & pincode != null) {
+
+            address add = new address();
+            AddressDao addressDao = new AddressDao("clothes_shop");
+
+            boolean addAddress = false;
+            if (newAdd != null && newAdd.equals("on")) {
+
+                int addressId = addressDao.getLastIndex() + 1;
+
+                address newAddress = new address(addressId, u.getUserId(), address1, address2, address3, city, county, country, pincode);
+
+                addAddress = addressDao.addNewAddress(newAddress);
+
+                forwardToJsp = "view/userProfile.jsp";
+            }
+        } else {
+            forwardToJsp = "view/error.jsp";
+            String error = "Error Adding Address. Please <a href=\"../view/userProfile.jsp\">try again.</a>";
+            session.setAttribute("errorMessage", error);
         }
 
         return forwardToJsp;
