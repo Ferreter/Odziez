@@ -187,7 +187,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             rs = ps.executeQuery();
             if (rs.next()) {
 
-                p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Images"), rs.getString("Brand"));
+                p = new products(ProductId, rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Images"), rs.getString("Brand"));
 
             }
         } catch (SQLException e) {
