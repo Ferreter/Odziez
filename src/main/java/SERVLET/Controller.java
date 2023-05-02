@@ -231,14 +231,14 @@ public class Controller extends HttpServlet {
                 login = userDao.addUser(user);
                 forwardToJsp = "controller/index.jsp";
             } else {
-                forwardToJsp = "controller/error.jsp";
-                String error = "user already exists <a href=\"../view/LoginNdRegister.jsp\">try again.</a>";
-                session.setAttribute("errorMessage", error);
+                forwardToJsp = "view/LoginNdRegister.jsp";
+                String error = "User already exists";
+                session.setAttribute("errorMessages", error);
             }
         } else {
-            forwardToJsp = "controller/error.jsp";
-            String error = "No username and/or password and/or email and/or phone and/or firstname and/or lastname supplied. Please <a href=\"../view/LoginNdRegister.jsp\">try again.</a>";
-            session.setAttribute("errorMessage", error);
+            forwardToJsp = "view/LoginNdRegister.jsp";
+            String error = "Not all details were provided";
+            session.setAttribute("errorMessages", error);
         }
 
         return forwardToJsp;
@@ -601,15 +601,17 @@ public class Controller extends HttpServlet {
 
             if (removed == true) {
                 forwardToJsp = "model/Logout.jsp";
+                String success = "Action Successful, User has been removed";
+                session.setAttribute("successMessage", success);
             } else {
-                forwardToJsp = "controller/error.jsp";
+                forwardToJsp = "view/userProfile.jsp";
                 String error = "Could Not delete the user, Try contacting an admin ";
-                session.setAttribute("errorMessage", error);
+                session.setAttribute("errorMessages", error);
             }
         } else {
-            forwardToJsp = "controller/error.jsp";
-            String error = "No username and/or password and/or email and/or phone and/or firstname and/or lastname supplied. Please <a href=\"../view/LoginNdRegister.jsp\">try again.</a>";
-            session.setAttribute("errorMessage", error);
+            forwardToJsp = "view/userProfile.jsp";
+            String error = "Could Not delete the user, Try contacting an admin ";
+            session.setAttribute("errorMessages", error);
         }
         return forwardToJsp;
     }
