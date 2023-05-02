@@ -121,11 +121,17 @@
             %>
             <!-- Code to display the product -->
 
-            <div class="col-lg-3 col-md-3 col-xs-12 ">
+            <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12">
                 <a href="../view/individualProduct.jsp?ID=<%=Products.getProductId()%>" style="color:white;">
-                    <div class="text-center p-3">
-                        <img src="../media/products/<%=Products.getProductId()%>2.jpg" alt="hoodie" class="product-categorie img-responsive" width="500px" height="500px"/>
-                        <p style="padding-top: 5px;  font-size: 22px;" ><%= Products.getName()%> </p>
+                    <div class=" p-3">
+                        <img src="../media/products/<%=Products.getProductId()%>2.jpg" alt="hoodie" class="product-categorie img-responsive" width="100%" height="450"/>
+                        <p style="padding-top: 5px;  font-size: 22px; " ><%= Products.getName()%> 
+                        <br> <small>
+
+                            <%=Products.getCP()%>
+                            <span style='float:right;'><%=Products.getBrand()%></span>
+                        </small>
+                        </p>
                     </div>
                 </a>
             </div>
@@ -210,7 +216,7 @@
         </div>
     </div>
 
-    <!-- People who viewed this also saw-->
+    <!-- People who viewed this also saw
     <div class="container-fluid" style="margin-bottom: 50px;padding-top:20px; border-top: 2px solid white" >
         <p class="lead text-center">People who viewed this also viewed </p>
         <div class="row">
@@ -249,7 +255,7 @@
             </div>
         </div>
     </div>
-
+    -->
 </div>
 </section>
 
