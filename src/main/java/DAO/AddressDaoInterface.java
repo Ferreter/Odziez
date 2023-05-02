@@ -5,6 +5,7 @@
 package DAO;
 
 import DTO.address;
+import java.util.List;
 
 /**
  *
@@ -45,5 +46,5 @@ public interface AddressDaoInterface {
      * @return an integer representing the ID of the address record found, or 0
      * if no record is found or an error occurs
      */
-    public address AddressByUserId(int UserId);
+    public List<address> AddressByUserId(int UserId);
 }

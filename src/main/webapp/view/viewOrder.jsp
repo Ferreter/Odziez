@@ -82,59 +82,73 @@
 
   
             <li class="list-group-item">
-                <h3>Order History</h3>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Product Names:</th>
-                            <th>Address</th>
-                            <th>Total</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <%    if (orders != null && !orders.isEmpty() )
-            {
-                // Loop to print out all of the rows
-               
-              
-for (orders ord : orders) {
-    address add = AddDao.AddressByUserId(ord.getUserId());
-%>
-    <tbody>
-        <tr>
-            <td><%= ord.getOrderId() %></td>
-            <td colspan="4">
-                <table>
-                    <tbody>
-                        <tr>
-                            <th>Product Name</th>
-                        </tr>
-                        <% List<OrderDetails> ordersdetail = OrderDetailsDao.findOrderDetailsById(ord.getOrderId());
-                        for (OrderDetails det : ordersdetail) { %>
+    <h3>Order History</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th colspan="1">Order ID</th>
+                <th colspan="4">Product Names:</th>
+                <th colspan="1">Address</th>
+                <th colspan="1">Total</th>
+                <th colspan="1">Status</th>
+            </tr>
+        </thead>
+        <%    if (orders != null && !orders.isEmpty() )
+        {
+            // Loop to print out all of the rows
+            for (orders ord : orders) {
+                List<address> add = AddDao.AddressByUserId(ord.getUserId());
+                // Loop through the list of addresses to find the address for the current order
+                address orderAddress = null;
+                for (address addr : add) {
+                    if (addr.getAddressId() == ord.getAddressId()) {
+                        orderAddress = addr;
+                        break;
+                    }
+                }
+        %>
+        <tbody>
+            <tr>
+                <td><%= ord.getOrderId() %></td>
+                <td colspan="4">
+                    <table>
+                        <tbody>
                             <tr>
-                                <td><%= det.getProductName() %></td>
+                                <th>Product Name</th>
                             </tr>
-                        <% } %>
-                    </tbody>
-                </table>
-            </td>
-            <td><%= add.getAddress1() %></td>
-            <td><%= ord.getTotal() %></td>
-            <td><%= ord.getStatus() %></td>
-
-        </tr>
-    </tbody>
-<%
-    }        
-}else{
-%>
-no orders
-<%
-    }
-            %>
-                </table>
-            </li>
+                            <% List<OrderDetails> ordersdetail = OrderDetailsDao.findOrderDetailsById(ord.getOrderId());
+                            for (OrderDetails det : ordersdetail) { %>
+                                <tr>
+                                    <td><%= det.getProductName() %></td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    <%= orderAddress.getAddress1() %><br>
+                    <%= orderAddress.getAddress2() %><br>
+                    <%= orderAddress.getCity() %>, <%= orderAddress.getCounty() %> <%= orderAddress.getPincode() %><br>
+                    <%= orderAddress.getCountry() %>
+                </td>
+                <td><%= ord.getTotal() %></td>
+                <td><%= ord.getStatus() %></td>
+            </tr>
+        </tbody>
+        <%        
+            }
+        } else {
+        %>
+        <tbody>
+            <tr>
+                <td colspan="9">no orders</td>
+            </tr>
+        </tbody>
+        <%        
+        }
+        %>
+    </table>
+</li>
 
         </div>
     </div>
