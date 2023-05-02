@@ -143,57 +143,6 @@
                     </div>
                 </div>
 
-                <script>
-                    var currentModal = null;
-                    var currentImage = null;
-                    var imageCount = null;
-
-                    function openModal(modalId) {
-                        currentModal = $("#" + modalId);
-                        currentImage = currentModal.find(".img-fluid:first");
-                        imageCount = currentModal.find(".img-fluid").length;
-
-                        currentModal.modal('show');
-                    }
-
-                    function closeModal() {
-                        currentModal.modal('hide');
-                        currentImage = null;
-                        imageCount = null;
-                    }
-
-                    function nextImage() {
-                        if (currentImage.next(".img-fluid").length > 0) {
-                            currentImage.hide();
-                            currentImage = currentImage.next(".img-fluid");
-                            currentImage.show();
-                        } else {
-                            currentImage.hide();
-                            currentImage = currentModal.find(".img-fluid:first");
-                            currentImage.show();
-                        }
-                    }
-
-                    function prevImage() {
-                        if (currentImage.prev(".img-fluid").length > 0) {
-                            currentImage.hide();
-                            currentImage = currentImage.prev(".img-fluid");
-                            currentImage.show();
-                        } else {
-                            currentImage.hide();
-                            currentImage = currentModal.find(".img-fluid:last");
-                            currentImage.show();
-                        }
-                    }
-
-                    $(document).ready(function () {
-                        $(".modal").on('shown.bs.modal', function () {
-                            currentModal = $(this);
-                            currentImage = currentModal.find(".img-fluid:first");
-                            imageCount = currentModal.find(".img-fluid").length;
-                        });
-                    });
-                </script>
             </div>
 
             <div class="col-md-5">
