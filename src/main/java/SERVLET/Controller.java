@@ -974,9 +974,16 @@ public class Controller extends HttpServlet {
         int OrderId = Integer.valueOf(Id);
         String Change = request.getParameter("Changed");
 
-        orderDao.ChangeStatus(OrderId, Change);
-
-        forwardToJsp = "view/viewOrderAdmin.jsp";
+        boolean upd = orderDao.ChangeStatus(OrderId, Change);
+        if (upd) {
+            forwardToJsp = "view/viewOrderAdmin.jsp";
+            String success = "Action Successful, Status updated";
+            session.setAttribute("successMessage", success);
+        } else {
+            forwardToJsp = "view/viewOrderAdmin.jsp";
+            String error = "Could Not update, Try again ";
+            session.setAttribute("errorMessages", error);
+        }
 
         return forwardToJsp;
     }
