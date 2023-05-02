@@ -109,10 +109,10 @@ public class Controller extends HttpServlet {
                     forwardToJsp = Order(request, response);
                     break;
                 case "+":
-                    forwardToJsp = Add(request, response);
+                    forwardToJsp = IncQuantity(request, response);
                     break;
                 case "-":
-                    forwardToJsp = Del(request, response);
+                    forwardToJsp = DecQuantity(request, response);
                     break;
                 case "Edit":
                     forwardToJsp = editUserProfile(request, response);
@@ -806,24 +806,30 @@ public class Controller extends HttpServlet {
         return forwardToJsp;
     }
 
-    private String Add(HttpServletRequest request, HttpServletResponse response) {
+    private String IncQuantity(HttpServletRequest request, HttpServletResponse response) {
         String forwardToJsp = "controller/index.jsp";
         HttpSession session = request.getSession(true);
 
         String id = request.getParameter("id");
         CartDao cartdao = new CartDao("clothes_shop");
+        if (id != null){
         cartdao.AddQuantity(id);
 
         forwardToJsp = "view/cart.jsp";
-
+        } else {
+            forwardToJsp = "controller/error.jsp";
+            String error = "Product Doesnt Exist <a href=\"../view/cart.jsp\">try again.</a>";
+            session.setAttribute("errorMessage", error);
+        }
         return forwardToJsp;
     }
 
-    private String Del(HttpServletRequest request, HttpServletResponse response) {
+    private String DecQuantity(HttpServletRequest request, HttpServletResponse response) {
         String forwardToJsp = "controller/index.jsp";
         HttpSession session = request.getSession(true);
         user u = (user) session.getAttribute("user");
         String id = request.getParameter("id");
+        if (id != null){
         CartDao cartdao = new CartDao("clothes_shop");
         List<Cart> c = cartdao.ListAllCart(u.getUserId());
         for (Cart cartItem : c) {
@@ -837,7 +843,12 @@ public class Controller extends HttpServlet {
         }
 
         forwardToJsp = "view/cart.jsp";
-
+        }
+        else {
+            forwardToJsp = "controller/error.jsp";
+            String error = "Product Doesnt Exist <a href=\"../view/cart.jsp\">try again.</a>";
+            session.setAttribute("errorMessage", error);
+        }
         return forwardToJsp;
     }
 
