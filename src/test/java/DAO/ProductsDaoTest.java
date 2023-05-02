@@ -166,7 +166,7 @@ public class ProductsDaoTest {
     public void testAddProduct() {
         System.out.println("AddProduct");
        
-        products p = new products("Test", "Test", 2.0, 2.0, "Test", "Test", "Test", "", "Test");
+        products p = new products("Test", "Test", 2.0, 2.0, "Test", "Test", "Test", "Test");
 
         ProductsDao  prodDao = new ProductsDao("clothes_shop_test");
        
@@ -195,7 +195,7 @@ public class ProductsDaoTest {
     @Test
     public void testDeleteProduct() {
         System.out.println("DeleteProduct");
-        products p = new products("Test", "Test", 2.0, 2.0, "Test", "Test", "Test", "", "Test");
+        products p = new products("Test", "Test", 2.0, 2.0, "Test", "Test", "Test",  "Test");
         ProductsDao  prodDao = new ProductsDao("clothes_shop_test");
         boolean expResult = true;
         boolean result = prodDao.DeleteProduct(p);
@@ -212,8 +212,8 @@ public class ProductsDaoTest {
     @Test
     public void testEditProduct() {
         System.out.println("EditProduct");
-        products p = new products("Test", "Test", 2.0, 2.0, "Test", "Test", "Test", "", "Test");
-        products Edit = new products("Test", "ChangeTest", 2.0, 2.0, "ChangeTest", "ChangeTest", "ChangeTest", "", "ChangeTest");
+        products p = new products("Test", "Test", 2.0, 2.0, "Test", "Test", "Test",  "Test");
+        products Edit = new products("Test", "ChangeTest", 2.0, 2.0, "ChangeTest", "ChangeTest", "ChangeTest",  "ChangeTest");
         ProductsDao  prodDao = new ProductsDao("clothes_shop_test");
         prodDao.AddProduct(p);
         boolean expResult = true;

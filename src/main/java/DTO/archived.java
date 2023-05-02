@@ -11,7 +11,8 @@ import java.util.Objects;
  *
  * @author kian2
  */
-public class products {
+public class archived {
+
     private String ProductId;
     private String Name;
     private double MRP;
@@ -21,10 +22,10 @@ public class products {
     private String Tags;
     private String Brand;
 
-    public products() {
+    public archived() {
     }
 
-    public products(String ProductId, String Name, double MRP, double CP, String Description, String Category, String Tags,  String Brand) {
+    public archived(String ProductId, String Name, double MRP, double CP, String Description, String Category, String Tags, String Brand) {
         this.ProductId = ProductId;
         this.Name = Name;
         this.MRP = MRP;
@@ -91,8 +92,6 @@ public class products {
         this.Tags = Tags;
     }
 
-  
-
     public String getBrand() {
         return Brand;
     }
@@ -119,13 +118,11 @@ public class products {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final products other = (products) obj;
+        final archived other = (archived) obj;
         if (!Objects.equals(this.ProductId, other.ProductId)) {
             return false;
         }
         return Objects.equals(this.Name, other.Name);
     }
-    
-    
-    
+
 }

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 29, 2023 at 05:19 PM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 8.1.2
+-- Generation Time: May 02, 2023 at 05:20 PM
+-- Server version: 10.4.20-MariaDB
+-- PHP Version: 8.0.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,6 +24,25 @@ drop database if exists clothes_shop;
 create database if not exists clothes_shop;
 
 use clothes_shop;
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `archive_product` (IN `product_id` VARCHAR(255))  BEGIN
+    INSERT INTO `archived`
+    SELECT * FROM `products` WHERE `ProductId` = product_id;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `unarchive_product` (IN `product_id` VARCHAR(255))  BEGIN
+    INSERT INTO `products`
+    SELECT * FROM `archived` WHERE `ProductId` = product_id;
+
+    DELETE FROM `archived` WHERE `ProductId` = product_id;
+END$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -48,6 +67,31 @@ CREATE TABLE `address` (
 
 INSERT INTO `address` (`AddressId`, `UserId`, `Address1`, `Address2`, `Address3`, `City`, `County`, `Country`, `Pincode`) VALUES
 (1, 7, '18 CUL NA GREINE CO.CORK', 'Home', 'Home', 'CORK', 'Cork', 'Ireland', 'P47E438');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `archived`
+--
+
+CREATE TABLE `archived` (
+  `ProductId` varchar(255) NOT NULL,
+  `Name` varchar(255) NOT NULL,
+  `MRP` double NOT NULL,
+  `CP` double NOT NULL,
+  `Description` varchar(255) NOT NULL,
+  `Category` varchar(255) NOT NULL,
+  `Tags` varchar(255) NOT NULL,
+  `Brand` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `archived`
+--
+
+INSERT INTO `archived` (`ProductId`, `Name`, `MRP`, `CP`, `Description`, `Category`, `Tags`, `Brand`) VALUES
+('PMAA001C99JER0050110', 'PARIS SPRAYED T-SHIRT', 195, 195, 'SHORT SLEEVES T-SHIRT IN WHITE WITH BLACK SPRAYED PRINT AT FRONT. CREW NECK. LOGO AND \"PARIS\" PRINTED IN BLACK AT FRONT. STRAIGHT HEM. Fabric 100% Cotton', 'T-Shirt', 'PalmAngels, T-Shirt, White, Printed', 'Palm Angels'),
+('PMAA066S23JER0021084', 'I LOVE PA CLASSIC TEE', 235, 235, '\"SHORT SLEEVES T-SHIRT IN BLACK COTTON WITH MULTICOLOR I LOVE PA GRAPHIC PRINTED AT FRONT. REGULAR FIT.FABRIC 100% COTTON\"', 'T-Shirt', 'PalmAngels, T-Shirt, Black, Printed', 'Palm Angels');
 
 -- --------------------------------------------------------
 
@@ -164,7 +208,6 @@ CREATE TABLE `products` (
   `Description` varchar(255) NOT NULL,
   `Category` varchar(255) NOT NULL,
   `Tags` varchar(255) NOT NULL,
-  `Images` varchar(255) NOT NULL,
   `Brand` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -172,18 +215,16 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`ProductId`, `Name`, `MRP`, `CP`, `Description`, `Category`, `Tags`, `Images`, `Brand`) VALUES
-('3R1GC01NRIZ10999', 'Quilted water-repellent recycled nylon blazer with detachable inner panel', 675, 675, 'An outerwear garment made from a sustainable, unique and exclusive Korean fabric, in a deep colour, with good climatic resistance and exceptional durability, thanks to the very high-quality texture made from recycled nylon fibres, a reduced use of chemica', 'Jacket', 'EA, WaterRep, Nylon, Jacket, Black, Technical ', '', 'Emporio Armani'),
-('3R1GC11NNIZ10999', 'Water-repellent two-way stretch technical nylon jacket', 525, 525, 'The perfect fusion of a flawless fit and a matte, stretchy, performance fabric creates a garment designed to naturally follow every movement. Jacket with zip fastening and side pockets. The garment also features several standout technical properties: it i', 'Jacket', 'EA, WaterRep, Nylon, Blazer, Quilted', '', 'Emporio Armani'),
-('3R1MDN1JWPZ10920', 'Heavy-jersey hooded sweatshirt with bold rubberised logo', 345, 345, 'Heavyweight hooded sweatshirt in pure cotton jersey. Featuring a bold logo in matching-tone rubber print on the front and back, an affirmation that the Emporio Armani logo is still a constant of undeniable style. Brushed lining.', 'Hoodie', 'Armani, Hoodie, Black, Large, Printed', '', 'Armani'),
-('620973TNVQ11059', 'HAND DRAWN BB ICON HOODIE LARGE FIT IN BLACK', 850, 850, '• Curly fleece• Large fit• Hood without drawstring• 1 kangaroo pocket on front• Gathered at cuffs and waistline• Hand Drawn BB Icon artwork printed at front and back• Worn-out effect• Made in Portugal• Dry cleaning', 'Hoodie', 'Armani, Hoodie, Black', '', 'Balenciaga'),
-('727163TNVR31070', 'MIRROR BALENCIAGA HOODIE OVERSIZED IN BLACK', 895, 895, '\"• Medium fleece\n• This item is unisex\n• Oversize fit\n• Hood without drawstring\n• Dropped shoulder\n• 1 kangaroo pocket on front\n• Gathered at cuffs and waistline\n• Mirror Balenciaga artwork printed at front\n• Made in Portugal\n• Cold machine wash\"', 'Hoodie', 'Balenciaga, Hoodie, Black, Oversized, Printed', '', 'Balenciaga'),
-('PMAA001C99JER0050110', 'PARIS SPRAYED T-SHIRT', 195, 195, 'SHORT SLEEVES T-SHIRT IN WHITE WITH BLACK SPRAYED PRINT AT FRONT. CREW NECK. LOGO AND \"PARIS\" PRINTED IN BLACK AT FRONT. STRAIGHT HEM. Fabric 100% Cotton', 'T-Shirt', 'PalmAngels, T-Shirt, White, Printed', '', 'Palm Angels'),
-('PMAA001C99JER0171010', 'PARIS SPRAYED T-SHIRT', 195, 195, 'SHORT SLEEVES T-SHIRT IN BLACK WITH BLACK SPRAYED PRINT AT FRONT. CREW NECK. LOGO AND \"PARIS\" PRINTED IN WHITE AT FRONT. STRAIGHT HEM. Fabric 100% Cotton', 'T-Shirt', 'PalmAngels, T-Shirt, Black, Printed', '', 'Palm Angels'),
-('PMAA001C99JER0241055', 'STAR SPRAYED T-SHIRT', 195, 195, 'SHORT SLEEVES T-SHIRT IN BLACK COTTON WITH \"PALM ANGELS\" LOGO AND A GREEN SPRAYED STAR GRAPHIC PRINTED AT FRONT. CREWNECK COLLAR AND DROP SHOULDERS.FABRIC 100% COTTON', 'T-Shirt', 'Palm Angels,, T-Shirt, Black, Printed\n\n', '', 'Palm Angels'),
-('PMAA066S23JER0021084', 'I LOVE PA CLASSIC TEE', 235, 235, '\"SHORT SLEEVES T-SHIRT IN BLACK COTTON WITH MULTICOLOR I LOVE PA GRAPHIC PRINTED AT FRONT. REGULAR FIT.FABRIC 100% COTTON\"', 'T-Shirt', 'PalmAngels, T-Shirt, Black, Printed', '', 'Palm Angels'),
-('PMAB001S23JER0021055', 'PALMS&SKULL LONG SLEEVED OVER TEE', 495, 495, '\"LONG SLEEVES T-SHIRT IN BLACK COTTON FEATURING \"\"PALM ANGELS\"\" BURNING LOGO AT FRONT AND BACK. PALM TREE & SKULLS GRAPHIC AT HEM. CREWNECK COLLAR AND REGULAR FIT.FABRIC 100% COTTON\"', 'T-Shirt', 'PalmAngels, T-Shirt, Black, Printed, Long Sleeve', '', 'Palm Angels'),
-('UJN847_12VV_F0002_S_231', 'Prada Triangle Cotton T-shirt', 760, 760, 'An oversized decorative trim evoking details of Tyrolean style is reinvented with a modern twist, creating the unusual, conceptual graphic designs that enrich this classic cotton T-shirt.\n', 'T-Shirt', 'Prada, T-Shirt, White, Printed\n\n', '', 'Prada');
+INSERT INTO `products` (`ProductId`, `Name`, `MRP`, `CP`, `Description`, `Category`, `Tags`, `Brand`) VALUES
+('3R1GC01NRIZ10999', 'Quilted water-repellent recycled nylon blazer with detachable inner panel', 675, 675, 'An outerwear garment made from a sustainable, unique and exclusive Korean fabric, in a deep colour, with good climatic resistance and exceptional durability, thanks to the very high-quality texture made from recycled nylon fibres, a reduced use of chemica', 'Jacket', 'EA, WaterRep, Nylon, Jacket, Black, Technical ', 'Emporio Armani'),
+('3R1GC11NNIZ10999', 'Water-repellent two-way stretch technical nylon jacket', 525, 525, 'The perfect fusion of a flawless fit and a matte, stretchy, performance fabric creates a garment designed to naturally follow every movement. Jacket with zip fastening and side pockets. The garment also features several standout technical properties: it i', 'Jacket', 'EA, WaterRep, Nylon, Blazer, Quilted', 'Emporio Armani'),
+('3R1MDN1JWPZ10920', 'Heavy-jersey hooded sweatshirt with bold rubberised logo', 345, 345, 'Heavyweight hooded sweatshirt in pure cotton jersey. Featuring a bold logo in matching-tone rubber print on the front and back, an affirmation that the Emporio Armani logo is still a constant of undeniable style. Brushed lining.', 'Hoodie', 'Armani, Hoodie, Black, Large, Printed', 'Armani'),
+('620973TNVQ11059', 'HAND DRAWN BB ICON HOODIE LARGE FIT IN BLACK', 850, 850, '• Curly fleece• Large fit• Hood without drawstring• 1 kangaroo pocket on front• Gathered at cuffs and waistline• Hand Drawn BB Icon artwork printed at front and back• Worn-out effect• Made in Portugal• Dry cleaning', 'Hoodie', 'Armani, Hoodie, Black', 'Balenciaga'),
+('727163TNVR31070', 'MIRROR BALENCIAGA HOODIE OVERSIZED IN BLACK', 895, 895, '\"• Medium fleece\n• This item is unisex\n• Oversize fit\n• Hood without drawstring\n• Dropped shoulder\n• 1 kangaroo pocket on front\n• Gathered at cuffs and waistline\n• Mirror Balenciaga artwork printed at front\n• Made in Portugal\n• Cold machine wash\"', 'Hoodie', 'Balenciaga, Hoodie, Black, Oversized, Printed', 'Balenciaga'),
+('PMAA001C99JER0171010', 'PARIS SPRAYED T-SHIRT', 195, 195, 'SHORT SLEEVES T-SHIRT IN BLACK WITH BLACK SPRAYED PRINT AT FRONT. CREW NECK. LOGO AND \"PARIS\" PRINTED IN WHITE AT FRONT. STRAIGHT HEM. Fabric 100% Cotton', 'T-Shirt', 'PalmAngels, T-Shirt, Black, Printed', 'Palm Angels'),
+('PMAA001C99JER0241055', 'STAR SPRAYED T-SHIRT', 195, 195, 'SHORT SLEEVES T-SHIRT IN BLACK COTTON WITH \"PALM ANGELS\" LOGO AND A GREEN SPRAYED STAR GRAPHIC PRINTED AT FRONT. CREWNECK COLLAR AND DROP SHOULDERS.FABRIC 100% COTTON', 'T-Shirt', 'Palm Angels,, T-Shirt, Black, Printed\n\n', 'Palm Angels'),
+('PMAB001S23JER0021055', 'PALMS&SKULL LONG SLEEVED OVER TEE', 495, 495, '\"LONG SLEEVES T-SHIRT IN BLACK COTTON FEATURING \"\"PALM ANGELS\"\" BURNING LOGO AT FRONT AND BACK. PALM TREE & SKULLS GRAPHIC AT HEM. CREWNECK COLLAR AND REGULAR FIT.FABRIC 100% COTTON\"', 'T-Shirt', 'PalmAngels, T-Shirt, Black, Printed, Long Sleeve', 'Palm Angels'),
+('UJN847_12VV_F0002_S_231', 'Prada Triangle Cotton T-shirt', 760, 760, 'An oversized decorative trim evoking details of Tyrolean style is reinvented with a modern twist, creating the unusual, conceptual graphic designs that enrich this classic cotton T-shirt.\n', 'T-Shirt', 'Prada, T-Shirt, White, Printed\n\n', 'Prada');
 
 -- --------------------------------------------------------
 
@@ -304,11 +345,8 @@ INSERT INTO `stock` (`ProductId`, `XS`, `S`, `M`, `L`, `XL`) VALUES
 ('3R1MDN1JWPZ10920', 12, 10, 4, 7, 2),
 ('620973TNVQ11059', 2, 3, 4, 2, 3),
 ('727163TNVR31070', 22, 12, 12, 12, 12),
-('PMAA001C99JER0050110', 22, 32, 32, 21, 42),
 ('PMAA001C99JER0171010', 22, 12, 41, 20, 10),
 ('PMAA001C99JER0241055', 11, 14, 13, 21, 32),
-('PMAA066S23JER0021084', 11, 23, 21, 44, 10),
-('PMAB001S23JER0021055', 10, 4, 9, 8, 7),
 ('UJN847_12VV_F0002_S_231', 12, 32, 44, 92, 19);
 
 -- --------------------------------------------------------
@@ -357,6 +395,12 @@ INSERT INTO `user` (`UserId`, `username`, `password`, `FirstName`, `Lastname`, `
 ALTER TABLE `address`
   ADD PRIMARY KEY (`AddressId`),
   ADD KEY `address_ibfk_1` (`UserId`);
+
+--
+-- Indexes for table `archived`
+--
+ALTER TABLE `archived`
+  ADD PRIMARY KEY (`ProductId`);
 
 --
 -- Indexes for table `cart`
