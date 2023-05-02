@@ -522,7 +522,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             String query = "DELETE FROM products WHERE ProductId = ?";
             ps = con.prepareStatement(query);
             ps.setString(1, p.getProductId());
-
+            archiveProduct(p.getProductId());
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected != 0) {
                 removed = true;
@@ -545,6 +545,21 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         }
         return removed;
     }
+    
+   public void archiveProduct(String productId) {
+    String query = "CALL archive_product(?)";
+    Connection con = null;
+    try {
+        con = this.getConnection();
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, productId);
+        ps.executeUpdate();
+
+    } catch (SQLException e) {
+        System.err.println("\tA problem occurred during the archiveProduct method:");
+        System.err.println("\t" + e.getMessage());
+    }
+}
 
     @Override
     public boolean EditProduct(products p) {
