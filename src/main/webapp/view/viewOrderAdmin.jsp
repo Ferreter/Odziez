@@ -92,11 +92,23 @@
                 <% if (orders != null && !orders.isEmpty()) { %>
                     <tbody>
                         <% for (orders ord : orders) {
-                                address add = AddDao.AddressByUserId(ord.getUserId());
+                                List<address> add = AddDao.AddressByUserId(ord.getUserId());
+                                 address orderAddress = null;
+                                 for (address addr : add) {
+                    if (addr.getAddressId() == ord.getAddressId()) {
+                        orderAddress = addr;
+                        break;
+                    }
+                }
                         %>
                             <tr>
                                 <td><%= ord.getOrderId() %></td>
-                                <td><%= add.getAddress1() %></td>
+                                <td>
+                    <%= orderAddress.getAddress1() %><br>
+                    <%= orderAddress.getAddress2() %><br>
+                    <%= orderAddress.getCity() %>, <%= orderAddress.getCounty() %> <%= orderAddress.getPincode() %><br>
+                    <%= orderAddress.getCountry() %>
+                </td>
                                 <td><%= ord.getTotal() %></td>
                                 <td><%= ord.getStatus() %></td>
                             </tr>
