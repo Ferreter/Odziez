@@ -844,6 +844,14 @@ public class Controller extends HttpServlet {
         return forwardToJsp;
     }
 
+    /**
+     * Increases the quantity of a product in the user's shopping cart and
+     * returns the appropriate JSP page.
+     *
+     * @param request the HTTP servlet request
+     * @param response the HTTP servlet response
+     * @return a string representing the appropriate JSP page to display
+     */
     private String IncQuantity(HttpServletRequest request, HttpServletResponse response) {
         String forwardToJsp = "controller/index.jsp";
         HttpSession session = request.getSession(true);
@@ -861,6 +869,15 @@ public class Controller extends HttpServlet {
         return forwardToJsp;
     }
 
+    /**
+     *
+     * Decreases the quantity of a product in the user's cart by one.
+     *
+     * @param request the HTTP request object containing the user's session
+     * @param response the HTTP response object
+     * @return a String representing the JSP page to forward to after executing
+     * the method
+     */
     private String DecQuantity(HttpServletRequest request, HttpServletResponse response) {
         String forwardToJsp = "controller/index.jsp";
         HttpSession session = request.getSession(true);
@@ -887,6 +904,17 @@ public class Controller extends HttpServlet {
         return forwardToJsp;
     }
 
+    /**
+     *
+     * This method handles the editing of a product in the database
+     *
+     * @param request the HTTP servlet request object
+     *
+     * @param response the HTTP servlet response object
+     *
+     * @return a String representing the JSP page to be forwarded to after
+     * execution
+     */
     private String EditProduct(HttpServletRequest request, HttpServletResponse response) {
         String forwardToJsp = "controller/error.jsp";
         HttpSession session = request.getSession(true);
@@ -930,6 +958,14 @@ public class Controller extends HttpServlet {
 
     }
 
+    /**
+     *
+     * A method that filters products based on various criteria.
+     *
+     * @param request the HTTP request
+     * @param response the HTTP response
+     * @return a string representing the JSP page to forward to
+     */
     private String FilterProduct(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(true);
         String forwardToJsp = "controller/error.jsp";
@@ -963,6 +999,19 @@ public class Controller extends HttpServlet {
 
     }
 
+    /**
+     *
+     * This method is used to edit the user profile.
+     *
+     * @param request the HttpServletRequest object that contains the request
+     * the client has made to the server
+     *
+     * @param response the HttpServletResponse object that contains the response
+     * the servlet sends to the client
+     *
+     * @return a String containing the URL of the JSP file to which the control
+     * should be forwarded
+     */
     private String editUserProfile(HttpServletRequest request, HttpServletResponse response) {
         String forwardToJsp = "#";
         HttpSession session = request.getSession(true);
@@ -1015,6 +1064,19 @@ public class Controller extends HttpServlet {
         return forwardToJsp;
     }
 
+    /**
+     *
+     * A method that updates the status of an order in the database.
+     *
+     * @param request An HttpServletRequest object that provides request
+     * information.
+     *
+     * @param response An HttpServletResponse object that provides response
+     * information.
+     *
+     * @return A string representing the path to the next JSP page to be
+     * displayed.
+     */
     private String updateStatus(HttpServletRequest request, HttpServletResponse response) {
         String forwardToJsp = "controller/index.jsp";
         HttpSession session = request.getSession(true);
@@ -1038,6 +1100,17 @@ public class Controller extends HttpServlet {
         return forwardToJsp;
     }
 
+    /**
+     *
+     * This method adds a new address to a user's profile and redirects to the
+     * userProfile.jsp page
+     *
+     * @param request the HTTPServletRequest object
+     *
+     * @param response the HTTPServletResponse object
+     *
+     * @return String the name of the JSP file to forward the request to
+     */
     private String addAddress(HttpServletRequest request, HttpServletResponse response) {
         String forwardToJsp = "controller/index.jsp";
         HttpSession session = request.getSession(true);
