@@ -38,6 +38,44 @@
 
 
 %>
+
+<%    // Get the success message variable out of the session
+    Object msg = session.getAttribute("successMessage");
+    // If there is an success message to print
+    String success = "";
+    if (msg != null) {
+        // Cast it to a String so we can use it
+        success = (String) msg;
+        // Display the message
+%>
+<script>
+    var msg = '<%= success%>';
+    swal("", msg, "success");
+</script>
+<%
+        session.removeAttribute("successMessage");
+    }
+%>
+
+<%
+    // Get the error message variable out of the session
+    Object errmsg = session.getAttribute("errorMessages");
+    // If there is an success message to print
+    String error = "";
+    if (errmsg != null) {
+        // Cast it to a String so we can use it
+        success = (String) errmsg;
+        // Display the message
+%>
+<script>
+    var msg = '<%= success%>';
+    swal("", msg, "error");
+</script>
+<%
+        session.removeAttribute("errorMessages");
+    }
+%>
+
 <style type="text/css">
 
     .table tbody td{
@@ -66,9 +104,9 @@
             </thead>
             <tbody>
                 <% if (cartProduct != null) {
-                    for (Cart item : cartProduct) {
-                        products p = pDao.searchbyId(item.getProductId());
-                        total += p.getCP() * item.getQuantity();
+                        for (Cart item : cartProduct) {
+                            products p = pDao.searchbyId(item.getProductId());
+                            total += p.getCP() * item.getQuantity();
                 %>
                 <tr>
                     <td><%=p.getName()%></td>
@@ -99,17 +137,17 @@
                 </tr>
 
                 <% }
-                } %>
-                <% if (total > 0) { %>
-                <div class="d-flex py-3">
-                    <h3>Total Price: € <%=deciForm.format(total)%></h3>
-                    <a style="background-color: white;color:black;" class="mx-3 btn btn-primary" href="order.jsp">Check Out</a>
-                </div>
-                <% } else { %>
-                <div class="alert alert-warning"style="background-color: black; color: white;" role="alert">
-                    Your cart is empty!
-                </div>
-                <% } %>
+                    } %>
+                <% if (total > 0) {%>
+            <div class="d-flex py-3">
+                <h3>Total Price: € <%=deciForm.format(total)%></h3>
+                <a style="background-color: white;color:black;" class="mx-3 btn btn-primary" href="order.jsp">Check Out</a>
+            </div>
+            <% } else { %>
+            <div class="alert alert-warning"style="background-color: black; color: white;" role="alert">
+                Your cart is empty!
+            </div>
+            <% }%>
             </tbody>
         </table>
     </div>

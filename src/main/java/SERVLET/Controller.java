@@ -123,7 +123,7 @@ public class Controller extends HttpServlet {
                     forwardToJsp = updateStatus(request, response);
                     break;
                 case "Update Address":
-                    forwardToJsp = ResetAddress(request, response );
+                    forwardToJsp = ResetAddress(request, response);
                     break;
                 case "Add":
                     forwardToJsp = addAddress(request, response);
@@ -311,45 +311,46 @@ public class Controller extends HttpServlet {
     }
 
     private String ResetAddress(HttpServletRequest request, HttpServletResponse response) {
-    String forwardToJsp = "#";
-    HttpSession session = request.getSession(true);
+        String forwardToJsp = "#";
+        HttpSession session = request.getSession(true);
 
-    String address1 = request.getParameter("address1");
-    String address2 = request.getParameter("address2");
-    String address3 = request.getParameter("address3");
-    String city = request.getParameter("city");
-    String county = request.getParameter("county");
-    String country = request.getParameter("country");
-    String pincode = request.getParameter("pincode");
-    String username = request.getParameter("username");
-    String password = request.getParameter("password");
+        String address1 = request.getParameter("address1");
+        String address2 = request.getParameter("address2");
+        String address3 = request.getParameter("address3");
+        String city = request.getParameter("city");
+        String county = request.getParameter("county");
+        String country = request.getParameter("country");
+        String pincode = request.getParameter("pincode");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
 
-    if (address1 != null && city != null && !address1.isEmpty() && !address2.isEmpty() && !address3.isEmpty() && !city.isEmpty() && password != null && !password.isEmpty()) {
-        UserDao userDao = new UserDao("clothes_shop");
-        AddressDao addressDao = new AddressDao("clothes_shop");
-        user u = (user) session.getAttribute("user");
-        List<address> add = addressDao.AddressByUserId(u.getUserId());
-        session.setAttribute("address", add);
-        
-        address a = add.get(0);
+        if (address1 != null && city != null && !address1.isEmpty() && !address2.isEmpty() && !address3.isEmpty() && !city.isEmpty() && password != null && !password.isEmpty()) {
+            UserDao userDao = new UserDao("clothes_shop");
+            AddressDao addressDao = new AddressDao("clothes_shop");
+            user u = (user) session.getAttribute("user");
+            List<address> add = addressDao.AddressByUserId(u.getUserId());
+            session.setAttribute("address", add);
 
-        boolean passwordMatch = userDao.confirmUserByUsernamePassword(username, password);
-        if (add != null && !add.isEmpty() && !passwordMatch) {
-            boolean update = addressDao.editAddress(a, address1, address2, address3, city, county, country, pincode);
+            address a = add.get(0);
 
-            forwardToJsp = "view/userProfile.jsp";
+            boolean passwordMatch = userDao.confirmUserByUsernamePassword(username, password);
+            if (add != null && !add.isEmpty() && !passwordMatch) {
+                boolean update = addressDao.editAddress(a, address1, address2, address3, city, county, country, pincode);
+
+                forwardToJsp = "view/userProfile.jsp";
+            } else {
+                forwardToJsp = "controller/error.jsp";
+                String error = "NO Address found<a href=\"../view/LoginNdRegister.jsp\">try again.</a>";
+                session.setAttribute("errorMessage", error);
+            }
         } else {
             forwardToJsp = "controller/error.jsp";
-            String error = "NO Address found<a href=\"../view/LoginNdRegister.jsp\">try again.</a>";
+            String error = "Failed to retrieve address. Please <a href=\"../view/LoginNdRegister.jsp\">try again.</a>";
             session.setAttribute("errorMessage", error);
         }
-    } else {
-        forwardToJsp = "controller/error.jsp";
-        String error = "Failed to retrieve address. Please <a href=\"../view/LoginNdRegister.jsp\">try again.</a>";
-        session.setAttribute("errorMessage", error);
+        return forwardToJsp;
     }
-    return forwardToJsp;
-}
+
     /**
      *
      * This method handles the search of a product by name.
@@ -643,21 +644,23 @@ public class Controller extends HttpServlet {
             double mrp = Double.valueOf(MRP);
             double cp = Double.valueOf(CP);
 
-            products p = new products(ProductId, Name, mrp, cp, Description, Category, Tags,  Brand);
+            products p = new products(ProductId, Name, mrp, cp, Description, Category, Tags, Brand);
             boolean entered = productdao.AddProduct(p);
 
             if (entered == true) {
                 forwardToJsp = "view/productAdmin.jsp";
+                String success = "Action Successful, Product has been added";
+                session.setAttribute("successMessage", success);
             } else {
-                forwardToJsp = "controller/error.jsp";
-                String error = "Not enough info supplied. Please <a href=\"../view/productAdmin.jsp\">try again.</a>";
-                session.setAttribute("errorMessage", error);
+                forwardToJsp = "view/productAdmin.jsp";
+                String error = "Not enough info supplied. >";
+                session.setAttribute("errorMessages", error);
             }
 
         } else {
-            forwardToJsp = "controller/error.jsp";
-            String error = "Not enough info supplied. Please <a href=\"../view/productAdmin.jsp\">try again.</a>";
-            session.setAttribute("errorMessage", error);
+            forwardToJsp = "view/productAdmin.jsp";
+            String error = "Not enough info supplied.";
+            session.setAttribute("errorMessages", error);
         }
 
         return forwardToJsp;
@@ -812,7 +815,7 @@ public class Controller extends HttpServlet {
         }
         return forwardToJsp;
     }
-    
+
     private String archivedProductsReturn(HttpServletRequest request, HttpServletResponse response) {
         String forwardToJsp = "controller/error.jsp";
         HttpSession session = request.getSession(true);
@@ -849,12 +852,11 @@ public class Controller extends HttpServlet {
         CartDao cartdao = new CartDao("clothes_shop");
         if (id != null) {
             cartdao.AddQuantity(id);
-
             forwardToJsp = "view/cart.jsp";
         } else {
-            forwardToJsp = "controller/error.jsp";
-            String error = "Product Doesnt Exist <a href=\"../view/cart.jsp\">try again.</a>";
-            session.setAttribute("errorMessage", error);
+            forwardToJsp = "view/cart.jsp";
+            String error = "Error Increasing Quantity";
+            session.setAttribute("errorMessages", error);
         }
         return forwardToJsp;
     }
@@ -876,12 +878,11 @@ public class Controller extends HttpServlet {
                     }
                 }
             }
-
             forwardToJsp = "view/cart.jsp";
         } else {
-            forwardToJsp = "controller/error.jsp";
-            String error = "Product Doesnt Exist <a href=\"../view/cart.jsp\">try again.</a>";
-            session.setAttribute("errorMessage", error);
+            forwardToJsp = "view/cart.jsp";
+            String error = "Error Decreasing Quantity";
+            session.setAttribute("errorMessages", error);
         }
         return forwardToJsp;
     }
@@ -911,16 +912,18 @@ public class Controller extends HttpServlet {
 
             if (entered == true) {
                 forwardToJsp = "view/productAdmin.jsp";
+                String success = "Action Successful, Product " + ProductId + " has been edited";
+                session.setAttribute("successMessage", success);
             } else {
-                forwardToJsp = "controller/error.jsp";
-                String error = "Not enough info supplied. Please <a href=\"../view/productAdmin.jsp\">try again.</a>";
-                session.setAttribute("errorMessage", error);
+                forwardToJsp = "view/productAdmin.jsp";
+                String error = "Not enough info supplied.";
+                session.setAttribute("errorMessages", error);
             }
 
         } else {
-            forwardToJsp = "controller/error.jsp";
-            String error = "Not enough info supplied. Please <a href=\"../view/productAdmin.jsp\">try again.</a>";
-            session.setAttribute("errorMessage", error);
+            forwardToJsp = "view/productAdmin.jsp";
+            String error = "Not enough info supplied.";
+            session.setAttribute("errorMessages", error);
         }
 
         return forwardToJsp;
