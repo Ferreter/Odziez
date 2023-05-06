@@ -39,7 +39,6 @@ public class OrderDetailsDao extends Dao implements OrderDetailsDaoInterface {
             ps.setInt(1, u.getOrderId());
             ps.setString(2, u.getProductName());
             ps.setString(3, u.getSize());
-            
             ps.setDouble(4, u.getProductPrice());
             ps.setInt(5, u.getQuantity());
 

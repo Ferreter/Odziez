@@ -845,7 +845,7 @@ public class Controller extends HttpServlet {
                         
                         double productPrice = pro.getCP();
                         int quantity = cartItem.getQuantity();
-
+                        size = cartItem.getSize();
                         OrderDetails orderDet = new OrderDetails(orderId, productName, size, productPrice, quantity);
                         addDetails = detailsDao.addOrderDetails(orderDet);
                     }
@@ -882,7 +882,7 @@ public class Controller extends HttpServlet {
                     
                     double productPrice = pro.getCP();
                     int quantity = cartItem.getQuantity();
-                    
+                    size = cartItem.getSize();
                     int newQuantity = 0;
                     
                      StockDao stockDao = new StockDao("clothes_shop");
