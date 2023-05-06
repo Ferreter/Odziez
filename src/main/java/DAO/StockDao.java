@@ -34,8 +34,9 @@ public class StockDao extends Dao implements StockDaoInterface{
         try {
             con = getConnection();
 
-            String query = "SELECT * FROM `stock` ORDER BY `stock`.`ProductId` DESC";
+            String query = "SELECT * FROM `stock` Where ProductId = ?";
             ps = con.prepareStatement(query);
+            ps.setString(1,  p.getProductId() );
             rs = ps.executeQuery();
 
             while (rs.next()) {
