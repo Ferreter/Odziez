@@ -119,6 +119,7 @@ CREATE TABLE `cart` (
 CREATE TABLE `orderdetails` (
   `OrderId` int(11) NOT NULL,
   `productName` varchar(255) NOT NULL,
+  `sze` varchar(225) NOT NULL,
   `productPrice` double(6,2) NOT NULL,
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -127,32 +128,32 @@ CREATE TABLE `orderdetails` (
 -- Dumping data for table `orderdetails`
 --
 
-INSERT INTO `orderdetails` (`OrderId`, `productName`, `productPrice`, `quantity`) VALUES
-(5, 'PALMS&SKULL LONG SLEEVED OVER TEE', 495.00, 1),
-(6, 'PALMS&SKULL LONG SLEEVED OVER TEE', 495.00, 2),
-(6, 'STAR SPRAYED T-SHIRT', 195.00, 2),
-(7, 'PALMS&SKULL LONG SLEEVED OVER TEE', 495.00, 2),
-(8, 'I LOVE PA CLASSIC TEE', 235.00, 1),
-(9, 'PALMS&SKULL LONG SLEEVED OVER TEE', 495.00, 3),
-(10, 'Prada Triangle Cotton T-shirt', 760.00, 1),
-(11, 'Prada Triangle Cotton T-shirt', 760.00, 2),
-(11, 'PARIS SPRAYED T-SHIRT', 195.00, 1),
-(12, 'Water-repellent two-way stretch technical nylon jacket', 525.00, 1),
-(13, 'Heavy-jersey hooded sweatshirt with bold rubberised logo', 345.00, 3),
-(14, 'HAND DRAWN BB ICON HOODIE LARGE FIT IN BLACK', 850.00, 1),
-(15, 'PALMS&SKULL LONG SLEEVED OVER TEE', 495.00, 1),
-(16, 'Prada Triangle Cotton T-shirt', 760.00, 1),
-(16, 'PARIS SPRAYED T-SHIRT', 195.00, 1),
-(17, 'Water-repellent two-way stretch technical nylon jacket', 525.00, 1),
-(17, 'Quilted water-repellent recycled nylon blazer with detachable inner panel', 675.00, 4),
-(17, 'Prada Triangle Cotton T-shirt', 760.00, 4),
-(17, 'PARIS SPRAYED T-SHIRT', 195.00, 2),
-(20, 'PARIS SPRAYED T-SHIRT', 195.00, 2),
-(21, 'Prada Triangle Cotton T-shirt', 760.00, 10),
-(22, 'Heavy-jersey hooded sweatshirt with bold rubberised logo', 345.00, 1),
-(23, 'PALMS&SKULL LONG SLEEVED OVER TEE', 495.00, 2),
-(24, 'Prada Triangle Cotton T-shirt', 760.00, 1),
-(25, 'PARIS SPRAYED T-SHIRT', 195.00, 1);
+INSERT INTO `orderdetails` (`OrderId`, `productName`, `sze`, `productPrice`, `quantity`) VALUES
+(5, 'PALMS&SKULL LONG SLEEVED OVER TEE', '', 495.00, 1),
+(6, 'PALMS&SKULL LONG SLEEVED OVER TEE', '', 495.00, 2),
+(6, 'STAR SPRAYED T-SHIRT', '', 195.00, 2),
+(7, 'PALMS&SKULL LONG SLEEVED OVER TEE', '', 495.00, 2),
+(8, 'I LOVE PA CLASSIC TEE', '', 235.00, 1),
+(9, 'PALMS&SKULL LONG SLEEVED OVER TEE', '', 495.00, 3),
+(10, 'Prada Triangle Cotton T-shirt', '', 760.00, 1),
+(11, 'Prada Triangle Cotton T-shirt', '', 760.00, 2),
+(11, 'PARIS SPRAYED T-SHIRT', '', 195.00, 1),
+(12, 'Water-repellent two-way stretch technical nylon jacket', '', 525.00, 1),
+(13, 'Heavy-jersey hooded sweatshirt with bold rubberised logo', '', 345.00, 3),
+(14, 'HAND DRAWN BB ICON HOODIE LARGE FIT IN BLACK', '', 850.00, 1),
+(15, 'PALMS&SKULL LONG SLEEVED OVER TEE', '', 495.00, 1),
+(16, 'Prada Triangle Cotton T-shirt', '', 760.00, 1),
+(16, 'PARIS SPRAYED T-SHIRT', '', 195.00, 1),
+(17, 'Water-repellent two-way stretch technical nylon jacket', '', 525.00, 1),
+(17, 'Quilted water-repellent recycled nylon blazer with detachable inner panel', '', 675.00, 4),
+(17, 'Prada Triangle Cotton T-shirt', '', 760.00, 4),
+(17, 'PARIS SPRAYED T-SHIRT', '', 195.00, 2),
+(20, 'PARIS SPRAYED T-SHIRT', '', 195.00, 2),
+(21, 'Prada Triangle Cotton T-shirt', '', 760.00, 10),
+(22, 'Heavy-jersey hooded sweatshirt with bold rubberised logo', '', 345.00, 1),
+(23, 'PALMS&SKULL LONG SLEEVED OVER TEE', '', 495.00, 2),
+(24, 'Prada Triangle Cotton T-shirt', '', 760.00, 1),
+(25, 'PARIS SPRAYED T-SHIRT', '', 195.00, 1);
 
 -- --------------------------------------------------------
 
@@ -175,7 +176,13 @@ CREATE TABLE `orders` (
 
 INSERT INTO `orders` (`orderId`, `UserId`, `AddressId`, `total`, `created_at`, `Status`) VALUES
 (24, 7, 1, 760.00, '2023-04-19 17:54:21', 'In Transit'),
-(25, 7, 1, 195.00, '2023-04-26 16:56:48', 'Processed');
+(25, 7, 1, 195.00, '2023-04-26 16:56:48', 'Processed'),
+(26, 7, 1, 850.00, '2023-05-06 20:27:18', 'Confirmed '),
+(27, 7, 1, 8950.00, '2023-05-06 20:35:56', 'Confirmed '),
+(28, 7, 1, 1700.00, '2023-05-06 20:48:59', 'Confirmed '),
+(29, 7, 1, 1350.00, '2023-05-06 20:59:51', 'Confirmed '),
+(30, 7, 1, 345.00, '2023-05-06 21:05:09', 'Confirmed '),
+(31, 7, 1, 1380.00, '2023-05-06 21:09:45', 'Confirmed ');
 
 -- --------------------------------------------------------
 
@@ -477,13 +484,13 @@ ALTER TABLE `address`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `review`
