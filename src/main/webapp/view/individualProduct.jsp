@@ -161,7 +161,8 @@
                 <p class="lead"><%=p.getDescription()%></p>
                 <p class="lead"><%= p.getProductId()%></p>
                 
-            
+                <div class="">
+             <form action="../Controller?id=<%=p.getProductId()%>" method="post" onsubmit="return addToCart()">
                 <div style="margin-bottom: 20px;">
                     <br>
                     <button name="Size" style="margin-left: 20px;" class="btn btn-light" type="button" title="In Stock=<%=Stocks.get(0).getXS()%>">
@@ -182,9 +183,9 @@
 
                 </div>
 
-                <div class="">
+                
 
-                    <form action="../Controller?id=<%=p.getProductId()%>" method="post" onsubmit="return addToCart()">
+                   
                         <br>
                         <input type="hidden" name="ProductId" value="<%= p.getProductId()%>">
                         <input type="number" name="quantity" min="1" value="1">
