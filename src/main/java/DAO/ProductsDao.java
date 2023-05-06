@@ -7,6 +7,7 @@ package DAO;
 import DTO.Cart;
 import DTO.products;
 import DTO.review;
+import DTO.stock;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
@@ -47,7 +48,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                products p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"),  rs.getString("Brand"));
+                products p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Brand"));
 
                 products.add(p);
             }
@@ -417,48 +418,59 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
     }
 
     @Override
-    public boolean AddProduct(products p) {
-        Connection con = null;
-        PreparedStatement ps = null;
+public boolean AddProduct(products p , stock s) {
+    Connection con = null;
+    PreparedStatement ps = null;
 
-        if (findUserByProductId(p.getProductId()) == null) {
+    if (findUserByProductId(p.getProductId()) == null) {
 
+        try {
+            con = this.getConnection();
+
+            
+
+            String query = "INSERT INTO products (ProductId, Name, MRP, CP, Description, Category, Tags,  Brand) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            ps = con.prepareStatement(query);
+            ps.setString(1, p.getProductId());
+            ps.setString(2, p.getName());
+            ps.setDouble(3, p.getMRP());
+            ps.setDouble(4, p.getCP());
+            ps.setString(5, p.getDescription());
+            ps.setString(6, p.getCategory());
+            ps.setString(7, p.getTags());
+            ps.setString(8, p.getBrand());
+            ps.execute();
+            
+            String query2 = "INSERT INTO stock (ProductId, XS,S,M,L,XL) VALUES (?, ?, ?, ?, ?, ?)";
+            ps = con.prepareStatement(query2);
+            ps.setString(1, p.getProductId());
+            ps.setInt(2, s.getXS());
+            ps.setInt(3, s.getS());
+            ps.setInt(4, s.getM());
+            ps.setInt(5, s.getL());
+            ps.setInt(6, s.getXL());
+            ps.execute();
+        } catch (SQLException e) {
+            System.err.println("\tA problem occurred during the AddProduct() method:");
+            System.err.println("\t" + e.getMessage());
+        } finally {
             try {
-                con = this.getConnection();
-
-                String query = "INSERT INTO products (ProductId, Name, MRP, CP, Description, Category, Tags, Images, Brand) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-                ps = con.prepareStatement(query);
-                ps.setString(1, p.getProductId());
-                ps.setString(2, p.getName());
-                ps.setDouble(3, p.getMRP());
-                ps.setDouble(4, p.getCP());
-                ps.setString(5, p.getDescription());
-                ps.setString(6, p.getCategory());
-                ps.setString(7, p.getTags());
-                ps.setString(8, p.getBrand());
-
-                ps.execute();
-            } catch (SQLException e) {
-                System.err.println("\tA problem occurred during the AddProduct() method:");
-                System.err.println("\t" + e.getMessage());
-            } finally {
-                try {
-                    if (ps != null) {
-                        ps.close();
-                    }
-                    if (con != null) {
-                        freeConnection(con);
-                    }
-                } catch (SQLException e) {
-                    System.err.println("A problem occurred when closing down the AddProduct() method:\n" + e.getMessage());
+                if (ps != null) {
+                    ps.close();
                 }
+                if (con != null) {
+                    freeConnection(con);
+                }
+            } catch (SQLException e) {
+                System.err.println("A problem occurred when closing down the AddProduct() method:\n" + e.getMessage());
             }
-            return true;
-        } else {
-            return false;
         }
+        return true;
+    } else {
+        return false;
     }
+}
+
 
     @Override
     public products findUserByProductId(String pId) {
@@ -485,7 +497,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
                 String Tags = rs.getString("Tags");
                 String Brand = rs.getString("Brand");
 
-                p = new products(ProductId, Name, MRP, CP, Description, Category, Tags,  Brand);
+                p = new products(ProductId, Name, MRP, CP, Description, Category, Tags, Brand);
             }
         } catch (SQLException e) {
             System.err.println("\tA problem occurred during the findUserByProductId method:");
@@ -517,12 +529,17 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         try {
             con = this.getConnection();
 
+            String query2 = "DELETE FROM stock WHERE ProductId = ?";
+            ps = con.prepareStatement(query2);
+            ps.setString(1, p.getProductId());
+            int rowsAffected2 = ps.executeUpdate();
+
             String query = "DELETE FROM products WHERE ProductId = ?";
             ps = con.prepareStatement(query);
             ps.setString(1, p.getProductId());
             archiveProduct(p.getProductId());
-            int rowsAffected = ps.executeUpdate();
-            if (rowsAffected != 0) {
+            int rowsAffected1 = ps.executeUpdate();
+            if (rowsAffected1 != 0 && rowsAffected2 != 0) {
                 removed = true;
             }
         } catch (SQLException e) {
@@ -542,22 +559,23 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
             }
         }
         return removed;
-    }
-    
-   public void archiveProduct(String productId) {
-    String query = "CALL archive_product(?)";
-    Connection con = null;
-    try {
-        con = this.getConnection();
-        PreparedStatement ps = con.prepareStatement(query);
-        ps.setString(1, productId);
-        ps.executeUpdate();
 
-    } catch (SQLException e) {
-        System.err.println("\tA problem occurred during the archiveProduct method:");
-        System.err.println("\t" + e.getMessage());
     }
-}
+
+    public void archiveProduct(String productId) {
+        String query = "CALL archive_product(?)";
+        Connection con = null;
+        try {
+            con = this.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, productId);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            System.err.println("\tA problem occurred during the archiveProduct method:");
+            System.err.println("\t" + e.getMessage());
+        }
+    }
 
     @Override
     public boolean EditProduct(products p) {
@@ -603,60 +621,56 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         }
     }
 
-   @Override
-public List<products> searchByFilters(String Style, String NeckLine, String Material, String Fit, String Length, String Occasion, String Printed, String Color) {
-    Connection con = null;
-    PreparedStatement ps = null;
-    ResultSet rs = null;
-    List<products> products = new ArrayList();
-    try {
-        con = this.getConnection();
-if (Style.equalsIgnoreCase("all") && NeckLine.equalsIgnoreCase("all") && Material.equalsIgnoreCase("all") && Fit.equalsIgnoreCase("all") && Length.equalsIgnoreCase("all") && Occasion.equalsIgnoreCase("all") && Printed.equalsIgnoreCase("all") && Color.equalsIgnoreCase("all")) {
-   products = ListAllProducts();
-
-} else {
-   String query = "SELECT * FROM products WHERE Tags like ? OR Tags like ? OR Tags like ? OR Tags like ? OR Tags like ? OR Tags like ? OR Tags like ? OR Tags like ? ";
-ps = con.prepareStatement(query);
-ps.setString(1, "%" + Color + "%");
-ps.setString(2, "%" + Style + "%");
-ps.setString(3, "%" + Printed + "%");
-ps.setString(4, "%" + Length + "%");
-ps.setString(5, "%" + Occasion + "%");
-ps.setString(6, "%" + Fit + "%");
-ps.setString(7, "%" + NeckLine + "%");
-ps.setString(8, "%" + Material + "%");
-rs = ps.executeQuery();
-        while (rs.next()) {
-
-            products p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Brand"));
-
-            products.add(p);
-        }
-}
-
-
-    
-
-        
-    } catch (SQLException e) {
-        System.err.println("\tA problem occurred during the searchbyname() method:");
-        System.err.println("\t" + e.getMessage());
-    } finally {
+    @Override
+    public List<products> searchByFilters(String Style, String NeckLine, String Material, String Fit, String Length, String Occasion, String Printed, String Color) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<products> products = new ArrayList();
         try {
-            if (rs != null) {
-                rs.close();
+            con = this.getConnection();
+            if (Style.equalsIgnoreCase("all") && NeckLine.equalsIgnoreCase("all") && Material.equalsIgnoreCase("all") && Fit.equalsIgnoreCase("all") && Length.equalsIgnoreCase("all") && Occasion.equalsIgnoreCase("all") && Printed.equalsIgnoreCase("all") && Color.equalsIgnoreCase("all")) {
+                products = ListAllProducts();
+
+            } else {
+                String query = "SELECT * FROM products WHERE Tags like ? OR Tags like ? OR Tags like ? OR Tags like ? OR Tags like ? OR Tags like ? OR Tags like ? OR Tags like ? ";
+                ps = con.prepareStatement(query);
+                ps.setString(1, "%" + Color + "%");
+                ps.setString(2, "%" + Style + "%");
+                ps.setString(3, "%" + Printed + "%");
+                ps.setString(4, "%" + Length + "%");
+                ps.setString(5, "%" + Occasion + "%");
+                ps.setString(6, "%" + Fit + "%");
+                ps.setString(7, "%" + NeckLine + "%");
+                ps.setString(8, "%" + Material + "%");
+                rs = ps.executeQuery();
+                while (rs.next()) {
+
+                    products p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Brand"));
+
+                    products.add(p);
+                }
             }
-            if (ps != null) {
-                ps.close();
-            }
-            if (con != null) {
-                freeConnection(con);
-            }
+
         } catch (SQLException e) {
-            System.err.println("A problem occurred when closing down the searchbyname() method:\n" + e.getMessage());
+            System.err.println("\tA problem occurred during the searchbyname() method:");
+            System.err.println("\t" + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    freeConnection(con);
+                }
+            } catch (SQLException e) {
+                System.err.println("A problem occurred when closing down the searchbyname() method:\n" + e.getMessage());
+            }
         }
+        return products;
     }
-    return products;
-}
 
 }

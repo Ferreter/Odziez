@@ -187,6 +187,28 @@
                         <label for="brand">Brand:</label>
                         <input type="text" class="form-control" id="brand" name="Brand" placeholder="Enter Brand" required>
                     </div>
+                    
+                    <label><b>Enter Stock Details for the Product</b></label>
+                    <div class="form-group">
+                        <label for="XS">XS:</label>
+                        <input type="number" class="form-control" id="XS" name="XS" placeholder="Enter XS stock:" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="S">S:</label>
+                        <input type="number" min="0" class="form-control" id="S" name="S" placeholder="Enter S stock:" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="M">M:</label>
+                        <input type="number" min="0" class="form-control" id="M" name="M" placeholder="Enter M stock:" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="L">L:</label>
+                        <input type="number" min="0" class="form-control" id="L" name="L" placeholder="Enter XL stock:" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="XL">XL:</label>
+                        <input type="number" min="0" class="form-control" id="XL" name="XL" placeholder="Enter XL stock:" required>
+                    </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary" name="action" value="addProduct">Add Product</button>
                     </div>

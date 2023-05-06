@@ -33,7 +33,11 @@
     user u = (user) session.getAttribute("user");
     List<products> p = (List<products>) session.getAttribute("products");
     List<products> products = productdao.ListAllProducts();
-    // If there is a Products list returned (and it's not empty)
+    String cat = request.getParameter("category");
+    List<products> category = (List<products>) session.getAttribute(cat);
+    String Bra = request.getParameter("Brand");
+    List<products> Brand = (List<products>) session.getAttribute(Bra);
+
 
     // Carrying out this check avoids the page breaking when the session times out
 %>
@@ -255,7 +259,7 @@
     <div class="row" style='padding:20px;'>
 
 
-        <%    if (products != null && !products.isEmpty() && p == null) {
+        <%    if (products != null && !products.isEmpty() && p == null && category == null && Brand == null ) {
                 // Loop to print out All of the rows
                 for (products Products : products) {
         %>
@@ -324,6 +328,58 @@
         <%
                 }
                 session.removeAttribute("products");
+            } else if (category != null){
+             for (products SearchedP : p) {
+
+        %>
+        <div class="col-md-3">
+            <a href="../view/individualProduct.jsp?ID=<%=SearchedP.getProductId()%>" style="color:white;" class="text-decoration-none">
+                <div class="fill">
+                    <img src="../media/products/<%=SearchedP.getProductId()%>1.jpg" alt="hoodie" class="" width="500px" height="500px"/>
+                </div>
+                <p style="padding-top: 5px;  font-size: 18px;" class="" >
+                    <a href="../view/individualProduct.jsp?ID=<%=SearchedP.getProductId()%>" style="color:white"><%=SearchedP.getName()%></a>
+
+
+                    <br> <small>
+
+                        <%=SearchedP.getCP()%>
+                        <span style='float:right;'><%=SearchedP.getBrand()%></span>
+                    </small> </p>
+            </a>
+        </div>
+
+
+        <%
+                }
+                session.removeAttribute("category");
+            } else if (Brand !=null){
+            
+
+            for (products SearchedP : p) {
+
+        %>
+        <div class="col-md-3">
+            <a href="../view/individualProduct.jsp?ID=<%=SearchedP.getProductId()%>" style="color:white;" class="text-decoration-none">
+                <div class="fill">
+                    <img src="../media/products/<%=SearchedP.getProductId()%>1.jpg" alt="hoodie" class="" width="500px" height="500px"/>
+                </div>
+                <p style="padding-top: 5px;  font-size: 18px;" class="" >
+                    <a href="../view/individualProduct.jsp?ID=<%=SearchedP.getProductId()%>" style="color:white"><%=SearchedP.getName()%></a>
+
+
+                    <br> <small>
+
+                        <%=SearchedP.getCP()%>
+                        <span style='float:right;'><%=SearchedP.getBrand()%></span>
+                    </small> </p>
+            </a>
+        </div>
+
+
+        <%
+                }
+                session.removeAttribute("category");
             }
 
         %>

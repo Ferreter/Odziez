@@ -32,26 +32,21 @@
                         <div class="row">
                             <div class="col-4">
                                 <p style="padding-top:4px;padding-bottom: 2px;margin:0px;">By Category</p>
-                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Jackets</a>
-                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Hoodies</a>
-                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">T-Shirt</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="../view/productsView.jsp?category=Jacket">Jackets</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="../view/productsView.jsp?category=Hoodie">Hoodies</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="../view/productsView.jsp?category=T-Shirt">T-Shirt</a>
 
                                 <p style="padding-top:8px;padding-bottom: 2px;margin:0px;">What We Recommend</p>
-                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">View All</a>
-
-                                <p style="padding-top:8px;padding-bottom: 2px;margin:0px;">Logbook</p>
-                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Casual Looks</a>
-                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Street Looks</a>
-                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Smart Looks</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="../view/productsView.jsp">View All</a>
                             </div>
 
                             <div class="col-4">
                                 <p style="padding-top:4px;padding-bottom: 2px;margin:0px;">Brand's</p>
-                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Emporio Armani</a>
-                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Armani</a>
-                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Balenciaga</a>
-                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Palm Angels</a>
-                                <a class="nav-link navDropSection" style="font-size:14px;" href="#">Prada</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="../view/productsView.jsp?Brand=Emporio Armani">Emporio Armani</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="../view/productsView.jsp?Brand=Armani">Armani</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="../view/productsView.jsp?Brand=Balenciaga">Balenciaga</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="../view/productsView.jsp?Brand=Palm Angels">Palm Angels</a>
+                                <a class="nav-link navDropSection" style="font-size:14px;" href="../view/productsView.jsp?Brand=Prada">Prada</a>
 
 
                             </div>

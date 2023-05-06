@@ -75,7 +75,7 @@
 
 <!-- product section in admin -->
 <div class="container" style="margin-top: 70px; background-color: white; padding: 50px; color: black;width:70%;">
-    <h3>The Product table:</h3>
+    <h3>The Archived Product table:</h3>
     <div style="overflow-y:auto; max-height: 600px;">
         <table id="dtDynamicVerticalScrollExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%" style="color:white;max-height: 100px;">
             <thead style="background-color: white;color:black;">

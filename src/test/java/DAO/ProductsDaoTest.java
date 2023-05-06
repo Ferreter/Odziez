@@ -7,6 +7,7 @@ package DAO;
 import DTO.Cart;
 import DTO.products;
 import DTO.review;
+import DTO.stock;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -166,11 +167,12 @@ public class ProductsDaoTest {
     public void testAddProduct() {
         System.out.println("AddProduct");
        
+        stock s = new stock("Test",1,1,1,1,1);
         products p = new products("Test", "Test", 2.0, 2.0, "Test", "Test", "Test", "Test");
 
         ProductsDao  prodDao = new ProductsDao("clothes_shop_test");
        
-        boolean result = prodDao.AddProduct(p);
+        boolean result = prodDao.AddProduct(p,s);
        assertEquals(true, result);
     }
 
@@ -212,10 +214,11 @@ public class ProductsDaoTest {
     @Test
     public void testEditProduct() {
         System.out.println("EditProduct");
+        stock s = new stock("Test",1,1,1,1,1);
         products p = new products("Test", "Test", 2.0, 2.0, "Test", "Test", "Test",  "Test");
         products Edit = new products("Test", "ChangeTest", 2.0, 2.0, "ChangeTest", "ChangeTest", "ChangeTest",  "ChangeTest");
         ProductsDao  prodDao = new ProductsDao("clothes_shop_test");
-        prodDao.AddProduct(p);
+        prodDao.AddProduct(p,s);
         boolean expResult = true;
         boolean result = prodDao.EditProduct(Edit);
         assertEquals(expResult, result);

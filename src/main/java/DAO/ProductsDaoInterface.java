@@ -75,7 +75,7 @@ public interface ProductsDaoInterface {
     
     public List<review> getReviewsByProductId(String productId);
     
-    public boolean AddProduct(products p);
+    public boolean AddProduct(products p, stock s);
     
     public products findUserByProductId(String pId);
     

@@ -19,6 +19,7 @@ import DTO.address;
 import DTO.orders;
 import DTO.products;
 import DTO.review;
+import DTO.stock;
 import DTO.user;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -631,6 +632,12 @@ public class Controller extends HttpServlet {
         ProductsDao pdao = new ProductsDao("clothes_shop");
         ProductsDaoInterface productdao = new ProductsDao("clothes_shop");
 
+        int XS = Integer.parseInt(request.getParameter("XS"));
+        int S = Integer.parseInt(request.getParameter("S"));
+        int M = Integer.parseInt(request.getParameter("M"));
+        int L = Integer.parseInt(request.getParameter("L"));
+        int XL = Integer.parseInt(request.getParameter("XL"));
+
         String ProductId = request.getParameter("ProductId");
         String Name = request.getParameter("Name");
         String MRP = request.getParameter("MRP");
@@ -644,8 +651,9 @@ public class Controller extends HttpServlet {
             double mrp = Double.valueOf(MRP);
             double cp = Double.valueOf(CP);
 
+            stock s = new stock(ProductId, XS, S, M, L, XL);
             products p = new products(ProductId, Name, mrp, cp, Description, Category, Tags, Brand);
-            boolean entered = productdao.AddProduct(p);
+            boolean entered = productdao.AddProduct(p, s);
 
             if (entered == true) {
                 forwardToJsp = "view/productAdmin.jsp";
