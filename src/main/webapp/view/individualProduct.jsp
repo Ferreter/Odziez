@@ -4,6 +4,10 @@
     Author     : hkhat
 --%>
 
+<%@page import="DTO.stock"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="DAO.StockDaoInterface"%>
+<%@page import="DAO.StockDao"%>
 <%@page import="java.util.Collections"%>
 <%@page import="DAO.UserDaoInterface"%>
 <%@page import="DAO.UserDao"%>
@@ -28,7 +32,9 @@
 <%UserDao udao = new UserDao("clothes_shop");%>
 <%UserDaoInterface userdao = new UserDao("clothes_shop");%>
 <%List<products> prods = productdao.ListAllProducts();%>
-
+<%StockDao sdao = new StockDao("clothes_shop");%>
+<% StockDaoInterface StockDao = new StockDao("clothes_shop");%>
+<%List<stock> Stocks = sdao.ListAllStockForProductId(p);%>
 <!-- Product section-->
 <section class="py-5">
     <div class="container-fluid px-4 px-lg-5 my-5">
@@ -154,22 +160,23 @@
                 </div>
                 <p class="lead"><%=p.getDescription()%></p>
                 <p class="lead"><%= p.getProductId()%></p>
-
+                
+            
                 <div style="margin-bottom: 20px;">
                     <br>
-                    <button name="Size" style="margin-left: 20px;" class="btn btn-light" type="button" title="5 in stock">
+                    <button name="Size" style="margin-left: 20px;" class="btn btn-light" type="button" title="In Stock=<%=Stocks.get(0).getXS()%>">
                         XS
                     </button>
-                    <button name="Size" style="margin-left: 20px;" class="btn btn-light" type="button" title="5 in stock">
+                    <button name="Size" style="margin-left: 20px;" class="btn btn-light" type="button" title="In Stock=<%=Stocks.get(0).getS()%>">
                         S
                     </button>
-                    <button name="Size" style="margin-left: 20px;" class="btn btn-light" type="button" title="5 in stock">
+                    <button name="Size" style="margin-left: 20px;" class="btn btn-light" type="button" title="In Stock=<%=Stocks.get(0).getM()%>">
                         M
                     </button>
-                    <button  name="Size"style="margin-left: 20px;" class="btn btn-light" type="button" title="5 in stock">
+                    <button  name="Size"style="margin-left: 20px;" class="btn btn-light" type="button" title="In Stock=<%=Stocks.get(0).getL()%>">
                         L
                     </button>
-                    <button  name="Size" style="margin-left: 20px;" class="btn btn-light" type="button" title="5 in stock">
+                    <button  name="Size" style="margin-left: 20px;" class="btn btn-light" type="button" title="In Stock=<%=Stocks.get(0).getXL()%>">
                         XL
                     </button>
 
