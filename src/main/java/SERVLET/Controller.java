@@ -311,6 +311,14 @@ public class Controller extends HttpServlet {
         return forwardToJsp;
     }
 
+    /**
+     * Resets the address of a user with the given information, and updates the
+     * corresponding information in the database.
+     *
+     * @param request the HTTP servlet request
+     * @param response the HTTP servlet response
+     * @return the String representation of the next JSP page to display
+     */
     private String ResetAddress(HttpServletRequest request, HttpServletResponse response) {
         String forwardToJsp = "#";
         HttpSession session = request.getSession(true);
@@ -391,6 +399,16 @@ public class Controller extends HttpServlet {
         return forwardToJsp;
     }
 
+    /**
+     *
+     * Searches for products by brand name and sets the results in the session
+     * attribute "products".
+     *
+     * @param request the HTTP request containing the "product" parameter to
+     * search for
+     * @param response the HTTP response
+     * @return a string containing the path of the JSP file to forward to
+     */
     private String SearchProductbyBrand(HttpServletRequest request, HttpServletResponse response) {
         String forwardToJsp = "controller/index.jsp";
         HttpSession session = request.getSession(true);
@@ -454,6 +472,16 @@ public class Controller extends HttpServlet {
         return forwardToJsp;
     }
 
+    /**
+     *
+     * Adds a product to the cart of the current user session, if the product
+     * exists.
+     *
+     * @param request the HttpServletRequest object containing the product id
+     * and quantity.
+     * @param response the HttpServletResponse object
+     * @return the path to the JSP page to forward the request to
+     */
     private String Cart(HttpServletRequest request, HttpServletResponse response) {
         String forwardToJsp = "#";
         HttpSession session = request.getSession(true);
@@ -509,6 +537,23 @@ public class Controller extends HttpServlet {
         return forwardToJsp;
     }
 
+    /**
+     *
+     * This method handles the request and response objects to enter a review
+     * for a product. It first checks for profanity in the review and censors
+     * it, then creates a new review object and inserts it into the database.
+     * The method returns the forwardToJsp string.
+     *
+     * @param request the HttpServletRequest object containing the request the
+     * client has made to the servlet
+     * @param response the HttpServletResponse object containing the response
+     * the servlet sends to the client
+     * @return the forwardToJsp string that determines where the request is
+     * forwarded to
+     * @throws IOException if an I/O error occurs while the servlet is handling
+     * the HTTP request
+     * @throws ServletException if the request for the GET could not be handled
+     */
     private String EnterReview(HttpServletRequest request, HttpServletResponse response) {
         String forwardToJsp = "controller/index.jsp";
         HttpSession session = request.getSession(true);
@@ -599,6 +644,17 @@ public class Controller extends HttpServlet {
         return forwardToJsp;
     }
 
+    /**
+     *
+     * Deletes the user profile of the logged-in user.
+     *
+     * @param request the HttpServletRequest object that contains the request
+     * the client made to the servlet.
+     * @param response the HttpServletResponse object that contains the response
+     * the servlet sends to the client.
+     * @return the URL of the page to forward the user to after the deletion has
+     * been completed.
+     */
     private String DeleteUserProfile(HttpServletRequest request, HttpServletResponse response) {
         String forwardToJsp = "controller/index.jsp";
         HttpSession session = request.getSession(true);
@@ -625,6 +681,14 @@ public class Controller extends HttpServlet {
         return forwardToJsp;
     }
 
+    /**
+     *
+     * Adds a new product to the database.
+     *
+     * @param request the HTTP request object.
+     * @param response the HTTP response object.
+     * @return the JSP page to forward to after completing the action.
+     */
     private String AddProduct(HttpServletRequest request, HttpServletResponse response) {
         String forwardToJsp = "controller/error.jsp";
         HttpSession session = request.getSession(true);
@@ -675,6 +739,17 @@ public class Controller extends HttpServlet {
 
     }
 
+    /**
+     *
+     * Removes an item from the cart.
+     *
+     * @param request the HttpServletRequest object that contains the request
+     * the client has made of the servlet.
+     * @param response the HttpServletResponse object that contains the response
+     * the servlet sends to the client.
+     * @return a String object that indicates the JSP page to be forwarded to
+     * after the item is removed from the cart.
+     */
     private String RemoveItem(HttpServletRequest request, HttpServletResponse response) {
         String forwardToJsp = "controller/index.jsp";
         HttpSession session = request.getSession(true);
@@ -688,6 +763,16 @@ public class Controller extends HttpServlet {
         return forwardToJsp;
     }
 
+    /**
+     *
+     * Handles the HTTP POST request for placing an order.
+     *
+     * @param request the HttpServletRequest object that contains the request
+     * the client has made of the servlet
+     * @param response the HttpServletResponse object that contains the response
+     * the servlet sends to the client
+     * @return a string representing the JSP file to be forwarded to
+     */
     private String Order(HttpServletRequest request, HttpServletResponse response) {
         String forwardToJsp = "controller/index.jsp";
         HttpSession session = request.getSession(true);
@@ -794,6 +879,19 @@ public class Controller extends HttpServlet {
         return forwardToJsp;
     }
 
+    /**
+     *
+     * Deletes a product from the database and returns a string to redirect to a
+     * page.
+     *
+     * @param request the HttpServletRequest containing information about the
+     * request
+     *
+     * @param response the HttpServletResponse containing information about the
+     * response
+     *
+     * @return the forwardToJsp string to redirect to a page
+     */
     private String deleteProduct(HttpServletRequest request, HttpServletResponse response) {
         String forwardToJsp = "controller/error.jsp";
         HttpSession session = request.getSession(true);
@@ -824,6 +922,16 @@ public class Controller extends HttpServlet {
         return forwardToJsp;
     }
 
+    /**
+     *
+     * Returns a previously archived product to the products list
+     *
+     * @param request the HttpServletRequest object containing the request the
+     * client has made of the servlet
+     * @param response the HttpServletResponse object containing the response
+     * the servlet sends to the client
+     * @return a String indicating the JSP file to forward the request to
+     */
     private String archivedProductsReturn(HttpServletRequest request, HttpServletResponse response) {
         String forwardToJsp = "controller/error.jsp";
         HttpSession session = request.getSession(true);
