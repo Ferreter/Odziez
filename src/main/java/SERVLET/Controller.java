@@ -809,7 +809,7 @@ public class Controller extends HttpServlet {
         String expiry = request.getParameter("expiry");
         String cvv = request.getParameter("cvv");
         double total = Double.parseDouble(request.getParameter("total"));
-
+ String size = request.getParameter("Size");
         //ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
         if (total != 0.0 && cardNumber != null && expiry != null && cvv != null) {
 
@@ -842,10 +842,11 @@ public class Controller extends HttpServlet {
                     for (Cart cartItem : cartItems) {
                         products pro = pdao.searchbyId(cartItem.getProductId());
                         String productName = pro.getName();
+                        
                         double productPrice = pro.getCP();
                         int quantity = cartItem.getQuantity();
 
-                        OrderDetails orderDet = new OrderDetails(orderId, productName, productPrice, quantity);
+                        OrderDetails orderDet = new OrderDetails(orderId, productName, size, productPrice, quantity);
                         addDetails = detailsDao.addOrderDetails(orderDet);
                     }
 
@@ -878,11 +879,39 @@ public class Controller extends HttpServlet {
                 for (Cart cartItem : cartItems2) {
                     products pro = pdao.searchbyId(cartItem.getProductId());
                     String productName = pro.getName();
+                    
                     double productPrice = pro.getCP();
                     int quantity = cartItem.getQuantity();
-
-                    OrderDetails orderDet = new OrderDetails(orderId2, productName, productPrice, quantity);
+                    
+                    int newQuantity = 0;
+                    
+                     StockDao stockDao = new StockDao("clothes_shop");
+                     
+                   
+                       stock stock = stockDao.getProductStock(pro.getProductId());
+                       if (stock != null) {
+                // Get the available quantity in stock for the selected size
+                int availableQuantity = 0;
+                if (size.equals("XS")) {
+                    availableQuantity = stock.getXS();
+                } else if (size.equals("S")) {
+                    availableQuantity = stock.getS();
+                } else if (size.equals("M")) {
+                    availableQuantity = stock.getM();
+                } else if (size.equals("L")) {
+                    availableQuantity = stock.getL();
+                } else if (size.equals("XL")) {
+                    availableQuantity = stock.getXL();
+                }
+                        
+                
+                       
+                      
+                    OrderDetails orderDet = new OrderDetails(orderId2, productName, size, productPrice, quantity);
                     addDetails = detailsDao.addOrderDetails(orderDet);
+                    newQuantity = availableQuantity - quantity;
+                    stockDao.updateStockQuantityBySize(stock, size,newQuantity);
+                }
                 }
                 cartdao.EmptyCartItem(userId);
                 forwardToJsp = "controller/index.jsp";

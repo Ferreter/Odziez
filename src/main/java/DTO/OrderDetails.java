@@ -15,6 +15,7 @@ public class OrderDetails {
     private int orderId;
 
     private String productName;
+    private String Size;
     private double productPrice;
     private int quantity;
     
@@ -24,12 +25,21 @@ public class OrderDetails {
         
     }
     
-    public OrderDetails( int orderId, String productName, double productPrice, int quantity) {
+    public OrderDetails( int orderId, String productName, String Size, double productPrice, int quantity) {
         
         this.orderId = orderId;
         this.productName = productName;
+        this.Size = Size;
         this.productPrice = productPrice;
         this.quantity = quantity;
+    }
+
+    public String getSize() {
+        return Size;
+    }
+
+    public void setSize(String Size) {
+        this.Size = Size;
     }
 
     

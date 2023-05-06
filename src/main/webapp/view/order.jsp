@@ -71,7 +71,7 @@
                                             <thead>
                                                 <tr style="color:white;">
                                                     <th scope="col">Item</th>
-
+                                                    <th scope="col">Size</th>
                                                     <th scope="col">Price </th>
 
                                                     <th scope="col">Quantity </th>
@@ -89,11 +89,13 @@
                                                 <tr style="color:white;">
 
                                                     <td><%=p.getName()%></td>
+                                                     <td><%=item.getSize() %></td>
 
                                                     <td><%= deciForm.format(p.getCP())%></td>
 
                                                     <td>
                                                         <form action="order" method="post" class="form-inline">
+                                                             <input type="hidden" name="Size" value="<%=item.getSize() %>" class="form-input">
                                                             <input type="hidden" name="id" value="<%=p.getProductId()%>" class="form-input">
                                                             <div class="form-group d-flex justify-content-between">
 
@@ -125,6 +127,7 @@
                             </div>
 
                             <form action="../Controller?userId=<%=u.getUserId()%>" method="post" onsubmit="return orderPlaced()">
+                               
                                 <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 0px;">Address Details</h5>
                                 <div class="form-outline mb-4">
                                     <label class="form-label" for="form2Example17">First Name:</label>

@@ -33,13 +33,15 @@ public class OrderDetailsDao extends Dao implements OrderDetailsDaoInterface {
             con = getConnection();
 
             // not needed to name fields since we are filling it all
-            String command = "INSERT INTO orderdetails(orderId, productName, productPrice, quantity) VALUES (?,  ?, ?, ?)";
+            String command = "INSERT INTO orderdetails(orderId, productName, size, productPrice, quantity) VALUES (?,  ?, ?, ?, ?)";
             ps = con.prepareStatement(command);
 
             ps.setInt(1, u.getOrderId());
             ps.setString(2, u.getProductName());
-            ps.setDouble(3, u.getProductPrice());
-            ps.setInt(4, u.getQuantity());
+            ps.setString(3, u.getSize());
+            
+            ps.setDouble(4, u.getProductPrice());
+            ps.setInt(5, u.getQuantity());
 
             ps.execute();
         } catch (SQLException e) {
@@ -83,10 +85,11 @@ public class OrderDetailsDao extends Dao implements OrderDetailsDaoInterface {
 
                     int orderId = rs.getInt("orderId");
                 String productName = rs.getString("productName");
+                String size = rs.getString("Size");
                 double productPrice = rs.getDouble("productPrice");
                 int quantity = rs.getInt("quantity");
 
-                OrderDetails OrderDetail  = new OrderDetails(orderId,productName,productPrice,quantity);
+                OrderDetails OrderDetail  = new OrderDetails(orderId,productName,size,productPrice,quantity);
                 o.add(OrderDetail);
                 }
             }
