@@ -164,19 +164,19 @@
             
                 <div style="margin-bottom: 20px;">
                     <br>
-                    <button name="Size" style="margin-left: 20px;" class="btn btn-light" type="button" title="<%=Stocks.get(0).getXS()%>">
+                    <button name="Size" style="margin-left: 20px;" class="btn btn-light" type="button" title="In Stock=<%=Stocks.get(0).getXS()%>">
                         XS
                     </button>
-                    <button name="Size" style="margin-left: 20px;" class="btn btn-light" type="button" title="<%=Stocks.get(0).getS()%>">
+                    <button name="Size" style="margin-left: 20px;" class="btn btn-light" type="button" title="In Stock=<%=Stocks.get(0).getS()%>">
                         S
                     </button>
-                    <button name="Size" style="margin-left: 20px;" class="btn btn-light" type="button" title="<%=Stocks.get(0).getM()%>">
+                    <button name="Size" style="margin-left: 20px;" class="btn btn-light" type="button" title="In Stock=<%=Stocks.get(0).getM()%>">
                         M
                     </button>
-                    <button  name="Size"style="margin-left: 20px;" class="btn btn-light" type="button" title="<%=Stocks.get(0).getL()%>">
+                    <button  name="Size"style="margin-left: 20px;" class="btn btn-light" type="button" title="In Stock=<%=Stocks.get(0).getL()%>">
                         L
                     </button>
-                    <button  name="Size" style="margin-left: 20px;" class="btn btn-light" type="button" title="<%=Stocks.get(0).getXL()%>">
+                    <button  name="Size" style="margin-left: 20px;" class="btn btn-light" type="button" title="In Stock=<%=Stocks.get(0).getXL()%>">
                         XL
                     </button>
 
