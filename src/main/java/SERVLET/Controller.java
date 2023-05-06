@@ -12,6 +12,7 @@ import DAO.OrderDao;
 import DAO.OrderDetailsDao;
 import DAO.ProductsDao;
 import DAO.ProductsDaoInterface;
+import DAO.StockDao;
 import DAO.UserDao;
 import DTO.Cart;
 import DTO.OrderDetails;
@@ -483,59 +484,66 @@ public class Controller extends HttpServlet {
      * @return the path to the JSP page to forward the request to
      */
     private String Cart(HttpServletRequest request, HttpServletResponse response) {
-        String forwardToJsp = "#";
-        HttpSession session = request.getSession(true);
+    String forwardToJsp = "#";
+    HttpSession session = request.getSession(true);
 
-        String id = request.getParameter("id");
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
+    String id = request.getParameter("id");
+    int quantity = Integer.parseInt(request.getParameter("quantity"));
 
-        if (id != null && !id.isEmpty()) {
-            ProductsDao pdao = new ProductsDao("clothes_shop");
-            products p = pdao.searchbyId(id);
+    if (id != null && !id.isEmpty()) {
+        ProductsDao pdao = new ProductsDao("clothes_shop");
+        StockDao stockDao = new StockDao ("clothes_shop");
+        products p = pdao.searchbyId(id);
 
-            CartDao cartdao = new CartDao("clothes_shop");
-            user u = (user) session.getAttribute("user");
+        CartDao cartdao = new CartDao("clothes_shop");
+        user u = (user) session.getAttribute("user");
 
-            if (p != null) {
-                boolean exist = false;
-                ArrayList<Cart> cartList = new ArrayList<>();
-                Cart cm = new Cart();
-                cm.setUserId(u.getUserId());
-                cm.setProductId(id);
-                cm.setQuantity(quantity);
-                cm.setPrice(p.getCP());
+        if (p != null) {
+            boolean exist = false;
+            ArrayList<Cart> cartList = new ArrayList<>();
+            Cart cm = new Cart();
+            cm.setUserId(u.getUserId());
+            cm.setProductId(id);
+            cm.setQuantity(quantity);
+            cm.setPrice(p.getCP());
 
-                ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
-                if (cart_list == null) {
+            stock productStock = stockDao.getProductStock(id); // Retrieve stock information using ProductsDao
+
+            if (productStock != null) {
+                // Get the size selected by the user
+                String size = request.getParameter("Size");
+
+                // Get the available quantity in stock for the selected size
+                int availableQuantity = 0;
+                if (size.equals("XS")) {
+                    availableQuantity = productStock.getXS();
+                } else if (size.equals("S")) {
+                    availableQuantity = productStock.getS();
+                } else if (size.equals("M")) {
+                    availableQuantity = productStock.getM();
+                } else if (size.equals("L")) {
+                    availableQuantity = productStock.getL();
+                } else if (size.equals("XL")) {
+                    availableQuantity = productStock.getXL();
+                }
+
+                // Check if the selected quantity is valid
+                if (quantity > 0 && quantity <= availableQuantity) {
+                    // Quantity is available in stock
+                    // Add the item to the cart
                     cartList.add(cm);
                     boolean added = cartdao.addCart(cm);
                     session.setAttribute("cart-list", cartList);
-
                     forwardToJsp = "view/productsView.jsp";
-
                 } else {
-                    cartList = cart_list;
-
-                    for (Cart c : cart_list) {
-                        if (c.getProductId().equals(id)) {
-                            exist = true;
-                            forwardToJsp = "view/cart.jsp";
-
-                        }
-                    }
-
-                    if (!exist) {
-                        cartList.add(cm);
-                        boolean added = cartdao.addCart(cm);
-                        forwardToJsp = "view/productsView.jsp";
-                    }
+                    // Quantity is not available in stock or invalid
+                    forwardToJsp = "view/outOfStock.jsp";
                 }
-
             }
-
         }
-        return forwardToJsp;
     }
+    return forwardToJsp;
+}
 
     /**
      *

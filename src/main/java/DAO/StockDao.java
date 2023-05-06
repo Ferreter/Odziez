@@ -65,4 +65,43 @@ public class StockDao extends Dao implements StockDaoInterface{
 
     }
     
+    
+    @Override
+    public stock getProductStock(String productId) {
+       Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        stock productStock = null;
+        
+        try {
+            con = getConnection();
+            
+            String query = "SELECT * FROM stock WHERE ProductId = ?";
+            ps = con.prepareStatement(query);
+           ps.setString(1,  productId );
+            
+            rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                // Retrieve the stock information for the product
+                int XS = rs.getInt("XS");
+                int S = rs.getInt("S");
+                int M = rs.getInt("M");
+                int L = rs.getInt("L");
+                int XL = rs.getInt("XL");
+                
+                // Create a new stock object
+                productStock = new stock(productId, XS, S, M, L, XL);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle any exceptions that occur during database access
+        }
+        
+        return productStock;
+    }
+
+    // ...
+
 }

@@ -14,4 +14,6 @@ import java.util.List;
  */
 public interface StockDaoInterface {
     public List<stock> ListAllStockForProductId(products p);
+    
+    public stock getProductStock(String productId);
 }
