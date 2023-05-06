@@ -37,7 +37,7 @@ public class CartDao extends Dao implements CartDaoInterface {
             con = getConnection();
             
             // not needed to name fields since we are filling it all
-            String command = "INSERT INTO cart(UserId, ProductId, Size, Quantity,Price,Total) VALUES (?, ?, ?, ?, ?)";
+            String command = "INSERT INTO cart(UserId, ProductId, Size, Quantity,Price,Total) VALUES (?, ?, ?, ?, ?,?)";
             ps = con.prepareStatement(command);
            
             ps.setInt(1, u.getUserId());
