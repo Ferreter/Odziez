@@ -26,7 +26,7 @@
     <div class="row" style="background-color:black">
         <div class="col-md-4 text-center" >
             <!-- Sidebar -->
-            <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+            <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white sticky-top">
                 <div class="position-sticky" style="padding:8px 20px 20px 8px;">
                     <div class="list-group list-group-flush mx-3 mt-4">
                         <a href="../view/userProfile.jsp" class="list-group-item list-group-item-action py-2 ripple" style="padding-bottom: 10px" aria-current="true">

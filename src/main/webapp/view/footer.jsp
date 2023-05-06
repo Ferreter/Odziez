@@ -14,24 +14,22 @@
             <div class="col-md-3">
                 <h5>Company</h5>
                 <ul class="list-unstyled">
-                    <li><a href="#" >About Us</a></li>
-                    <li><a href="#">Careers</a></li>
-                    <li><a href="#">Press</a></li>
+                    <li><a href="../view/inspiration.jsp" >About Us</a></li>
                 </ul>
             </div>
             <div class="col-md-3">
                 <h5>Support</h5>
                 <ul class="list-unstyled">
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">FAQs</a></li>
-                    <li><a href="#">Shipping Information</a></li>
+                    <li><a href="../view/contactus.jsp">Contact Us</a></li>
+                    <li><a href="../view/shipping-policy.jsp">Shipping Information</a></li>
+                    <li ><a href="../view/accessibility.jsp">Accessibility</a></li>
                 </ul>
             </div>
             <div class="col-md-3">
                 <h5>Legal</h5>
                 <ul class="list-unstyled">
-                    <li><a href="#">Terms & Conditions</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="../view/terms-conditions.jsp">Terms & Conditions</a></li>
+                    <li><a href="../view/privacy-policy.jsp">Privacy Policy</a></li>
                 </ul>
             </div>
             <div class="col-md-3">
