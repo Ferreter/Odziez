@@ -103,6 +103,7 @@ CREATE TABLE `cart` (
   `id` int(11) NOT NULL,
   `UserId` int(11) NOT NULL,
   `ProductId` varchar(225) DEFAULT NULL,
+  `Size` varchar(225) NOT NULL,
   `Quantity` int(11) DEFAULT NULL,
   `Price` double DEFAULT NULL,
   `Total` double DEFAULT NULL,
@@ -476,7 +477,7 @@ ALTER TABLE `address`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `orders`

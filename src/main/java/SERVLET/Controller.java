@@ -483,16 +483,17 @@ public class Controller extends HttpServlet {
      * @param response the HttpServletResponse object
      * @return the path to the JSP page to forward the request to
      */
-    private String Cart(HttpServletRequest request, HttpServletResponse response) {
+   private String Cart(HttpServletRequest request, HttpServletResponse response) {
     String forwardToJsp = "#";
     HttpSession session = request.getSession(true);
 
     String id = request.getParameter("id");
     int quantity = Integer.parseInt(request.getParameter("quantity"));
+    String size = request.getParameter("Size");
 
     if (id != null && !id.isEmpty()) {
         ProductsDao pdao = new ProductsDao("clothes_shop");
-        StockDao stockDao = new StockDao ("clothes_shop");
+        StockDao stockDao = new StockDao("clothes_shop");
         products p = pdao.searchbyId(id);
 
         CartDao cartdao = new CartDao("clothes_shop");
@@ -500,19 +501,21 @@ public class Controller extends HttpServlet {
 
         if (p != null) {
             boolean exist = false;
-            ArrayList<Cart> cartList = new ArrayList<>();
+            ArrayList<Cart> cartList = (ArrayList<Cart>) session.getAttribute("cart-list");
+            if (cartList == null) {
+                cartList = new ArrayList<>();
+            }
+
             Cart cm = new Cart();
             cm.setUserId(u.getUserId());
             cm.setProductId(id);
             cm.setQuantity(quantity);
+            cm.setSize(size);
             cm.setPrice(p.getCP());
 
             stock productStock = stockDao.getProductStock(id); // Retrieve stock information using ProductsDao
 
             if (productStock != null) {
-                // Get the size selected by the user
-                String size = request.getParameter("Size");
-
                 // Get the available quantity in stock for the selected size
                 int availableQuantity = 0;
                 if (size.equals("XS")) {
@@ -533,8 +536,15 @@ public class Controller extends HttpServlet {
                     // Add the item to the cart
                     cartList.add(cm);
                     boolean added = cartdao.addCart(cm);
-                    session.setAttribute("cart-list", cartList);
-                    forwardToJsp = "view/productsView.jsp";
+
+                    if (added) {
+                        // Cart item was successfully added to the database
+                        session.setAttribute("cart-list", cartList);
+                        forwardToJsp = "view/productsView.jsp";
+                    } else {
+                        // Failed to add the cart item to the database
+                        forwardToJsp = "view/error.jsp"; // or an appropriate error page
+                    }
                 } else {
                     // Quantity is not available in stock or invalid
                     forwardToJsp = "view/outOfStock.jsp";
@@ -544,7 +554,6 @@ public class Controller extends HttpServlet {
     }
     return forwardToJsp;
 }
-
     /**
      *
      * This method handles the request and response objects to enter a review

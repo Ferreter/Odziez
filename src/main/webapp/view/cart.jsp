@@ -98,6 +98,7 @@
                 <tr>
                     <th scope="col">Item</th>
                     <th scope="col">Category</th>
+                    <th scope="col">Size</th>
                     <th scope="col">Price </th>
                     <th scope="col">Quantity </th>
                 </tr>
@@ -111,6 +112,8 @@
                 <tr>
                     <td><%=p.getName()%></td>
                     <td><%=p.getCategory()%></td>
+                     <td><%=item.getSize() %></td>
+                    
                     <td><%= deciForm.format(p.getCP())%></td>
                     <td>
                         <form action="order" method="post" class="form-inline">

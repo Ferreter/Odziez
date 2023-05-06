@@ -37,14 +37,15 @@ public class CartDao extends Dao implements CartDaoInterface {
             con = getConnection();
             
             // not needed to name fields since we are filling it all
-            String command = "INSERT INTO cart(UserId, ProductId, Quantity,Price,Total) VALUES (?, ?, ?, ?, ?)";
+            String command = "INSERT INTO cart(UserId, ProductId, Size, Quantity,Price,Total) VALUES (?, ?, ?, ?, ?)";
             ps = con.prepareStatement(command);
            
             ps.setInt(1, u.getUserId());
             ps.setString(2, u.getProductId());
-            ps.setInt(3, u.getQuantity());
-            ps.setDouble(4, u.getPrice());
-            ps.setDouble(5, u.getTotal());
+             ps.setString(3, u.getSize());
+            ps.setInt(4, u.getQuantity());
+            ps.setDouble(5, u.getPrice());
+            ps.setDouble(6, u.getTotal());
             ps.execute();
             } catch (SQLException e)
             {
@@ -94,7 +95,7 @@ public class CartDao extends Dao implements CartDaoInterface {
             while (rs.next())
             {
                
-                Cart c = new Cart(rs.getInt("UserId"), rs.getString("ProductId"), rs.getInt("Quantity"), rs.getDouble("Price"), rs.getDouble("Total"));
+                Cart c = new Cart(rs.getInt("UserId"), rs.getString("ProductId"),rs.getString("Size"), rs.getInt("Quantity"), rs.getDouble("Price"), rs.getDouble("Total"));
 
                 cartItems.add(c);
             }
