@@ -164,39 +164,31 @@
                 <div class="">
                     <form action="../Controller?id=<%=p.getProductId()%>" method="post" onsubmit="return addToCart()">
 
-                        <div style="margin-bottom: 20px;">
-                            <br>
-                            <button name="Size" value="XS" style="margin-left: 20px;" class="btn btn-light" type="button" title="In Stock=<%=Stocks.get(0).getXS()%>">
-                                XS
-                            </button>
-                            <button name="Size" value="S" style="margin-left: 20px;" class="btn btn-light" type="button" title="In Stock=<%=Stocks.get(0).getS()%>">
-                                S
-                            </button>
-                            <button name="Size" value="M" style="margin-left: 20px;" class="btn btn-light" type="button" title="In Stock=<%=Stocks.get(0).getM()%>">
-                                M
-                            </button>
-                            <button name="Size" value="L" style="margin-left: 20px;" class="btn btn-light" type="button" title="In Stock=<%=Stocks.get(0).getL()%>">
-                                L
-                            </button>
-                            <button name="Size" value="XL" style="margin-left: 20px;" class="btn btn-light" type="button" title="In Stock=<%=Stocks.get(0).getXL()%>">
-                                XL
-                            </button>
+    <div style="margin-bottom: 20px;">
+        <br>
+        <input type="radio" name="Size" value="XS" id="size-xs" checked>
+        <label for="size-xs" title="In Stock=<%=Stocks.get(0).getXS()%>">XS</label>
 
-                        </div>
+        <input type="radio" name="Size" value="S" id="size-s">
+        <label for="size-s" title="In Stock=<%=Stocks.get(0).getS()%>">S</label>
 
+        <input type="radio" name="Size" value="M" id="size-m">
+        <label for="size-m" title="In Stock=<%=Stocks.get(0).getM()%>">M</label>
 
+        <input type="radio" name="Size" value="L" id="size-l">
+        <label for="size-l" title="In Stock=<%=Stocks.get(0).getL()%>">L</label>
 
+        <input type="radio" name="Size" value="XL" id="size-xl">
+        <label for="size-xl" title="In Stock=<%=Stocks.get(0).getXL()%>">XL</label>
+    </div>
 
-                        <br>
-                        <input type="hidden" name="ProductId" value="<%= p.getProductId()%>">
-                        <input type="number" name="quantity" min="1" value="1">
-                        <input style="margin-left: 20px;width:50%" class="btn btn-outline-dark btn-light" type="submit" name="action" value="Cart">
+     <br>
+    <input type="hidden" name="ProductId" value="<%= p.getProductId()%>">
+    <input type="number" name="quantity" min="1" value="1">
+    <input style="margin-left: 20px;width:50%" class="btn btn-outline-dark btn-light" type="submit" name="action" value="Cart">
+    <button style="margin-left: 20px;" class="btn btn-outline-dark btn-light" type="button">Wishlist</button>
+</form>
 
-
-                        <button style="margin-left: 20px;" class="btn btn-outline-dark btn-light" type="button">
-                            Wishlist
-
-                    </form>
                     <script>
                         function addToCart() {
                             alert("Item added to cart!");
