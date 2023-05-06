@@ -160,32 +160,33 @@
                 </div>
                 <p class="lead"><%=p.getDescription()%></p>
                 <p class="lead"><%= p.getProductId()%></p>
-                
+
                 <div class="">
-             <form action="../Controller?id=<%=p.getProductId()%>" method="post" onsubmit="return addToCart()">
-                <div style="margin-bottom: 20px;">
-                    <br>
-                    <button name="Size" style="margin-left: 20px;" class="btn btn-light" type="button" title="In Stock=<%=Stocks.get(0).getXS()%>">
-                        XS
-                    </button>
-                    <button name="Size" style="margin-left: 20px;" class="btn btn-light" type="button" title="In Stock=<%=Stocks.get(0).getS()%>">
-                        S
-                    </button>
-                    <button name="Size" style="margin-left: 20px;" class="btn btn-light" type="button" title="In Stock=<%=Stocks.get(0).getM()%>">
-                        M
-                    </button>
-                    <button  name="Size"style="margin-left: 20px;" class="btn btn-light" type="button" title="In Stock=<%=Stocks.get(0).getL()%>">
-                        L
-                    </button>
-                    <button  name="Size" style="margin-left: 20px;" class="btn btn-light" type="button" title="In Stock=<%=Stocks.get(0).getXL()%>">
-                        XL
-                    </button>
+                    <form action="../Controller?id=<%=p.getProductId()%>" method="post" onsubmit="return addToCart()">
 
-                </div>
+                        <div style="margin-bottom: 20px;">
+                            <br>
+                            <button name="Size" value="XS" style="margin-left: 20px;" class="btn btn-light" type="button" title="In Stock=<%=Stocks.get(0).getXS()%>">
+                                XS
+                            </button>
+                            <button name="Size" value="S" style="margin-left: 20px;" class="btn btn-light" type="button" title="In Stock=<%=Stocks.get(0).getS()%>">
+                                S
+                            </button>
+                            <button name="Size" value="M" style="margin-left: 20px;" class="btn btn-light" type="button" title="In Stock=<%=Stocks.get(0).getM()%>">
+                                M
+                            </button>
+                            <button name="Size" value="L" style="margin-left: 20px;" class="btn btn-light" type="button" title="In Stock=<%=Stocks.get(0).getL()%>">
+                                L
+                            </button>
+                            <button name="Size" value="XL" style="margin-left: 20px;" class="btn btn-light" type="button" title="In Stock=<%=Stocks.get(0).getXL()%>">
+                                XL
+                            </button>
 
-                
+                        </div>
 
-                   
+
+
+
                         <br>
                         <input type="hidden" name="ProductId" value="<%= p.getProductId()%>">
                         <input type="number" name="quantity" min="1" value="1">
