@@ -40,12 +40,12 @@ public class StockDao extends Dao implements StockDaoInterface{
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                stock s = new stock(rs.getString("ProductId"), rs.getInt("Name"), rs.getInt("MRP"), rs.getInt("CP"), rs.getInt("Description"), rs.getInt("Category"));
+                stock s = new stock(rs.getString("ProductId"), rs.getInt("Xs"), rs.getInt("S"), rs.getInt("M"), rs.getInt("L"), rs.getInt("XL"));
 
                 stock.add(s);
             }
         } catch (SQLException e) {
-            System.out.println("Exception occured in the ListAllProducts() method: " + e.getMessage());
+            System.out.println("Exception occured in the ListAllStock() method: " + e.getMessage());
         } finally {
             try {
                 if (rs != null) {
