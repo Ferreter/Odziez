@@ -157,19 +157,19 @@
 
                 <div style="margin-bottom: 20px;">
                     <br>
-                    <button name="Size" style="margin-left: 20px;" class="btn btn-light" type="button">
+                    <button name="Size" style="margin-left: 20px;" class="btn btn-light" type="button" title="5 in stock">
                         XS
                     </button>
-                    <button name="Size" style="margin-left: 20px;" class="btn btn-light" type="button">
+                    <button name="Size" style="margin-left: 20px;" class="btn btn-light" type="button" title="5 in stock">
                         S
                     </button>
-                    <button name="Size" style="margin-left: 20px;" class="btn btn-light" type="button">
+                    <button name="Size" style="margin-left: 20px;" class="btn btn-light" type="button" title="5 in stock">
                         M
                     </button>
-                    <button  name="Size"style="margin-left: 20px;" class="btn btn-light" type="button">
+                    <button  name="Size"style="margin-left: 20px;" class="btn btn-light" type="button" title="5 in stock">
                         L
                     </button>
-                    <button  name="Size" style="margin-left: 20px;" class="btn btn-light" type="button">
+                    <button  name="Size" style="margin-left: 20px;" class="btn btn-light" type="button" title="5 in stock">
                         XL
                     </button>
 
