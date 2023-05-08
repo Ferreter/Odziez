@@ -483,77 +483,78 @@ public class Controller extends HttpServlet {
      * @param response the HttpServletResponse object
      * @return the path to the JSP page to forward the request to
      */
-   private String Cart(HttpServletRequest request, HttpServletResponse response) {
-    String forwardToJsp = "#";
-    HttpSession session = request.getSession(true);
+    private String Cart(HttpServletRequest request, HttpServletResponse response) {
+        String forwardToJsp = "#";
+        HttpSession session = request.getSession(true);
 
-    String id = request.getParameter("id");
-    int quantity = Integer.parseInt(request.getParameter("quantity"));
-    String size = request.getParameter("Size");
+        String id = request.getParameter("id");
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        String size = request.getParameter("Size");
 
-    if (id != null && !id.isEmpty()) {
-        ProductsDao pdao = new ProductsDao("clothes_shop");
-        StockDao stockDao = new StockDao("clothes_shop");
-        products p = pdao.searchbyId(id);
+        if (id != null && !id.isEmpty()) {
+            ProductsDao pdao = new ProductsDao("clothes_shop");
+            StockDao stockDao = new StockDao("clothes_shop");
+            products p = pdao.searchbyId(id);
 
-        CartDao cartdao = new CartDao("clothes_shop");
-        user u = (user) session.getAttribute("user");
+            CartDao cartdao = new CartDao("clothes_shop");
+            user u = (user) session.getAttribute("user");
 
-        if (p != null) {
-            boolean exist = false;
-            ArrayList<Cart> cartList = (ArrayList<Cart>) session.getAttribute("cart-list");
-            if (cartList == null) {
-                cartList = new ArrayList<>();
-            }
-
-            Cart cm = new Cart();
-            cm.setUserId(u.getUserId());
-            cm.setProductId(id);
-            cm.setQuantity(quantity);
-            cm.setSize(size);
-            cm.setPrice(p.getCP());
-
-            stock productStock = stockDao.getProductStock(id); // Retrieve stock information using ProductsDao
-
-            if (productStock != null) {
-                // Get the available quantity in stock for the selected size
-                int availableQuantity = 0;
-                if (size.equals("XS")) {
-                    availableQuantity = productStock.getXS();
-                } else if (size.equals("S")) {
-                    availableQuantity = productStock.getS();
-                } else if (size.equals("M")) {
-                    availableQuantity = productStock.getM();
-                } else if (size.equals("L")) {
-                    availableQuantity = productStock.getL();
-                } else if (size.equals("XL")) {
-                    availableQuantity = productStock.getXL();
+            if (p != null) {
+                boolean exist = false;
+                ArrayList<Cart> cartList = (ArrayList<Cart>) session.getAttribute("cart-list");
+                if (cartList == null) {
+                    cartList = new ArrayList<>();
                 }
 
-                // Check if the selected quantity is valid
-                if (quantity > 0 && quantity <= availableQuantity) {
-                    // Quantity is available in stock
-                    // Add the item to the cart
-                    cartList.add(cm);
-                    boolean added = cartdao.addCart(cm);
+                Cart cm = new Cart();
+                cm.setUserId(u.getUserId());
+                cm.setProductId(id);
+                cm.setQuantity(quantity);
+                cm.setSize(size);
+                cm.setPrice(p.getCP());
 
-                    if (added) {
-                        // Cart item was successfully added to the database
-                        session.setAttribute("cart-list", cartList);
-                        forwardToJsp = "view/productsView.jsp";
-                    } else {
-                        // Failed to add the cart item to the database
-                        forwardToJsp = "view/error.jsp"; // or an appropriate error page
+                stock productStock = stockDao.getProductStock(id); // Retrieve stock information using ProductsDao
+
+                if (productStock != null) {
+                    // Get the available quantity in stock for the selected size
+                    int availableQuantity = 0;
+                    if (size.equals("XS")) {
+                        availableQuantity = productStock.getXS();
+                    } else if (size.equals("S")) {
+                        availableQuantity = productStock.getS();
+                    } else if (size.equals("M")) {
+                        availableQuantity = productStock.getM();
+                    } else if (size.equals("L")) {
+                        availableQuantity = productStock.getL();
+                    } else if (size.equals("XL")) {
+                        availableQuantity = productStock.getXL();
                     }
-                } else {
-                    // Quantity is not available in stock or invalid
-                    forwardToJsp = "view/outOfStock.jsp";
+
+                    // Check if the selected quantity is valid
+                    if (quantity > 0 && quantity <= availableQuantity) {
+                        // Quantity is available in stock
+                        // Add the item to the cart
+                        cartList.add(cm);
+                        boolean added = cartdao.addCart(cm);
+
+                        if (added) {
+                            // Cart item was successfully added to the database
+                            session.setAttribute("cart-list", cartList);
+                            forwardToJsp = "view/productsView.jsp";
+                        } else {
+                            // Failed to add the cart item to the database
+                            forwardToJsp = "view/error.jsp"; // or an appropriate error page
+                        }
+                    } else {
+                        // Quantity is not available in stock or invalid
+                        forwardToJsp = "view/outOfStock.jsp";
+                    }
                 }
             }
         }
+        return forwardToJsp;
     }
-    return forwardToJsp;
-}
+
     /**
      *
      * This method handles the request and response objects to enter a review
@@ -790,70 +791,94 @@ public class Controller extends HttpServlet {
      * the servlet sends to the client
      * @return a string representing the JSP file to be forwarded to
      */
-    private String Order(HttpServletRequest request, HttpServletResponse response) {
-        String forwardToJsp = "controller/index.jsp";
-        HttpSession session = request.getSession(true);
-        user u = (user) session.getAttribute("user");
-        int userId = Integer.parseInt(request.getParameter("userId"));
+   private String Order(HttpServletRequest request, HttpServletResponse response) {
+    String forwardToJsp = "controller/index.jsp";
+    HttpSession session = request.getSession(true);
+    user u = (user) session.getAttribute("user");
+    int userId = Integer.parseInt(request.getParameter("userId"));
 
-        String exAdd = request.getParameter("exAdd");
-        String newAdd = request.getParameter("newAdd");
-        String address1 = request.getParameter("address1");
-        String address2 = request.getParameter("address2");
-        String address3 = request.getParameter("address3");
-        String city = request.getParameter("city");
-        String county = request.getParameter("county");
-        String country = request.getParameter("country");
-        String pincode = request.getParameter("pincode");
-        String cardNumber = request.getParameter("cardNumber");
-        String expiry = request.getParameter("expiry");
-        String cvv = request.getParameter("cvv");
-        double total = Double.parseDouble(request.getParameter("total"));
- String size = request.getParameter("Size");
-        //ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
-        if (total != 0.0 && cardNumber != null && expiry != null && cvv != null) {
+    String exAdd = request.getParameter("exAdd");
+    String newAdd = request.getParameter("newAdd");
+    String address1 = request.getParameter("address1");
+    String address2 = request.getParameter("address2");
+    String address3 = request.getParameter("address3");
+    String city = request.getParameter("city");
+    String county = request.getParameter("county");
+    String country = request.getParameter("country");
+    String pincode = request.getParameter("pincode");
+    String cardNumber = request.getParameter("cardNumber");
+    String expiry = request.getParameter("expiry");
+    String cvv = request.getParameter("cvv");
+    double total = Double.parseDouble(request.getParameter("total"));
+    String size = request.getParameter("Size");
 
-            ProductsDao pdao = new ProductsDao("clothes_shop");
-            products p = new products();
-            address add = new address();
-            AddressDao addressDao = new AddressDao("clothes_shop");
-            OrderDao orderDao = new OrderDao("clothes_shop");
-            OrderDetailsDao detailsDao = new OrderDetailsDao("clothes_shop");
-            CartDao cartdao = new CartDao("clothes_shop");
+    if (total != 0.0 && cardNumber != null && expiry != null && cvv != null) {
+        ProductsDao pdao = new ProductsDao("clothes_shop");
+        products p = new products();
+        address add = new address();
+        AddressDao addressDao = new AddressDao("clothes_shop");
+        OrderDao orderDao = new OrderDao("clothes_shop");
+        OrderDetailsDao detailsDao = new OrderDetailsDao("clothes_shop");
+        CartDao cartdao = new CartDao("clothes_shop");
+        StockDao stockDao = new StockDao("clothes_shop");
 
-            boolean addOrder = false;
-            boolean addDetails = false;
-            boolean addAddress = false;
-            if (exAdd != null && exAdd.equals("on")) {
+        boolean addOrder = false;
+        boolean addDetails = false;
+        boolean addAddress = false;
 
-                int id = addressDao.searchbyUserId(userId);
+        if (exAdd != null && exAdd.equals("on")) {
+            int id = addressDao.searchbyUserId(userId);
 
-                if (id != 0) {
+            if (id != 0) {
+                orders order = new orders(0, u.getUserId(), id, total, "Confirmed");
+                addOrder = orderDao.addOrder(order);
+                int orderId = orderDao.getLastIndex();
 
-                    orders order = new orders(0, u.getUserId(), id, total, "Confirmed");
+                List<Cart> cartItems2 = cartdao.ListAllCart(userId);
 
-                    addOrder = orderDao.addOrder(order);
+                for (Cart cartItem : cartItems2) {
+                    products pro = pdao.searchbyId(cartItem.getProductId());
+                    String productName = pro.getName();
+                    double productPrice = pro.getCP();
+                    int quantity = cartItem.getQuantity();
+                    size = cartItem.getSize();
 
-                    int orderId = orderDao.getLastIndex();
+                    stock existingStock = stockDao.getProductStock(pro.getProductId());
+                    int sizeQuantity = 0;
 
-                    List<Cart> cartItems = cartdao.ListAllCart(userId);
-
-                    //if (cart_list != null) {
-                    for (Cart cartItem : cartItems) {
-                        products pro = pdao.searchbyId(cartItem.getProductId());
-                        String productName = pro.getName();
-                        
-                        double productPrice = pro.getCP();
-                        int quantity = cartItem.getQuantity();
-                        size = cartItem.getSize();
-                        OrderDetails orderDet = new OrderDetails(orderId, productName, size, productPrice, quantity);
-                        addDetails = detailsDao.addOrderDetails(orderDet);
+                    switch (size) {
+                        case "XS":
+                            sizeQuantity = existingStock.getXS();
+                            existingStock.setXS(sizeQuantity - quantity);
+                            break;
+                        case "S":
+                            sizeQuantity = existingStock.getS();
+                            existingStock.setS(sizeQuantity - quantity);
+                            break;
+                        case "M":
+                            sizeQuantity = existingStock.getM();
+                            existingStock.setM(sizeQuantity - quantity);
+                            break;
+                        case "L":
+                            sizeQuantity = existingStock.getL();
+                            existingStock.setL(sizeQuantity - quantity);
+                            break;
+                        case "XL":
+                            sizeQuantity = existingStock.getXL();
+                            existingStock.setXL(sizeQuantity - quantity);
+                            break;
                     }
 
-                    cartdao.EmptyCartItem(userId);
-                    forwardToJsp = "controller/index.jsp";
-                } else {
-                    forwardToJsp = "controller/error.jsp";
+                    stockDao.updateProductStock(existingStock);
+
+                    OrderDetails orderDet = new OrderDetails(orderId, productName, size, productPrice, quantity);
+                    addDetails = detailsDao.addOrderDetails(orderDet);
+                }
+
+                cartdao.EmptyCartItem(userId);
+                forwardToJsp = "controller/index.jsp";
+            } else {
+                forwardToJsp = "controller/error.jsp";
                     String error = "You do not have an existing address Please <a href=\"../view/order.jsp\">add address.</a>";
 
                     session.setAttribute("errorMessage", error);
@@ -879,39 +904,39 @@ public class Controller extends HttpServlet {
                 for (Cart cartItem : cartItems2) {
                     products pro = pdao.searchbyId(cartItem.getProductId());
                     String productName = pro.getName();
-                    
+
                     double productPrice = pro.getCP();
                     int quantity = cartItem.getQuantity();
                     size = cartItem.getSize();
-                    int newQuantity = 0;
+                    stock existingStock = stockDao.getProductStock(pro.getProductId());
+                    int sizeQuantity = 0;
+
+                    switch (size) {
+                        case "XS":
+                            sizeQuantity = existingStock.getXS();
+                            existingStock.setXS(sizeQuantity - quantity);
+                            break;
+                        case "S":
+                            sizeQuantity = existingStock.getS();
+                            existingStock.setS(sizeQuantity - quantity);
+                            break;
+                        case "M":
+                            sizeQuantity = existingStock.getM();
+                            existingStock.setM(sizeQuantity - quantity);
+                            break;
+                        case "L":
+                            sizeQuantity = existingStock.getL();
+                            existingStock.setL(sizeQuantity - quantity);
+                            break;
+                        case "XL":
+                            sizeQuantity = existingStock.getXL();
+                            existingStock.setXL(sizeQuantity - quantity);
+                            break;
+                    }
+
+                    stockDao.updateProductStock(existingStock);
+
                     
-                     StockDao stockDao = new StockDao("clothes_shop");
-                     
-                   
-                       stock stock = stockDao.getProductStock(pro.getProductId());
-                       if (stock != null) {
-                // Get the available quantity in stock for the selected size
-                int availableQuantity = 0;
-                if (size.equals("XS")) {
-                    availableQuantity = stock.getXS();
-                } else if (size.equals("S")) {
-                    availableQuantity = stock.getS();
-                } else if (size.equals("M")) {
-                    availableQuantity = stock.getM();
-                } else if (size.equals("L")) {
-                    availableQuantity = stock.getL();
-                } else if (size.equals("XL")) {
-                    availableQuantity = stock.getXL();
-                }
-                        
-                
-                       
-                      
-                    OrderDetails orderDet = new OrderDetails(orderId2, productName, size, productPrice, quantity);
-                    addDetails = detailsDao.addOrderDetails(orderDet);
-                    newQuantity = availableQuantity - quantity;
-                    stockDao.updateStockQuantityBySize(stock, size,newQuantity);
-                }
                 }
                 cartdao.EmptyCartItem(userId);
                 forwardToJsp = "controller/index.jsp";

@@ -119,7 +119,7 @@ CREATE TABLE `cart` (
 CREATE TABLE `orderdetails` (
   `OrderId` int(11) NOT NULL,
   `productName` varchar(255) NOT NULL,
-  `sze` varchar(225) NOT NULL,
+  `size` varchar(225) NOT NULL,
   `productPrice` double(6,2) NOT NULL,
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -128,7 +128,7 @@ CREATE TABLE `orderdetails` (
 -- Dumping data for table `orderdetails`
 --
 
-INSERT INTO `orderdetails` (`OrderId`, `productName`, `sze`, `productPrice`, `quantity`) VALUES
+INSERT INTO `orderdetails` (`OrderId`, `productName`, `size`, `productPrice`, `quantity`) VALUES
 (5, 'PALMS&SKULL LONG SLEEVED OVER TEE', '', 495.00, 1),
 (6, 'PALMS&SKULL LONG SLEEVED OVER TEE', '', 495.00, 2),
 (6, 'STAR SPRAYED T-SHIRT', '', 195.00, 2),

@@ -137,28 +137,37 @@ public class StockDao extends Dao implements StockDaoInterface{
         
         return productStock;
     }
-public void updateStockQuantityBySize(stock stock, String size, int quantity) {
-    switch (size) {
-        case "XS":
-            stock.setXS(quantity);
-            break;
-        case "S":
-            stock.setS(quantity);
-            break;
-        case "M":
-            stock.setM(quantity);
-            break;
-        case "L":
-            stock.setL(quantity);
-            break;
-        case "XL":
-            stock.setXL(quantity);
-            break;
-        default:
-            // Handle unrecognized size if needed
-            break;
+
+
+    public boolean updateProductStock(stock existingStock) {
+       Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        
+        
+        try {
+            con = getConnection();
+            
+            String query = "UPDATE stock SET XS=?, S=?, M=?, L=?, XL=? WHERE ProductId=?";
+            ps = con.prepareStatement(query);
+          ps.setInt(1, existingStock.getXS());
+            ps.setInt(2, existingStock.getS());
+            ps.setInt(3, existingStock.getM());
+            ps.setInt(4, existingStock.getL());
+            ps.setInt(5, existingStock.getXL());
+            ps.setString(6, existingStock.getProductId());
+            
+           int rowsUpdated = ps.executeUpdate();
+            return rowsUpdated > 0;
+            
+           
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle any exceptions that occur during database access
+        }
+        
+        return false;
     }
-}
-    // ...
 
 }
