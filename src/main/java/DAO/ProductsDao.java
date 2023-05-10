@@ -122,6 +122,14 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         return products;     // u may be null 
     }
 
+    /**
+     * Returns a list of products that match the specified brand. The brand
+     * comparison is case-insensitive.
+     *
+     * @param Brand the brand to search for
+     * @return a list of products that match the specified brand
+     * @throws SQLException if an error occurs while accessing the database
+     */
     @Override
     public List<products> searchbybrand(String Brand) {
         Connection con = null;
@@ -158,6 +166,56 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
                 }
             } catch (SQLException e) {
                 System.err.println("A problem occurred when closing down the searchbyname() method:\n" + e.getMessage());
+            }
+        }
+        return products;     // u may be null 
+    }
+
+    /**
+     *
+     * Searches for products in the database by a given category.
+     *
+     * @param category a String representing the brand to search for
+     *
+     * @return a List of products that match the given category, or an empty list
+     * if no matches are found
+     */
+    @Override
+    public List<products> searchbycategory(String category) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<products> products = new ArrayList();
+        try {
+            con = this.getConnection();
+
+            String query = "SELECT * FROM products WHERE Category like ?";
+            ps = con.prepareStatement(query);
+            ps.setString(1, "%" + category + "%");
+
+            rs = ps.executeQuery();
+            while (rs.next()) {
+
+                products p = new products(rs.getString("ProductId"), rs.getString("Name"), rs.getDouble("MRP"), rs.getDouble("CP"), rs.getString("Description"), rs.getString("Category"), rs.getString("Tags"), rs.getString("Brand"));
+
+                products.add(p);
+            }
+        } catch (SQLException e) {
+            System.err.println("\tA problem occurred during the searchbycategory() method:");
+            System.err.println("\t" + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    freeConnection(con);
+                }
+            } catch (SQLException e) {
+                System.err.println("A problem occurred when closing down the searchbycategory() method:\n" + e.getMessage());
             }
         }
         return products;     // u may be null 
@@ -329,6 +387,13 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         return products;
     }
 
+    /**
+     *
+     * Inserts a new review into the database.
+     *
+     * @param r the review to be inserted
+     * @return true if the review was successfully inserted, false otherwise
+     */
     @Override
     public boolean insertReview(review r) {
         Connection con = null;
@@ -375,6 +440,12 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         return added;
     }
 
+    /**
+     * Retrieves a list of reviews for a given product ID from the database.
+     *
+     * @param productId The product ID to retrieve reviews for.
+     * @return A list of review objects for the given product ID.
+     */
     @Override
     public List<review> getReviewsByProductId(String productId) {
         Connection con = null;
@@ -417,61 +488,73 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         return reviews;
     }
 
+    /**
+     * Adds a product and its corresponding stock information to the database.
+     *
+     * @param p The product to be added to the database.
+     * @param s The stock information corresponding to the product.
+     * @return true if the product is successfully added to the database, false
+     * if the product already exists in the database.
+     * @throws SQLException if an error occurs while accessing the database.
+     */
     @Override
-public boolean AddProduct(products p , stock s) {
-    Connection con = null;
-    PreparedStatement ps = null;
+    public boolean AddProduct(products p, stock s) {
+        Connection con = null;
+        PreparedStatement ps = null;
 
-    if (findUserByProductId(p.getProductId()) == null) {
+        if (findUserByProductId(p.getProductId()) == null) {
 
-        try {
-            con = this.getConnection();
-
-            
-
-            String query = "INSERT INTO products (ProductId, Name, MRP, CP, Description, Category, Tags,  Brand) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-            ps = con.prepareStatement(query);
-            ps.setString(1, p.getProductId());
-            ps.setString(2, p.getName());
-            ps.setDouble(3, p.getMRP());
-            ps.setDouble(4, p.getCP());
-            ps.setString(5, p.getDescription());
-            ps.setString(6, p.getCategory());
-            ps.setString(7, p.getTags());
-            ps.setString(8, p.getBrand());
-            ps.execute();
-            
-            String query2 = "INSERT INTO stock (ProductId, XS,S,M,L,XL) VALUES (?, ?, ?, ?, ?, ?)";
-            ps = con.prepareStatement(query2);
-            ps.setString(1, p.getProductId());
-            ps.setInt(2, s.getXS());
-            ps.setInt(3, s.getS());
-            ps.setInt(4, s.getM());
-            ps.setInt(5, s.getL());
-            ps.setInt(6, s.getXL());
-            ps.execute();
-        } catch (SQLException e) {
-            System.err.println("\tA problem occurred during the AddProduct() method:");
-            System.err.println("\t" + e.getMessage());
-        } finally {
             try {
-                if (ps != null) {
-                    ps.close();
-                }
-                if (con != null) {
-                    freeConnection(con);
-                }
+                con = this.getConnection();
+
+                String query = "INSERT INTO products (ProductId, Name, MRP, CP, Description, Category, Tags,  Brand) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                ps = con.prepareStatement(query);
+                ps.setString(1, p.getProductId());
+                ps.setString(2, p.getName());
+                ps.setDouble(3, p.getMRP());
+                ps.setDouble(4, p.getCP());
+                ps.setString(5, p.getDescription());
+                ps.setString(6, p.getCategory());
+                ps.setString(7, p.getTags());
+                ps.setString(8, p.getBrand());
+                ps.execute();
+
+                String query2 = "INSERT INTO stock (ProductId, XS,S,M,L,XL) VALUES (?, ?, ?, ?, ?, ?)";
+                ps = con.prepareStatement(query2);
+                ps.setString(1, p.getProductId());
+                ps.setInt(2, s.getXS());
+                ps.setInt(3, s.getS());
+                ps.setInt(4, s.getM());
+                ps.setInt(5, s.getL());
+                ps.setInt(6, s.getXL());
+                ps.execute();
             } catch (SQLException e) {
-                System.err.println("A problem occurred when closing down the AddProduct() method:\n" + e.getMessage());
+                System.err.println("\tA problem occurred during the AddProduct() method:");
+                System.err.println("\t" + e.getMessage());
+            } finally {
+                try {
+                    if (ps != null) {
+                        ps.close();
+                    }
+                    if (con != null) {
+                        freeConnection(con);
+                    }
+                } catch (SQLException e) {
+                    System.err.println("A problem occurred when closing down the AddProduct() method:\n" + e.getMessage());
+                }
             }
+            return true;
+        } else {
+            return false;
         }
-        return true;
-    } else {
-        return false;
     }
-}
 
-
+    /**
+     * Finds a product by its unique product ID.
+     *
+     * @param pId the product ID to search for
+     * @return the product with the given ID, or null if no such product exists
+     */
     @Override
     public products findUserByProductId(String pId) {
         Connection con = null;
@@ -521,6 +604,13 @@ public boolean AddProduct(products p , stock s) {
 
     }
 
+    /**
+     * Deletes a product from the products table and the stock table.
+     *
+     * @param p the product to be deleted
+     * @return true if the product was successfully deleted from both tables,
+     * false otherwise
+     */
     @Override
     public boolean DeleteProduct(products p) {
         Connection con = null;
@@ -562,6 +652,11 @@ public boolean AddProduct(products p , stock s) {
 
     }
 
+    /**
+     * Archives a product by calling a stored procedure in the database.
+     *
+     * @param productId the ID of the product to be archived
+     */
     public void archiveProduct(String productId) {
         String query = "CALL archive_product(?)";
         Connection con = null;
@@ -577,6 +672,12 @@ public boolean AddProduct(products p , stock s) {
         }
     }
 
+    /**
+     * Updates an existing product in the database.
+     *
+     * @param p the products object to be updated
+     * @return true if the update was successful, false otherwise
+     */
     @Override
     public boolean EditProduct(products p) {
         Connection con = null;
@@ -621,6 +722,20 @@ public boolean AddProduct(products p , stock s) {
         }
     }
 
+    /**
+     *
+     * Searches for products in the database based on various filters.
+     *
+     * @param Style The style of the product.
+     * @param NeckLine The neckline of the product.
+     * @param Material The material of the product.
+     * @param Fit The fit of the product.
+     * @param Length The length of the product.
+     * @param Occasion The occasion for which the product is suitable.
+     * @param Printed Whether the product is printed or not.
+     * @param Color The color of the product.
+     * @return A list of products that match the specified filters.
+     */
     @Override
     public List<products> searchByFilters(String Style, String NeckLine, String Material, String Fit, String Length, String Occasion, String Printed, String Color) {
         Connection con = null;

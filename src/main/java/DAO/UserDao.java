@@ -36,102 +36,114 @@ public class UserDao extends Dao implements UserDaoInterface {
      */
     @Override
     public user findUserByUsernamePassword(String uname, String pword) {
-    Connection con = null;
-    PreparedStatement ps = null;
-    ResultSet rs = null;
-    PreparedStatement ps2 = null;
-    ResultSet rs2 = null;
-    user u = null;
-    try {
-        con = this.getConnection();
-
-        // Retrieve the user's data from the user table
-        String query = "SELECT * FROM user WHERE username=?";
-        ps = con.prepareStatement(query);
-        ps.setString(1, uname);
-        rs = ps.executeQuery();
-
-        if (rs.next()) {
-            // Get the hashed password and salt for the user
-            int UserId = rs.getInt("UserId");
-            String username = rs.getString("username");
-            String password = rs.getString("password");
-            String FirstName = rs.getString("firstName");
-            String LastName = rs.getString("LastName");
-            String Email = rs.getString("email");
-            String phone = rs.getString("phone");
-            String Question = rs.getString("question");
-            String Answer = rs.getString("answer");
-            Date DOB = rs.getDate("DOB");
-            boolean isAdmin = rs.getBoolean("isAdmin");
-            int subscription = rs.getInt("subscription");
-            String storedSalt = null;
-
-            // Retrieve the user's salt from the salt table
-            String saltQuery = "SELECT * FROM salt WHERE username=?";
-            ps2 = con.prepareStatement(saltQuery);
-            ps2.setString(1, uname);
-            rs2 = ps2.executeQuery();
-
-            if (rs2.next()) {
-                storedSalt = rs2.getString("salt");
-            }
-
-            // Hash the entered password with the stored salt
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            md.update(Base64.getDecoder().decode(storedSalt));
-            byte[] hashedEnteredPasswordBytes = md.digest(pword.getBytes());
-            String hashedEnteredPassword = Base64.getEncoder().encodeToString(hashedEnteredPasswordBytes);
-
-            // Compare the hashed entered password with the stored hashed password
-            if (hashedEnteredPassword.equals(password)) {
-                // Create a User object and return it
-                u = new user(UserId, username, password, FirstName, LastName, Email, phone, Question, Answer, DOB, isAdmin, subscription);
-                return u;
-            }
-        }
-
-    } catch (SQLException e) {
-        System.err.println("\tA problem occurred during the findUserByUsername method:");
-        System.err.println("\t" + e.getMessage());
-    } catch (NoSuchAlgorithmException ex) {
-        Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
-    } finally {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        PreparedStatement ps2 = null;
+        ResultSet rs2 = null;
+        user u = null;
         try {
-            if (rs != null) {
-                rs.close();
+            con = this.getConnection();
+
+            // Retrieve the user's data from the user table
+            String query = "SELECT * FROM user WHERE username=?";
+            ps = con.prepareStatement(query);
+            ps.setString(1, uname);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                // Get the hashed password and salt for the user
+                int UserId = rs.getInt("UserId");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                String FirstName = rs.getString("firstName");
+                String LastName = rs.getString("LastName");
+                String Email = rs.getString("email");
+                String phone = rs.getString("phone");
+                String Question = rs.getString("question");
+                String Answer = rs.getString("answer");
+                Date DOB = rs.getDate("DOB");
+                boolean isAdmin = rs.getBoolean("isAdmin");
+                int subscription = rs.getInt("subscription");
+                String storedSalt = null;
+
+                // Retrieve the user's salt from the salt table
+                String saltQuery = "SELECT * FROM salt WHERE username=?";
+                ps2 = con.prepareStatement(saltQuery);
+                ps2.setString(1, uname);
+                rs2 = ps2.executeQuery();
+
+                if (rs2.next()) {
+                    storedSalt = rs2.getString("salt");
+                }
+
+                // Hash the entered password with the stored salt
+                MessageDigest md = MessageDigest.getInstance("SHA-256");
+                md.update(Base64.getDecoder().decode(storedSalt));
+                byte[] hashedEnteredPasswordBytes = md.digest(pword.getBytes());
+                String hashedEnteredPassword = Base64.getEncoder().encodeToString(hashedEnteredPasswordBytes);
+
+                // Compare the hashed entered password with the stored hashed password
+                if (hashedEnteredPassword.equals(password)) {
+                    // Create a User object and return it
+                    u = new user(UserId, username, password, FirstName, LastName, Email, phone, Question, Answer, DOB, isAdmin, subscription);
+                    return u;
+                }
             }
-            if (ps != null) {
-                ps.close();
-            }
-            if (rs2 != null) {
-                rs2.close();
-            }
-            if (ps2 != null) {
-                ps2.close();
-            }
-            if (con != null) {
-                freeConnection(con);
-            }
+
         } catch (SQLException e) {
-            System.err.println("A problem occurred when closing down the findUserByUsername method:\n" + e.getMessage());
+            System.err.println("\tA problem occurred during the findUserByUsername method:");
+            System.err.println("\t" + e.getMessage());
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (rs2 != null) {
+                    rs2.close();
+                }
+                if (ps2 != null) {
+                    ps2.close();
+                }
+                if (con != null) {
+                    freeConnection(con);
+                }
+            } catch (SQLException e) {
+                System.err.println("A problem occurred when closing down the findUserByUsername method:\n" + e.getMessage());
+            }
         }
+        return null;
     }
-    return null;
-}
 
-private static String bytesToHex(byte[] hash) {
-    StringBuilder hexString = new StringBuilder(2 * hash.length);
-    for (byte b : hash) {
-        String hex = Integer.toHexString(0xff & b);
-        if (hex.length() == 1) {
-            hexString.append('0');
+    private static String bytesToHex(byte[] hash) {
+        StringBuilder hexString = new StringBuilder(2 * hash.length);
+        for (byte b : hash) {
+            String hex = Integer.toHexString(0xff & b);
+            if (hex.length() == 1) {
+                hexString.append('0');
+            }
+            hexString.append(hex);
         }
-        hexString.append(hex);
+        return hexString.toString();
     }
-    return hexString.toString();
-}
 
+    /**
+     *
+     * Checks if the given username and password match an existing user in the
+     * database.
+     *
+     * @param uname the username to check
+     *
+     * @param pword the password to check
+     *
+     * @return true if the username and password match an existing user, false
+     * otherwise
+     */
     @Override
     public boolean confirmUserByUsernamePassword(String uname, String pword) {
         Connection con = null;
@@ -186,8 +198,8 @@ private static String bytesToHex(byte[] hash) {
                 int subscription = rs.getInt("subscription");
 
                 u = new user(UserId, username, password, FirstName, LastName, Email, phone, Question, Answer, DOB, isAdmin, subscription);
-            
-                 confirm = true;
+
+                confirm = true;
             }
         } catch (SQLException e) {
             System.err.println("\tA problem occurred during the findUserByUsernamePassword method:");
@@ -275,6 +287,17 @@ private static String bytesToHex(byte[] hash) {
         return u;     // u may be null 
     }
 
+    /**
+     *
+     * Finds user details by checking the given username, question, and answer
+     * against the database.
+     *
+     * @param uname the username of the user to find details for
+     * @param question the security question of the user to find details for
+     * @param answer the security answer of the user to find details for
+     * @return a user object representing the details of the found user, or null
+     * if not found
+     */
     @Override
     public user findUserDetails(String uname, String question, String answer) {
         Connection con = null;
@@ -329,6 +352,15 @@ private static String bytesToHex(byte[] hash) {
         return u;     // u may be null 
     }
 
+    /**
+     * Retrieves a User object from the database based on the given email and
+     * username.
+     *
+     * @param email the email of the user to be retrieved
+     * @param username the username of the user to be retrieved
+     * @return a User object representing the retrieved user, or null if no user
+     * was found
+     */
     public user findUserByEmail(String email, String Username) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -381,6 +413,14 @@ private static String bytesToHex(byte[] hash) {
         return u;     // u may be null 
     }
 
+    /**
+     *
+     * Retrieves a user from the database based on their user ID.
+     *
+     * @param id the user ID to search for
+     *
+     * @return the user object if found, or null if not found
+     */
     @Override
     public user findUserById(int id) {
         Connection con = null;
@@ -491,76 +531,76 @@ private static String bytesToHex(byte[] hash) {
      * database, false otherwise.
      */
     @Override
-   public boolean addUser(user u) {
-    Connection con = null;
-    PreparedStatement ps = null;
-    PreparedStatement ps2 = null;
+    public boolean addUser(user u) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        PreparedStatement ps2 = null;
 
-    if (findUserByUsername(u.getUsername()) == null) {
+        if (findUserByUsername(u.getUsername()) == null) {
 
-        try {
-            con = this.getConnection();
-
-            // Generate a random salt
-            SecureRandom random = new SecureRandom();
-            byte[] saltBytes = new byte[16];
-            random.nextBytes(saltBytes);
-            String salt = Base64.getEncoder().encodeToString(saltBytes);
-
-            // Hash the password with the salt
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            md.update(saltBytes);
-            byte[] hashedPasswordBytes = md.digest(u.getPassword().getBytes());
-            String hashedPassword = Base64.getEncoder().encodeToString(hashedPasswordBytes);
-
-            // Insert the user's data into the user table
-            String userQuery = "INSERT INTO user(UserId, username, password, FirstName, Lastname,  Email, Phone, Question, Answer,  DOB, subscription) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            ps = con.prepareStatement(userQuery);
-            ps.setInt(1, 0);
-            ps.setString(2, u.getUsername());
-            ps.setString(3, hashedPassword);
-            ps.setString(4, u.getFirstName());
-            ps.setString(5, u.getLastName());
-            ps.setString(6, u.getEmail());
-            ps.setString(7, u.getPhone());
-            ps.setString(8, u.getQuestion());
-            ps.setString(9, u.getAnswer());
-            ps.setDate(10, u.getDOB());
-            ps.setInt(11, u.getSubscription());
-            ps.executeUpdate();
-
-            // Insert the salt into the salt table
-            String saltQuery = "INSERT INTO salt(username, salt) VALUES (?, ?)";
-            ps2 = con.prepareStatement(saltQuery);
-            ps2.setString(1, u.getUsername());
-            ps2.setString(2, salt);
-            ps2.executeUpdate();
-
-        } catch (SQLException e) {
-            System.err.println("\tA problem occurred during the addUser method:");
-            System.err.println("\t" + e.getMessage());
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
             try {
-                if (ps != null) {
-                    ps.close();
-                }
-                if (ps2 != null) {
-                    ps2.close();
-                }
-                if (con != null) {
-                    freeConnection(con);
-                }
+                con = this.getConnection();
+
+                // Generate a random salt
+                SecureRandom random = new SecureRandom();
+                byte[] saltBytes = new byte[16];
+                random.nextBytes(saltBytes);
+                String salt = Base64.getEncoder().encodeToString(saltBytes);
+
+                // Hash the password with the salt
+                MessageDigest md = MessageDigest.getInstance("SHA-256");
+                md.update(saltBytes);
+                byte[] hashedPasswordBytes = md.digest(u.getPassword().getBytes());
+                String hashedPassword = Base64.getEncoder().encodeToString(hashedPasswordBytes);
+
+                // Insert the user's data into the user table
+                String userQuery = "INSERT INTO user(UserId, username, password, FirstName, Lastname,  Email, Phone, Question, Answer,  DOB, subscription) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                ps = con.prepareStatement(userQuery);
+                ps.setInt(1, 0);
+                ps.setString(2, u.getUsername());
+                ps.setString(3, hashedPassword);
+                ps.setString(4, u.getFirstName());
+                ps.setString(5, u.getLastName());
+                ps.setString(6, u.getEmail());
+                ps.setString(7, u.getPhone());
+                ps.setString(8, u.getQuestion());
+                ps.setString(9, u.getAnswer());
+                ps.setDate(10, u.getDOB());
+                ps.setInt(11, u.getSubscription());
+                ps.executeUpdate();
+
+                // Insert the salt into the salt table
+                String saltQuery = "INSERT INTO salt(username, salt) VALUES (?, ?)";
+                ps2 = con.prepareStatement(saltQuery);
+                ps2.setString(1, u.getUsername());
+                ps2.setString(2, salt);
+                ps2.executeUpdate();
+
             } catch (SQLException e) {
-                System.err.println("A problem occurred when closing down the addUser method:\n" + e.getMessage());
+                System.err.println("\tA problem occurred during the addUser method:");
+                System.err.println("\t" + e.getMessage());
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                try {
+                    if (ps != null) {
+                        ps.close();
+                    }
+                    if (ps2 != null) {
+                        ps2.close();
+                    }
+                    if (con != null) {
+                        freeConnection(con);
+                    }
+                } catch (SQLException e) {
+                    System.err.println("A problem occurred when closing down the addUser method:\n" + e.getMessage());
+                }
             }
+            return true;
+        } else {
+            return false;
         }
-        return true;
-    } else {
-        return false;
     }
-}
 
     /**
      *
@@ -731,65 +771,75 @@ private static String bytesToHex(byte[] hash) {
      */
     @Override
     public boolean updatePass(user u, String newPassword) {
-    Connection con = null;
-    PreparedStatement ps = null;
-    PreparedStatement ps2 = null;
-    boolean update = false;
+        Connection con = null;
+        PreparedStatement ps = null;
+        PreparedStatement ps2 = null;
+        boolean update = false;
 
-    try {
-        con = this.getConnection();
-
-        // Generate a random salt
-        SecureRandom random = new SecureRandom();
-        byte[] saltBytes = new byte[16];
-        random.nextBytes(saltBytes);
-        String salt = Base64.getEncoder().encodeToString(saltBytes);
-
-        // Hash the new password with the salt
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-        md.update(saltBytes);
-        byte[] hashedPasswordBytes = md.digest(newPassword.getBytes());
-        String hashedPassword = Base64.getEncoder().encodeToString(hashedPasswordBytes);
-
-        // Insert the salt into the salt table
-        String saltQuery = "INSERT INTO salt(username, salt) VALUES (?, ?)";
-        ps = con.prepareStatement(saltQuery);
-        ps.setString(1, u.getUsername());
-        ps.setString(2, salt);
-        ps.executeUpdate();
-
-        // Update the user's password in the user table
-        String userQuery = "UPDATE user SET password = ? WHERE username = ?";
-        ps2 = con.prepareStatement(userQuery);
-        ps2.setString(1, hashedPassword);
-        ps2.setString(2, u.getUsername());
-        ps2.executeUpdate();
-
-        update = true;
-    } catch (SQLException e) {
-        System.err.println("\tA problem occurred during the updatePass method:");
-        System.err.println("\t" + e.getMessage());
-    } catch (NoSuchAlgorithmException ex) {
-        Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
-    } finally {
         try {
-            if (ps != null) {
-                ps.close();
-            }
-            if (ps2 != null) {
-                ps2.close();
-            }
-            if (con != null) {
-                freeConnection(con);
-            }
+            con = this.getConnection();
+
+            // Generate a random salt
+            SecureRandom random = new SecureRandom();
+            byte[] saltBytes = new byte[16];
+            random.nextBytes(saltBytes);
+            String salt = Base64.getEncoder().encodeToString(saltBytes);
+
+            // Hash the new password with the salt
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(saltBytes);
+            byte[] hashedPasswordBytes = md.digest(newPassword.getBytes());
+            String hashedPassword = Base64.getEncoder().encodeToString(hashedPasswordBytes);
+
+            // Insert the salt into the salt table
+            String saltQuery = "INSERT INTO salt(username, salt) VALUES (?, ?)";
+            ps = con.prepareStatement(saltQuery);
+            ps.setString(1, u.getUsername());
+            ps.setString(2, salt);
+            ps.executeUpdate();
+
+            // Update the user's password in the user table
+            String userQuery = "UPDATE user SET password = ? WHERE username = ?";
+            ps2 = con.prepareStatement(userQuery);
+            ps2.setString(1, hashedPassword);
+            ps2.setString(2, u.getUsername());
+            ps2.executeUpdate();
+
+            update = true;
         } catch (SQLException e) {
-            System.err.println("A problem occurred when closing down the updatePass method:\n" + e.getMessage());
+            System.err.println("\tA problem occurred during the updatePass method:");
+            System.err.println("\t" + e.getMessage());
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (ps2 != null) {
+                    ps2.close();
+                }
+                if (con != null) {
+                    freeConnection(con);
+                }
+            } catch (SQLException e) {
+                System.err.println("A problem occurred when closing down the updatePass method:\n" + e.getMessage());
+            }
         }
+
+        return update;
     }
 
-    return update;
-}
-
+    /**
+     *
+     * Adds a password reset token to the database for a given email.
+     *
+     * @param email the email address of the user requesting the password reset
+     *
+     * @param token the token generated for the password reset
+     *
+     * @return true if the reset was added successfully, false otherwise
+     */
     public boolean addReset(String email, String token) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -871,12 +921,11 @@ private static String bytesToHex(byte[] hash) {
         return removed;
     }
 
-        /**
+    /**
      * Edits a user's profile from the database.
      *
      * @param u the user object to be edited
-     * @return true if the user profile was successfully edited, false
-     * otherwise
+     * @return true if the user profile was successfully edited, false otherwise
      */
     public boolean editProfile(user u, String FirstName, String LastName, String Email, String Phone, Date DOB) {
         Connection con = null;

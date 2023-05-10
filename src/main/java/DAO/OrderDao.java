@@ -24,7 +24,11 @@ public class OrderDao extends Dao implements OrderDaoInterface {
     public OrderDao(String dbName) {
         super(dbName);
     }
-
+/**
+*Inserts a new order into the database.
+*@param u the order to be added
+*@return true if the order was added successfully, false otherwise
+*/
     public boolean addOrder(orders u) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -61,7 +65,10 @@ public class OrderDao extends Dao implements OrderDaoInterface {
         return true;
 
     }
-
+/**
+ * Returns the maximum order ID in the database.
+ * @return the maximum order ID
+ */
     public int getLastIndex() {
         Connection con = null;
         PreparedStatement ps = null;
@@ -98,7 +105,13 @@ public class OrderDao extends Dao implements OrderDaoInterface {
         return lastIndex;
 
     }
+    /**
 
+*Retrieves a list of orders for a given user ID.
+*@param userId the user ID to retrieve orders for
+*@return a List of orders associated with the given user ID, or an empty List if no orders are found
+*@throws SQLException if an error occurs while executing the SQL query
+*/
     @Override
     public List<orders> findOrdersByUserId(int userId) {
         Connection con = null;
@@ -145,7 +158,13 @@ public class OrderDao extends Dao implements OrderDaoInterface {
         }
         return o;     // o may be null 
     }
-    
+    /**
+
+*Returns a list of orders associated with a given order ID.
+*@param ordersId the ID of the order to search for
+*@return a list of orders associated with the given order ID, or an empty list if no orders are found
+*@throws SQLException if a problem occurs during the execution of the SQL query
+*/
     @Override
     public List<orders> findOrdersByOrderId(int ordersId) {
         Connection con = null;
@@ -192,7 +211,11 @@ public class OrderDao extends Dao implements OrderDaoInterface {
         }
         return o;     // o may be null 
     }
-    
+    /**
+
+*Retrieves a list of all orders from the database.
+*@return List of orders retrieved from the database. May be null.
+*/
     @Override
     public List<orders> AllOrders() {
         Connection con = null;
@@ -238,6 +261,13 @@ public class OrderDao extends Dao implements OrderDaoInterface {
         return o;     // o may be null 
     }
 
+    /**
+
+*Changes the status of an order with the given order ID to the given value.
+*@param OrderId the ID of the order to change the status of
+*@param Changed the new value of the status
+*@return true if the status was successfully changed, false otherwise
+*/
     @Override
     public boolean ChangeStatus(int OrderId,String Changed) {
         Connection con = null;

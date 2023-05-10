@@ -17,13 +17,22 @@ import java.util.List;
  *
  * @author kian2
  */
-public class StockDao extends Dao implements StockDaoInterface{
+public class StockDao extends Dao implements StockDaoInterface {
 
     public StockDao(String databaseName) {
         super(databaseName);
     }
-    
-     @Override
+
+    /**
+     *
+     * Retrieves a list of all the stock entries for a particular product from
+     * the database.
+     *
+     * @param p the product for which to retrieve the stock entries
+     *
+     * @return a list of all the stock entries for the specified product
+     */
+    @Override
     public List<stock> ListAllStockForProductId(products p) {
 
         Connection con = null;
@@ -36,7 +45,7 @@ public class StockDao extends Dao implements StockDaoInterface{
 
             String query = "SELECT * FROM `stock` Where ProductId = ?";
             ps = con.prepareStatement(query);
-            ps.setString(1,  p.getProductId() );
+            ps.setString(1, p.getProductId());
             rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -64,25 +73,32 @@ public class StockDao extends Dao implements StockDaoInterface{
         return stock;
 
     }
-    
-    
+
+    /**
+     *
+     * Retrieves the stock information for a given product ID from the database.
+     *
+     * @param productId The ID of the product to retrieve stock information for.
+     * @return The stock information for the given product ID, or null if the
+     * product ID is invalid or no stock information is available.
+     */
     @Override
     public stock getProductStock(String productId) {
-       Connection con = null;
+        Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        
+
         stock productStock = null;
-        
+
         try {
             con = getConnection();
-            
+
             String query = "SELECT * FROM stock WHERE ProductId = ?";
             ps = con.prepareStatement(query);
-           ps.setString(1,  productId );
-            
+            ps.setString(1, productId);
+
             rs = ps.executeQuery();
-            
+
             if (rs.next()) {
                 // Retrieve the stock information for the product
                 int XS = rs.getInt("XS");
@@ -90,7 +106,7 @@ public class StockDao extends Dao implements StockDaoInterface{
                 int M = rs.getInt("M");
                 int L = rs.getInt("L");
                 int XL = rs.getInt("XL");
-                
+
                 // Create a new stock object
                 productStock = new stock(productId, XS, S, M, L, XL);
             }
@@ -98,27 +114,36 @@ public class StockDao extends Dao implements StockDaoInterface{
             e.printStackTrace();
             // Handle any exceptions that occur during database access
         }
-        
+
         return productStock;
     }
 
+    /**
+     * Retrieves the stock for a specific product and size from the database.
+     *
+     * @param productId the ID of the product to retrieve stock for
+     * @param size the size to retrieve stock for (XS, S, M, L, XL)
+     * @return a stock object representing the stock for the product and size,
+     * or null if not found
+     * @throws SQLException if an error occurs while accessing the database
+     */
     public stock getProductStock(String productId, String Size) {
-       Connection con = null;
+        Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        
+
         stock productStock = null;
-        
+
         try {
             con = getConnection();
-            
+
             String query = "SELECT * FROM stock WHERE ProductId = ? AND Size = ?";
             ps = con.prepareStatement(query);
-           ps.setString(1,  productId );
-            ps.setString(2,  Size );
-            
+            ps.setString(1, productId);
+            ps.setString(2, Size);
+
             rs = ps.executeQuery();
-            
+
             if (rs.next()) {
                 // Retrieve the stock information for the product
                 int XS = rs.getInt("XS");
@@ -126,7 +151,7 @@ public class StockDao extends Dao implements StockDaoInterface{
                 int M = rs.getInt("M");
                 int L = rs.getInt("L");
                 int XL = rs.getInt("XL");
-                
+
                 // Create a new stock object
                 productStock = new stock(productId, XS, S, M, L, XL);
             }
@@ -134,39 +159,42 @@ public class StockDao extends Dao implements StockDaoInterface{
             e.printStackTrace();
             // Handle any exceptions that occur during database access
         }
-        
+
         return productStock;
     }
 
-
+    /**
+     * Updates the stock information for a product in the database.
+     *
+     * @param existingStock the stock information to be updated
+     * @return true if the stock information was updated successfully, false
+     * otherwise
+     */
     public boolean updateProductStock(stock existingStock) {
-       Connection con = null;
+        Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        
-        
-        
+
         try {
             con = getConnection();
-            
+
             String query = "UPDATE stock SET XS=?, S=?, M=?, L=?, XL=? WHERE ProductId=?";
             ps = con.prepareStatement(query);
-          ps.setInt(1, existingStock.getXS());
+            ps.setInt(1, existingStock.getXS());
             ps.setInt(2, existingStock.getS());
             ps.setInt(3, existingStock.getM());
             ps.setInt(4, existingStock.getL());
             ps.setInt(5, existingStock.getXL());
             ps.setString(6, existingStock.getProductId());
-            
-           int rowsUpdated = ps.executeUpdate();
+
+            int rowsUpdated = ps.executeUpdate();
             return rowsUpdated > 0;
-            
-           
+
         } catch (SQLException e) {
             e.printStackTrace();
             // Handle any exceptions that occur during database access
         }
-        
+
         return false;
     }
 

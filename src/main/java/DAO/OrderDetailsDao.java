@@ -23,6 +23,12 @@ public class OrderDetailsDao extends Dao implements OrderDetailsDaoInterface {
         super(dbName);
     }
 
+    /**
+
+*Adds an order detail to the database.
+*@param u the order detail to add
+*@return true if the order detail was added successfully, false otherwise
+*/
     public boolean addOrderDetails(OrderDetails u) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -61,7 +67,12 @@ public class OrderDetailsDao extends Dao implements OrderDetailsDaoInterface {
         return true;
 
     }
-
+/**
+ * Retrieves all order details associated with a specific user ID.
+ * 
+ * @param UserId the ID of the user whose order details to retrieve.
+ * @return a List of OrderDetails objects, or null if an error occurred.
+ */
     @Override
     public List<OrderDetails> findOrderDetailsById(int UserId) {
         Connection con = null;
