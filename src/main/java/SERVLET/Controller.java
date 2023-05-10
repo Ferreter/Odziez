@@ -8,6 +8,7 @@ import DAO.AddressDao;
 import DAO.ArchivedDao;
 import DAO.ArchivedDaoInterface;
 import DAO.CartDao;
+import DAO.MessageDao;
 import DAO.OrderDao;
 import DAO.OrderDetailsDao;
 import DAO.ProductsDao;
@@ -15,6 +16,7 @@ import DAO.ProductsDaoInterface;
 import DAO.StockDao;
 import DAO.UserDao;
 import DTO.Cart;
+import DTO.Message;
 import DTO.OrderDetails;
 import DTO.address;
 import DTO.orders;
@@ -132,6 +134,9 @@ public class Controller extends HttpServlet {
                     break;
                 case "archivedProductsReturn":
                     forwardToJsp = archivedProductsReturn(request, response);
+                    break;
+                case "Send":
+                    forwardToJsp = Message(request, response);
                     break;
 
             }
@@ -1337,6 +1342,31 @@ public class Controller extends HttpServlet {
         }
 
         return forwardToJsp;
+    }
+    
+    private String Message(HttpServletRequest request, HttpServletResponse response) {
+        String forwardToJsp = "controller/index.jsp";
+        HttpSession session = request.getSession(true);
+        String username = request.getParameter("username");
+        String message = request.getParameter("message");
+
+        if (username != null && !username.isEmpty() && message != null && !message.isEmpty()) {
+            UserDao userDao = new UserDao("clothes_shop");
+            MessageDao messageDao = new MessageDao("clothes_shop");
+            user u = userDao.findUserByUsername(username);
+            boolean send = false;
+
+            if (u != null) {
+                Message m = new Message(0, username, message,"Unread");
+                send = messageDao.addMessage(m);
+            } else {
+                    forwardToJsp = "controller/error.jsp";
+                    String error = "Something went wrong ";
+                    session.setAttribute("errorMessage", error);
+
+                }
+    }
+         return forwardToJsp;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

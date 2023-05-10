@@ -20,7 +20,7 @@
             <div class="col-md-3">
                 <h5>Support</h5>
                 <ul class="list-unstyled">
-                    <li><a href="../view/contactus.jsp">Contact Us</a></li>
+                    <li><a href="../view/Contact.jsp">Contact Us</a></li>
                     <li><a href="../view/shipping-policy.jsp">Shipping Information</a></li>
                     <li ><a href="../view/accessibility.jsp">Accessibility</a></li>
                 </ul>

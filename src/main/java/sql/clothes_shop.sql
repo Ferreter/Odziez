@@ -113,6 +113,19 @@ CREATE TABLE `cart` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `messages`
+--
+
+CREATE TABLE `messages` (
+  `id` int(11) NOT NULL,
+  `username` varchar(225) NOT NULL,
+  `message` int(11) NOT NULL,
+  `status` varchar(225) NOT NULL DEFAULT 'unread'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `orderdetails`
 --
 
@@ -153,7 +166,10 @@ INSERT INTO `orderdetails` (`OrderId`, `productName`, `size`, `productPrice`, `q
 (22, 'Heavy-jersey hooded sweatshirt with bold rubberised logo', '', 345.00, 1),
 (23, 'PALMS&SKULL LONG SLEEVED OVER TEE', '', 495.00, 2),
 (24, 'Prada Triangle Cotton T-shirt', '', 760.00, 1),
-(25, 'PARIS SPRAYED T-SHIRT', '', 195.00, 1);
+(25, 'PARIS SPRAYED T-SHIRT', '', 195.00, 1),
+(32, 'HAND DRAWN BB ICON HOODIE LARGE FIT IN BLACK', 'XS', 850.00, 1),
+(33, 'HAND DRAWN BB ICON HOODIE LARGE FIT IN BLACK', 'M', 850.00, 2),
+(34, 'HAND DRAWN BB ICON HOODIE LARGE FIT IN BLACK', 'M', 850.00, 2);
 
 -- --------------------------------------------------------
 
@@ -182,7 +198,10 @@ INSERT INTO `orders` (`orderId`, `UserId`, `AddressId`, `total`, `created_at`, `
 (28, 7, 1, 1700.00, '2023-05-06 20:48:59', 'Confirmed '),
 (29, 7, 1, 1350.00, '2023-05-06 20:59:51', 'Confirmed '),
 (30, 7, 1, 345.00, '2023-05-06 21:05:09', 'Confirmed '),
-(31, 7, 1, 1380.00, '2023-05-06 21:09:45', 'Confirmed ');
+(31, 7, 1, 1380.00, '2023-05-06 21:09:45', 'Confirmed '),
+(32, 7, 1, 850.00, '2023-05-08 18:57:02', 'Confirmed '),
+(33, 7, 1, 1700.00, '2023-05-08 19:16:35', 'Confirmed '),
+(34, 7, 1, 1700.00, '2023-05-08 19:17:44', 'Confirmed ');
 
 -- --------------------------------------------------------
 
@@ -351,7 +370,7 @@ INSERT INTO `stock` (`ProductId`, `XS`, `S`, `M`, `L`, `XL`) VALUES
 ('3R1GC01NRIZ10999', 13, 12, 10, 9, 2),
 ('3R1GC11NNIZ10999', 22, 32, 11, 4, 5),
 ('3R1MDN1JWPZ10920', 12, 10, 4, 7, 2),
-('620973TNVQ11059', 2, 3, 4, 2, 3),
+('620973TNVQ11059', 2, 3, 0, 2, 3),
 ('727163TNVR31070', 22, 12, 12, 12, 12),
 ('PMAA001C99JER0171010', 22, 12, 41, 20, 10),
 ('PMAA001C99JER0241055', 11, 14, 13, 21, 32),
@@ -419,6 +438,13 @@ ALTER TABLE `cart`
   ADD KEY `cart_ibfk_2` (`ProductId`);
 
 --
+-- Indexes for table `messages`
+--
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `messages_ibfk_1` (`username`);
+
+--
 -- Indexes for table `orderdetails`
 --
 ALTER TABLE `orderdetails`
@@ -484,13 +510,19 @@ ALTER TABLE `address`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+
+--
+-- AUTO_INCREMENT for table `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `review`
@@ -513,6 +545,12 @@ ALTER TABLE `user`
 --
 ALTER TABLE `address`
   ADD CONSTRAINT `address_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `user` (`UserId`);
+
+--
+-- Constraints for table `messages`
+--
+ALTER TABLE `messages`
+  ADD CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`);
 
 --
 -- Constraints for table `orders`
