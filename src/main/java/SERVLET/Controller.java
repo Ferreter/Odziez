@@ -1344,30 +1344,37 @@ public class Controller extends HttpServlet {
         return forwardToJsp;
     }
     
-    private String Message(HttpServletRequest request, HttpServletResponse response) {
-        String forwardToJsp = "controller/index.jsp";
-        HttpSession session = request.getSession(true);
-        String username = request.getParameter("username");
-        String message = request.getParameter("message");
+    /**
+ * Processes a message sent via a HttpServletRequest and HttpServletResponse.
+ *
+ * @param request  the HttpServletRequest containing the message data
+ * @param response the HttpServletResponse used for redirection
+ * @return a String indicating the JSP page to forward to
+ */
+private String Message(HttpServletRequest request, HttpServletResponse response) {
+    String forwardToJsp = "controller/index.jsp";
+    HttpSession session = request.getSession(true);
+    String username = request.getParameter("username");
+    String message = request.getParameter("message");
 
-        if (username != null && !username.isEmpty() && message != null && !message.isEmpty()) {
-            UserDao userDao = new UserDao("clothes_shop");
-            MessageDao messageDao = new MessageDao("clothes_shop");
-            user u = userDao.findUserByUsername(username);
-            boolean send = false;
+    if (username != null && !username.isEmpty() && message != null && !message.isEmpty()) {
+        UserDao userDao = new UserDao("clothes_shop");
+        MessageDao messageDao = new MessageDao("clothes_shop");
+        user u = userDao.findUserByUsername(username);
+        boolean send = false;
 
-            if (u != null) {
-                Message m = new Message(0, username, message,"Unread");
-                send = messageDao.addMessage(m);
-            } else {
-                    forwardToJsp = "controller/error.jsp";
-                    String error = "Something went wrong ";
-                    session.setAttribute("errorMessage", error);
-
-                }
+        if (u != null) {
+            Message m = new Message(0, username, message, "Unread");
+            send = messageDao.addMessage(m);
+        } else {
+            forwardToJsp = "controller/error.jsp";
+            String error = "Something went wrong ";
+            session.setAttribute("errorMessage", error);
+        }
     }
-         return forwardToJsp;
-    }
+    return forwardToJsp;
+}
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
