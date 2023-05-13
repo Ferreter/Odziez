@@ -130,6 +130,15 @@ public class AddressDao extends Dao implements AddressDaoInterface {
     }
     return addressList;
 }
+   
+   /**
+ * Finds the AddressId of a given UserId in the "address" table in the database.
+ * 
+ * @param UserId the id of the user whose address is being searched for
+ * @return the AddressId of the user's address in the "address" table in the database
+ *         or 0 if no matching address is found
+ * @throws SQLException if an error occurs while accessing the database
+ */
     public int findAddressId(int UserId) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -268,7 +277,23 @@ public class AddressDao extends Dao implements AddressDaoInterface {
         return lastIndex;
 
     }
+   
     
+    /**
+ * Updates the address of a user with the new address information in the "address" table in the database.
+ *
+ * @param u the address object representing the user's current address
+ * @param Address1 the first line of the user's new address
+ * @param Address2 the second line of the user's new address
+ * @param Address3 the third line of the user's new address
+ * @param City the city of the user's new address
+ * @param County the county of the user's new address
+ * @param Country the country of the user's new address
+ * @param Pincode the postcode of the user's new address
+ * @return true if the address is successfully updated, false otherwise
+ * @throws SQLException if an error occurs while accessing the database
+ */
+
      public boolean editAddress(address u, String Address1, String Address2, String Address3, String City, String County, String Country, String Pincode) {
         Connection con = null;
         PreparedStatement ps = null;

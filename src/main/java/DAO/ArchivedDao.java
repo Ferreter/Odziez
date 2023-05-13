@@ -23,7 +23,13 @@ public class ArchivedDao extends Dao implements ArchivedDaoInterface{
         super(dbName);
     }
     
-    
+    /**
+ * Returns a list of all products that have been archived in the "archived" table of the database.
+ *
+ * @return a list of archived products
+ * @throws SQLException if an error occurs while accessing the database
+ */
+
     @Override
     public List<archived> ListAllProducts() {
         
@@ -64,6 +70,13 @@ public class ArchivedDao extends Dao implements ArchivedDaoInterface{
         return archivedP;
     }
     
+    /**
+ * Returns an archived product to the "products" table of the database.
+ *
+ * @param p the ID of the product to be returned to the "products" table
+ * @return true if the product was successfully returned to the "products" table, false otherwise
+ */
+
     @Override
     public boolean ReturnToProducts(String p) {
         PreparedStatement ps = null;
@@ -74,6 +87,11 @@ public class ArchivedDao extends Dao implements ArchivedDaoInterface{
         return removed;
     }
     
+    /**
+*Archives a product with the specified product ID. This is done by calling the
+*database procedure 'unarchive_product' with the given product ID as a parameter.
+*@param productId the ID of the product to be archived
+*/
    public void archiveProduct(String productId) {
     String query = "CALL unarchive_product(?)";
     Connection con = null;

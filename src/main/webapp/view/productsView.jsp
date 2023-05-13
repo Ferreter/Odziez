@@ -33,11 +33,17 @@
     user u = (user) session.getAttribute("user");
     List<products> p = (List<products>) session.getAttribute("products");
     List<products> products = productdao.ListAllProducts();
-    String cat = request.getParameter("category");
-    List<products> category = (List<products>) session.getAttribute(cat);
-    String Bra = request.getParameter("Brand");
-    List<products> Brand = (List<products>) session.getAttribute(Bra);
+    List<products> Brand = null;
+    List<products> category = null;
 
+    String cat = request.getParameter("category");
+    if (cat != null) {
+        category = pdao.searchbycategory(cat);
+    }
+    String Brands = request.getParameter("Brand");
+    if (Brands != null) {
+        Brand = pdao.searchbybrand(Brands);
+    }
 
     // Carrying out this check avoids the page breaking when the session times out
 %>
@@ -259,7 +265,7 @@
     <div class="row" style='padding:20px;'>
 
 
-        <%    if (products != null && !products.isEmpty() && p == null && category == null && Brand == null ) {
+        <%    if (products != null && !products.isEmpty() && p == null && category == null && Brand == null) {
                 // Loop to print out All of the rows
                 for (products Products : products) {
         %>
@@ -326,10 +332,10 @@
 
 
         <%
-                }
-                session.removeAttribute("products");
-            } else if (category != null){
-             for (products SearchedP : p) {
+            }
+            session.removeAttribute("products");
+        } else if (category != null) {
+            for (products SearchedP : category) {
 
         %>
         <div class="col-md-3">
@@ -351,12 +357,11 @@
 
 
         <%
-                }
-                session.removeAttribute("category");
-            } else if (Brand !=null){
-            
+            }
+            session.removeAttribute("category");
+        } else if (Brand != null) {
 
-            for (products SearchedP : p) {
+            for (products SearchedP : Brand) {
 
         %>
         <div class="col-md-3">

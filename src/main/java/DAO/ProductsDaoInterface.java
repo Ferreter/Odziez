@@ -83,8 +83,12 @@ public interface ProductsDaoInterface {
 
     public List<products> searchbybrand(String product);
     
+    public List<products> searchbycategory(String product);
+    
     public boolean EditProduct(products p);
 
     public List<products> searchByFilters(String Style, String NeckLine, String Material, String Fit, String Length, String Occasion, String Printed, String Color);
+    
+
 
 }

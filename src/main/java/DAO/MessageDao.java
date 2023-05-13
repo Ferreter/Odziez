@@ -21,7 +21,12 @@ public class MessageDao extends Dao implements MessageDaoInterface {
     public MessageDao(String dbName) {
         super(dbName);
     }
-    
+    /**
+
+*Adds a message to the database.
+*@param u the message object to be added
+*@return true if the message was successfully added, false otherwise
+*/
     @Override
      public boolean addMessage(Message u)  {
         Connection con = null;
