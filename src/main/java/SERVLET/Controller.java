@@ -32,6 +32,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
@@ -213,45 +214,67 @@ public class Controller extends HttpServlet {
      * to after processing the request
      */
     private String RegisterPage(HttpServletRequest request, HttpServletResponse response) {
-        String forwardToJsp = "controller/index.jsp";
-        HttpSession session = request.getSession(true);
-        String firstname = request.getParameter("firstname");
-        String lastname = request.getParameter("lastname");
-        String email = request.getParameter("email");
-        String phone = request.getParameter("phone");
-        String question = request.getParameter("question");
-        String answer = request.getParameter("answer");
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String dob = request.getParameter("dob");
-        String subscription = request.getParameter("subscription");
-        Date date = Date.valueOf(dob);
-        boolean isAdmin = false;
-        int subscriptionVal = 0;
+    String forwardToJsp = "controller/index.jsp";
+    HttpSession session = request.getSession(true);
+    String firstname = request.getParameter("firstname");
+    String lastname = request.getParameter("lastname");
+    String email = request.getParameter("email");
+    String phone = request.getParameter("phone");
+    String question = request.getParameter("question");
+    String answer = request.getParameter("answer");
+    String username = request.getParameter("username");
+    String password = request.getParameter("password");
+    String dob = request.getParameter("dob");
+    String subscription = request.getParameter("subscription");
+    boolean isAdmin = false;
+    int subscriptionVal = 0;
+    Date date = Date.valueOf(dob);
 
-        if (username != null && password != null && !username.isEmpty() && !password.isEmpty() && firstname != null && lastname != null && !firstname.isEmpty() && !lastname.isEmpty() && email != null && phone != null && !email.isEmpty() && !phone.isEmpty() && dob != null && !dob.isEmpty()) {
-            if (subscription != null && subscription.equals("on")) {
-                subscriptionVal = 1;
-            }
-            UserDao userDao = new UserDao("clothes_shop");
-            user usernameCheck = userDao.findUserByUsername(username);
-            user u = userDao.findUserByEmail(email, username);
-            boolean login = false;
+    // Validate that all required parameters are present
+    if (username != null && password != null && !username.isEmpty() && !password.isEmpty() && firstname != null && lastname != null && !firstname.isEmpty() && !lastname.isEmpty() && email != null && phone != null && !email.isEmpty() && !phone.isEmpty() && dob != null && !dob.isEmpty()) {
+        // Validate date format and ensure it's not ahead of the current year
+        try {
+            
+            Calendar calendar = Calendar.getInstance();
+            int currentYear = calendar.get(Calendar.YEAR);
+            calendar.setTime(date);
+            int year = calendar.get(Calendar.YEAR);
 
-            if (u == null && usernameCheck == null) {
-                user user = new user(0, username, password, firstname, lastname, email, phone, question, answer, date, isAdmin, subscriptionVal);
-                session.setAttribute("username", username);
-                session.setAttribute("user", user);
-
-                login = userDao.addUser(user);
-                forwardToJsp = "controller/index.jsp";
-            } else {
+            if (year > currentYear) {
                 forwardToJsp = "view/LoginNdRegister.jsp";
-                String error = "User already exists";
+                String error = "Invalid date of birth. Please enter a date before the current year.";
                 session.setAttribute("errorMessages", error);
+                return forwardToJsp;
             }
+        } catch (IllegalArgumentException e) {
+            forwardToJsp = "view/LoginNdRegister.jsp";
+            String error = "Invalid date format for date of birth.";
+            session.setAttribute("errorMessages", error);
+            return forwardToJsp;
+        }
+
+        if (subscription != null && subscription.equals("on")) {
+            subscriptionVal = 1;
+        }
+        UserDao userDao = new UserDao("clothes_shop");
+        user usernameCheck = userDao.findUserByUsername(username);
+        user u = userDao.findUserByEmail(email, username);
+        boolean login = false;
+
+        if (u == null && usernameCheck == null) {
+            user user = new user(0, username, password, firstname, lastname, email, phone, question, answer, date, isAdmin, subscriptionVal);
+            session.setAttribute("username", username);
+            session.setAttribute("user", user);
+
+            login = userDao.addUser(user);
+            forwardToJsp = "controller/index.jsp";
         } else {
             forwardToJsp = "view/LoginNdRegister.jsp";
+            String error = "User already exists";
+            session.setAttribute("errorMessages", error);
+        }
+    } else {
+        forwardToJsp = "view/LoginNdRegister.jsp";
             String error = "Not all details were provided";
             session.setAttribute("errorMessages", error);
         }
@@ -683,10 +706,17 @@ public class Controller extends HttpServlet {
         HttpSession session = request.getSession(true);
         user u = (user) session.getAttribute("user");
         String username = request.getParameter("userN");
-        if (u != null) {
-            UserDao userDao = new UserDao("clothes_shop");
-            boolean removed = userDao.deleteUserProfile(u);
-
+        String uname = request.getParameter("username");
+        String password = request.getParameter("password");
+        UserDao userDao = new UserDao("clothes_shop");
+             boolean passwordMatch = userDao.confirmUserByUsernamePassword(uname, password);
+        if (u != null && !passwordMatch) {
+            
+            
+           
+             boolean removed = userDao.deleteUserProfile(u);
+            
+            
             if (removed == true) {
                 forwardToJsp = "model/Logout.jsp";
                 String success = "Action Successful, User has been removed";

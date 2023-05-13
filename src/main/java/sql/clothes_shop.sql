@@ -119,7 +119,7 @@ CREATE TABLE `cart` (
 CREATE TABLE `messages` (
   `id` int(11) NOT NULL,
   `username` varchar(225) NOT NULL,
-  `message` int(11) NOT NULL,
+  `message` varchar(225) NOT NULL,
   `status` varchar(225) NOT NULL DEFAULT 'unread'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

@@ -100,8 +100,8 @@
                                                                                                 for (address address : add) {
 
                                                                                         %>
-                                                                                        
-                                                                                         <span style="float: right;font-size: 16px;color:gray">
+
+                                                                                        <span style="float: right;font-size: 16px;color:gray">
                                                                                             <a href="../view/EditAddress.jsp?ID=<%=address.getAddressId()%>" style="color:gray">
                                                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                                                                                     <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -111,200 +111,214 @@
                                                                                             </a>
 
                                                                                         </span>
-                                                                                            <br> <%=address.getAddress1()%></br>
-                                                                                            <br> <%=address.getAddress2()%></br>
-                                                                                            <br> <%=address.getAddress3()%></br>
-                                                                                            <br> <%=address.getCity() %></br>
-                                                                                            <br> <%=address.getCountry() %></br>
-                                                                                            <br> <%=address.getCounty() %></br>
-                                                                                            <br> <%=address.getPincode() %></br>
-                                                                                            
-                                                                                           
+                                                                                        <br> <%=address.getAddress1()%></br>
+                                                                                        <br> <%=address.getAddress2()%></br>
+                                                                                        <br> <%=address.getAddress3()%></br>
+                                                                                        <br> <%=address.getCity()%></br>
+                                                                                        <br> <%=address.getCountry()%></br>
+                                                                                        <br> <%=address.getCounty()%></br>
+                                                                                        <br> <%=address.getPincode()%></br>
 
-                                                                                            <%
-                                                                                                }
-                                                                                            %> 
 
-                                                                                            <%
-                                                                                                }
-                                                                                            %>
 
-                                                                                            <form action="../Controller?userId=<%=u.getUserId()%>" method="post" onsubmit="return addressAdded()">
-                                                                                                <div class="form-check mb-4">
-                                                                                                    <input type="checkbox" name="newAdd" id="newAdd" value="on">
-                                                                                                        <label class="form-check-label" for="newAdd">Add New Address</label>
+                                                                                        <%
+                                                                                            }
+                                                                                        %> 
+
+                                                                                        <%
+                                                                                            }
+                                                                                        %>
+
+                                                                                        <form action="../Controller?userId=<%=u.getUserId()%>" method="post" onsubmit="return addressAdded()">
+                                                                                            <div class="form-check mb-4">
+                                                                                                <input type="checkbox" name="newAdd" id="newAdd" value="on">
+                                                                                                    <label class="form-check-label" for="newAdd">Add New Address</label>
+                                                                                            </div>
+
+                                                                                            <div id="new-address-form" style="display: none;">
+                                                                                                <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 0px;">New Address Details</h5>
+
+                                                                                                <div class="form-outline mb-4">
+                                                                                                    <label class="form-label" for="form2Example17">Address 1:</label>
+                                                                                                    <input type="text" name="address1" id="address1" class="form-control form-control-lg">
                                                                                                 </div>
 
-                                                                                                <div id="new-address-form" style="display: none;">
-                                                                                                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 0px;">New Address Details</h5>
-
-                                                                                                    <div class="form-outline mb-4">
-                                                                                                        <label class="form-label" for="form2Example17">Address 1:</label>
-                                                                                                        <input type="text" name="address1" id="address1" class="form-control form-control-lg">
-                                                                                                    </div>
-
-                                                                                                    <div class="form-outline mb-4">
-                                                                                                        <label class="form-label" for="form2Example17">Address 2:</label>
-                                                                                                        <input type="text" name="address2" id="address2" class="form-control form-control-lg">
-                                                                                                    </div>
-
-                                                                                                    <div class="form-outline mb-4">
-                                                                                                        <label class="form-label" for="form2Example17">Address 3:</label>
-                                                                                                        <input type="text" name="address3" id="address3" class="form-control form-control-lg">
-                                                                                                    </div>
-
-                                                                                                    <div class="form-outline mb-4">
-                                                                                                        <label class="form-label" for="form2Example17">City:</label>
-                                                                                                        <input type="text" name="city" id="city" class="form-control form-control-lg">
-                                                                                                    </div>
-
-                                                                                                    <div class="form-outline mb-4">
-                                                                                                        <label class="form-label" for="form2Example17">County:</label>
-                                                                                                        <input type="text" name="county" id="county" class="form-control form-control-lg">
-                                                                                                    </div>
-
-                                                                                                    <div class="form-outline mb-4">
-                                                                                                        <label class="form-label" for="form2Example17">Country:</label>
-                                                                                                        <input type="text" name="country" id="country" class="form-control form-control-lg">
-                                                                                                    </div>
-
-
-                                                                                                    <div class="form-outline mb-4">
-                                                                                                        <label class="form-label" for="form2Example17">Pin Code:</label>
-                                                                                                        <input type="text" name="pincode" id="pincode" class="form-control form-control-lg">
-                                                                                                    </div>
-
-                                                                                                    <div class="pt-1 mb-4">
-
-                                                                                                        <input class="btn btn-dark btn-lg btn-block" type="submit" name="action" value="Add">
-                                                                                                    </div>
+                                                                                                <div class="form-outline mb-4">
+                                                                                                    <label class="form-label" for="form2Example17">Address 2:</label>
+                                                                                                    <input type="text" name="address2" id="address2" class="form-control form-control-lg">
                                                                                                 </div>
-                                                                                                <script>
-                                                                                                    // Get references to the checkbox and the new address form
 
-                                                                                                    const newAddCheckbox = document.getElementById('newAdd');
-                                                                                                    const newAddressForm = document.getElementById('new-address-form');
+                                                                                                <div class="form-outline mb-4">
+                                                                                                    <label class="form-label" for="form2Example17">Address 3:</label>
+                                                                                                    <input type="text" name="address3" id="address3" class="form-control form-control-lg">
+                                                                                                </div>
 
-                                                                                                    // Add an event listener to the checkbox to toggle the visibility of the new address form
-                                                                                                    newAddCheckbox.addEventListener('change', () => {
-                                                                                                        if (newAddCheckbox.checked) {
+                                                                                                <div class="form-outline mb-4">
+                                                                                                    <label class="form-label" for="form2Example17">City:</label>
+                                                                                                    <input type="text" name="city" id="city" class="form-control form-control-lg">
+                                                                                                </div>
 
-                                                                                                            newAddressForm.style.display = 'block';
-                                                                                                        } else {
+                                                                                                <div class="form-outline mb-4">
+                                                                                                    <label class="form-label" for="form2Example17">County:</label>
+                                                                                                    <input type="text" name="county" id="county" class="form-control form-control-lg">
+                                                                                                </div>
 
-                                                                                                            newAddressForm.style.display = 'none';
-                                                                                                        }
-                                                                                                    });
+                                                                                                <div class="form-outline mb-4">
+                                                                                                    <label class="form-label" for="form2Example17">Country:</label>
+                                                                                                    <input type="text" name="country" id="country" class="form-control form-control-lg">
+                                                                                                </div>
 
 
+                                                                                                <div class="form-outline mb-4">
+                                                                                                    <label class="form-label" for="form2Example17">Pin Code:</label>
+                                                                                                    <input type="text" name="pincode" id="pincode" class="form-control form-control-lg">
+                                                                                                </div>
 
-                                                                                                </script>
-                                                                                            </form>
+                                                                                                <div class="pt-1 mb-4">
+
+                                                                                                    <input class="btn btn-dark btn-lg btn-block" type="submit" name="action" value="Add">
+                                                                                                </div>
+                                                                                            </div>
                                                                                             <script>
-                                                                                                function addressAdded() {
-                                                                                                    alert("Address Added!");
-                                                                                                    return true;
-                                                                                                }
+                                                                                                // Get references to the checkbox and the new address form
+
+                                                                                                const newAddCheckbox = document.getElementById('newAdd');
+                                                                                                const newAddressForm = document.getElementById('new-address-form');
+
+                                                                                                // Add an event listener to the checkbox to toggle the visibility of the new address form
+                                                                                                newAddCheckbox.addEventListener('change', () => {
+                                                                                                    if (newAddCheckbox.checked) {
+
+                                                                                                        newAddressForm.style.display = 'block';
+                                                                                                    } else {
+
+                                                                                                        newAddressForm.style.display = 'none';
+                                                                                                    }
+                                                                                                });
+
+
+
                                                                                             </script>
+                                                                                        </form>
+                                                                                        <script>
+                                                                                            function addressAdded() {
+                                                                                                alert("Address Added!");
+                                                                                                return true;
+                                                                                            }
+                                                                                        </script>
 
-                                                                                            <br><br>
-                                                                                                    <p style="font-size:16px;">
-                                                                                                        <span style="color:gray; font-size: 14px;">You can also add and edit delivery addresses here </span><br>Coming Soon!<br> <!--bug here that password is being stored as last name and vice versa-->
-                                                                                                                <br>
-                                                                                                                    <span style="color:gray; font-size: 14px;">Billing Address </span><br><br>
-                                                                                                                            Coming Soon!
-                                                                                                                            </p>
-                                                                                                                            </li>
-                                                                                                                            </div>
+                                                                                        <br><br>
+                                                                                                <p style="font-size:16px;">
+                                                                                                    <span style="color:gray; font-size: 14px;">You can also add and edit delivery addresses here </span><br>Coming Soon!<br> <!--bug here that password is being stored as last name and vice versa-->
+                                                                                                            <br>
+                                                                                                                <span style="color:gray; font-size: 14px;">Billing Address </span><br><br>
+                                                                                                                        Coming Soon!
+                                                                                                                        </p>
+                                                                                                                        </li>
+                                                                                                                        </div>
 
-                                                                                                                            <div style="margin-bottom: 40px; padding-top: 5px;"> 
-                                                                                                                                <ul class="list-group" style="border: none;">
-                                                                                                                                    <li class="list-group-item" style="border: none;">
-                                                                                                                                        <p style="font-size: 21px">Newsletter Subscription
-                                                                                                                                            <span style="float: right;font-size: 16px;color:gray">
-                                                                                                                                                <a href="#" style="color:gray">
-                                                                                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                                                                                                                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                                                                                                                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                                                                                                                                                    </svg>
-                                                                                                                                                    Edit
-                                                                                                                                                </a>
-                                                                                                                                            </span>
-                                                                                                                                        </p>
-                                                                                                                                        <br><br>
-                                                                                                                                                <p style="font-size:16px;">
-                                                                                                                                                    <%
-                                                                                                                                                        if (u.getSubscription() == 0) {
+                                                                                                                        <div style="margin-bottom: 40px; padding-top: 5px;"> 
+                                                                                                                            <ul class="list-group" style="border: none;">
+                                                                                                                                <li class="list-group-item" style="border: none;">
+                                                                                                                                    <p style="font-size: 21px">Newsletter Subscription
+                                                                                                                                        <span style="float: right;font-size: 16px;color:gray">
+                                                                                                                                            <a href="#" style="color:gray">
+                                                                                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                                                                                                                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                                                                                                                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                                                                                                                                </svg>
+                                                                                                                                                Edit
+                                                                                                                                            </a>
+                                                                                                                                        </span>
+                                                                                                                                    </p>
+                                                                                                                                    <br><br>
+                                                                                                                                            <p style="font-size:16px;">
+                                                                                                                                                <%
+                                                                                                                                                    if (u.getSubscription() == 0) {
+                                                                                                                                                %>
+                                                                                                                                                <span style="color:gray; font-size: 14px;">Newsletter Subscription </span><br>Not Subscribed 
+                                                                                                                                                    <%} else {
                                                                                                                                                     %>
-                                                                                                                                                    <span style="color:gray; font-size: 14px;">Newsletter Subscription </span><br>Not Subscribed 
-                                                                                                                                                        <%} else {
+                                                                                                                                                    <span style="color:gray; font-size: 14px;">Newsletter Subscription </span><br>Subscribed 
+                                                                                                                                                        <%
+                                                                                                                                                            }
                                                                                                                                                         %>
-                                                                                                                                                        <span style="color:gray; font-size: 14px;">Newsletter Subscription </span><br>Subscribed 
-                                                                                                                                                            <%
-                                                                                                                                                                }
-                                                                                                                                                            %>
-                                                                                                                                                            <br>
+                                                                                                                                                        <br>
 
-                                                                                                                                                                </p>
-                                                                                                                                                                </li>
-                                                                                                                                                                </div>
+                                                                                                                                                            </p>
+                                                                                                                                                            </li>
+                                                                                                                                                            </div>
 
-                                                                                                                                                                <div style="margin-bottom: 40px; padding-top: 5px;"> 
-                                                                                                                                                                    <ul class="list-group" style="border: none;">
-                                                                                                                                                                        <li class="list-group-item" style="border: none;">
-                                                                                                                                                                            <p style="font-size: 21px">Delete Your Profile?
+                                                                                                                                                            <div style="margin-bottom: 40px; padding-top: 5px;"> 
+                                                                                                                                                                <ul class="list-group" style="border: none;">
+                                                                                                                                                                    <li class="list-group-item" style="border: none;">
+                                                                                                                                                                        <p style="font-size: 21px">Delete Your Profile?
 
-                                                                                                                                                                            </p>
-                                                                                                                                                                            <p style="font-size:16px;">
-                                                                                                                                                                                <span style="color:gray; font-size: 14px;">Want to Leave and Delete all your information?
-                                                                                                                                                                                    <br>
-                                                                                                                                                                                        <form action="../Controller" method="post">
-                                                                                                                                                                                            <div class="pt-1 mb-4">
-                                                                                                                                                                                                <button class="btn btn-dark btn-lg btn-block" type="submit" name="action" value="DeleteUserProfile" placeholder="">DELETE USER DATA</button>
-                                                                                                                                                                                            </div>
-                                                                                                                                                                                        </form>
-                                                                                                                                                                                        </p>
-                                                                                                                                                                                        </li>
+                                                                                                                                                                        </p>
+                                                                                                                                                                        <p style="font-size:16px;">
+                                                                                                                                                                            <span style="color:gray; font-size: 14px;">Want to Leave and Delete all your information?
+                                                                                                                                                                                <br>
+                                                                                                                                                                                    <form action="../Controller" method="post">
+                                                                                                                                                                                        <div class="pt-1 mb-4">
+                                                                                                                                                                                            <button class="btn btn-dark btn-lg btn-block" type="button" onclick="showDeleteForm()">DELETE USER DATA</button>
                                                                                                                                                                                         </div>
-                                                                                                                                                                                        <!--            
-                                                                                                                                                                                        <li class="list-group-item">
-                                                                                                                                                                                        <h3>Order History</h3>
-                                                                                                                                                                                        <table class="table table-striped">
-                                                                                                                                                                                        <thead>
-                                                                                                                                                                                        <tr>
-                                                                                                                                                                                        <th>Order ID</th>
-                                                                                                                                                                                        <th>Date</th>
-                                                                                                                                                                                        <th>Total</th>
-                                                                                                                                                                                        <th>Status</th>
-                                                                                                                                                                                        </tr>
-                                                                                                                                                                                        </thead>
-                                                                                                                                                                                        <tbody>
-                                                                                                                                                                                        <tr>
-                                                                                                                                                                                        <td>12345</td>
-                                                                                                                                                                                        <td>01/01/2021</td>
-                                                                                                                                                                                        <td>$100.00</td>
-                                                                                                                                                                                        <td>Shipped</td>
-                                                                                                                                                                                        </tr>
-                                                                                                                                                                                        <tr>
-                                                                                                                                                                                        <td>67890</td>
-                                                                                                                                                                                        <td>02/01/2021</td>
-                                                                                                                                                                                        <td>$200.00</td>
-                                                                                                                                                                                        <td>Delivered</td>
-                                                                                                                                                                                        </tr>
-                                                                                                                                                                                        </tbody>
-                                                                                                                                                                                        </table>
-                                                                                                                                                                                        </li>
-                                                                                                                                                                                        -->
-                                                                                                                                                                                        </ul>
+                                                                                                                                                                                        <div id="deleteForm" style="display: none;">
+                                                                                                                                                                                            <label for="username">Username:</label>
+                                                                                                                                                                                            <input type="text" name="username" id="username" required>
+                                                                                                                                                                                                <label for="password">Password:</label>
+                                                                                                                                                                                                <input type="password" name="password" id="password" required>
+                                                                                                                                                                                                    <button class="btn btn-danger" type="submit" name="action" value="DeleteUserProfile">Confirm Delete</button>
+                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                    </form>
 
-                                                                                                                                                                                        </div>
-                                                                                                                                                                                        </div>
-                                                                                                                                                                                        </div>
+                                                                                                                                                                                                    <script>
+                                                                                                                                                                                                        function showDeleteForm() {
+                                                                                                                                                                                                            var deleteForm = document.getElementById("deleteForm");
+                                                                                                                                                                                                            deleteForm.style.display = "block";
+                                                                                                                                                                                                        }
+                                                                                                                                                                                                    </script>
+                                                                                                                                                                                                    </p>
+                                                                                                                                                                                                    </li>
+                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                    <!--            
+                                                                                                                                                                                                    <li class="list-group-item">
+                                                                                                                                                                                                    <h3>Order History</h3>
+                                                                                                                                                                                                    <table class="table table-striped">
+                                                                                                                                                                                                    <thead>
+                                                                                                                                                                                                    <tr>
+                                                                                                                                                                                                    <th>Order ID</th>
+                                                                                                                                                                                                    <th>Date</th>
+                                                                                                                                                                                                    <th>Total</th>
+                                                                                                                                                                                                    <th>Status</th>
+                                                                                                                                                                                                    </tr>
+                                                                                                                                                                                                    </thead>
+                                                                                                                                                                                                    <tbody>
+                                                                                                                                                                                                    <tr>
+                                                                                                                                                                                                    <td>12345</td>
+                                                                                                                                                                                                    <td>01/01/2021</td>
+                                                                                                                                                                                                    <td>$100.00</td>
+                                                                                                                                                                                                    <td>Shipped</td>
+                                                                                                                                                                                                    </tr>
+                                                                                                                                                                                                    <tr>
+                                                                                                                                                                                                    <td>67890</td>
+                                                                                                                                                                                                    <td>02/01/2021</td>
+                                                                                                                                                                                                    <td>$200.00</td>
+                                                                                                                                                                                                    <td>Delivered</td>
+                                                                                                                                                                                                    </tr>
+                                                                                                                                                                                                    </tbody>
+                                                                                                                                                                                                    </table>
+                                                                                                                                                                                                    </li>
+                                                                                                                                                                                                    -->
+                                                                                                                                                                                                    </ul>
 
-                                                                                                                                                                                        <jsp:include page="../view/footer.jsp" /> 
-                                                                                                                                                                                        <%} else {
-                                                                                                                                                                                                String redirectURL = "../view/LoginNdRegister.jsp";
-                                                                                                                                                                                                response.sendRedirect(redirectURL);
+                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                    </div>
 
-                                                                                                                                                                                            }
-                                                                                                                                                                                        %>
+                                                                                                                                                                                                    <jsp:include page="../view/footer.jsp" /> 
+                                                                                                                                                                                                    <%} else {
+                                                                                                                                                                                                        String redirectURL = "../view/LoginNdRegister.jsp";
+                                                                                                                                                                                                        response.sendRedirect(redirectURL);
+
+                                                                                                                                                                                                        }
+                                                                                                                                                                                                    %>
