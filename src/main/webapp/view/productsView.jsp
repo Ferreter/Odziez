@@ -272,7 +272,9 @@
         <div class="col-md-3">
             <a href="../view/individualProduct.jsp?ID=<%=Products.getProductId()%>" style="color:white;" class="text-decoration-none">
                 <div class="fill">
+                    <div class="zoom-effect">
                     <img src="../media/products/<%=Products.getProductId()%>1.jpg" alt="hoodie" class="" width="500px" height="500px"/>
+                    </div>
                 </div>
                 <p style="padding-top: 5px;  font-size: 18px; text-transform: uppercase;" class="" >
                     <a href="../view/individualProduct.jsp?ID=<%=Products.getProductId()%>" style="color:white"><%=Products.getName()%></a>
@@ -280,7 +282,7 @@
 
                     <br> <small>
 
-                        <%=Products.getCP()%>
+                         € <%=Products.getCP()%>
                         <span style='float:right;'><%=Products.getBrand()%></span>
                     </small> </p>
             </a>
@@ -316,7 +318,9 @@
         <div class="col-md-3">
             <a href="../view/individualProduct.jsp?ID=<%=SearchedP.getProductId()%>" style="color:white;" class="text-decoration-none">
                 <div class="fill">
+                    <div class="zoom-effect">
                     <img src="../media/products/<%=SearchedP.getProductId()%>1.jpg" alt="hoodie" class="" width="500px" height="500px"/>
+                    </div>
                 </div>
                 <p style="padding-top: 5px;  font-size: 18px; text-transform: uppercase;" class="" >
                     <a href="../view/individualProduct.jsp?ID=<%=SearchedP.getProductId()%>" style="color:white"><%=SearchedP.getName()%></a>
@@ -324,7 +328,7 @@
 
                     <br> <small>
 
-                        <%=SearchedP.getCP()%>
+                         € <%=SearchedP.getCP()%>
                         <span style='float:right;'><%=SearchedP.getBrand()%></span>
                     </small> </p>
             </a>
@@ -341,7 +345,9 @@
         <div class="col-md-3">
             <a href="../view/individualProduct.jsp?ID=<%=SearchedP.getProductId()%>" style="color:white;" class="text-decoration-none">
                 <div class="fill">
+                    <div class="zoom-effect">
                     <img src="../media/products/<%=SearchedP.getProductId()%>1.jpg" alt="hoodie" class="" width="500px" height="500px"/>
+                    </div>
                 </div>
                 <p style="padding-top: 5px;  font-size: 18px; text-transform: uppercase;" class="" >
                     <a href="../view/individualProduct.jsp?ID=<%=SearchedP.getProductId()%>" style="color:white"><%=SearchedP.getName()%></a>
@@ -349,7 +355,7 @@
 
                     <br> <small>
 
-                        <%=SearchedP.getCP()%>
+                        € <%=SearchedP.getCP()%>
                         <span style='float:right;'><%=SearchedP.getBrand()%></span>
                     </small> </p>
             </a>
@@ -367,7 +373,9 @@
         <div class="col-md-3">
             <a href="../view/individualProduct.jsp?ID=<%=SearchedP.getProductId()%>" style="color:white;" class="text-decoration-none">
                 <div class="fill">
+                    <div class="zoom-effect">
                     <img src="../media/products/<%=SearchedP.getProductId()%>1.jpg" alt="hoodie" class="" width="500px" height="500px"/>
+                    </div>
                 </div>
                 <p style="padding-top: 5px;  font-size: 18px; text-transform: uppercase;" class="" >
                     <a href="../view/individualProduct.jsp?ID=<%=SearchedP.getProductId()%>" style="color:white"><%=SearchedP.getName()%></a>
@@ -375,7 +383,7 @@
 
                     <br> <small>
 
-                        <%=SearchedP.getCP()%>
+                        € <%=SearchedP.getCP()%>
                         <span style='float:right;'><%=SearchedP.getBrand()%></span>
                     </small> </p>
             </a>
