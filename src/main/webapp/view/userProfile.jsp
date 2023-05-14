@@ -47,7 +47,7 @@
                                 <path d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z"/>
                             </svg>
                         </a>
-                        <a href="#" class="list-group-item list-group-item-action py-2 ripple ">
+                        <a href="../view/shipping-policy.jsp" class="list-group-item list-group-item-action py-2 ripple ">
                             <i class="fas fa-chart-area fa-fw me-3"></i><span style="float:left">Policies</span>
                             <svg style="float:right" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right" viewBox="0 0 16 16">
                                 <path d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z"/>
@@ -260,7 +260,7 @@
                                                                                                                                                                                 <br>
                                                                                                                                                                                     <form action="../Controller" method="post">
                                                                                                                                                                                         <div class="pt-1 mb-4">
-                                                                                                                                                                                            <button class="btn btn-dark btn-lg btn-block" type="button" onclick="showDeleteForm()">DELETE USER DATA</button>
+                                                                                                                                                                                            <button class="btn btn-dark btn-lg btn-block" type="button"  onclick="showDeleteForm()">DELETE USER DATA</button>
                                                                                                                                                                                         </div>
                                                                                                                                                                                         <div id="deleteForm" style="display: none;">
                                                                                                                                                                                             <label for="username">Username:</label>
@@ -269,14 +269,15 @@
                                                                                                                                                                                                 <input type="password" name="password" id="password" required>
                                                                                                                                                                                                     <button class="btn btn-danger" type="submit" name="action" value="DeleteUserProfile">Confirm Delete</button>
                                                                                                                                                                                                     </div>
-                                                                                                                                                                                                    </form>
+
 
                                                                                                                                                                                                     <script>
                                                                                                                                                                                                         function showDeleteForm() {
-                                                                                                                                                                                                        var deleteForm = document.getElementById("deleteForm");
-                                                                                                                                                                                                        deleteForm.style.display = "block";
+                                                                                                                                                                                                            var deleteForm = document.getElementById("deleteForm");
+                                                                                                                                                                                                            deleteForm.style.display = "block";
                                                                                                                                                                                                         }
                                                                                                                                                                                                     </script>
+                                                                                                                                                                                                    </form>
                                                                                                                                                                                                     </p>
                                                                                                                                                                                                     </li>
                                                                                                                                                                                                     </div>
@@ -288,7 +289,7 @@
 
                                                                                                                                                                                                     <jsp:include page="../view/footer.jsp" /> 
                                                                                                                                                                                                     <%} else {
-                                                                                                                                                                                                        String redirectURL = "../view/LoginNdRegister.jsp";
-                                                                                                                                                                                                        response.sendRedirect(redirectURL);
+                                                                                                                                                                                                            String redirectURL = "../view/LoginNdRegister.jsp";
+                                                                                                                                                                                                            response.sendRedirect(redirectURL);
                                                                                                                                                                                                         }
                                                                                                                                                                                                     %>

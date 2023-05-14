@@ -49,7 +49,7 @@
                 <ul class="list-group">
                     <li class="list-group-item"><a href="../view/shipping-policy.jsp">Shipping Policy</a></li>
                     <li class="list-group-item"><a href="../view/privacy-policy.jsp">Privacy Policy</a></li>
-                    <li class="list-group-item"><a href="../view/contactus.jsp">Contact Us</a></li>
+                    <li class="list-group-item"><a href="../view/Contact.jsp">Contact Us</a></li>
                     <li class="list-group-item"><a href="../view/terms-conditions.jsp">Terms and Conditions</a></li>
                     <li class="list-group-item"><a href="../view/accessibility.jsp">Accessibility</a></li>
                 </ul>

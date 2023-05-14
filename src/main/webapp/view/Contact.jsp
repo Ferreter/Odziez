@@ -1,7 +1,7 @@
 <%@page import="DTO.user"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<<jsp:include page="../model/header.jsp" /> 
+<jsp:include page="../model/header.jsp" /> 
 
 <jsp:include page="../view/nav.jsp" /> 
 <!DOCTYPE html>
