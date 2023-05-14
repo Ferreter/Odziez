@@ -266,10 +266,13 @@ public class Controller extends HttpServlet {
 
             if (u == null && usernameCheck == null) {
                 user user = new user(0, username, password, firstname, lastname, email, phone, question, answer, date, isAdmin, subscriptionVal);
-                session.setAttribute("username", username);
-                session.setAttribute("user", user);
+//                session.setAttribute("username", username);
+//                session.setAttribute("user", user);
 
                 login = userDao.addUser(user);
+                user usernameCheckx = userDao.findUserByUsername(username);
+                                session.setAttribute("username", username);
+                session.setAttribute("user", usernameCheckx);
                 forwardToJsp = "controller/index.jsp";
             } else {
                 forwardToJsp = "view/LoginNdRegister.jsp";
