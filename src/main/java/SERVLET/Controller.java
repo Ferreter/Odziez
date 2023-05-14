@@ -1253,12 +1253,32 @@ public class Controller extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
+        
         Date date = Date.valueOf(dob);
 
         if (firstname != null && lastname != null && !firstname.isEmpty() && !lastname.isEmpty() && email != null && phone != null && !email.isEmpty() && !phone.isEmpty() && dob != null && !dob.isEmpty()) {
             UserDao userDao = new UserDao("clothes_shop");
             user u = (user) session.getAttribute("user");
             forwardToJsp = "view/EditProfile.jsp";
+             try {
+
+                Calendar calendar = Calendar.getInstance();
+                int currentYear = calendar.get(Calendar.YEAR);
+                calendar.setTime(date);
+                int year = calendar.get(Calendar.YEAR);
+
+                if (year > currentYear) {
+                    forwardToJsp = "view/LoginNdRegister.jsp";
+                    String error = "Invalid date of birth. Please enter a date before the current year.";
+                    session.setAttribute("errorMessages", error);
+                    return forwardToJsp;
+                }
+            } catch (IllegalArgumentException e) {
+                forwardToJsp = "view/LoginNdRegister.jsp";
+                String error = "Invalid date format for date of birth.";
+                session.setAttribute("errorMessages", error);
+                return forwardToJsp;
+            }
 
             // Verify password
             // boolean passwordMatch = userDao.confirmUserByUsernamePassword(username, password);
