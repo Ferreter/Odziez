@@ -139,6 +139,9 @@ public class Controller extends HttpServlet {
                 case "Send":
                     forwardToJsp = Message(request, response);
                     break;
+                case "calculateSize":
+                    forwardToJsp = calculateSize(request, response);
+                    break;
 
             }
 
@@ -214,67 +217,67 @@ public class Controller extends HttpServlet {
      * to after processing the request
      */
     private String RegisterPage(HttpServletRequest request, HttpServletResponse response) {
-    String forwardToJsp = "controller/index.jsp";
-    HttpSession session = request.getSession(true);
-    String firstname = request.getParameter("firstname");
-    String lastname = request.getParameter("lastname");
-    String email = request.getParameter("email");
-    String phone = request.getParameter("phone");
-    String question = request.getParameter("question");
-    String answer = request.getParameter("answer");
-    String username = request.getParameter("username");
-    String password = request.getParameter("password");
-    String dob = request.getParameter("dob");
-    String subscription = request.getParameter("subscription");
-    boolean isAdmin = false;
-    int subscriptionVal = 0;
-    Date date = Date.valueOf(dob);
+        String forwardToJsp = "controller/index.jsp";
+        HttpSession session = request.getSession(true);
+        String firstname = request.getParameter("firstname");
+        String lastname = request.getParameter("lastname");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
+        String question = request.getParameter("question");
+        String answer = request.getParameter("answer");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String dob = request.getParameter("dob");
+        String subscription = request.getParameter("subscription");
+        boolean isAdmin = false;
+        int subscriptionVal = 0;
+        Date date = Date.valueOf(dob);
 
-    // Validate that all required parameters are present
-    if (username != null && password != null && !username.isEmpty() && !password.isEmpty() && firstname != null && lastname != null && !firstname.isEmpty() && !lastname.isEmpty() && email != null && phone != null && !email.isEmpty() && !phone.isEmpty() && dob != null && !dob.isEmpty()) {
-        // Validate date format and ensure it's not ahead of the current year
-        try {
-            
-            Calendar calendar = Calendar.getInstance();
-            int currentYear = calendar.get(Calendar.YEAR);
-            calendar.setTime(date);
-            int year = calendar.get(Calendar.YEAR);
+        // Validate that all required parameters are present
+        if (username != null && password != null && !username.isEmpty() && !password.isEmpty() && firstname != null && lastname != null && !firstname.isEmpty() && !lastname.isEmpty() && email != null && phone != null && !email.isEmpty() && !phone.isEmpty() && dob != null && !dob.isEmpty()) {
+            // Validate date format and ensure it's not ahead of the current year
+            try {
 
-            if (year > currentYear) {
+                Calendar calendar = Calendar.getInstance();
+                int currentYear = calendar.get(Calendar.YEAR);
+                calendar.setTime(date);
+                int year = calendar.get(Calendar.YEAR);
+
+                if (year > currentYear) {
+                    forwardToJsp = "view/LoginNdRegister.jsp";
+                    String error = "Invalid date of birth. Please enter a date before the current year.";
+                    session.setAttribute("errorMessages", error);
+                    return forwardToJsp;
+                }
+            } catch (IllegalArgumentException e) {
                 forwardToJsp = "view/LoginNdRegister.jsp";
-                String error = "Invalid date of birth. Please enter a date before the current year.";
+                String error = "Invalid date format for date of birth.";
                 session.setAttribute("errorMessages", error);
                 return forwardToJsp;
             }
-        } catch (IllegalArgumentException e) {
-            forwardToJsp = "view/LoginNdRegister.jsp";
-            String error = "Invalid date format for date of birth.";
-            session.setAttribute("errorMessages", error);
-            return forwardToJsp;
-        }
 
-        if (subscription != null && subscription.equals("on")) {
-            subscriptionVal = 1;
-        }
-        UserDao userDao = new UserDao("clothes_shop");
-        user usernameCheck = userDao.findUserByUsername(username);
-        user u = userDao.findUserByEmail(email, username);
-        boolean login = false;
+            if (subscription != null && subscription.equals("on")) {
+                subscriptionVal = 1;
+            }
+            UserDao userDao = new UserDao("clothes_shop");
+            user usernameCheck = userDao.findUserByUsername(username);
+            user u = userDao.findUserByEmail(email, username);
+            boolean login = false;
 
-        if (u == null && usernameCheck == null) {
-            user user = new user(0, username, password, firstname, lastname, email, phone, question, answer, date, isAdmin, subscriptionVal);
-            session.setAttribute("username", username);
-            session.setAttribute("user", user);
+            if (u == null && usernameCheck == null) {
+                user user = new user(0, username, password, firstname, lastname, email, phone, question, answer, date, isAdmin, subscriptionVal);
+                session.setAttribute("username", username);
+                session.setAttribute("user", user);
 
-            login = userDao.addUser(user);
-            forwardToJsp = "controller/index.jsp";
+                login = userDao.addUser(user);
+                forwardToJsp = "controller/index.jsp";
+            } else {
+                forwardToJsp = "view/LoginNdRegister.jsp";
+                String error = "User already exists";
+                session.setAttribute("errorMessages", error);
+            }
         } else {
             forwardToJsp = "view/LoginNdRegister.jsp";
-            String error = "User already exists";
-            session.setAttribute("errorMessages", error);
-        }
-    } else {
-        forwardToJsp = "view/LoginNdRegister.jsp";
             String error = "Not all details were provided";
             session.setAttribute("errorMessages", error);
         }
@@ -709,6 +712,7 @@ public class Controller extends HttpServlet {
         String uname = request.getParameter("username");
         String password = request.getParameter("password");
         UserDao userDao = new UserDao("clothes_shop");
+
              boolean passwordMatch = userDao.confirmUserByUsernamePassword(uname, password);
         if (u != null && passwordMatch != false) {
             
@@ -717,6 +721,10 @@ public class Controller extends HttpServlet {
              boolean removed = userDao.deleteUserProfile(u);
             
             
+
+        
+
+
             if (removed == true) {
                 forwardToJsp = "model/Logout.jsp";
                 String success = "Action Successful, User has been removed";
@@ -826,94 +834,94 @@ public class Controller extends HttpServlet {
      * the servlet sends to the client
      * @return a string representing the JSP file to be forwarded to
      */
-   private String Order(HttpServletRequest request, HttpServletResponse response) {
-    String forwardToJsp = "controller/index.jsp";
-    HttpSession session = request.getSession(true);
-    user u = (user) session.getAttribute("user");
-    int userId = Integer.parseInt(request.getParameter("userId"));
+    private String Order(HttpServletRequest request, HttpServletResponse response) {
+        String forwardToJsp = "controller/index.jsp";
+        HttpSession session = request.getSession(true);
+        user u = (user) session.getAttribute("user");
+        int userId = Integer.parseInt(request.getParameter("userId"));
 
-    String exAdd = request.getParameter("exAdd");
-    String newAdd = request.getParameter("newAdd");
-    String address1 = request.getParameter("address1");
-    String address2 = request.getParameter("address2");
-    String address3 = request.getParameter("address3");
-    String city = request.getParameter("city");
-    String county = request.getParameter("county");
-    String country = request.getParameter("country");
-    String pincode = request.getParameter("pincode");
-    String cardNumber = request.getParameter("cardNumber");
-    String expiry = request.getParameter("expiry");
-    String cvv = request.getParameter("cvv");
-    double total = Double.parseDouble(request.getParameter("total"));
-    String size = request.getParameter("Size");
+        String exAdd = request.getParameter("exAdd");
+        String newAdd = request.getParameter("newAdd");
+        String address1 = request.getParameter("address1");
+        String address2 = request.getParameter("address2");
+        String address3 = request.getParameter("address3");
+        String city = request.getParameter("city");
+        String county = request.getParameter("county");
+        String country = request.getParameter("country");
+        String pincode = request.getParameter("pincode");
+        String cardNumber = request.getParameter("cardNumber");
+        String expiry = request.getParameter("expiry");
+        String cvv = request.getParameter("cvv");
+        double total = Double.parseDouble(request.getParameter("total"));
+        String size = request.getParameter("Size");
 
-    if (total != 0.0 && cardNumber != null && expiry != null && cvv != null) {
-        ProductsDao pdao = new ProductsDao("clothes_shop");
-        products p = new products();
-        address add = new address();
-        AddressDao addressDao = new AddressDao("clothes_shop");
-        OrderDao orderDao = new OrderDao("clothes_shop");
-        OrderDetailsDao detailsDao = new OrderDetailsDao("clothes_shop");
-        CartDao cartdao = new CartDao("clothes_shop");
-        StockDao stockDao = new StockDao("clothes_shop");
+        if (total != 0.0 && cardNumber != null && expiry != null && cvv != null) {
+            ProductsDao pdao = new ProductsDao("clothes_shop");
+            products p = new products();
+            address add = new address();
+            AddressDao addressDao = new AddressDao("clothes_shop");
+            OrderDao orderDao = new OrderDao("clothes_shop");
+            OrderDetailsDao detailsDao = new OrderDetailsDao("clothes_shop");
+            CartDao cartdao = new CartDao("clothes_shop");
+            StockDao stockDao = new StockDao("clothes_shop");
 
-        boolean addOrder = false;
-        boolean addDetails = false;
-        boolean addAddress = false;
+            boolean addOrder = false;
+            boolean addDetails = false;
+            boolean addAddress = false;
 
-        if (exAdd != null && exAdd.equals("on")) {
-            int id = addressDao.searchbyUserId(userId);
+            if (exAdd != null && exAdd.equals("on")) {
+                int id = addressDao.searchbyUserId(userId);
 
-            if (id != 0) {
-                orders order = new orders(0, u.getUserId(), id, total, "Confirmed");
-                addOrder = orderDao.addOrder(order);
-                int orderId = orderDao.getLastIndex();
+                if (id != 0) {
+                    orders order = new orders(0, u.getUserId(), id, total, "Confirmed");
+                    addOrder = orderDao.addOrder(order);
+                    int orderId = orderDao.getLastIndex();
 
-                List<Cart> cartItems2 = cartdao.ListAllCart(userId);
+                    List<Cart> cartItems2 = cartdao.ListAllCart(userId);
 
-                for (Cart cartItem : cartItems2) {
-                    products pro = pdao.searchbyId(cartItem.getProductId());
-                    String productName = pro.getName();
-                    double productPrice = pro.getCP();
-                    int quantity = cartItem.getQuantity();
-                    size = cartItem.getSize();
+                    for (Cart cartItem : cartItems2) {
+                        products pro = pdao.searchbyId(cartItem.getProductId());
+                        String productName = pro.getName();
+                        double productPrice = pro.getCP();
+                        int quantity = cartItem.getQuantity();
+                        size = cartItem.getSize();
 
-                    stock existingStock = stockDao.getProductStock(pro.getProductId());
-                    int sizeQuantity = 0;
+                        stock existingStock = stockDao.getProductStock(pro.getProductId());
+                        int sizeQuantity = 0;
 
-                    switch (size) {
-                        case "XS":
-                            sizeQuantity = existingStock.getXS();
-                            existingStock.setXS(sizeQuantity - quantity);
-                            break;
-                        case "S":
-                            sizeQuantity = existingStock.getS();
-                            existingStock.setS(sizeQuantity - quantity);
-                            break;
-                        case "M":
-                            sizeQuantity = existingStock.getM();
-                            existingStock.setM(sizeQuantity - quantity);
-                            break;
-                        case "L":
-                            sizeQuantity = existingStock.getL();
-                            existingStock.setL(sizeQuantity - quantity);
-                            break;
-                        case "XL":
-                            sizeQuantity = existingStock.getXL();
-                            existingStock.setXL(sizeQuantity - quantity);
-                            break;
+                        switch (size) {
+                            case "XS":
+                                sizeQuantity = existingStock.getXS();
+                                existingStock.setXS(sizeQuantity - quantity);
+                                break;
+                            case "S":
+                                sizeQuantity = existingStock.getS();
+                                existingStock.setS(sizeQuantity - quantity);
+                                break;
+                            case "M":
+                                sizeQuantity = existingStock.getM();
+                                existingStock.setM(sizeQuantity - quantity);
+                                break;
+                            case "L":
+                                sizeQuantity = existingStock.getL();
+                                existingStock.setL(sizeQuantity - quantity);
+                                break;
+                            case "XL":
+                                sizeQuantity = existingStock.getXL();
+                                existingStock.setXL(sizeQuantity - quantity);
+                                break;
+                        }
+
+                        stockDao.updateProductStock(existingStock);
+
+                        OrderDetails orderDet = new OrderDetails(orderId, productName, size, productPrice, quantity);
+                        addDetails = detailsDao.addOrderDetails(orderDet);
                     }
 
-                    stockDao.updateProductStock(existingStock);
-
-                    OrderDetails orderDet = new OrderDetails(orderId, productName, size, productPrice, quantity);
-                    addDetails = detailsDao.addOrderDetails(orderDet);
-                }
-
-                cartdao.EmptyCartItem(userId);
-                forwardToJsp = "controller/index.jsp";
-            } else {
-                forwardToJsp = "controller/error.jsp";
+                    cartdao.EmptyCartItem(userId);
+                    forwardToJsp = "controller/index.jsp";
+                } else {
+                    forwardToJsp = "controller/error.jsp";
                     String error = "You do not have an existing address Please <a href=\"../view/order.jsp\">add address.</a>";
 
                     session.setAttribute("errorMessage", error);
@@ -971,7 +979,6 @@ public class Controller extends HttpServlet {
 
                     stockDao.updateProductStock(existingStock);
 
-                    
                 }
                 cartdao.EmptyCartItem(userId);
                 forwardToJsp = "controller/index.jsp";
@@ -1373,7 +1380,15 @@ public class Controller extends HttpServlet {
 
         return forwardToJsp;
     }
-    
+
+    /**
+     * Processes a message sent via a HttpServletRequest and
+     * HttpServletResponse.
+     *
+     * @param request the HttpServletRequest containing the message data
+     * @param response the HttpServletResponse used for redirection
+     * @return a String indicating the JSP page to forward to
+     */
     private String Message(HttpServletRequest request, HttpServletResponse response) {
         String forwardToJsp = "controller/index.jsp";
         HttpSession session = request.getSession(true);
@@ -1387,17 +1402,49 @@ public class Controller extends HttpServlet {
             boolean send = false;
 
             if (u != null) {
-                Message m = new Message(0, username, message,"Unread");
+                Message m = new Message(0, username, message, "Unread");
                 send = messageDao.addMessage(m);
             } else {
-                    forwardToJsp = "controller/error.jsp";
-                    String error = "Something went wrong ";
-                    session.setAttribute("errorMessage", error);
+                forwardToJsp = "controller/error.jsp";
+                String error = "Something went wrong ";
+                session.setAttribute("errorMessage", error);
+            }
+        }
+        return forwardToJsp;
+    }
 
-                }
+public static String calculateSize(HttpServletRequest request, HttpServletResponse response) {
+    HttpSession session = request.getSession();
+    String forwardToJsp = "controller/index.jsp";
+
+    // Retrieve the measurements 
+    double chest = Double.parseDouble(request.getParameter("chest"));
+    double waist = Double.parseDouble(request.getParameter("waist"));
+    double hip = Double.parseDouble(request.getParameter("hip"));
+    double inseam = Double.parseDouble(request.getParameter("inseam"));
+    String id = request.getParameter("ProductId");
+
+    // Perform the size calculations based on the retrieved measurements
+    if (chest < 32 && waist < 26 && hip < 34 && inseam < 28) {
+        forwardToJsp = "view/individualProduct.jsp?ID=" + id;
+        session.setAttribute("Size", "Extra Small");
+    } else if (chest < 36 && waist < 30 && hip < 38 && inseam < 30) {
+        forwardToJsp = "view/individualProduct.jsp?ID=" + id;
+        session.setAttribute("Size", "Small");
+    } else if (chest < 40 && waist < 34 && hip < 42 && inseam < 32) {
+        forwardToJsp = "view/individualProduct.jsp?ID=" + id;
+        session.setAttribute("Size", "Medium");
+    } else if (chest < 44 && waist < 38 && hip < 46 && inseam < 34) {
+        forwardToJsp = "view/individualProduct.jsp?ID=" + id;
+        session.setAttribute("Size", "Large");
+    } else {
+        forwardToJsp = "view/individualProduct.jsp?ID=" + id;
+        session.setAttribute("Size", "Extra Large");
     }
-         return forwardToJsp;
-    }
+    
+    return forwardToJsp;
+}
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

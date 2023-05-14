@@ -26,7 +26,8 @@
         <div class="container" style="padding-top:100px; padding-bottom: 100px;">
             <h1 class="display-4 text-left">New Arrivals</h1>
             <p class="lead text-left">Check out the latest styles in our collection</p>
-            <a href="../view/productsView.jsp" class="btn btn-light text-left">Shop Now</a>
+            <a href="../view/productsView.jsp" class="btn btn-light text-left animate__animated animate__flash">Shop Now</a>
+
         </div>
     </div>
 </div>
@@ -52,14 +53,15 @@
                         // Add brand to displayed brands HashSet
                         displayedBrands.add(product.getBrand());
                         // Display product
-        %>
+%>
         <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12">
             <a href="../view/individualProduct.jsp?ID=<%=product.getProductId()%>" style="color:white;">
                 <div class="text-center p-3">
-                    <img src="../media/products/<%=product.getProductId()%>3.jpg" alt="hoodie" class="product-categorie img-responsive" width="100%" height="450"/>
+                    <div class="zoom-effect">
+                        <img src="../media/products/<%=product.getProductId()%>3.jpg" alt="hoodie" class="product-categorie img-responsive" width="100%" height="450"/>
+                    </div>
                     <p style="padding-top: 5px; font-size: 28px;">
                         <b><%= product.getBrand()%></b>
-
                     </p>
                 </div>
             </a>
@@ -72,9 +74,9 @@
         %>
     </div>
 </div>
-    
-    
-    <div class="container-fluid pb-8" style="border-top:5px solid white; ">
+
+
+<div class="container-fluid pb-8" style="border-top:5px solid white; ">
     <div class="row" style="margin-top:25px;">
         <div class="col" style=""> 
             <a href="#" style="color:white;">
@@ -174,7 +176,9 @@
                             <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12">
                                 <a href="../view/individualProduct.jsp?ID=<%=Products.getProductId()%>" style="color:white;">
                                     <div class=" p-3">
+                                        <div class="zoom-effect">
                                         <img src="../media/products/<%=Products.getProductId()%>2.jpg" alt="hoodie" class="product-categorie img-responsive" width="100%" height="450"/>
+                                        </div>
                                         <p style="padding-top: 5px;  font-size: 22px; " ><%= Products.getName()%> 
                                             <br> <small>
 
