@@ -2094,6 +2094,290 @@
       "targets": [],
       "value": ""
     }]
+  }, {
+    "id": "6805f7b0-f5ee-464f-984c-d5d67ed4eac8",
+    "name": "filter products",
+    "commands": [{
+      "id": "58310120-91b9-4e0f-9ca4-9ffc37872775",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/Oziz/controller/index.jsp",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6cd60295-caf5-4a67-a894-290976dcd085",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1900x1060",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "845f519b-3d34-4279-833f-796efb2f77e3",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Inspiration",
+      "targets": [
+        ["linkText=Inspiration", "linkText"],
+        ["css=.mr-auto > .nav-item:nth-child(2) > .nav-link", "css:finder"],
+        ["xpath=//a[contains(text(),'Inspiration')]", "xpath:link"],
+        ["xpath=//div[@id='navbarNavDropdown']/ul/li[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '../view/productsView.jsp')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Inspiration')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "86ef9fde-2acd-47c5-9ddf-4f16ee56275e",
+      "comment": "",
+      "command": "click",
+      "target": "css=.navbar-toggler",
+      "targets": [
+        ["css=.navbar-toggler", "css:finder"],
+        ["xpath=//button[@type='button']", "xpath:attributes"],
+        ["xpath=//div/nav/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Filter ')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "70645d42-ad05-4415-9d96-7a2017845d21",
+      "comment": "",
+      "command": "click",
+      "target": "css=.col-2:nth-child(4) > .form-check:nth-child(4) > .form-check-input",
+      "targets": [
+        ["css=.col-2:nth-child(4) > .form-check:nth-child(4) > .form-check-input", "css:finder"],
+        ["xpath=(//input[@name='Style'])[3]", "xpath:attributes"],
+        ["xpath=//div[@id='navbarToggleExternalContent']/form/div/div/div[4]/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[4]/div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8f7c2b85-969b-42f0-91b9-8051c354a0e3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.col-2:nth-child(1) > .form-check:nth-child(4) > .form-check-input",
+      "targets": [
+        ["css=.col-2:nth-child(1) > .form-check:nth-child(4) > .form-check-input", "css:finder"],
+        ["xpath=(//input[@name='Color'])[3]", "xpath:attributes"],
+        ["xpath=//div[@id='navbarToggleExternalContent']/form/div/div/div/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c37686d2-b3c9-4cc5-8668-6888d936ead4",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-outline-success",
+      "targets": [
+        ["css=.btn-outline-success", "css:finder"],
+        ["xpath=(//button[@name='action'])[2]", "xpath:attributes"],
+        ["xpath=//div[@id='navbarToggleExternalContent']/form/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "22b9ca56-88d2-4d97-b71d-3fc307c67fcf",
+      "comment": "",
+      "command": "click",
+      "target": "css=body",
+      "targets": [
+        ["css=body", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "656eb2fb-ce1f-4fba-8cc1-9178a293aff4",
+      "comment": "",
+      "command": "click",
+      "target": "css=.container-fluid:nth-child(6) > .row",
+      "targets": [
+        ["css=.container-fluid:nth-child(6) > .row", "css:finder"],
+        ["xpath=//body/div[2]/div", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "caa4c4dd-be27-4d04-8bb6-e98ad6c6a2d7",
+    "name": "nav bar test",
+    "commands": [{
+      "id": "a6e9fd76-63c8-4d57-acb1-9cd75b046ff8",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/Oziz/controller/index.jsp",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ad157161-833f-4c08-8daf-7ce640de9407",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1900x1060",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3c38d384-50fc-4d02-8a70-a40e9f38b073",
+      "comment": "",
+      "command": "click",
+      "target": "id=navbarDropdownMenuLink",
+      "targets": [
+        ["id=navbarDropdownMenuLink", "id"],
+        ["linkText=Men's", "linkText"],
+        ["css=#navbarDropdownMenuLink", "css:finder"],
+        ["xpath=//a[@id='navbarDropdownMenuLink']", "xpath:attributes"],
+        ["xpath=//div[@id='navbarNavDropdown']/ul/li[4]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[2]", "xpath:href"],
+        ["xpath=//li[4]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "957d84ab-3509-433f-aad3-f63c02fd4fc4",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Jackets",
+      "targets": [
+        ["linkText=Jackets", "linkText"],
+        ["css=.col-4:nth-child(1) > .nav-link:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'Jackets')]", "xpath:link"],
+        ["xpath=//div[@id='navbarNavDropdown']/ul/li[4]/div/div/div/div/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '../view/productsView.jsp?category=Jacket')]", "xpath:href"],
+        ["xpath=//div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Jackets')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "085ae9b6-a8f8-4b36-bc2e-5e2be5283f2b",
+      "comment": "",
+      "command": "click",
+      "target": "id=navbarDropdownMenuLink",
+      "targets": [
+        ["id=navbarDropdownMenuLink", "id"],
+        ["linkText=Men's", "linkText"],
+        ["css=#navbarDropdownMenuLink", "css:finder"],
+        ["xpath=//a[@id='navbarDropdownMenuLink']", "xpath:attributes"],
+        ["xpath=//div[@id='navbarNavDropdown']/ul/li[4]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[2]", "xpath:href"],
+        ["xpath=//li[4]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "85375dda-d517-4152-9887-5d81caff5f60",
+      "comment": "",
+      "command": "click",
+      "target": "css=.container-fluid:nth-child(6) > .row",
+      "targets": [
+        ["css=.container-fluid:nth-child(6) > .row", "css:finder"],
+        ["xpath=//body/div[2]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7ee82e39-cf2b-40b2-94e2-dc7da5b07112",
+      "comment": "",
+      "command": "click",
+      "target": "css=.container-fluid:nth-child(6) > .row",
+      "targets": [
+        ["css=.container-fluid:nth-child(6) > .row", "css:finder"],
+        ["xpath=//body/div[2]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6aada75f-b927-4414-8f39-df358cdeef18",
+      "comment": "",
+      "command": "click",
+      "target": "id=navbarDropdownMenuLink",
+      "targets": [
+        ["id=navbarDropdownMenuLink", "id"],
+        ["linkText=Men's", "linkText"],
+        ["css=#navbarDropdownMenuLink", "css:finder"],
+        ["xpath=//a[@id='navbarDropdownMenuLink']", "xpath:attributes"],
+        ["xpath=//div[@id='navbarNavDropdown']/ul/li[4]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[2]", "xpath:href"],
+        ["xpath=//li[4]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "cbe52b8a-322c-41fe-b3b9-92c6aeba55f7",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Hoodies",
+      "targets": [
+        ["linkText=Hoodies", "linkText"],
+        ["css=.col-4:nth-child(1) > .nav-link:nth-child(3)", "css:finder"],
+        ["xpath=//a[contains(text(),'Hoodies')]", "xpath:link"],
+        ["xpath=//div[@id='navbarNavDropdown']/ul/li[4]/div/div/div/div/a[2]", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '../view/productsView.jsp?category=Hoodie')]", "xpath:href"],
+        ["xpath=//a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'Hoodies')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7f9ac899-ebc6-4fb5-bd06-2215350d24ac",
+      "comment": "",
+      "command": "click",
+      "target": "css=.container-fluid:nth-child(6) > .row",
+      "targets": [
+        ["css=.container-fluid:nth-child(6) > .row", "css:finder"],
+        ["xpath=//body/div[2]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0abd7a43-20c2-4be6-9aea-63008e5a6b6b",
+      "comment": "",
+      "command": "click",
+      "target": "css=body",
+      "targets": [
+        ["css=body", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4cbe2b03-5b13-4c67-b5da-78377d9e6243",
+      "comment": "",
+      "command": "click",
+      "target": "id=navbarDropdownMenuLink",
+      "targets": [
+        ["id=navbarDropdownMenuLink", "id"],
+        ["linkText=Men's", "linkText"],
+        ["css=#navbarDropdownMenuLink", "css:finder"],
+        ["xpath=//a[@id='navbarDropdownMenuLink']", "xpath:attributes"],
+        ["xpath=//div[@id='navbarNavDropdown']/ul/li[4]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[2]", "xpath:href"],
+        ["xpath=//li[4]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2477b942-7bc7-4c71-b9fb-44d0f10ffab2",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=T-Shirt",
+      "targets": [
+        ["linkText=T-Shirt", "linkText"],
+        ["css=.col-4:nth-child(1) > .nav-link:nth-child(4)", "css:finder"],
+        ["xpath=//a[contains(text(),'T-Shirt')]", "xpath:link"],
+        ["xpath=//div[@id='navbarNavDropdown']/ul/li[4]/div/div/div/div/a[3]", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '../view/productsView.jsp?category=T-Shirt')]", "xpath:href"],
+        ["xpath=//a[3]", "xpath:position"],
+        ["xpath=//a[contains(.,'T-Shirt')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "07d79159-ffdf-47c7-a1b1-7bed4640262c",
+      "comment": "",
+      "command": "click",
+      "target": "css=body",
+      "targets": [
+        ["css=body", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8f0f5ac8-df90-4029-81d0-866243292ac4",
+      "comment": "",
+      "command": "click",
+      "target": "css=body",
+      "targets": [
+        ["css=body", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": ""
+    }]
   }],
   "suites": [{
     "id": "03bb646c-e6e4-41a7-8fef-8a25dc7d871a",
