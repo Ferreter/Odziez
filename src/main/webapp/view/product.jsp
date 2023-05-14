@@ -129,7 +129,7 @@
                     <p style="padding-top: 5px;  font-size: 22px; " ><%= Products.getName()%> 
                         <br> <small>
 
-                            <%=Products.getCP()%>
+                           $ <%=Products.getCP()%>
                             <span style='float:right;'><%=Products.getBrand()%></span>
                         </small>
                     </p>

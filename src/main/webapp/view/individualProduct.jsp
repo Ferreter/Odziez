@@ -156,7 +156,7 @@
                 <div class="small mb-1"><%= p.getBrand()%></div>
                 <h1 class="display-5 fw-bolder"><%=p.getName()%></h1>
                 <div class="fs-5 mb-5">
-                    <span>$<%=p.getCP()%></span>
+                   € <span><%=p.getCP()%></span>
                 </div>
                 <p class="lead"><%=p.getDescription()%></p>
                 <p class="lead"><%= p.getProductId()%></p>
@@ -317,7 +317,7 @@
                         <%= Products.getName() %>
                         <br>
                         <small>
-                            <%= Products.getCP() %>
+                           € <%= Products.getCP() %>
                             <span style='float:right;'> <%= Products.getBrand() %> </span>
                         </small>
                     </p>
