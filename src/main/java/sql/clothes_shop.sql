@@ -20,10 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `clothes_shop`
 --
-drop database if exists clothes_shop;
-create database if not exists clothes_shop;
 
-use clothes_shop;
 DELIMITER $$
 --
 -- Procedures
@@ -374,11 +371,8 @@ INSERT INTO `stock` (`ProductId`, `XS`, `S`, `M`, `L`, `XL`) VALUES
 ('727163TNVR31070', 22, 12, 12, 12, 12),
 ('PMAA001C99JER0171010', 22, 12, 41, 20, 10),
 ('PMAA001C99JER0241055', 11, 14, 13, 21, 32),
-('PMAA001C99JER0241055', 11, 14, 13, 21, 32),
-('PMAA001C99JER0241055', 11, 14, 13, 21, 32),
-('PMAA001C99JER0241055', 11, 14, 13, 21, 32),
-
-('UJN847_12VV_F0002_S_231', 12, 32, 44, 92, 19);
+('UJN847_12VV_F0002_S_231', 12, 32, 44, 92, 19),
+('PMAB001S23JER0021055', 23, 23, 33, 23, 22);
 
 -- --------------------------------------------------------
 
