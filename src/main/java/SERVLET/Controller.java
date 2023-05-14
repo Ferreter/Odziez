@@ -710,7 +710,7 @@ public class Controller extends HttpServlet {
         String password = request.getParameter("password");
         UserDao userDao = new UserDao("clothes_shop");
              boolean passwordMatch = userDao.confirmUserByUsernamePassword(uname, password);
-        if (u != null && !passwordMatch) {
+        if (u != null && passwordMatch != false) {
             
             
            
