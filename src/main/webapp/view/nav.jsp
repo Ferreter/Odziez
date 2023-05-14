@@ -4,8 +4,19 @@
     Author     : hkhat
 --%>
 
+<%@page import="DTO.products"%>
+<%@page import="java.util.List"%>
+<%@page import="DAO.ProductsDaoInterface"%>
+<%@page import="DAO.ProductsDao"%>
 <%@page import="DTO.user"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    ProductsDao pdao = new ProductsDao("clothes_shop");
+    ProductsDaoInterface productdao = new ProductsDao("clothes_shop");
+    List<products> p = (List<products>) session.getAttribute("products");
+    List<products> products = productdao.ListAllProducts();
+
+%>
 <!-- Top Nav Bar with logo-->
 <nav class="navbar-light bg-light">
     <a class="navbar-brand logo" style="padding-left: 45%; font-size: 45px;" href="#">Odziez</a>
@@ -75,8 +86,7 @@
                 </div>
             </li>
         </ul>
-        <%
-            user u = (user) session.getAttribute("user");
+        <%            user u = (user) session.getAttribute("user");
             if (u != null && u.isIsAdmin()) {
 
 
@@ -102,16 +112,56 @@
             if (u == null) {
         %>
         <ul class="nav navbar-nav navbar-right  ml-auto">
-            <form class="form-inline my-2 my-lg-0" action="../Controller" method="post">
-                <input class="form-control mr-sm-2" type="text" name="product"  placeholder="Search for product" aria-label="Search" placeholder="Search by Name">
-                <button class="btn btn-dark my-2 my-sm-0" type="submit" name="action" value="SearchProduct">Search</button>
-            </form>
+
+            <style>
+                .dropdown-menu {
+                    max-height: 200px;
+                    overflow-y: auto;
+                    max-width: 300px;
+                }
+
+                .dropdown-item {
+                    padding: 0.5rem 1rem;
+                    border-bottom: 1px solid #ddd;
+                    font-size: 0.875rem;
+                    white-space: nowrap; 
+                    overflow: hidden; 
+                    text-overflow: ellipsis; 
+                }
+
+
+                .dropdown-item:last-child {
+                    border-bottom: none;
+                }
+
+                .dropdown-item:hover {
+                    background-color: #f8f9fa;
+                }
+
+                .dropdown-menu.show {
+                    max-width: 300px;
+                }
+            </style>
+
+
             <li class="nav-item">
                 <a class="nav-link" href="../view/LoginNdRegister.jsp" ><span class="glyphicon glyphicon-log-in"></span>Login</a>
             </li>
             <li class="nav-item">
                 <span class="glyphicon glyphicon-user" style="color:black"></span><a class="nav-link" href="../view/LoginNdRegister.jsp">Sign Up</a>
             </li>
+
+            <form class="form-inline my-2 my-lg-0" action="../Controller" method="post">
+                <div class="dropdown">
+                    <input class="form-control mr-sm-2" type="text" name="product" id="productInput" placeholder="Search for product" aria-label="Search" placeholder="Search by Name" data-toggle="dropdown" autocomplete="off">
+                    <Bdiv class="dropdown-menu" id="autocompleteContainer" aria-labelledby="dropdownMenuButton"></div>
+                </div>
+                <button class="btn btn-dark my-2 my-sm-0" type="submit" name="action" value="SearchProduct">Search</button>
+            </form>
+
+
+
+
         </ul>
         <%} else {
         %>
@@ -165,9 +215,14 @@
                     Favourites</a>
             </li>
             <form class="form-inline my-2 my-lg-0" action="../Controller" method="post">
-                <input class="form-control mr-sm-2" type="text" name="product"  placeholder="Search for product" aria-label="Search" placeholder="Search by Name">
+                <div class="dropdown">
+                    <input class="form-control mr-sm-2" type="text" name="product" id="productInput" placeholder="Search for product" aria-label="Search" placeholder="Search by Name" data-toggle="dropdown" autocomplete="off">
+                    <Bdiv class="dropdown-menu" id="autocompleteContainer" aria-labelledby="dropdownMenuButton"></div>
+                </div>
                 <button class="btn btn-dark my-2 my-sm-0" type="submit" name="action" value="SearchProduct">Search</button>
             </form>
+
+
         </ul>
         <%
             }
@@ -176,5 +231,42 @@
 
     </div>
 </nav>
+<script>
+    // Fetch the product names and IDs from the database
+    const products = [
+    <% for (products product : products) {%>
+        {name: '<%= product.getName()%>', id: '<%= product.getProductId()%>'},
+    <% }%>
+    ];
+
+    const productInput = document.getElementById('productInput');
+    const autocompleteContainer = document.getElementById('autocompleteContainer');
+
+    // Add an event listener to the product input
+    productInput.addEventListener('input', () => {
+        const searchQuery = productInput.value.toLowerCase();
+        const filteredProducts = products.filter(product => product.name.toLowerCase().includes(searchQuery));
+
+        // Clear the previous autocomplete suggestions
+        autocompleteContainer.innerHTML = '';
+
+        // Add the filtered products to the autocomplete container as dropdown options
+        filteredProducts.forEach(product => {
+            const link = document.createElement('a');
+            link.classList.add('dropdown-item');
+            link.textContent = product.name;
+            link.href = '../view/individualProduct.jsp?ID=' + product.id;
+
+            autocompleteContainer.appendChild(link);
+        });
+
+        // Show or hide the dropdown based on the number of options
+        if (filteredProducts.length > 0) {
+            autocompleteContainer.classList.add('show');
+        } else {
+            autocompleteContainer.classList.remove('show');
+        }
+    });
+</script>
 
 

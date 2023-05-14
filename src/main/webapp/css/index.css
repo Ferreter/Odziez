@@ -67,3 +67,7 @@ input[type="radio"] {
 .modal-footer{
     border:none;
 }
+
+a:hover{
+    text-decoration: none;
+}
