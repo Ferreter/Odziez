@@ -233,7 +233,7 @@
 
 
                 <div class="">
-                    <form action="../Controller?id=<%=p.getProductId()%>" method="post" onsubmit="return addToCart()">
+                    <form action="../Controller?id=<%=p.getProductId()%>" method="post">
 
                         <div style="margin-bottom: 20px;">
                             <br>
@@ -272,12 +272,6 @@
                         
                     </form>
 
-                    <script>
-                        function addToCart() {
-                            alert("Item added to cart!");
-                            return true;
-                        }
-                    </script>
                 </div>
             </div>
         </div>
