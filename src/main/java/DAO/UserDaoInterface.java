@@ -89,6 +89,17 @@ public interface UserDaoInterface {
      */
     public boolean removeUser(String UserId);
 
+    /**
+     *
+     * Finds user details based on the provided username, security question, and
+     * answer.
+     *
+     * @param uname The username of the user.
+     * @param question The security question associated with the user.
+     * @param answer The answer to the security question.
+     * @return The user details matching the provided parameters, or null if not
+     * found.
+     */
     public user findUserDetails(String uname, String question, String answer);
 
     /**
@@ -99,22 +110,21 @@ public interface UserDaoInterface {
      */
     public boolean editProfile(user u, String FirstName, String LastName, String Email, String Phone, Date DOB);
 
-    
     /**
- * Finds a user by their ID.
- *
- * @param id the ID of the user to find
- * @return the User object representing the found user, or null if not found
- */
+     * Finds a user by their ID.
+     *
+     * @param id the ID of the user to find
+     * @return the User object representing the found user, or null if not found
+     */
     public user findUserById(int id);
-    
+
     /**
- * Confirms a user by their username and password.
- *
- * @param uname    the username of the user to confirm
- * @param password the password of the user to confirm
- * @return true if the username and password match, false otherwise
- */
-      public boolean confirmUserByUsernamePassword(String uname, String Password);
+     * Confirms a user by their username and password.
+     *
+     * @param uname the username of the user to confirm
+     * @param password the password of the user to confirm
+     * @return true if the username and password match, false otherwise
+     */
+    public boolean confirmUserByUsernamePassword(String uname, String Password);
 
 }

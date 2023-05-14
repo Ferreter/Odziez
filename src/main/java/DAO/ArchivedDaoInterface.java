@@ -12,7 +12,23 @@ import java.util.List;
  * @author kian2
  */
 public interface ArchivedDaoInterface {
-     public List<archived> ListAllProducts();
-     public boolean ReturnToProducts(String p);
+
+    /**
+     *
+     * Lists all archived products.
+     *
+     * @return A list of all archived products.
+     */
+    public List<archived> ListAllProducts();
+
+    /**
+     *
+     * Returns an archived product to the active product list.
+     *
+     * @param p The product to be returned to the active products.
+     * @return True if the product was successfully returned to the active list,
+     * false otherwise.
+     */
+    public boolean ReturnToProducts(String p);
 
 }

@@ -11,7 +11,12 @@ import DTO.Message;
  * @author Dell
  */
 public interface MessageDaoInterface {
-    
+    /**
+
+Adds a Message to the system.
+@param u The Message object to be added.
+@return {@code true} if the Message was successfully added, {@code false} otherwise.
+*/
      public boolean addMessage(Message u);
     
 }
