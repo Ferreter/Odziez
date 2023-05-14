@@ -25,6 +25,26 @@ create database if not exists clothes_shop_test;
 
 use clothes_shop_test;
 -- --------------------------------------------------------
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `archive_product` (IN `product_id` VARCHAR(255))  BEGIN
+    INSERT INTO `archived`
+    SELECT * FROM `products` WHERE `ProductId` = product_id;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `unarchive_product` (IN `product_id` VARCHAR(255))  BEGIN
+    INSERT INTO `products`
+    SELECT * FROM `archived` WHERE `ProductId` = product_id;
+
+    DELETE FROM `archived` WHERE `ProductId` = product_id;
+END$$
+
+DELIMITER ;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `address`
@@ -47,7 +67,32 @@ CREATE TABLE `address` (
 --
 
 INSERT INTO `address` (`AddressId`, `UserId`, `Address1`, `Address2`, `Address3`, `City`, `County`, `Country`, `Pincode`) VALUES
-(1, 7, '18 Home', 'Drim', 'crk', 'IE-CO', 'IE-CO', 'Ireland', '128747384787');
+(1, 7, '18 CUL NA GREINE CO.CORK', 'Home', 'Home', 'CORK', 'Cork', 'Ireland', 'P47E438');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `archived`
+--
+
+CREATE TABLE `archived` (
+  `ProductId` varchar(255) NOT NULL,
+  `Name` varchar(255) NOT NULL,
+  `MRP` double NOT NULL,
+  `CP` double NOT NULL,
+  `Description` varchar(255) NOT NULL,
+  `Category` varchar(255) NOT NULL,
+  `Tags` varchar(255) NOT NULL,
+  `Brand` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `archived`
+--
+
+INSERT INTO `archived` (`ProductId`, `Name`, `MRP`, `CP`, `Description`, `Category`, `Tags`, `Brand`) VALUES
+('PMAA001C99JER0050110', 'PARIS SPRAYED T-SHIRT', 195, 195, 'SHORT SLEEVES T-SHIRT IN WHITE WITH BLACK SPRAYED PRINT AT FRONT. CREW NECK. LOGO AND \"PARIS\" PRINTED IN BLACK AT FRONT. STRAIGHT HEM. Fabric 100% Cotton', 'T-Shirt', 'PalmAngels, T-Shirt, White, Printed', 'Palm Angels'),
+('PMAA066S23JER0021084', 'I LOVE PA CLASSIC TEE', 235, 235, '\"SHORT SLEEVES T-SHIRT IN BLACK COTTON WITH MULTICOLOR I LOVE PA GRAPHIC PRINTED AT FRONT. REGULAR FIT.FABRIC 100% COTTON\"', 'T-Shirt', 'PalmAngels, T-Shirt, Black, Printed', 'Palm Angels');
 
 -- --------------------------------------------------------
 
@@ -59,11 +104,25 @@ CREATE TABLE `cart` (
   `id` int(11) NOT NULL,
   `UserId` int(11) NOT NULL,
   `ProductId` varchar(225) DEFAULT NULL,
+  `Size` varchar(225) NOT NULL,
   `Quantity` int(11) DEFAULT NULL,
   `Price` double DEFAULT NULL,
   `Total` double DEFAULT NULL,
   `orderDate` datetime DEFAULT current_timestamp()
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `messages`
+--
+
+CREATE TABLE `messages` (
+  `id` int(11) NOT NULL,
+  `username` varchar(225) NOT NULL,
+  `message` varchar(225) NOT NULL,
+  `status` varchar(225) NOT NULL DEFAULT 'unread'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -74,6 +133,7 @@ CREATE TABLE `cart` (
 CREATE TABLE `orderdetails` (
   `OrderId` int(11) NOT NULL,
   `productName` varchar(255) NOT NULL,
+  `size` varchar(225) NOT NULL,
   `productPrice` double(6,2) NOT NULL,
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -82,18 +142,35 @@ CREATE TABLE `orderdetails` (
 -- Dumping data for table `orderdetails`
 --
 
-INSERT INTO `orderdetails` (`OrderId`, `productName`, `productPrice`, `quantity`) VALUES
-(5, 'PALMS&SKULL LONG SLEEVED OVER TEE\r\n', 495.00, 1),
-(6, 'PALMS&SKULL LONG SLEEVED OVER TEE\r\n', 495.00, 2),
-(6, 'STAR SPRAYED T-SHIRT\r\n', 195.00, 2),
-(7, 'PALMS&SKULL LONG SLEEVED OVER TEE\r\n', 495.00, 2),
-(8, 'I LOVE PA CLASSIC TEE\r\n', 235.00, 1),
-(9, 'PALMS&SKULL LONG SLEEVED OVER TEE\r\n', 495.00, 3),
-(10, 'Prada Triangle Cotton T-shirt\r\n', 760.00, 1),
-(11, 'Prada Triangle Cotton T-shirt\r\n', 760.00, 2),
-(11, 'PARIS SPRAYED T-SHIRT\r\n', 195.00, 1),
-(12, 'Water-repellent two-way stretch technical nylon jacket\r\n', 525.00, 1),
-(13, 'Heavy-jersey hooded sweatshirt with bold rubberised logo\r\n', 345.00, 3);
+INSERT INTO `orderdetails` (`OrderId`, `productName`, `size`, `productPrice`, `quantity`) VALUES
+(5, 'PALMS&SKULL LONG SLEEVED OVER TEE', '', 495.00, 1),
+(6, 'PALMS&SKULL LONG SLEEVED OVER TEE', '', 495.00, 2),
+(6, 'STAR SPRAYED T-SHIRT', '', 195.00, 2),
+(7, 'PALMS&SKULL LONG SLEEVED OVER TEE', '', 495.00, 2),
+(8, 'I LOVE PA CLASSIC TEE', '', 235.00, 1),
+(9, 'PALMS&SKULL LONG SLEEVED OVER TEE', '', 495.00, 3),
+(10, 'Prada Triangle Cotton T-shirt', '', 760.00, 1),
+(11, 'Prada Triangle Cotton T-shirt', '', 760.00, 2),
+(11, 'PARIS SPRAYED T-SHIRT', '', 195.00, 1),
+(12, 'Water-repellent two-way stretch technical nylon jacket', '', 525.00, 1),
+(13, 'Heavy-jersey hooded sweatshirt with bold rubberised logo', '', 345.00, 3),
+(14, 'HAND DRAWN BB ICON HOODIE LARGE FIT IN BLACK', '', 850.00, 1),
+(15, 'PALMS&SKULL LONG SLEEVED OVER TEE', '', 495.00, 1),
+(16, 'Prada Triangle Cotton T-shirt', '', 760.00, 1),
+(16, 'PARIS SPRAYED T-SHIRT', '', 195.00, 1),
+(17, 'Water-repellent two-way stretch technical nylon jacket', '', 525.00, 1),
+(17, 'Quilted water-repellent recycled nylon blazer with detachable inner panel', '', 675.00, 4),
+(17, 'Prada Triangle Cotton T-shirt', '', 760.00, 4),
+(17, 'PARIS SPRAYED T-SHIRT', '', 195.00, 2),
+(20, 'PARIS SPRAYED T-SHIRT', '', 195.00, 2),
+(21, 'Prada Triangle Cotton T-shirt', '', 760.00, 10),
+(22, 'Heavy-jersey hooded sweatshirt with bold rubberised logo', '', 345.00, 1),
+(23, 'PALMS&SKULL LONG SLEEVED OVER TEE', '', 495.00, 2),
+(24, 'Prada Triangle Cotton T-shirt', '', 760.00, 1),
+(25, 'PARIS SPRAYED T-SHIRT', '', 195.00, 1),
+(32, 'HAND DRAWN BB ICON HOODIE LARGE FIT IN BLACK', 'XS', 850.00, 1),
+(33, 'HAND DRAWN BB ICON HOODIE LARGE FIT IN BLACK', 'M', 850.00, 2),
+(34, 'HAND DRAWN BB ICON HOODIE LARGE FIT IN BLACK', 'M', 850.00, 2);
 
 -- --------------------------------------------------------
 
@@ -115,9 +192,17 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`orderId`, `UserId`, `AddressId`, `total`, `created_at`, `Status`) VALUES
-(11, 7, 1, 1715.00, '2023-03-29 15:35:05', ''),
-(12, 7, 1, 525.00, '2023-03-29 16:01:38', 'Confirmed '),
-(13, 7, 1, 1035.00, '2023-03-29 16:17:52', 'Confirmed ');
+(24, 7, 1, 760.00, '2023-04-19 17:54:21', 'In Transit'),
+(25, 7, 1, 195.00, '2023-04-26 16:56:48', 'Processed'),
+(26, 7, 1, 850.00, '2023-05-06 20:27:18', 'Confirmed '),
+(27, 7, 1, 8950.00, '2023-05-06 20:35:56', 'Confirmed '),
+(28, 7, 1, 1700.00, '2023-05-06 20:48:59', 'Confirmed '),
+(29, 7, 1, 1350.00, '2023-05-06 20:59:51', 'Confirmed '),
+(30, 7, 1, 345.00, '2023-05-06 21:05:09', 'Confirmed '),
+(31, 7, 1, 1380.00, '2023-05-06 21:09:45', 'Confirmed '),
+(32, 7, 1, 850.00, '2023-05-08 18:57:02', 'Confirmed '),
+(33, 7, 1, 1700.00, '2023-05-08 19:16:35', 'Confirmed '),
+(34, 7, 1, 1700.00, '2023-05-08 19:17:44', 'Confirmed ');
 
 -- --------------------------------------------------------
 
@@ -151,7 +236,6 @@ CREATE TABLE `products` (
   `Description` varchar(255) NOT NULL,
   `Category` varchar(255) NOT NULL,
   `Tags` varchar(255) NOT NULL,
-  `Images` varchar(255) NOT NULL,
   `Brand` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -159,18 +243,17 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`ProductId`, `Name`, `MRP`, `CP`, `Description`, `Category`, `Tags`, `Images`, `Brand`) VALUES
-('3R1GC01NRIZ10999\r\n', 'Quilted water-repellent recycled nylon blazer with detachable inner panel\r\n', 675, 675, 'An outerwear garment made from a sustainable, unique and exclusive Korean fabric, in a deep colour, with good climatic resistance and exceptional durability, thanks to the very high-quality texture made from recycled nylon fibres, a reduced use of chemica', 'Jacket\r\n', 'Black,Jacket,Not-Printed,Normal,Formal,Relaxed,V-Neck,Nylon\r\n', '', 'Emporio Armani\r\n'),
-('3R1GC11NNIZ10999\r\n', 'Water-repellent two-way stretch technical nylon jacket\r\n', 525, 525, 'The perfect fusion of a flawless fit and a matte, stretchy, performance fabric creates a garment designed to naturally follow every movement. Jacket with zip fastening and side pockets. The garment also features several standout technical properties: it i', 'Jacket\r\n', 'Black,Jacket,Not-Printed,Normal,Formal,Relaxed,V-Neck,Nylon\r\n', '', 'Emporio Armani\r\n'),
-('3R1MDN1JWPZ10920\r\n', 'Heavy-jersey hooded sweatshirt with bold rubberised logo\r\n', 345, 345, 'Heavyweight hooded sweatshirt in pure cotton jersey. Featuring a bold logo in matching-tone rubber print on the front and back, an affirmation that the Emporio Armani logo is still a constant of undeniable style. Brushed lining.\r\n', 'Hoodie\r\n', 'Black,Hoodie,Not-Printed,Normal,Streetwear,Relaxed,U-Neck,Fleece\r\n', '', 'Armani\r\n'),
-('620973TNVQ11059\r\n', 'HAND DRAWN BB ICON HOODIE LARGE FIT IN BLACK\r\n', 850, 850, '• Curly fleece\r\n• Large fit\r\n• Hood without drawstring\r\n• 1 kangaroo pocket on front\r\n• Gathered at cuffs and waistline\r\n• Hand Drawn BB Icon artwork printed at front and back\r\n• Worn-out effect\r\n• Made in Portugal\r\n• Dry cleaning\r\n', 'Hoodie\r\n', 'Black,Hoodie,Not-Printed,Normal,Streetwear,Relaxed,U-Neck,Fleece\r\n', '', 'Balenciaga\r\n'),
-('727163TNVR31070\r\n', 'MIRROR BALENCIAGA HOODIE OVERSIZED IN BLACK\r\n', 895, 895, '\"• Medium fleece\n• This item is unisex\n• Oversize fit\n• Hood without drawstring\n• Dropped shoulder\n• 1 kangaroo pocket on front\n• Gathered at cuffs and waistline\n• Mirror Balenciaga artwork printed at front\n• Made in Portugal\n• Cold machine wash\"', 'Hoodie\r\n', 'Black,Hoodie,Printed,Normal,Streetwear,Oversized,U-Neck,Fleece\r\n', '', 'Balenciaga\r\n'),
-('PMAA001C99JER0050110\r\n', 'PARIS SPRAYED T-SHIRT\r\n', 195, 195, 'SHORT SLEEVES T-SHIRT IN WHITE WITH BLACK SPRAYED PRINT AT FRONT. CREW NECK. LOGO AND \"PARIS\" PRINTED IN BLACK AT FRONT. STRAIGHT HEM. Fabric 100% Cotton\r\n', 'T-Shirt\r\n', 'White,T-shirt,Printed,Normal,Streetwear,Oversized,U-Neck,Cotton\r\n', '', 'Palm Angels\r\n'),
-('PMAA001C99JER0171010\r\n', 'PARIS SPRAYED T-SHIRT\r\n', 195, 195, 'SHORT SLEEVES T-SHIRT IN BLACK WITH BLACK SPRAYED PRINT AT FRONT. CREW NECK. LOGO AND \"PARIS\" PRINTED IN WHITE AT FRONT. STRAIGHT HEM. Fabric 100% Cotton\r\n', 'T-Shirt\r\n', 'Black,T-Shirt,Printed,Normal,Streetwear,Oversized,U-Neck,Cotton\r\n', '', 'Palm Angels\r\n'),
-('PMAA001C99JER0241055\r\n', 'STAR SPRAYED T-SHIRT\r\n', 195, 195, 'SHORT SLEEVES T-SHIRT IN BLACK COTTON WITH \"PALM ANGELS\" LOGO AND A GREEN SPRAYED STAR GRAPHIC PRINTED AT FRONT. CREWNECK COLLAR AND DROP SHOULDERS.FABRIC 100% COTTON\r\n', 'T-Shirt\r\n', 'Black,T-Shirt,Printed,Normal,Streetwear,Oversized,U-Neck,Cotton\r\n\r\n', '', 'Palm Angels'),
-('PMAA066S23JER0021084\r\n', 'I LOVE PA CLASSIC TEE\r\n', 235, 235, '\"SHORT SLEEVES T-SHIRT IN BLACK COTTON WITH MULTICOLOR I LOVE PA GRAPHIC PRINTED AT FRONT. REGULAR FIT.\r\nFABRIC 100% COTTON\"\r\n', 'T-Shirt\r\n', 'Black,T-Shirt,Printed,Normal,Streetwear,Oversized,U-Neck,Cotton\r\n', '', 'Palm Angels\r\n'),
-('PMAB001S23JER0021055\r\n', 'PALMS&SKULL LONG SLEEVED OVER TEE\r\n', 495, 495, '\"LONG SLEEVES T-SHIRT IN BLACK COTTON FEATURING \"\"PALM ANGELS\"\" BURNING LOGO AT FRONT AND BACK. PALM TREE & SKULLS GRAPHIC AT HEM. CREWNECK COLLAR AND REGULAR FIT.\r\nFABRIC 100% COTTON\"\r\n', 'T-Shirt\r\n', 'Black,T-Shirt,Printed,Normal,Streetwear,Relaxed,U-Neck,Cotton\r\n', '', 'Palm Angels\r\n'),
-('UJN847_12VV_F0002_S_231\r\n', 'Prada Triangle Cotton T-shirt\r\n', 760, 760, 'An oversized decorative trim evoking details of Tyrolean style is reinvented with a modern twist, creating the unusual, conceptual graphic designs that enrich this classic cotton T-shirt.\n', 'T-Shirt\r\n', 'White,T-Shirt,Printed,Normal,Streetwear,Relaxed,U-Neck,Cotton\r\n', '', 'Prada');
+INSERT INTO `products` (`ProductId`, `Name`, `MRP`, `CP`, `Description`, `Category`, `Tags`, `Brand`) VALUES
+('3R1GC01NRIZ10999', 'Quilted water-repellent recycled nylon blazer with detachable inner panel', 675, 675, 'An outerwear garment made from a sustainable, unique and exclusive Korean fabric, in a deep colour, with good climatic resistance and exceptional durability, thanks to the very high-quality texture made from recycled nylon fibres, a reduced use of chemica', 'Jacket', 'EA, WaterRep, Nylon, Jacket, Black, Technical ', 'Emporio Armani'),
+('3R1GC11NNIZ10999', 'Water-repellent two-way stretch technical nylon jacket', 525, 525, 'The perfect fusion of a flawless fit and a matte, stretchy, performance fabric creates a garment designed to naturally follow every movement. Jacket with zip fastening and side pockets. The garment also features several standout technical properties: it i', 'Jacket', 'EA, WaterRep, Nylon, Blazer, Quilted', 'Emporio Armani'),
+('3R1MDN1JWPZ10920', 'Heavy-jersey hooded sweatshirt with bold rubberised logo', 345, 345, 'Heavyweight hooded sweatshirt in pure cotton jersey. Featuring a bold logo in matching-tone rubber print on the front and back, an affirmation that the Emporio Armani logo is still a constant of undeniable style. Brushed lining.', 'Hoodie', 'Armani, Hoodie, Black, Large, Printed', 'Armani'),
+('620973TNVQ11059', 'HAND DRAWN BB ICON HOODIE LARGE FIT IN BLACK', 850, 850, '• Curly fleece• Large fit• Hood without drawstring• 1 kangaroo pocket on front• Gathered at cuffs and waistline• Hand Drawn BB Icon artwork printed at front and back• Worn-out effect• Made in Portugal• Dry cleaning', 'Hoodie', 'Armani, Hoodie, Black', 'Balenciaga'),
+('727163TNVR31070', 'MIRROR BALENCIAGA HOODIE OVERSIZED IN BLACK', 895, 895, '\"• Medium fleece\n• This item is unisex\n• Oversize fit\n• Hood without drawstring\n• Dropped shoulder\n• 1 kangaroo pocket on front\n• Gathered at cuffs and waistline\n• Mirror Balenciaga artwork printed at front\n• Made in Portugal\n• Cold machine wash\"', 'Hoodie', 'Balenciaga, Hoodie, Black, Oversized, Printed', 'Balenciaga'),
+('PMAA001C99JER0171010', 'PARIS SPRAYED T-SHIRT', 195, 195, 'SHORT SLEEVES T-SHIRT IN BLACK WITH BLACK SPRAYED PRINT AT FRONT. CREW NECK. LOGO AND \"PARIS\" PRINTED IN WHITE AT FRONT. STRAIGHT HEM. Fabric 100% Cotton', 'T-Shirt', 'PalmAngels, T-Shirt, Black, Printed', 'Palm Angels'),
+('PMAA001C99JER0241055', 'STAR SPRAYED T-SHIRT', 195, 195, 'SHORT SLEEVES T-SHIRT IN BLACK COTTON WITH \"PALM ANGELS\" LOGO AND A GREEN SPRAYED STAR GRAPHIC PRINTED AT FRONT. CREWNECK COLLAR AND DROP SHOULDERS.FABRIC 100% COTTON', 'T-Shirt', 'Palm Angels,, T-Shirt, Black, Printed\n\n', 'Palm Angels'),
+('PMAB001S23JER0021055', 'PALMS&SKULL LONG SLEEVED OVER TEE', 495, 495, '\"LONG SLEEVES T-SHIRT IN BLACK COTTON FEATURING \"\"PALM ANGELS\"\" BURNING LOGO AT FRONT AND BACK. PALM TREE & SKULLS GRAPHIC AT HEM. CREWNECK COLLAR AND REGULAR FIT.FABRIC 100% COTTON\"', 'T-Shirt', 'PalmAngels, T-Shirt, Black, Printed, Long Sleeve', 'Palm Angels'),
+('UJN847_12VV_F0002_S_231', 'Prada Triangle Cotton T-shirt', 760, 760, 'An oversized decorative trim evoking details of Tyrolean style is reinvented with a modern twist, creating the unusual, conceptual graphic designs that enrich this classic cotton T-shirt.\n', 'T-Shirt', 'Prada, T-Shirt, White, Printed\n\n', 'Prada');
+
 -- --------------------------------------------------------
 
 --
@@ -191,53 +274,79 @@ CREATE TABLE `review` (
 --
 
 INSERT INTO `review` (`reviewId`, `ProductId`, `UserId`, `rating`, `review`, `reviewDate`) VALUES
-(1, '3R1GC01NRIZ10999\r\n', 1, 4, 'This product is exactly what I was looking for. It\'s easy to use and works great.', '2022-10-01'),
-(2, '3R1GC01NRIZ10999\r\n', 2, 5, 'I am so impressed with this product! It exceeded my expectations in every way.', '2022-09-28'),
-(3, '3R1GC01NRIZ10999\r\n', 3, 3, 'It\'s a decent product, but it has some flaws that could be improved.', '2022-09-23'),
-(4, '3R1GC01NRIZ10999\r\n', 4, 2, 'I was really disappointed with this product. It didn\'t work as advertised and I had to return it.', '2022-09-18'),
-(5, '3R1GC01NRIZ10999\r\n', 5, 4, 'This is a solid product that does what it says it will. I would recommend it to others.', '2022-09-12'),
-(6, '3R1GC01NRIZ10999\r\n', 6, 5, 'I love this product! It\'s exactly what I needed and it arrived quickly.', '2022-09-10'),
-(7, '620973TNVQ11059\r\n', 2, 5, 'I love this hoodie! The quality is amazing and it looks great on me.', '2022-02-20'),
-(8, '620973TNVQ11059\r\n', 3, 3, 'The hoodie is okay, but nothing special. It fits well and is comfortable, but the design is a bit plain for my taste.', '2022-03-10'),
-(9, '620973TNVQ11059\r\n', 4, 2, 'I was really disappointed with this hoodie. The quality is poor and the fit is not good. Would not recommend.', '2022-04-05'),
-(10, '620973TNVQ11059\r\n', 5, 4, 'This hoodie is great for the price. Its comfortable and fits well. The only downside is that its a bit thin.', '2022-05-01'),
-(11, '727163TNVR31070\r\n', 1, 3, 'The quality of this product is okay, but the design is not really my style. It fits well and is comfortable, though.', '2022-06-10'),
-(12, '727163TNVR31070\r\n', 2, 5, 'I absolutely love this hoodie! Its so comfortable and the design is perfect for me. Would highly recommend!', '2022-07-15'),
-(13, '727163TNVR31070\r\n', 3, 4, 'Im really happy with this purchase. The hoodie is comfortable and fits well. The only downside is that its a bit pricey.', '2022-08-20'),
-(14, '727163TNVR31070\r\n', 4, 2, 'I was really disappointed with this hoodie. Its not comfortable and the design is not good. Would not recommend.', '2022-09-05'),
-(15, '727163TNVR31070\r\n', 5, 3, 'The hoodie is okay, but nothing special. The quality is average and the design is a bit boring.', '2022-10-01'),
-(16, '620973TNVQ11059\r\n', 1, 4, 'Great product! The hoodie is comfortable and fits perfectly. Would definitely recommend.', '2022-01-15'),
-(17, 'PMAA001C99JER0050110\r\n', 1, 4, 'I really like this t-shirt. It fits well and the material is soft and comfortable. The design is also cool.', '2022-01-01'),
-(18, 'PMAA001C99JER0050110\r\n', 2, 5, 'This is an awesome t-shirt! The design is really unique and the quality is great. Highly recommend!', '2022-02-01'),
-(19, 'PMAA001C99JER0050110\r\n', 3, 3, 'The t-shirt is okay, but nothing special. It fits well and the material is comfortable, but the design is a bit plain for my taste.', '2022-03-01'),
-(20, 'PMAA001C99JER0050110\r\n', 4, 2, 'I was really disappointed with this t-shirt. The quality is poor and the fit is not good. Would not recommend.', '2022-04-01'),
-(21, 'PMAA001C99JER0050110\r\n', 5, 4, 'This is a nice t-shirt. It fits well and the material is comfortable. The design is not my favorite, but its still good.', '2022-05-01'),
-(22, 'PMAA001C99JER0171010\r\n', 1, 3, 'The quality of this t-shirt is okay, but the design is not really my style. It fits well and is comfortable, though.', '2022-06-01'),
-(23, 'PMAA001C99JER0171010\r\n', 2, 5, 'I absolutely love this t-shirt! Its so comfortable and the design is perfect for me. Would highly recommend!', '2022-07-01'),
-(24, 'PMAA001C99JER0171010\r\n', 3, 4, 'Im really happy with this purchase. The t-shirt is comfortable and fits well. The only downside is that its a bit pricey.', '2022-08-01'),
-(25, 'PMAA001C99JER0171010\r\n', 4, 2, 'I was really disappointed with this t-shirt. Its not comfortable and the design is not good. Would not recommend.', '2022-09-01'),
-(26, 'PMAA001C99JER0171010\r\n', 5, 3, 'The t-shirt is okay, but nothing special. The quality is average and the design is a bit boring.', '2022-10-01'),
-(27, 'PMAA001C99JER0241055\r\n', 2, 5, 'This is an awesome t-shirt! The design is really unique and the quality is great. Highly recommend!', '2022-02-01'),
-(28, 'PMAA001C99JER0241055\r\n', 3, 3, 'The t-shirt is okay, but nothing special. It fits well and the material is comfortable, but the design is a bit plain for my taste.', '2022-03-01'),
-(29, 'PMAA001C99JER0241055\r\n', 4, 2, 'I was really disappointed with this t-shirt. The quality is poor and the fit is not good. Would not recommend.', '2022-04-01'),
-(30, 'PMAA001C99JER0241055\r\n', 5, 4, 'This is a nice t-shirt. It fits well and the material is comfortable. The design is not my favorite, but it\'s still good.', '2022-05-01'),
-(31, 'PMAA066S23JER0021084\r\n', 1, 3, 'The quality of this t-shirt is okay, but the design is not really my style. It fits well and is comfortable, though.', '2022-06-01'),
-(32, 'PMAA066S23JER0021084\r\n', 2, 5, 'I absolutely love this t-shirt! It\'s so comfortable and the design is perfect for me. Would highly recommend!', '2022-07-01'),
-(33, 'PMAA066S23JER0021084\r\n', 3, 4, 'I\'m really happy with this purchase. The t-shirt is comfortable and fits well. The only downside is that it\'s a bit pricey.', '2022-08-01'),
-(34, 'PMAA066S23JER0021084\r\n', 4, 2, 'I was really disappointed with this t-shirt. It\'s not comfortable and the design is not good. Would not recommend.', '2022-09-01'),
-(35, 'PMAA066S23JER0021084\r\n', 5, 3, 'The t-shirt is okay, but nothing special. The quality is average and the design is a bit boring.', '2022-10-01'),
-(36, 'PMAA001C99JER0241055\r\n', 1, 4, 'I really like this t-shirt. It fits well and the material is soft and comfortable. The design is also cool.', '2022-01-01'),
-(37, 'PMAB001S23JER0021055\r\n', 1, 4, 'I really like this t-shirt. It\'s comfortable and the design is unique. The only downside is that it shrinks a bit after washing.', '2022-01-01'),
-(38, 'PMAB001S23JER0021055\r\n', 2, 5, 'This is an awesome t-shirt! The quality is great and the design is perfect. It fits well and is comfortable. Highly recommend!', '2022-02-01'),
-(39, 'PMAB001S23JER0021055\r\n', 3, 3, 'The t-shirt is okay, but nothing special. It fits well and is comfortable, but the design is a bit plain for my taste.', '2022-03-01'),
-(40, 'PMAB001S23JER0021055\r\n', 4, 2, 'I was really disappointed with this t-shirt. The material is scratchy and the fit is not good. Would not recommend.', '2022-04-01'),
-(41, 'PMAB001S23JER0021055\r\n', 5, 4, 'This is a nice t-shirt. It fits well and is comfortable. The design is not my favorite, but it\'s still good quality.', '2022-05-01'),
-(42, 'UJN847_12VV_F0002_S_231\r\n', 1, 3, 'The quality of this t-shirt is average. It fits well and is comfortable, but the design is not really my style.', '2022-06-01'),
-(43, 'UJN847_12VV_F0002_S_231\r\n', 2, 5, 'I absolutely love this t-shirt! It\'s so comfortable and the design is perfect for me. The quality is great too.', '2022-07-01'),
-(44, 'UJN847_12VV_F0002_S_231\r\n', 3, 4, 'I\'m really happy with this purchase. The t-shirt is comfortable and fits well. The only downside is that it\'s a bit expensive.', '2022-08-01'),
-(45, 'UJN847_12VV_F0002_S_231\r\n', 4, 2, 'I was really disappointed with this t-shirt. The quality is poor and the fit is not good. Would not recommend.', '2022-09-01'),
-(46, 'UJN847_12VV_F0002_S_231\r\n', 5, 3, 'The t-shirt is okay, but nothing special. The quality is average and the design is a bit boring.', '2022-10-01'),
-(50, 'PMAA001C99JER0241055\r\n', 21, 5, 'Comfy', '2023-03-20');
+(1, '3R1GC01NRIZ10999', 1, 4, 'This product is exactly what I was looking for. It\'s easy to use and works great.', '2022-10-01'),
+(2, '3R1GC01NRIZ10999', 2, 5, 'I am so impressed with this product! It exceeded my expectations in every way.', '2022-09-28'),
+(3, '3R1GC01NRIZ10999', 3, 3, 'It\'s a decent product, but it has some flaws that could be improved.', '2022-09-23'),
+(4, '3R1GC01NRIZ10999', 4, 2, 'I was really disappointed with this product. It didn\'t work as advertised and I had to return it.', '2022-09-18'),
+(5, '3R1GC01NRIZ10999', 5, 4, 'This is a solid product that does what it says it will. I would recommend it to others.', '2022-09-12'),
+(6, '3R1GC01NRIZ10999', 6, 5, 'I love this product! It\'s exactly what I needed and it arrived quickly.', '2022-09-10'),
+(7, '620973TNVQ11059', 2, 5, 'I love this hoodie! The quality is amazing and it looks great on me.', '2022-02-20'),
+(8, '620973TNVQ11059', 3, 3, 'The hoodie is okay, but nothing special. It fits well and is comfortable, but the design is a bit plain for my taste.', '2022-03-10'),
+(9, '620973TNVQ11059', 4, 2, 'I was really disappointed with this hoodie. The quality is poor and the fit is not good. Would not recommend.', '2022-04-05'),
+(10, '620973TNVQ11059', 5, 4, 'This hoodie is great for the price. Its comfortable and fits well. The only downside is that its a bit thin.', '2022-05-01'),
+(11, '727163TNVR31070', 1, 3, 'The quality of this product is okay, but the design is not really my style. It fits well and is comfortable, though.', '2022-06-10'),
+(12, '727163TNVR31070', 2, 5, 'I absolutely love this hoodie! Its so comfortable and the design is perfect for me. Would highly recommend!', '2022-07-15'),
+(13, '727163TNVR31070', 3, 4, 'Im really happy with this purchase. The hoodie is comfortable and fits well. The only downside is that its a bit pricey.', '2022-08-20'),
+(14, '727163TNVR31070', 4, 2, 'I was really disappointed with this hoodie. Its not comfortable and the design is not good. Would not recommend.', '2022-09-05'),
+(15, '727163TNVR31070', 5, 3, 'The hoodie is okay, but nothing special. The quality is average and the design is a bit boring.', '2022-10-01'),
+(16, '620973TNVQ11059', 1, 4, 'Great product! The hoodie is comfortable and fits perfectly. Would definitely recommend.', '2022-01-15'),
+(17, 'PMAA001C99JER0050110', 1, 4, 'I really like this t-shirt. It fits well and the material is soft and comfortable. The design is also cool.', '2022-01-01'),
+(18, 'PMAA001C99JER0050110', 2, 5, 'This is an awesome t-shirt! The design is really unique and the quality is great. Highly recommend!', '2022-02-01'),
+(19, 'PMAA001C99JER0050110', 3, 3, 'The t-shirt is okay, but nothing special. It fits well and the material is comfortable, but the design is a bit plain for my taste.', '2022-03-01'),
+(20, 'PMAA001C99JER0050110', 4, 2, 'I was really disappointed with this t-shirt. The quality is poor and the fit is not good. Would not recommend.', '2022-04-01'),
+(21, 'PMAA001C99JER0050110', 5, 4, 'This is a nice t-shirt. It fits well and the material is comfortable. The design is not my favorite, but its still good.', '2022-05-01'),
+(22, 'PMAA001C99JER0171010', 1, 3, 'The quality of this t-shirt is okay, but the design is not really my style. It fits well and is comfortable, though.', '2022-06-01'),
+(23, 'PMAA001C99JER0171010', 2, 5, 'I absolutely love this t-shirt! Its so comfortable and the design is perfect for me. Would highly recommend!', '2022-07-01'),
+(24, 'PMAA001C99JER0171010', 3, 4, 'Im really happy with this purchase. The t-shirt is comfortable and fits well. The only downside is that its a bit pricey.', '2022-08-01'),
+(25, 'PMAA001C99JER0171010', 4, 2, 'I was really disappointed with this t-shirt. Its not comfortable and the design is not good. Would not recommend.', '2022-09-01'),
+(26, 'PMAA001C99JER0171010', 5, 3, 'The t-shirt is okay, but nothing special. The quality is average and the design is a bit boring.', '2022-10-01'),
+(27, 'PMAA001C99JER0241055', 2, 5, 'This is an awesome t-shirt! The design is really unique and the quality is great. Highly recommend!', '2022-02-01'),
+(28, 'PMAA001C99JER0241055', 3, 3, 'The t-shirt is okay, but nothing special. It fits well and the material is comfortable, but the design is a bit plain for my taste.', '2022-03-01'),
+(29, 'PMAA001C99JER0241055', 4, 2, 'I was really disappointed with this t-shirt. The quality is poor and the fit is not good. Would not recommend.', '2022-04-01'),
+(30, 'PMAA001C99JER0241055', 5, 4, 'This is a nice t-shirt. It fits well and the material is comfortable. The design is not my favorite, but it\'s still good.', '2022-05-01'),
+(31, 'PMAA066S23JER0021084', 1, 3, 'The quality of this t-shirt is okay, but the design is not really my style. It fits well and is comfortable, though.', '2022-06-01'),
+(32, 'PMAA066S23JER0021084', 2, 5, 'I absolutely love this t-shirt! It\'s so comfortable and the design is perfect for me. Would highly recommend!', '2022-07-01'),
+(33, 'PMAA066S23JER0021084', 3, 4, 'I\'m really happy with this purchase. The t-shirt is comfortable and fits well. The only downside is that it\'s a bit pricey.', '2022-08-01'),
+(34, 'PMAA066S23JER0021084', 4, 2, 'I was really disappointed with this t-shirt. It\'s not comfortable and the design is not good. Would not recommend.', '2022-09-01'),
+(35, 'PMAA066S23JER0021084', 5, 3, 'The t-shirt is okay, but nothing special. The quality is average and the design is a bit boring.', '2022-10-01'),
+(36, 'PMAA001C99JER0241055', 1, 4, 'I really like this t-shirt. It fits well and the material is soft and comfortable. The design is also cool.', '2022-01-01'),
+(37, 'PMAB001S23JER0021055', 1, 4, 'I really like this t-shirt. It\'s comfortable and the design is unique. The only downside is that it shrinks a bit after washing.', '2022-01-01'),
+(38, 'PMAB001S23JER0021055', 2, 5, 'This is an awesome t-shirt! The quality is great and the design is perfect. It fits well and is comfortable. Highly recommend!', '2022-02-01'),
+(39, 'PMAB001S23JER0021055', 3, 3, 'The t-shirt is okay, but nothing special. It fits well and is comfortable, but the design is a bit plain for my taste.', '2022-03-01'),
+(40, 'PMAB001S23JER0021055', 4, 2, 'I was really disappointed with this t-shirt. The material is scratchy and the fit is not good. Would not recommend.', '2022-04-01'),
+(41, 'PMAB001S23JER0021055', 5, 4, 'This is a nice t-shirt. It fits well and is comfortable. The design is not my favorite, but it\'s still good quality.', '2022-05-01'),
+(42, 'UJN847_12VV_F0002_S_231', 1, 3, 'The quality of this t-shirt is average. It fits well and is comfortable, but the design is not really my style.', '2022-06-01'),
+(43, 'UJN847_12VV_F0002_S_231', 2, 5, 'I absolutely love this t-shirt! It\'s so comfortable and the design is perfect for me. The quality is great too.', '2022-07-01'),
+(44, 'UJN847_12VV_F0002_S_231', 3, 4, 'I\'m really happy with this purchase. The t-shirt is comfortable and fits well. The only downside is that it\'s a bit expensive.', '2022-08-01'),
+(45, 'UJN847_12VV_F0002_S_231', 4, 2, 'I was really disappointed with this t-shirt. The quality is poor and the fit is not good. Would not recommend.', '2022-09-01'),
+(46, 'UJN847_12VV_F0002_S_231', 5, 3, 'The t-shirt is okay, but nothing special. The quality is average and the design is a bit boring.', '2022-10-01'),
+(50, 'PMAA001C99JER0241055', 21, 5, 'Comfy', '2023-03-20'),
+(51, 'UJN847_12VV_F0002_S_231', 9, 5, 'menii sika biossu', '2023-03-30');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `salt`
+--
+
+CREATE TABLE `salt` (
+  `username` varchar(255) NOT NULL,
+  `salt` varchar(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `salt`
+--
+
+INSERT INTO `salt` (`username`, `salt`) VALUES
+('kaka', 'IjVA/bKSY5NU7ljURBBVjw=='),
+('Bhig', 'L45XZIUzFCUaBiqGYy5GXg=='),
+('Khali', 'G4Ed7sBSZp5VODd1QaQw9g=='),
+('Ruth', 'E6HOR3HJS900rFuh9BRXjw=='),
+('Michelle', 'Tph5KGQ1hP3n5OGO3IDFOQ=='),
+('Deji', 'x/KGnyjj7r2V5SvQ1wyjww=='),
+('Kian', 'EoTHCnVjj3A1tC52C2UoFA=='),
+('Harsh', 'ZDtSTjRxg6IkFkFmtnOMRQ==');
 
 -- --------------------------------------------------------
 
@@ -259,17 +368,14 @@ CREATE TABLE `stock` (
 --
 
 INSERT INTO `stock` (`ProductId`, `XS`, `S`, `M`, `L`, `XL`) VALUES
-('3R1GC01NRIZ10999\r\n', 13, 12, 10, 9, 2),
-('3R1GC11NNIZ10999\r\n', 22, 32, 11, 4, 5),
-('3R1MDN1JWPZ10920\r\n', 12, 10, 4, 7, 2),
-('620973TNVQ11059\r\n', 2, 3, 4, 2, 3),
-('727163TNVR31070\r\n', 22, 12, 12, 12, 12),
-('PMAA001C99JER0050110\r\n', 22, 32, 32, 21, 42),
-('PMAA001C99JER0171010\r\n', 22, 12, 41, 20, 10),
-('PMAA001C99JER0241055\r\n', 11, 14, 13, 21, 32),
-('PMAA066S23JER0021084\r\n', 11, 23, 21, 44, 10),
-('PMAB001S23JER0021055\r\n', 10, 4, 9, 8, 7),
-('UJN847_12VV_F0002_S_231\r\n', 12, 32, 44, 92, 19);
+('3R1GC01NRIZ10999', 13, 12, 10, 9, 2),
+('3R1GC11NNIZ10999', 22, 32, 11, 4, 5),
+('3R1MDN1JWPZ10920', 12, 10, 4, 7, 2),
+('620973TNVQ11059', 2, 3, 0, 2, 3),
+('727163TNVR31070', 22, 12, 12, 12, 12),
+('PMAA001C99JER0171010', 22, 12, 41, 20, 10),
+('PMAA001C99JER0241055', 11, 14, 13, 21, 32),
+('UJN847_12VV_F0002_S_231', 12, 32, 44, 92, 19);
 
 -- --------------------------------------------------------
 
@@ -297,13 +403,15 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`UserId`, `username`, `password`, `FirstName`, `Lastname`, `Email`, `Phone`, `Question`, `Answer`, `DOB`, `isAdmin`, `subscription`) VALUES
-(1, 'Harsh', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Harsh', 'Khatri', 'hkhatri731@gmail.com', 871498876, 'To what city did you go on your honeymoon?', 'Khalis House', '2023-01-12', 1, 0),
-(2, 'Kian', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Kian', 'Harding', 'kh@gmail.com', 830995017, 'Where were you when you first heard about 9/11?', 'Playground with stuffed animal', '2023-01-02', 1, 0),
-(3, 'Khali', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Meshach', 'Atta-Nyarko', 'Mh@gmail.com', 830995017, 'Where were you when you first heard about 9/11?', 'At Osamas House', '2023-01-02', 1, 0),
-(4, 'Deji', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Destiny', 'Wassup', 'deji@gmail.com', 830995017, 'What was the name of your first stuffed animal?', 'Kakashi Hatake', '2023-01-02', 0, 1),
-(5, 'Ruth', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Catherine', 'Mc Keever', 'ruth.mckeever@dkit.ie', 830995017, 'What was the name of your first stuffed animal?', 'Pingu', '2023-01-02', 0, 0),
-(6, 'Michelle', '08548b0b83d604190ddcf71f67f686f507a20c0a9b82c44f91f8c99c9fef3af7', 'Michelle', 'Graham', 'Michelle.Graham@dkit.ie', 830995017, 'What was the name of your first stuffed animal?', 'Mr Rhino', '2023-01-02', 0, 0),
-(7, 'Bhig', '214c8377ffb724150205789f4a593a6182b66f56eca714a53bb7493a7391e0d8', 'Bhig', 'Khali', 'amicusyaba@yahoo.com', 894355518, 'To what city did you go on your honeymoon?', 'Singapore', '2000-05-09', 0, 1);
+(1, 'Harsh', 'nqobMEeNziZTuYjDMhkblSDjGT0gyKfS7lsHOhfTra4=', 'Harsh', 'Khatri', 'hkhatri731@gmail.com', 871498876, 'To what city did you go on your honeymoon?', 'Khalis House', '2023-01-12', 1, 0),
+(2, 'Kian', 'wTpfMLnCxMcqPcU6mSljoGctFEAI0UDU+CHwzGTcGYo=', 'Kian', 'Harding', 'kh@gmail.com', 830995017, 'Where were you when you first heard about 9/11?', 'Playground with stuffed animal', '2023-01-02', 1, 0),
+(3, 'Khali', '2oD7MQpnMBDAJI6XcS+RHsKg2sl7oIMlDreF974pJkw=', 'Meshach', 'Atta-Nyarko', 'Mh@gmail.com', 830995017, 'Where were you when you first heard about 9/11?', 'At Osamas House', '2023-01-02', 1, 0),
+(4, 'Deji', '9l8StQ5vovsD6Nf2RyFvc0O9LxslKengvg5doXkr9gA=', 'Destiny', 'Wassup', 'deji@gmail.com', 830995017, 'What was the name of your first stuffed animal?', 'Kakashi Hatake', '2023-01-02', 0, 1),
+(5, 'Ruth', 'EpQxicMgAMaLTABx3AtQYKs8SADYMSghwtKOTvQ6HMQ=', 'Catherine', 'Mc Keever', 'ruth.mckeever@dkit.ie', 830995017, 'What was the name of your first stuffed animal?', 'Pingu', '2023-01-02', 0, 0),
+(6, 'Michelle', 'pVpwhk2N3kWrAU++tcQhbFtBEJKjvswmhY81q+Flmvk=', 'Michelle', 'Graham', 'Michelle.Graham@dkit.ie', 830995017, 'What was the name of your first stuffed animal?', 'Mr Rhino', '2023-01-02', 0, 0),
+(7, 'Bhig', '6yQG6xEhYxyadqFY7Z3qH2wBIIbbITE6M+Iljlr4ZW4=', 'biggaaaa', 'dhfhfs', 'attanyarkomeshach@gmail.com', 876352637, 'To what city did you go on your honeymoon?', 'Singapore', '2000-10-10', 0, 1),
+(9, 'awwmee19', '172620255ee20252a50f83ad088a6f499750ae17dfe3a4e50b0c321f05e632fe', 'aww', 'mee', 'awwmee19@gmail.com', 876018205, 'What was the first concert you attended?', 'wo nana to jams', '1999-05-21', NULL, 0),
+(16, 'kaka', 'Y1C6tvQtyES0KkajOhSFvWOhd3mfKZ4eqhbtCRaqM0Q=', 'sjghjgjhs', 'djhgjjhd', 'shghjgs@gmail.com', 876083627, 'what is your favorite fictional character', 'fdhdj', '2000-10-10', NULL, 1);
 
 --
 -- Indexes for dumped tables
@@ -317,12 +425,25 @@ ALTER TABLE `address`
   ADD KEY `address_ibfk_1` (`UserId`);
 
 --
+-- Indexes for table `archived`
+--
+ALTER TABLE `archived`
+  ADD PRIMARY KEY (`ProductId`);
+
+--
 -- Indexes for table `cart`
 --
 ALTER TABLE `cart`
   ADD PRIMARY KEY (`id`),
   ADD KEY `cart_ibfk_1` (`UserId`),
   ADD KEY `cart_ibfk_2` (`ProductId`);
+
+--
+-- Indexes for table `messages`
+--
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `messages_ibfk_1` (`username`);
 
 --
 -- Indexes for table `orderdetails`
@@ -357,6 +478,12 @@ ALTER TABLE `review`
   ADD PRIMARY KEY (`reviewId`);
 
 --
+-- Indexes for table `salt`
+--
+ALTER TABLE `salt`
+  ADD KEY `salt_ibfk_1` (`username`);
+
+--
 -- Indexes for table `stock`
 --
 ALTER TABLE `stock`
@@ -378,31 +505,37 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `address`
 --
 ALTER TABLE `address`
-  MODIFY `AddressId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `AddressId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+
+--
+-- AUTO_INCREMENT for table `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `review`
 --
 ALTER TABLE `review`
-  MODIFY `reviewId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `reviewId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `UserId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `UserId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Constraints for dumped tables
@@ -415,10 +548,10 @@ ALTER TABLE `address`
   ADD CONSTRAINT `address_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `user` (`UserId`);
 
 --
--- Constraints for table `orderdetails`
+-- Constraints for table `messages`
 --
-ALTER TABLE `orderdetails`
-  ADD CONSTRAINT `orderdetails_ibfk_1` FOREIGN KEY (`OrderId`) REFERENCES `orders` (`orderId`);
+ALTER TABLE `messages`
+  ADD CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`);
 
 --
 -- Constraints for table `orders`
@@ -432,6 +565,12 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `productfilter`
   ADD CONSTRAINT `productfilter_ibfk_1` FOREIGN KEY (`ProductId`) REFERENCES `products` (`ProductId`);
+
+--
+-- Constraints for table `salt`
+--
+ALTER TABLE `salt`
+  ADD CONSTRAINT `salt_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`);
 
 --
 -- Constraints for table `stock`

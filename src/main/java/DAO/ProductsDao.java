@@ -683,7 +683,7 @@ public class ProductsDao extends Dao implements ProductsDaoInterface {
         Connection con = null;
         PreparedStatement ps = null;
 
-        if (findUserByProductId(p.getProductId()) == null) {
+        if (findUserByProductId(p.getProductId()) != null) {
 
             try {
                 con = this.getConnection();

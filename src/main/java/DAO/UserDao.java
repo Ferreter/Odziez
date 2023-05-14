@@ -730,9 +730,14 @@ public class UserDao extends Dao implements UserDaoInterface {
         boolean removed = false;
         try {
             con = this.getConnection();
-
-            String query = "DELETE FROM user WHERE username = ?";
+            
+            String query = "DELETE FROM salt WHERE username = ?";
             ps = con.prepareStatement(query);
+            ps.setString(1, Username);
+            int rowsAffected2 = ps.executeUpdate();
+            
+            String query2 = "DELETE FROM user WHERE username = ?";
+            ps = con.prepareStatement(query2);
             ps.setString(1, Username);
 
             int rowsAffected = ps.executeUpdate();
