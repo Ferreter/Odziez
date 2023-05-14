@@ -20,6 +20,7 @@
         <link href="../css/index.css" rel="stylesheet" type="text/css"/>
         <link href="../css/nav.css" rel="stylesheet" type="text/css"/>
         <link href="../css/footer.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/animate.css" rel="stylesheet" type="text/css"/>
         <!-- Font -->
         <link href="https://fonts.cdnfonts.com/css/bahnschrift" rel="stylesheet">
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
@@ -34,6 +35,9 @@
         <link 
             href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" 
             rel="stylesheet"  type='text/css'>
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
 
         <script>
 
