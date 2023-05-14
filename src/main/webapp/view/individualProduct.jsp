@@ -161,33 +161,90 @@
                 <p class="lead"><%=p.getDescription()%></p>
                 <p class="lead"><%= p.getProductId()%></p>
 
+
+
+                <button id="showFormButton" class="btn btn-outline-dark btn-light" type="button">Enter Measurements</button>
+
+                <form id="measurementsForm" action="../Controller" method="POST" style="display: none;">
+                    <h5>Enter Your Measurements:</h5>
+
+                    <div>
+                        <label for="chest">Chest:</label>
+                        <input type="number" min="1" max="200" step="0.01" id="chest" name="chest" required>
+                    </div>
+
+                    <div>
+                        <label for="waist">Waist:</label>
+                        <input type="number" min="1" max="200" step="0.01" id="waist" name="waist" required>
+                    </div>
+
+                    <div>
+                        <label for="hip">Hip:</label>
+                        <input type="number" min="1" max="200" step="0.01" id="hip" name="hip" required>
+                    </div>
+
+                    <div>
+                        <label for="inseam">Inseam:</label>
+                        <input type="number" min="1" max="200" step="0.01" id="inseam" name="inseam" required>
+                    </div>
+
+                    <input type="hidden" name="ProductId" value="<%= p.getProductId()%>">
+
+                    <button style="margin-left: 20px;" class="btn btn-outline-dark btn-light" type="submit" name="action" value="calculateSize">Calculate Size</button>
+                </form>
+                <%String size = (String) session.getAttribute("Size");%>
+
+                <script>
+    document.getElementById("showFormButton").addEventListener("click", function () {
+        var form = document.getElementById("measurementsForm");
+        if (form.style.display === "none") {
+            form.style.display = "block";
+        } else {
+            form.style.display = "none";
+        }
+    });
+
+    // Show/hide the calculated size heading
+    var calculatedSize = "<%= size %>";
+    var sizeHeading = document.getElementById("calculatedSizeHeading");
+    if (calculatedSize && calculatedSize.trim() !== "") {
+        sizeHeading.style.display = "block";
+    } else {
+        sizeHeading.style.display = "none";
+    }
+</script>
+
+
+<h3 id="calculatedSizeHeading" style="<%= (size != null && !size.trim().isEmpty()) ? "display: block;" : "display: none;" %>">Calculated Size: <%= size %></h3>
+
+
                 <div class="">
                     <form action="../Controller?id=<%=p.getProductId()%>" method="post" onsubmit="return addToCart()">
 
-    <div style="margin-bottom: 20px;">
-        <br>
-        <input type="radio" name="Size" value="XS" id="size-xs" checked>
-        <label for="size-xs" title="In Stock=<%=Stocks.get(0).getXS()%>">XS</label>
+                        <div style="margin-bottom: 20px;">
+                            <br>
+                            <input type="radio" name="Size" value="XS" id="size-xs" checked>
+                            <label for="size-xs" title="In Stock=<%=Stocks.get(0).getXS()%>">XS</label>
 
-        <input type="radio" name="Size" value="S" id="size-s">
-        <label for="size-s" title="In Stock=<%=Stocks.get(0).getS()%>">S</label>
+                            <input type="radio" name="Size" value="S" id="size-s">
+                            <label for="size-s" title="In Stock=<%=Stocks.get(0).getS()%>">S</label>
 
-        <input type="radio" name="Size" value="M" id="size-m">
-        <label for="size-m" title="In Stock=<%=Stocks.get(0).getM()%>">M</label>
+                            <input type="radio" name="Size" value="M" id="size-m">
+                            <label for="size-m" title="In Stock=<%=Stocks.get(0).getM()%>">M</label>
 
-        <input type="radio" name="Size" value="L" id="size-l">
-        <label for="size-l" title="In Stock=<%=Stocks.get(0).getL()%>">L</label>
+                            <input type="radio" name="Size" value="L" id="size-l">
+                            <label for="size-l" title="In Stock=<%=Stocks.get(0).getL()%>">L</label>
 
-        <input type="radio" name="Size" value="XL" id="size-xl">
-        <label for="size-xl" title="In Stock=<%=Stocks.get(0).getXL()%>">XL</label>
-    </div>
+                            <input type="radio" name="Size" value="XL" id="size-xl">
+                            <label for="size-xl" title="In Stock=<%=Stocks.get(0).getXL()%>">XL</label>
+                        </div>
 
-     <br>
-    <input type="hidden" name="ProductId" value="<%= p.getProductId()%>">
-    <input type="number" name="quantity" min="1" value="1">
-    <input style="margin-left: 20px;width:50%" class="btn btn-outline-dark btn-light" type="submit" name="action" value="Cart">
-    <button style="margin-left: 20px;" class="btn btn-outline-dark btn-light" type="button">Wishlist</button>
-</form>
+                        <br>
+                        <input type="hidden" name="ProductId" value="<%= p.getProductId()%>">
+                        <input type="number" name="quantity" min="1" value="1">
+                        <input style="margin-left: 20px;width:50%" class="btn btn-outline-dark btn-light" type="submit" name="action" value="Cart">
+                        <button style="margin-left: 20px;" class="btn btn-outline-dark btn-light" type="button">Wishlist</button>
+                    </form>
 
                     <script>
                         function addToCart() {

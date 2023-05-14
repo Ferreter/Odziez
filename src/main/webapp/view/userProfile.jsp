@@ -273,44 +273,15 @@
 
                                                                                                                                                                                                     <script>
                                                                                                                                                                                                         function showDeleteForm() {
-                                                                                                                                                                                                            var deleteForm = document.getElementById("deleteForm");
-                                                                                                                                                                                                            deleteForm.style.display = "block";
+                                                                                                                                                                                                        var deleteForm = document.getElementById("deleteForm");
+                                                                                                                                                                                                        deleteForm.style.display = "block";
                                                                                                                                                                                                         }
                                                                                                                                                                                                     </script>
                                                                                                                                                                                                     </p>
                                                                                                                                                                                                     </li>
                                                                                                                                                                                                     </div>
-                                                                                                                                                                                                    <!--            
-                                                                                                                                                                                                    <li class="list-group-item">
-                                                                                                                                                                                                    <h3>Order History</h3>
-                                                                                                                                                                                                    <table class="table table-striped">
-                                                                                                                                                                                                    <thead>
-                                                                                                                                                                                                    <tr>
-                                                                                                                                                                                                    <th>Order ID</th>
-                                                                                                                                                                                                    <th>Date</th>
-                                                                                                                                                                                                    <th>Total</th>
-                                                                                                                                                                                                    <th>Status</th>
-                                                                                                                                                                                                    </tr>
-                                                                                                                                                                                                    </thead>
-                                                                                                                                                                                                    <tbody>
-                                                                                                                                                                                                    <tr>
-                                                                                                                                                                                                    <td>12345</td>
-                                                                                                                                                                                                    <td>01/01/2021</td>
-                                                                                                                                                                                                    <td>$100.00</td>
-                                                                                                                                                                                                    <td>Shipped</td>
-                                                                                                                                                                                                    </tr>
-                                                                                                                                                                                                    <tr>
-                                                                                                                                                                                                    <td>67890</td>
-                                                                                                                                                                                                    <td>02/01/2021</td>
-                                                                                                                                                                                                    <td>$200.00</td>
-                                                                                                                                                                                                    <td>Delivered</td>
-                                                                                                                                                                                                    </tr>
-                                                                                                                                                                                                    </tbody>
-                                                                                                                                                                                                    </table>
-                                                                                                                                                                                                    </li>
-                                                                                                                                                                                                    -->
-                                                                                                                                                                                                    </ul>
 
+                                                                                                                                                                                                    </ul>
                                                                                                                                                                                                     </div>
                                                                                                                                                                                                     </div>
                                                                                                                                                                                                     </div>
@@ -319,6 +290,5 @@
                                                                                                                                                                                                     <%} else {
                                                                                                                                                                                                         String redirectURL = "../view/LoginNdRegister.jsp";
                                                                                                                                                                                                         response.sendRedirect(redirectURL);
-
                                                                                                                                                                                                         }
                                                                                                                                                                                                     %>
