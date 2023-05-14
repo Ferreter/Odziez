@@ -163,59 +163,72 @@
 
 
 
-                <button id="showFormButton" class="btn btn-outline-dark btn-light" type="button">Enter Measurements</button>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 ">
+                            <div class="d-flex justify-content-start">
+                                <button id="showFormButton" class="btn btn-outline-dark btn-light mb-3">Enter Measurements</button>
+                            </div>
 
-                <form id="measurementsForm" action="../Controller" method="POST" style="display: none;">
-                    <h5>Enter Your Measurements:</h5>
+                            <form id="measurementsForm" action="../Controller" method="POST" style="display: none;">
+                                <h5 class="mb-3">Enter Your Measurements:</h5>
 
-                    <div>
-                        <label for="chest">Chest:</label>
-                        <input type="number" min="1" max="200" step="0.01" id="chest" name="chest" required>
+                                <div class="row mb-3">
+                                    <div class="col-sm-6">
+                                        <label for="chest" class="form-label">Chest:</label>
+                                        <input type="number" class="form-control form-control-sm" min="1" max="200" step="0.01" id="chest" name="chest" required>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <label for="waist" class="form-label">Waist:</label>
+                                        <input type="number" class="form-control form-control-sm" min="1" max="200" step="0.01" id="waist" name="waist" required>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-sm-6">
+                                        <label for="hip" class="form-label">Hip:</label>
+                                        <input type="number" class="form-control form-control-sm" min="1" max="200" step="0.01" id="hip" name="hip" required>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <label for="inseam" class="form-label">Inseam:</label>
+                                        <input type="number" class="form-control form-control-sm" min="1" max="200" step="0.01" id="inseam" name="inseam" required>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="ProductId" value="<%= p.getProductId()%>">
+
+                                <button class="btn btn-outline-dark btn-light" type="submit" name="action" value="calculateSize">Calculate Size</button>
+                            </form>
+                        </div>
                     </div>
+                </div>
 
-                    <div>
-                        <label for="waist">Waist:</label>
-                        <input type="number" min="1" max="200" step="0.01" id="waist" name="waist" required>
-                    </div>
-
-                    <div>
-                        <label for="hip">Hip:</label>
-                        <input type="number" min="1" max="200" step="0.01" id="hip" name="hip" required>
-                    </div>
-
-                    <div>
-                        <label for="inseam">Inseam:</label>
-                        <input type="number" min="1" max="200" step="0.01" id="inseam" name="inseam" required>
-                    </div>
-
-                    <input type="hidden" name="ProductId" value="<%= p.getProductId()%>">
-
-                    <button style="margin-left: 20px;" class="btn btn-outline-dark btn-light" type="submit" name="action" value="calculateSize">Calculate Size</button>
-                </form>
                 <%String size = (String) session.getAttribute("Size");%>
 
                 <script>
-    document.getElementById("showFormButton").addEventListener("click", function () {
-        var form = document.getElementById("measurementsForm");
-        if (form.style.display === "none") {
-            form.style.display = "block";
-        } else {
-            form.style.display = "none";
-        }
-    });
+                    document.getElementById("showFormButton").addEventListener("click", function () {
+                        var form = document.getElementById("measurementsForm");
+                        if (form.style.display === "none") {
+                            form.style.display = "block";
+                        } else {
+                            form.style.display = "none";
+                        }
+                    });
 
-    // Show/hide the calculated size heading
-    var calculatedSize = "<%= size %>";
-    var sizeHeading = document.getElementById("calculatedSizeHeading");
-    if (calculatedSize && calculatedSize.trim() !== "") {
-        sizeHeading.style.display = "block";
-    } else {
-        sizeHeading.style.display = "none";
-    }
-</script>
+                    // Show/hide the calculated size heading
+                    var calculatedSize = "<%= size%>";
+                    var sizeHeading = document.getElementById("calculatedSizeHeading");
+                    if (calculatedSize && calculatedSize.trim() !== "") {
+                        sizeHeading.style.display = "block";
+                    } else {
+                        sizeHeading.style.display = "none";
+                    }
+                </script>
 
 
-<h3 id="calculatedSizeHeading" style="<%= (size != null && !size.trim().isEmpty()) ? "display: block;" : "display: none;" %>">Calculated Size: <%= size %></h3>
+                <h3 id="calculatedSizeHeading" style="<%= (size != null && !size.trim().isEmpty()) ? "display: block;" : "display: none;"%>">Calculated Size: <%= size%></h3>
 
 
                 <div class="">
@@ -256,41 +269,69 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid" style="margin-bottom: 50px;padding-top:20px; border-top: 2px solid white" >
-        <p class="lead text-center">You Also Might like</p>
-        <div class="row">
-            <%
-                if (prods != null && !prods.isEmpty()) {
-                    // Shuffle the products list
-                    Collections.shuffle(prods);
+    <div class="container-fluid" style="margin-bottom: 50px;padding-top:20px; border-top: 2px solid white">
+    <p class="lead text-center">You Also Might Like</p>
+    <div class="row">
+        <% 
+            if (prods != null && !prods.isEmpty()) {
+                Collections.shuffle(prods);
 
-                    // Loop to print out four random products
-                    for (int i = 0; i < 4; i++) {
-                        products Products = prods.get(i);
-            %>
-            <!-- Code to display the product -->
-
-            <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12">
-                <a href="../view/individualProduct.jsp?ID=<%=Products.getProductId()%>" style="color:white;">
-                    <div class=" p-3">
-                        <img src="../media/products/<%=Products.getProductId()%>2.jpg" alt="hoodie" class="product-categorie img-responsive" width="100%" height="450"/>
-                        <p style="padding-top: 5px;  font-size: 22px; " ><%= Products.getName()%> 
-                            <br> <small>
-
-                                <%=Products.getCP()%>
-                                <span style='float:right;'><%=Products.getBrand()%></span>
-                            </small>
-                        </p>
-                    </div>
-                </a>
-            </div>
-            <%
+                List<products> matchingProds = new ArrayList<products>(); 
+                String[] pTags = p.getTags().split(",");
+                
+                // Filter products with similar tags and not equal to p.getProductId()
+                for (products prod : prods) {
+                    if (!prod.getProductId().equals(p.getProductId())) { // Exclude current product
+                        boolean hasMatchingTag = false;
+                        String[] prodTags = prod.getTags().split(",");
+                        
+                        for (String tag : prodTags) {
+                            for (String pTag : pTags) {
+                                if (tag.trim().equals(pTag.trim())) {
+                                    hasMatchingTag = true;
+                                    break;
+                                }
+                            }
+                        }
+                        
+                        if (hasMatchingTag) {
+                            matchingProds.add(prod);
+                        }
                     }
                 }
-            %>
-
+                
+                // Display random product if matching products are less than 4
+                int displayCount = Math.min(matchingProds.size(), 4);
+                
+                for (int i = 0; i < displayCount; i++) {
+                    products Products = matchingProds.get(i);
+        %>
+        <!-- Code to display the product -->
+        <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12">
+            <a href="../view/individualProduct.jsp?ID=<%= Products.getProductId() %>" style="color:white;">
+                <div class="p-3">
+                    <div class="zoom-effect">
+                        <img src="../media/products/<%= Products.getProductId() %>2.jpg" alt="hoodie" class="product-categorie img-responsive" width="100%" height="450" />
+                    </div>
+                    <p style="padding-top: 5px; font-size: 22px;">
+                        <%= Products.getName() %>
+                        <br>
+                        <small>
+                            <%= Products.getCP() %>
+                            <span style='float:right;'> <%= Products.getBrand() %> </span>
+                        </small>
+                    </p>
+                </div>
+            </a>
         </div>
+        <%
+                }
+            }
+        %>
     </div>
+</div>
+
+
     <!-- Review Section -->
 
     <div class="container-fluid" style="margin-bottom: 50px;padding-top:20px; border-top: 2px solid white" >

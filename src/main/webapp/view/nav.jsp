@@ -114,7 +114,7 @@
         <ul class="nav navbar-nav navbar-right  ml-auto">
 
             <style>
-                .dropdown-menu {
+                .dp {
                     max-height: 200px;
                     overflow-y: auto;
                     max-width: 300px;
@@ -138,7 +138,7 @@
                     background-color: #f8f9fa;
                 }
 
-                .dropdown-menu.show {
+                .dp.show {
                     max-width: 300px;
                 }
             </style>
@@ -152,9 +152,9 @@
             </li>
 
             <form class="form-inline my-2 my-lg-0" action="../Controller" method="post">
-                <div class="dropdown">
+                <div class="dropdown dpm">
                     <input class="form-control mr-sm-2" type="text" name="product" id="productInput" placeholder="Search for product" aria-label="Search" placeholder="Search by Name" data-toggle="dropdown" autocomplete="off">
-                    <Bdiv class="dropdown-menu" id="autocompleteContainer" aria-labelledby="dropdownMenuButton"></div>
+                    <Bdiv class="dropdown-menu dp" id="autocompleteContainer" aria-labelledby="dropdownMenuButton"></div>
                 </div>
                 <button class="btn btn-dark my-2 my-sm-0" type="submit" name="action" value="SearchProduct">Search</button>
             </form>
