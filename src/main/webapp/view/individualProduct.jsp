@@ -35,6 +35,7 @@
 <%StockDao sdao = new StockDao("clothes_shop");%>
 <% StockDaoInterface StockDao = new StockDao("clothes_shop");%>
 <%List<stock> Stocks = sdao.ListAllStockForProductId(p);%>
+<% user uLog = (user) session.getAttribute("user"); %>
 <!-- Product section-->
 <section class="py-5">
     <div class="container-fluid px-4 px-lg-5 my-5">
@@ -255,8 +256,20 @@
                         <br>
                         <input type="hidden" name="ProductId" value="<%= p.getProductId()%>">
                         <input type="number" name="quantity" min="1" value="1">
+                                                <%
+                            
+                            if (uLog != null) {
+                        %>
                         <input style="margin-left: 20px;width:50%" class="btn btn-outline-dark btn-light" type="submit" name="action" value="Cart">
-                        <button style="margin-left: 20px;" class="btn btn-outline-dark btn-light" type="button">Wishlist</button>
+                        <%
+                        } else {
+                        %>
+                        <button style="margin-left: 20px;" class="btn btn-outline-dark btn-light" type="button">Login or Signup to Review the Product</button>
+                        <%
+                            }
+                        %>
+                        
+                        
                     </form>
 
                     <script>
@@ -355,7 +368,7 @@
                             <textarea class="form-control" id="review-text" name="review" rows="3"></textarea>
                         </div>
                         <%
-                            user uLog = (user) session.getAttribute("user");
+                            
                             if (uLog != null) {
                         %>
                         <input class="btn btn-dark btn-lg btn-block" type="submit" name="action" value="EnterReview">
